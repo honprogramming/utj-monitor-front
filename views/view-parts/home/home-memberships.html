@@ -1,0 +1,42 @@
+<div class="oj-xl-12 oj-lg-12 oj-sm-12 oj-col full-width"> 
+    <div class="home-even" >
+        <h1 class="home-memberships-title" data-bind="text: $parent.membershipsTitle"></h1>
+        <div class="oj-row">
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-col"> 
+                <table class="home-memberships-table" >
+                    <tr>
+                        <!-- ko foreach: $parent.membershipsTableHeaders -->
+                        <th><h2 data-bind="text: $data"></h2></th>
+                        <!-- /ko -->
+                    </tr>
+                    <!-- ko foreach: $parent.memberhispsTableEntries -->
+                    <tr>
+                        <td data-bind="text: description"></td>
+                        <!-- ko foreach: permissions --> 
+                        <td class="centered">
+                            <input type="checkbox" disabled data-bind="attr:{checked: $data}"/>
+                        </td>
+                        <!-- /ko --> 
+                    </tr>
+                    <!-- /ko -->
+                    <tr>
+                        <td></td>
+                        <!-- ko foreach: $parent.memberships -->
+                        <td class="centered">
+                            <button type="button" 
+                                    data-bind="
+                                        attr: {id: $data},
+                                        ojComponent: {
+                                            component: 'ojButton',
+                                            label: $parentContext.$parent.membershipsTableSeeMoreLabel
+                                        }
+                            ">
+                            </button>
+                        </td>
+                        <!-- /ko -->
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-us" class="sticky-footer-layout">
+    <head>
+        <title>Plan eXpert</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="css/images/browser.ico" type="image/x-icon" />
+
+        <!-- This is the main css file for the default Alta theme -->
+        <link rel="stylesheet" href="libraries/css/libs/oj/v1.1.2/alta/oj-alta-min.css" type="text/css"/>
+
+        <!-- These style classes are the alta design style from Oracle. -->
+        <link rel="stylesheet" href="css/alta-patterns-min.css"/>
+
+        <!-- This is where you would add any app specific styling -->
+        <link rel="stylesheet" href="css/default.css" type="text/css"/>
+
+        <!-- RequireJS configuration file -->
+        <script data-main="js/main" src="libraries/js/libs/require/require.js"></script>
+        
+    </head>
+    <body class="appheader-offcanvas-pushwrapper">
+
+        <!-- The globalBody section is initially hidden so that content is not partially displayed before content is 
+          ** loaded into the dynamic sections.  You will see a jQuery .show() method call at the bottom of the main.js 
+          ** file which is what finally displays the page content. -->
+        <div id="globalBody" style="display: none">
+            <!-- 
+            ** This off-canvas section is used when the browser is resized to a 
+            ** medium or smaller media query size. It moves the App Navigation into a drawer.
+            ** The ojModule has the viewmodel bound to the same header module, but the view is 
+            ** changed to use off-canvas template.
+            -->
+            <!-- off-canvas content -->
+            <div id="appDrawer" 
+                 class="oj-offcanvas-start oj-panel appheader-offscreencontent full-height">
+                <div id='appHeaderOffCanvasInnerDiv' data-bind="ojModule: {name: 'header', viewName: 'view-parts/header/appHeaderOffCanvasTemplate'}"></div>
+            </div>
+
+            <!-- Header section which contains the Global Branding, Global Navigation, 
+            ** and Application Navigation code. Template is located in /templates/header.tmpl.html 
+            -->
+            <header id="headerWrapper" role="banner" data-bind="ojModule: {name: 'header'}"></header>
+
+            <!-- This is where your main page content will be loaded -->
+            <div id="mainContainer" class="full-height">
+                <div id="mainContent" class="full-height" data-bind="ojModule: {name: 'projects'}"></div>
+            </div>
+            <footer id="footerWrapper" role="footer" data-bind="ojModule: {name: 'footer'}" ></footer>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+<div id='utj-projects-timeline' aria-label='Projects'
+        data-bind="ojComponent: {
+                component: 'ojTimeline',
+                minorAxis: {
+                    scale: 'weeks',
+                    zoomOrder: ['months', 'weeks', 'days']
+                },
+                majorAxis: {
+                    scale: 'quarters'
+                },
+                start: startDate,
+                end: endDate,
+                selectionMode: 'single',
+                series: series,
+                overview: {
+                    rendered: 'on'
+                }	                                        
+        }" 
+class="full-height full-width"></div>

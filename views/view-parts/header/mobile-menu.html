@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div class="off-canvas-toggle appheader-toggle-button">
+    <!-- ko with: $parent.mobileMenu -->
+    <button class='oj-button-half-chrome appheader-toggle-button'
+            data-bind="click:toggleAppDrawer,
+			     ojComponent: {
+                                 component:'ojButton', 
+                                 label: offScreenButtonLabel, 
+                                 display: 'icons', 
+                                 icons: {start: offScreenButtonIconClass}
+                     } 
+            ">
+    </button>
+    <!-- /ko -->
+</div>

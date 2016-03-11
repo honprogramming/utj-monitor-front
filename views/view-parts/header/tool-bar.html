@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div id='demoAppheaderMenuAndToolbarContainer' class="appheader-menuandtoolbar-container">
+    <!-- ko with: $parent.toolBar -->
+    <div id='demoAppheaderMenuContainer'>
+        <ul id="demoAppheaderGlobalNavMenuId" 
+            data-bind="ojComponent: {
+                            component: 'ojMenu', 
+                            select: menuItemSelect
+                       }" 
+            style="display:none">
+            <!-- ko foreach: globalNavItems -->
+            <li data-bind="attr: {id: label}"> 
+                <a data-bind="text: label, attr:{href: url, id: url}"> 
+                    <span class=""></span>  
+                </a>
+            </li>
+            <!-- /ko -->
+        </ul>
+    </div>
+    <div style="display:none" id="aboutDialog" title="About JET QuickStart Basic" 
+         data-bind="ojComponent:{
+                        component: 'ojDialog', 
+                        initialVisibility: 'hide',
+                        rootAttributes: { style: 'width: 620px; height: 350px;'}
+                    }
+         ">
+        <div class="oj-dialog-body">
+            The Oracle JET QuickStart Basic template is meant as an example of how to setup a 
+            very basic Single-Page-Application(SPA) with the JET libraries configured correctly.<br/><br/>
+            It contains examples for working with the ojModule libraries for basic template and paging support.
+            It incorporates responsive design patterns to work at all Oracle JET Media Query sizes for Desktop, Tablet(portrait and landscape), and phone.<br/><br/>
+            Please refer to in code comments for details.  A tutorial is also available for how to work with the QuickStart template. This can be accessed from the Getting Started page of the JET website. 
+        </div>
+    </div>
+    <div class="appheader-toolbar-container">
+        <div class="appheader-toolbar oj-toolbar-no-chrome" aria-controls="player" 
+             data-bind="ojComponent: {component:'ojToolbar'}">
+
+            <!-- ko foreach: toolbarButtons -->
+            <button class='oj-button-half-chrome appheader-toolbar-button'
+                    data-bind="ojComponent: {
+                                    component:'ojButton', 
+                                    label: label, 
+                                    display: 'icons', 
+                                    icons: {start: iconClass}
+                               } 
+                    ">
+            </button>
+            <!-- /ko -->
+
+            <!-- This is how to add a separator to the toolbar.  
+                 Be sure to include the role and aria-orientation as shown to make it accessible.  -->
+            <span role="separator" aria-orientation="vertical" 
+                  class="oj-toolbar-separator appheader-toolbar-separator">
+            </span>
+            <!-- This pulldown menu is used for wider screens -->
+            <button id="menuButton"
+                    class='oj-button-half-chrome appheader-pulldown-normal'
+                    data-bind="ojComponent: {
+                                    component: 'ojButton', 
+                                    label: userName, 
+                                    menu: '#demoAppheaderGlobalNavMenuId'
+                               }
+                    ">
+            </button>
+            <!-- This pulldown menu is used for narrower screens -->
+            <button id="menuButton2"
+                    class='oj-button-half-chrome appheader-pulldown-small'
+                    data-bind="ojComponent: { component: 'ojButton', 
+                                    label: 'Avatar', 
+                                    display: 'icons',
+                                    icons: {start:'oj-icon appheader-avatar'},
+                                    menu: '#demoAppheaderGlobalNavMenuId'
+                               }
+                    ">
+            </button>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>

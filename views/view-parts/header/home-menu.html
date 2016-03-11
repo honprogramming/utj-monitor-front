@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div>
+    <!-- Responsive layout is enabled using the oj-med-condense and oj-med-justify-content-flex-end classes. -->
+    <!-- ko with: $parent.homeMenu -->
+    <div id="ojAppNav2" class="appheader-nav oj-lg-condense oj-lg-justify-content-center oj-xl-condense oj-xl-justify-content-flex-end" 
+         data-bind="ojComponent: {
+                        component: 'ojNavigationList', 
+                        drillMode: 'none',
+                        edge: 'top',
+                        data: dataSource,
+                        optionChange: optionChangeHandler,
+                        item: { template: 'app_nav_template' }
+                    }" 
+         aria-label="Choose only one navigation element">
+    </div>
+    <!-- /ko -->
+</div>

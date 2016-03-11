@@ -1,0 +1,48 @@
+<!--Home Crew-->
+<div class="oj-xl-12 oj-lg-12 oj-sm-12 oj-col full-width"> 
+    <div class="home-even" >
+        <h1 class="home-crew-title" data-bind="text: $parent.crewTitle"></h1>
+        <div class="oj-row">
+            <div class="oj-xl-12 oj-lg-12 oj-md-12 oj-sm-12 oj-col" >
+                <table class="home-crew-table">
+                    <tr>
+                        <!-- ko foreach: $parent.crewMembers -->
+                        <td>
+                            <table>
+                                <tr>
+                                    <th>
+                                        <h2 data-bind="text: name"></h2>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="centered">
+                                        <img src="http://placehold.it/150x150" class="image">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="centered" data-bind="text: profession"></td>
+                                </tr>
+                                <tr>
+                                    <td data-bind="text: about"></td>
+                                </tr>
+                                <tr>
+                                    <td class="centered">
+                                        <button type="button" 
+                                                data-bind="
+                                                    attr: {id: $data},
+                                                    ojComponent: {
+                                                        component: 'ojButton',
+                                                        label: $parentContext.$parent.crewTableSeeMoreLabel
+                                                    }
+                                        ">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <!-- /ko -->
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
