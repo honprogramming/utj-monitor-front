@@ -32,7 +32,7 @@ define({
             "crewTableSeeMore": "Ver más"
         },
         "footer": {
-            "copyright": "Copyright &copy; 2016 Plan eXpert and/or its affiliates. All rights reserved"
+            "copyright": "Copyright &copy; 2016 UTJ Monitor and/or its affiliates. All rights reserved"
         }
     }
 }

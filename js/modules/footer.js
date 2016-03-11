@@ -15,11 +15,11 @@ define(['ojs/ojcore', 'knockout', 'view-models/GeneralViewModel'],
             function FooterViewModel() {
                 var self = this;
 
-                var aboutOracle = 'http://www.oracle.com/us/corporate/index.html#menu-about';
-                var contactUs = 'http://www.oracle.com/us/corporate/contact/index.html';
-                var legalNotices = 'http://www.oracle.com/us/legal/index.html';
-                var termsOfUse = 'http://www.oracle.com/us/legal/terms/index.html';
-                var privacyRights = 'http://www.oracle.com/us/legal/privacy/index.html';
+                var aboutUs = 'http://www.utj.edu.mx/index.php/nosotros';
+                var contactUs = 'http://www.utj.edu.mx/';
+                var legalNotices = 'http://www.utj.edu.mx/index.php/noticias';
+                var termsOfUse = 'http://www.utj.edu.mx/';
+                var privacyRights = 'http://www.utj.edu.mx/';
 
                 //Currently not used
                 //TODO: add our version here
@@ -27,7 +27,7 @@ define(['ojs/ojcore', 'knockout', 'view-models/GeneralViewModel'],
                 self.copyright = GeneralViewModel.nls("footer.copyright");
                 
                 self.footerLinks = ko.observableArray([
-                    new FooterNavModel('About Oracle', 'aboutOracle', aboutOracle),
+                    new FooterNavModel('About Us', 'aboutOracle', aboutUs),
                     new FooterNavModel('Contact Us', 'contactUs', contactUs),
                     new FooterNavModel('Legal Notices', 'legalNotices', legalNotices),
                     new FooterNavModel('Terms Of Use', 'termsOfUse', termsOfUse),
