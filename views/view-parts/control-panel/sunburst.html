@@ -1,13 +1,14 @@
-<div id='sunburst-container'>
-    <div data-bind="ojComponent: {
-            component: 'ojSunburst', 
+<!-- ko with: $parent.sunBurst -->
+<div class="full-width full-height" 
+     data-bind="ojComponent: {
+            component: 'ojSunburst',
             animationOnDisplay: 'auto',
             nodeDefaults: {labelDisplay: 'rotated'},
             nodes: nodeValues,
             animationDuration: '2s',
             animationOnDataChange: 'auto',
-            optionChange:onClick
+            optionChange: clickHandler
         }" 
-        style="width:100%; height:800px;">
-    </div>
+     >
 </div>
+<!-- /ko -->

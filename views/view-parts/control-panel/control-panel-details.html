@@ -1,0 +1,23 @@
+<!-- ko with: $parent.details -->
+<div id="panel-details-container" class="oj-flex">
+    <div id="selected-item" data-bind="text: selectedItem"></div>
+    <div id="panel-details" title= "Value: 60<br>Thresholds: Low 33, Medium 67, High 100" 
+         data-bind="ojComponent: {
+             component: 'ojStatusMeterGauge', 
+             min: min, 
+             max: max, 
+             thresholds: thresholdValues,
+             value: value,
+             referenceLines: referenceLines,
+             title: title,
+             metricLabel: {rendered: 'on'},
+             plotArea: {rendered: 'on'}
+             }" 
+         style=
+         "margin-top:5px;
+         margin-bottom:5px;
+         height:20px;
+         width:100%;">
+    </div>
+</div>
+<!-- /ko -->
