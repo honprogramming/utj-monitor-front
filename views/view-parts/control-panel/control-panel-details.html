@@ -1,7 +1,12 @@
 <!-- ko with: $parent.details -->
-<div id="panel-details-container" class="oj-flex">
-    <div id="selected-item" data-bind="text: selectedItem"></div>
-    <div id="panel-details" title= "Value: 60<br>Thresholds: Low 33, Medium 67, High 100" 
+<div id="panel-details-container" class="oj-flex oj-sm-flex-direction-column">
+    
+    <!-- ko foreach: currentParents() -->
+    <div class="oj-flex-item" data-bind="text: $data"></div>
+    <!-- /ko -->
+    
+    <div class="oj-flex-item" id="selected-item" data-bind="text: selectedPlanElementName"></div>
+    <div class="oj-flex-item" id="panel-details" title= "Value: 60<br>Thresholds: Low 33, Medium 67, High 100" 
          data-bind="ojComponent: {
              component: 'ojStatusMeterGauge', 
              min: min, 
