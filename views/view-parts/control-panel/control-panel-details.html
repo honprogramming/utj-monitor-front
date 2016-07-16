@@ -1,28 +1,34 @@
 <!-- ko with: $parent.details -->
 <div id="panel-details-container" class="oj-flex oj-sm-flex-direction-column">
-    
-    <!-- ko foreach: currentParents() -->
-    <div class="oj-flex-item" data-bind="text: $data"></div>
-    <!-- /ko -->
-    
-    <div class="oj-flex-item" id="selected-item" data-bind="text: selectedPlanElementName"></div>
-    <div class="oj-flex-item" id="panel-details" title= "Value: 60<br>Thresholds: Low 33, Medium 67, High 100" 
-         data-bind="ojComponent: {
-             component: 'ojStatusMeterGauge', 
-             min: min, 
-             max: max, 
-             thresholds: thresholdValues,
-             value: value,
-             referenceLines: referenceLines,
-             title: title,
-             metricLabel: {rendered: 'on'},
-             plotArea: {rendered: 'on'}
-             }" 
-         style=
-         "margin-top:5px;
-         margin-bottom:5px;
-         height:20px;
-         width:100%;">
+    <div class="oj-flex-item" data-bind="ojComponent: {component: 'ojCollapsible', expanded:true}">
+        <label>title</label>
+        <div class="oj-flex oj-sm-flex-direction-column">
+            <!-- ko foreach: currentParents -->
+            <div class="oj-flex-item">
+                <div  data-bind="text: $data.text"></div>
+            </div>
+            <div class="oj-flex-item">
+                <!-- ko with: $data.values -->
+                <div data-bind="attr:{id: id},
+                        ojComponent: {
+                         component: 'ojStatusMeterGauge', 
+                         min: min, 
+                         max: max, 
+                         thresholds: thresholdValues,
+                         value: value,
+                         referenceLines: referenceLines,
+                         title: title,
+                         tooltip: {renderer: tooltipRenderer},
+                         plotArea: {rendered: 'on'}
+                        }" 
+                     style= "margin-top:5px; margin-bottom:5px; height:20px; width:100%;"
+                     >
+                </div>
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+        </div>
     </div>
+
 </div>
 <!-- /ko -->

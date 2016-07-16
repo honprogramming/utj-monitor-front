@@ -1,10 +1,11 @@
-define(['knockout', 'view-models/GeneralViewModel', 'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge'],
+define(['knockout', 'view-models/GeneralViewModel',
+    'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge', 'ojs/ojcollapsible'],
         function (ko, GeneralViewModel) {
             var theKey = {};
             
-            function DetailsViewModel(controlPanel) {
+            function DetailsViewModel(controlPanelModel) {
                 var privateData = {
-                    controlPanel: controlPanel
+                    controlPanelModel: controlPanelModel
                 };
                 
                 this.ControlPanelDetails_ = function(key) {
@@ -29,16 +30,16 @@ define(['knockout', 'view-models/GeneralViewModel', 'jquery', 'ojs/ojcore', 'ojs
             var prototype = DetailsViewModel.prototype;
             
             prototype.setSelectedItemId = function(selectedPlanElementId) {
-                var controlPanel = this.getControlPanel();
+                var controlPanelModel = this.getControlPanelModel();
                 
-                this.selectedPlanElementName(controlPanel.getPlanElementName(selectedPlanElementId));
+                this.selectedPlanElementName(controlPanelModel.getPlanElementName(selectedPlanElementId));
                 this.updateParents(selectedPlanElementId);
             };
             
             prototype.updateParents = function(selectedPlanElementId) {
-                var controlPanel = this.getControlPanel();
+                var controlPanelModel = this.getControlPanelModel();
                 
-                var parents = controlPanel.getParents(selectedPlanElementId);
+                var parents = controlPanelModel.getParents(selectedPlanElementId);
                 this.currentParents(parents);
             };
             
@@ -46,8 +47,8 @@ define(['knockout', 'view-models/GeneralViewModel', 'jquery', 'ojs/ojcore', 'ojs
              * Getter method for ControlPanel
              * @returns The ControlPanel Model.
              */
-            prototype.getControlPanel = function() {
-                return this.ControlPanelDetails_(theKey).controlPanel;
+            prototype.getControlPanelModel = function() {
+                return this.ControlPanelDetails_(theKey).controlPanelModel;
             };
             
             return DetailsViewModel;

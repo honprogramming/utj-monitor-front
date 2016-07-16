@@ -49,7 +49,7 @@ define(['jquery'],
             prototype.getDataTree = function () {
                 return this.ControlPanelDataProvider_(theKey).planElementsTree;
             };
-
+            
             /**
              * This will be defined by the user, it must be a function that will be
              * called automatically when data is available.

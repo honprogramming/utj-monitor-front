@@ -16,30 +16,30 @@ define([],
                     var ejesNodes = [];
                     var objetivosNodes = [];
                     var indicadoresNodes = [];
-
-                    nodesMap[counter] = {node: data.vision};
-                    var visionNode = this.createNode(data.vision.name, data.vision.goal, data.vision.achieve, 360, counter++);
+                    
+                    nodesMap[counter] = {node: data.vision, id: counter};
+                    var visionNode = this.createNode(data.vision.label, data.vision.name, data.vision.goal, data.vision.achieve, 360, counter++);
                     var ejes = data.vision.ejes;
 
                     for (var i = 0; i < ejes.length; i++) {
-                        var eje = this.createNode(ejes[i].name, ejes[i].goal, ejes[i].achieve, ejes.length, counter);
+                        var eje = this.createNode(ejes[i].label, ejes[i].name, ejes[i].goal, ejes[i].achieve, ejes.length, counter);
                         var objetivos = ejes[i].objetivos;
 
-                        nodesMap[counter] = {node: ejes[i]};
+                        nodesMap[counter] = {node: ejes[i], id: counter};
                         nodesMap[counter++]["parent"] = visionNode.id;
                         ejesNodes.push(eje);
 
                         for (var j = 0; j < objetivos.length; j++) {
-                            var objetivo = this.createNode(objetivos[j].name, objetivos[j].goal, objetivos[j].achieve, objetivos.length, counter);
+                            var objetivo = this.createNode(objetivos[j].label, objetivos[j].name, objetivos[j].goal, objetivos[j].achieve, objetivos.length, counter);
                             var indicadores = objetivos[j].indicadores;
 
-                            nodesMap[counter] = {node: objetivos[j]};
+                            nodesMap[counter] = {node: objetivos[j], id: counter};
                             nodesMap[counter++]["parent"] = eje.id;
                             objetivosNodes.push(objetivo);
 
                             for (var z = 0; z < indicadores.length; z++) {
-                                var indicador = this.createNode(indicadores[z].name, indicadores[z].goal, indicadores[z].achieve, indicadores.length, counter);
-                                nodesMap[counter] = {node: indicadores[z]};
+                                var indicador = this.createNode(indicadores[z].label, indicadores[z].name, indicadores[z].goal, indicadores[z].achieve, indicadores.length, counter);
+                                nodesMap[counter] = {node: indicadores[z], id: counter};
                                 nodesMap[counter++]["parent"] = objetivo.id;
                                 indicadoresNodes.push(indicador);
                             }
@@ -56,6 +56,9 @@ define([],
 
                     return {map: nodesMap, tree: visionNode};
                 },
+                parseStatusMeterGauge: function(element) {
+                    
+                },
                 /**
                  * 
                  * @param {type} label
@@ -65,13 +68,14 @@ define([],
                  * @param {type} id
                  * @returns {ControlPanelDataParser_L6.ControlPanelDataParser.createNode.ControlPanelDataParserAnonym$5}
                  */
-                createNode: function (label, goal, achieve, length, id) {
+                createNode: function (label, name, goal, achieve, length, id) {
                     return {
                         label: label,
                         id: id,
                         value: 360 / length,
                         color: this.getColor(goal, achieve),
-                        shortDesc: "&lt;b&gt;" + label +
+                        borderWidth: 2,
+                        shortDesc: "&lt;b&gt;" + name +
                                 "&lt;/b&gt;&lt;br/&gt;Meta: " +
                                 goal + "&lt;br/&gt;Avance: " + achieve};
                 },
