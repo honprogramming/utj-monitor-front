@@ -18,6 +18,7 @@ define([],
                     var indicadoresNodes = [];
                     
                     nodesMap[counter] = {node: data.vision, id: counter};
+                    nodesMap[counter]["children"] = [];
                     var visionNode = this.createNode(data.vision.label, data.vision.name, data.vision.goal, data.vision.achieve, 360, counter++);
                     var ejes = data.vision.ejes;
 
@@ -26,6 +27,8 @@ define([],
                         var objetivos = ejes[i].objetivos;
 
                         nodesMap[counter] = {node: ejes[i], id: counter};
+                        nodesMap[counter]["children"] = [];
+                        nodesMap[visionNode.id]["children"].push(counter);
                         nodesMap[counter++]["parent"] = visionNode.id;
                         ejesNodes.push(eje);
 
@@ -34,12 +37,15 @@ define([],
                             var indicadores = objetivos[j].indicadores;
 
                             nodesMap[counter] = {node: objetivos[j], id: counter};
+                            nodesMap[counter]["children"] = [];
+                            nodesMap[eje.id]["children"].push(counter);
                             nodesMap[counter++]["parent"] = eje.id;
                             objetivosNodes.push(objetivo);
 
                             for (var z = 0; z < indicadores.length; z++) {
                                 var indicador = this.createNode(indicadores[z].label, indicadores[z].name, indicadores[z].goal, indicadores[z].achieve, indicadores.length, counter);
                                 nodesMap[counter] = {node: indicadores[z], id: counter};
+                                nodesMap[objetivo.id]["children"].push(counter);
                                 nodesMap[counter++]["parent"] = objetivo.id;
                                 indicadoresNodes.push(indicador);
                             }
@@ -55,9 +61,6 @@ define([],
                     this.addChildNodes(visionNode, ejesNodes);
 
                     return {map: nodesMap, tree: visionNode};
-                },
-                parseStatusMeterGauge: function(element) {
-                    
                 },
                 /**
                  * 

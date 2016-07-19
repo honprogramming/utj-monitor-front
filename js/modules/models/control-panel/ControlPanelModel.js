@@ -23,6 +23,12 @@ define([],
 
             var prototype = ControlPanel.prototype;
 
+            prototype.getChildren = function (planElementId) {
+                var planElementsMap = this.getPlanElementsMap();
+                
+                return planElementsMap[planElementId]["children"];
+            };
+            
             prototype.getParents = function (planElementId) {
                 var parentElements = [];
                 var planElementsMap = this.getPlanElementsMap();
@@ -36,10 +42,12 @@ define([],
 
                 var referenceLines = [{value: 0, color: "#000000"}];
 
-                do {
+                while (element["parent"]) {
+                    element = planElementsMap[element["parent"]];
                     var progress = element["node"]["achieve"] / element["node"]["goal"] * 100;
 
                     var statusMeterElement = {
+                        type: element["node"]["type"],
                         text: element["node"]["name"],
                         values: {
                             id: element["id"],
@@ -54,8 +62,7 @@ define([],
                     };
 
                     parentElements.unshift(statusMeterElement);
-                    element = planElementsMap[element["parent"]];
-                } while (element);
+                }
 
                 function toolTipStatusMeter(dataContext) {
                     var id = dataContext.component()[0].id;

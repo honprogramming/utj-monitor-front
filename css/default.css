@@ -184,3 +184,7 @@ footer {
     width:auto;
     height:400px;
 }
+
+.title {
+    font-weight: bold;
+}

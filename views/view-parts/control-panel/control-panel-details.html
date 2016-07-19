@@ -1,15 +1,25 @@
 <!-- ko with: $parent.details -->
 <div id="panel-details-container" class="oj-flex oj-sm-flex-direction-column">
-    <div class="oj-flex-item" data-bind="ojComponent: {component: 'ojCollapsible', expanded:true}">
-        <label>title</label>
+    <div class="oj-flex-item" 
+         data-bind="visible: currentParents().length > 0,
+            ojComponent: {
+                component: 'ojCollapsible', 
+                expanded: true,
+                optionChange: onChangeParents
+         }">
+        <div>
+            <label data-bind="text: collapsibleParentsPanelTitle"></label>
+        </div>
         <div class="oj-flex oj-sm-flex-direction-column">
             <!-- ko foreach: currentParents -->
-            <div class="oj-flex-item">
-                <div  data-bind="text: $data.text"></div>
-            </div>
-            <div class="oj-flex-item">
-                <!-- ko with: $data.values -->
-                <div data-bind="attr:{id: id},
+            <div class="oj-flex-item" style="margin:10px 0px 10px 0px;">
+                <div class="oj-flex oj-sm-flex-direction-column">
+                    <div class="oj-flex-item">
+                        <div class="title" data-bind="text: $data.type"></div>
+                    </div>
+                    <div class="oj-flex-item">
+                        <!-- ko with: $data.values -->
+                        <div data-bind="attr:{id: id},
                         ojComponent: {
                          component: 'ojStatusMeterGauge', 
                          min: min, 
@@ -21,14 +31,86 @@
                          tooltip: {renderer: tooltipRenderer},
                          plotArea: {rendered: 'on'}
                         }" 
-                     style= "margin-top:5px; margin-bottom:5px; height:20px; width:100%;"
-                     >
+                             style= "margin:5px;height:20px; width:100%;"
+                             >
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                    <div class="oj-flex-item">
+                        <div  data-bind="text: $data.text"></div>
+                    </div>
                 </div>
-                <!-- /ko -->
             </div>
             <!-- /ko -->
         </div>
     </div>
-
+    <div class="oj-flex-item" style="margin:10px 0px 10px 0px">
+        <!-- ko with: selectedPlanElement -->
+        <div class="oj-flex-item">
+            <div class="title"  data-bind="text: $data.type"></div>
+        </div>
+        <div class="oj-flex-item oj-sm-12">
+            <!-- ko with: $data.values -->
+            <div data-bind="ojComponent: {
+                                component: 'ojStatusMeterGauge', 
+                                min: min, 
+                                max: max, 
+                                thresholds: thresholdValues,
+                                value: value, 
+                                orientation: 'circular',
+                                metricLabel: {
+                                    rendered: 'on',
+                                    textType: 'percent'
+                                },
+                                startAngle:180,
+                                angleExtent: 180,
+                                plotArea: {rendered: 'on'}
+                            }" 
+                 style="align:center;margin-top:5px;margin-bottom:5px;height:150px;width:100%;">
+            </div>
+            <!-- /ko -->
+        </div>
+        <div class="oj-flex-item">
+            <div  data-bind="text: $data.text"></div>
+        </div>
+        <!-- /ko -->
+    </div>
+    <div class="oj-flex-item" 
+         data-bind="visible: currentChildren().length > 0,
+            ojComponent: {
+                component: 'ojCollapsible', 
+                expanded: true,
+                optionChange: onChangeChildren
+         }">
+        <div>
+            <label data-bind="text: collapsibleChildrenPanelTitle"></label>
+        </div>
+        <div class="oj-flex">
+            <!-- ko foreach: currentChildren -->
+            <div class="oj-flex-item oj-sm-6" style="margin:10px 0px 10px 0px">
+                <div class="oj-flex oj-sm-flex-direction-column">
+                    <!-- ko with: $data.values -->
+                    <div class="oj-flex-item" data-bind="ojComponent: {
+                                        component: 'ojStatusMeterGauge', 
+                                        min: min, 
+                                        max: max, 
+                                        thresholds: thresholdValues,
+                                        value: value, 
+                                        orientation: 'circular',
+                                        metricLabel: {
+                                            rendered: 'on',
+                                            textType: 'percent'
+                                        },
+                                        plotArea: {rendered: 'on'}
+                                    }" 
+                         style="align:center;margin:5px;height:90%;width:100%">
+                    </div>
+                    <!-- /ko -->
+                    <div class="oj-flex-item" data-bind="text: $data.text"></div>
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
 </div>
 <!-- /ko -->
