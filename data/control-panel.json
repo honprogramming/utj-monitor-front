@@ -1,27 +1,27 @@
 {
    "vision": {
-       "type": "Visión",
+       "type": "vision",
        "label": "Visión",
        "name": "Institución reconocida, que atiende los requerimientos del sector productivo de bienes y de servicios caracterizados por su calidad, pertinencia y relevancia",
        "goal": 100,
        "achieve": 90,
-       "ejes": [
+       "axes": [
            {
-               "type": "Eje",
+               "type": "axe",
                "label": "1",
                "name": "1 Calidad Educativa",
                "goal": 100,
                "achieve": 70,
-               "objetivos":[
+               "objectives":[
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "1.1",
                        "name": "1.1 Acreditar los programas educativos",
                        "goal": 100,
                        "achieve": 50,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.1.1",
                                 "name": "1.1.1 Número de programas educativos acreditados ante COPAES",
                                 "goal": 19,
@@ -30,56 +30,56 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "1.2",
                        "name": "1.2 Mejorar el rendimiento y aprendizaje de los estudiantes",
                        "goal": 100,
                        "achieve": 90,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.2.1",
                                 "name": "1.2.1 Tasa de reprobación de los estudiantes de TSU (anual)",
                                 "goal": 2.74,
                                 "achieve": 3.91
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.2.2",
                                 "name": "1.2.2 Tasa de reprobación de los estudiantes de ingeniería (anual)",
                                 "goal": 1.02,
                                 "achieve": 1.46
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.2.3",
                                 "name": "1.2.3 Promedio global de calificaciones de alumnos de TSU",
                                 "goal": 9.3,
                                 "achieve": 9.2
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.2.4",
                                 "name": "1.2.4 Promedio global de calificaciones de alumnos de ingenierías",
                                 "goal": 9.3,
                                 "achieve": 9.2
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.2.5",
                                 "name": "1.2.5 Tasa de deserción de estudiantes de TSU (anual)",
                                 "goal": 4, 
                                 "achieve": 5.72
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.2.6",
                                 "name": "1.2.6 Tasa de deserción de estudiantes de ingeniería (anual)",
                                 "goal": 1.76,
                                 "achieve": 2.52
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.2.7",
                                 "name": "1.2.7 Número de estudiantes que abandonaron sus estudios (anual)",
                                 "goal": 630,
@@ -88,42 +88,42 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "1.3",
                        "name": "1.3 Optimizar la infraestructura educativa, cultural y deportiva",
                        "goal": 100,
                        "achieve": 90,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.3.1",
                                 "name": "1.3.1 Número de programas educativos con espacios óptimos para realizar actividades docentes",
                                 "goal": 19,
                                 "achieve": 6
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.3.2",
                                 "name": "1.3.2 Número de espacios adecuados para las actividades culturales, deportivas y artísticas",
                                 "goal": 4,
                                 "achieve": 2
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.3.3",
                                 "name": "1.3.3 Número de grupos por PE",
                                 "goal": 9.95,
                                 "achieve": 8.59
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.3.4",
                                 "name": "1.3.4 Promedio de materias impartidas por profesor",
                                 "goal": 2.0,
                                 "achieve": 2.2
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.3.5",
                                 "name": "1.3.5 Número de estudiantes por grupo",
                                 "goal": 30,
@@ -132,35 +132,35 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "1.4",
                        "name": "1.4 Incrementar el uso de TIC para fortalecer el aprendizaje",
                        "goal": 100,
                        "achieve": 90,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.4.1",
                                 "name": "1.4.1 Número de alumnos por computadora en funcionamiento",
                                 "goal": 3,
                                 "achieve": 4.86
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.4.2",
                                 "name": "1.4.2 Relación de computadoras en estado óptimo por PTC",
                                 "goal": 1,
                                 "achieve": 1.10
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.4.3",
                                 "name": "1.4.3 Número de edificios con espacios que cuentan con equipo de cómputo para profesores de asignatura",
                                 "goal": 5,
                                 "achieve": 3
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.4.4",
                                 "name": "1.4.4 Número de asignaturas que utilizan herramientas de TIC especializadas por PE",
                                 "goal": 100,
@@ -169,35 +169,35 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "1.5",
                        "name": "1.5 Fortalecer la atención de usuarios para el aprovechamiento de servicios bibliotecarios",
                        "goal": 100,
                        "achieve": 90,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.5.1",
                                 "name": "1.5.1 Promedio de usuarios que utilizan los servicios de biblioteca (consulta de acervo general mensual)",
                                 "goal": 2900,
                                 "achieve": 403
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.5.2",
                                 "name": "1.5.2 Incremento del acervo bibliográfico (volúmenes)",
                                 "goal": 12492,
                                 "achieve": 11692
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.5.3",
                                 "name": "1.5.3 Número de profesores capacitados en el uso de herramientas de la biblioteca",
                                 "goal": 133,
                                 "achieve": 0
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "1.5.4",
                                 "name": "1.5.4 Número de alumnos capacitados en el uso de herramientas de la biblioteca (anual)",
                                 "goal": 2368,
@@ -208,56 +208,56 @@
                ]
            },
            {
-               "type": "Eje",
+               "type": "axe",
                "label": "2",
                "name": "2 Formación integral y aprovechamiento académico",
                "goal": 100,
                "achieve": 90,
-               "objetivos":[
+               "objectives":[
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "2.1",
                        "name": "2.1 Asegurar que los estudiantes reciban una formación integral que incluya valores y actividades deportivas, culturales y artísticas",
                        "goal": 100,
                        "achieve": 30,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.1.1",
                                 "name": "2.1.1 Número de talleres deportivos y culturales",
                                 "goal": 12,
                                 "achieve": 8
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.1.2",
                                 "name": "2.1.2 Número de eventos deportivos, artísticos o culturales (internos y externos)",
                                 "goal": 10,
                                 "achieve": 9
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.1.3",
                                 "name": "2.1.3 Número de ciclos de difusión hacia la comunidad universitaria para promover acciones de fomento deportivo o cultura (publicaciones en vitrinas y redes sociales)",
                                 "goal": 15,
                                 "achieve": 6
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.1.4",
                                 "name": "2.1.4 Número de ciclos de conferencias implementados",
                                 "goal": 4,
                                 "achieve": 1
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.1.5",
                                 "name": "2.1.5 Número de estudiantes que participan en actividades culturales, artísticas y deportivas (anual)",
                                 "goal": 930,
                                 "achieve": 630
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.1.6",
                                 "name": "2.1.6 Número de procesos de selección deportivos y culturales",
                                 "goal": 6,
@@ -266,21 +266,21 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "2.2",
                        "name": "2.2 Mejorar la e~ciencia terminal de los PE de TSU e Ingenierías",
                        "goal": 100,
                        "achieve": 70,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.2.1",
                                 "name": "2.2.1 Tasa de egreso y titulación por cohorte generacional en TSU",
                                 "goal": 54,
                                 "achieve": 45.93
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.2.2",
                                 "name": "2.2.2 Tasa de egreso y titulación por cohorte generacional en ingenierías",
                                 "goal": 80,
@@ -289,35 +289,35 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "2.3",
-                       "name": "Objetivo 2.3 Reducir los efectos de las de~ciencias en educación básica y media superior en los alumnos de la UTJ",
+                       "name": "objective 2.3 Reducir los efectos de las de~ciencias en educación básica y media superior en los alumnos de la UTJ",
                        "goal": 100,
                        "achieve": 70,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.3.1",
                                 "name": "2.3.1 Número de alumnos de primer ingreso que aprobaron cursos propedéuticos (anual)",
                                 "goal": 1894,
                                 "achieve": 1397
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.3.2",
                                 "name": "2.3.2 Tasa de retención de estudiantes de primero a segundo año de TSU (anual)",
                                 "goal": 63,
                                 "achieve": 58.12
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.3.3",
                                 "name": "2.3.3 Tasa de retención de estudiantes de primero a segundo año de ingeniería (anual)",
                                 "goal": 80,
                                 "achieve": 72.44
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.3.4",
                                 "name": "2.3.4 Porcentaje de estudiantes con beca total o parcial en la UTJ",
                                 "goal": 20,
@@ -326,49 +326,49 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "2.4",
                        "name": "2.4 Fortalecer el programa institucional de tutorías",
                        "goal": 100,
                        "achieve": 70,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.4.1",
                                 "name": "2.4.1 Número de alumnos identificados en situación de riesgo académico",
                                 "goal": 87,
                                 "achieve": 125
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.4.2",
                                 "name": "2.4.2 Número de alumnos identificados en situación de riesgo emocional",
                                 "goal": 130,
                                 "achieve": 159
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.4.3",
                                 "name": "2.4.3 Número de estudiantes de TSU tutorados canalizados a asesorías psicológicas",
                                 "goal": 116,
                                 "achieve": 142
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.4.4",
                                 "name": "2.4.4 Número de estudiantes de ingenierías tutorados canalizados a asesorías psicológicas",
                                 "goal": 14,
                                 "achieve": 17
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.4.5",
                                 "name": "2.4.5 Total de alumnos de TSU enviados a asesorías académicas",
                                 "goal": 63,
                                 "achieve": 91
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "2.4.6",
                                 "name": "2.4.6 Total de alumnos de ingenierías enviados a asesorías académicas",
                                 "goal": 24,
@@ -379,28 +379,28 @@
                ]
            },
            {
-               "type": "Eje",
+               "type": "axe",
                "label": "3",
                "name": "3 Planeación, administración, equidad y gobierno",
                "goal": 100,
                "achieve": 10,
-               "objetivos":[
+               "objectives":[
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "3.1",
                        "name": "3.1 Consolidar los trabajos e instrumentos de planeación, seguimiento y evaluación",
                        "goal": 100,
                        "achieve": 90,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.1.1",
                                 "name": "3.1.1 Número de mecanismos de seguimiento y evaluación implementados (POA, acreditaciones, PIDE)",
                                 "goal": 31,
                                 "achieve": 1
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.1.2",
                                 "name": "3.1.2 Porcentaje de cumplimiento de metas derivadas de los instrumentos de planeación",
                                 "goal": 100,
@@ -409,81 +409,81 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "3.2",
                        "name": "3.2 Mejorar el desempeño de la estructura organizacional",
                        "goal": 100,
                        "achieve": 30,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.2.1",
                                 "name": "3.2.1 Número de personas que recibieron por lo menos una   capacitación que laboran en áreas administrativas",
                                 "goal": 110,
                                 "achieve": 87
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.2.2",
                                 "name": "3.2.2 Número de proyectos o herramientas de colaboración implementadas",
                                 "goal": 8,
                                 "achieve": 2
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.2.3",
                                 "name": "3.2.3 Número de desviaciones detectadas en las auditorías internas del Sistema de Gestión de Calidad",
-                                "goal": 0,
+                                "goal": 1,
                                 "achieve": 1
                            }
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "3.3",
                        "name": "3.3 Asegurar que la comunidad universitaria cumpla con las políticas de equidad de género",
                        "goal": 100,
                        "achieve": 30,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.3.1",
                                 "name": "3.3.1 Número de eventos (cursos, talleres, conferencias, etc.) en equidad de género",
                                 "goal": 8,
                                 "achieve": 3
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.3.2",
                                 "name": "3.3.2 Personal administrativo y docente capacitados en equidad de género",
                                 "goal": 110,
                                 "achieve": 18
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.3.3",
                                 "name": "3.3.3 Alumnos capacitados en equidad de género",
                                 "goal": 1150,
                                 "achieve": 0
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.3.4",
                                 "name": "3.3.4 Número de incidencias relacionadas con equidad de género reportadas",
-                                "goal": 0,
+                                "goal": 1,
                                 "achieve": 0
                            }
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "3.4",
                        "name": "3.4 Promover el acceso a la Universidad a los estudiantes que provienen de grupos vulnerables",
                        "goal": 100,
                        "achieve": 30,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.4.1",
                                 "name": "3.4.1 Número de estudiantes provenientes de grupos vulnerables por PE",
                                 "goal": 87,
@@ -492,28 +492,28 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "3.5",
                        "name": "3.5 Incrementar los recursos disponibles para la operación y ampliación de la infraestructura universitaria",
                        "goal": 100,
                        "achieve": 30,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.5.1",
                                 "name": "3.5.1 Porcentaje de recursos provenientes de ingresos propios",
                                 "goal": 25,
                                 "achieve": 24.11
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.5.2",
                                 "name": "3.5.2 Porcentaje de recursos obtenidos por medio de programas federales",
                                 "goal": 25,
                                 "achieve": 12.29
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.5.3",
                                 "name": "3.5.3 Porcentaje de recursos del fondo ordinario",
                                 "goal": 50,
@@ -522,35 +522,35 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "3.6",
                        "name": "3.6  Incrementar el impacto del sistema de gestión de calidad en la mejora continua del desempeño universitario",
                        "goal": 100,
                        "achieve": 30,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.6.1",
                                 "name": "3.6.1 Número de procesos sustantivos certificados en calidad",
                                 "goal": 1,
                                 "achieve": 1
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.6.2",
                                 "name": "3.6.2 Número de procesos de apoyo certificados en calidad",
                                 "goal": 1,
                                 "achieve": 1
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.6.3",
                                 "name": "3.6.3 Número de acciones de mejora identificadas en la aplicación del SGC",
                                 "goal": 6,
                                 "achieve": 2
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.6.4",
                                 "name": "3.6.4 Número de acciones de mejora atendidas en la aplicación del SGC",
                                 "goal": 6,
@@ -559,28 +559,28 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "3.7",
                        "name": "3.7 Asegurar el cumplimiento de las normas del sistema de gestión ambiental",
                        "goal": 100,
                        "achieve": 30,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.7.1",
                                 "name": "3.7.1 Número de procesos sustantivos certificados en la norma ambiental",
                                 "goal": 2,
                                 "achieve": 2
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.7.2",
                                 "name": "3.7.2 Número de acciones de mejora identificadas en la aplicación del SGA",
                                 "goal": 6,
                                 "achieve": 2
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.7.3",
                                 "name": "3.7.3 Número de acciones de mejora atendidas en la aplicación del SGA",
                                 "goal": 6,
@@ -589,31 +589,31 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "3.8",
                        "name": "3.8  Asegurar la actualización y aplicación de la normatividad universitaria y facilitar los medios para las sesiones del Consejo Directivo de la UTJ",
                        "goal": 100,
                        "achieve": 30,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.8.1",
                                 "name": "3.8.1 Número de sesiones ordinarias y extraordinarias del Consejo Directivo",
                                 "goal": 3,
                                 "achieve": 5
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.8.2",
                                 "name": "3.8.2 Normas y reglamentos actualizados",
                                 "goal": 9,
                                 "achieve": 3
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "3.8.3",
                                 "name": "3.8.3 Número de incidencias reportadas relacionadas con la aplicación de la norma",
-                                "goal": 0,
+                                "goal": 1,
                                 "achieve": 0
                            }
                        ]
@@ -621,79 +621,79 @@
                ]
            },
            {
-               "type": "Eje",
+               "type": "axe",
                "label": "4",
                "name": "4 Vinculación e incubación de empresas",
                "goal": 100,
                "achieve": 50,
-               "objetivos":[
+               "objectives":[
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "4.1",
                        "name": "4.1 Asegurar la calidad y pertinencia de los PE",
                        "goal": 100,
                        "achieve": 50,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.1.1",
                                 "name": "4.1.1 Índice de satisfacción de los PE por parte de empleadores",
                                 "goal": 94.45,
                                 "achieve": 91.45
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.1.2",
                                 "name": "4.1.2 Índice de satisfacción de los PE por parte de egresados",
                                 "goal": 90,
                                 "achieve": 85.59
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.1.3",
                                 "name": "4.1.3 Porcentaje de egresados que contestan las encuestas",
                                 "goal": 98,
                                 "achieve": 90
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.1.4",
                                 "name": "4.1.4 Número de encuestas aplicadas a empleadores",
                                 "goal": 240,
                                 "achieve": 225
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.1.5",
                                 "name": "4.1.5 Número de acciones derivadas de las reuniones de retroalimentación",
-                                "goal": 0,
+                                "goal": 1,
                                 "achieve": 2
                            }
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "4.2",
                        "name": "4.2 Mejorar la percepción del sector empresarial respecto a los estudiantes de la UTJ",
                        "goal": 100,
                        "achieve": 90,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.2.1",
                                 "name": "4.2.1 Número de  comisiones integradas de vinculación y pertinencia con las divisiones de carrera",
-                                "goal": 0,
+                                "goal": 1,
                                 "achieve": 0
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.2.2",
                                 "name": "4.2.2 Número de reuniones de las comisiones de vinculación y pertinencia con las divisiones de carrera",
                                 "goal": 18,
                                 "achieve": 0
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.2.3",
                                 "name": "4.2.3 Número de programas de educación continua realizados en el sector empresarial",
                                 "goal": 36,
@@ -702,42 +702,42 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "4.3",
                        "name": "4.3 Evaluar la oferta educativa y aumentar la matrícula de los PE de TSU e Ingenierías",
                        "goal": 100,
                        "achieve": 90,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.3.1",
                                 "name": "4.3.1 Satisfacción de los estudiantes con respecto a su PE (septiembre-diciembre)",
                                 "goal": 98,
                                 "achieve": 95.87
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.3.2",
                                 "name": "4.3.2 Número de alumnos de nuevo ingreso por PE (septiembre-diciembre)",
                                 "goal": 60,
                                 "achieve": 56.35
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.3.3",
                                 "name": "4.3.3 Número de acuerdos con Instituciones de Educación Media Superior para oferta educativa",
                                 "goal": 50,
                                 "achieve": 40
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.3.4",
                                 "name": "4.3.4 Número de visitas guiadas hacia UTJ y en sitio con Instituciones de Educación Media Superior",
                                 "goal": 83,
                                 "achieve": 72
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.3.5",
                                 "name": "4.3.5 Número de eventos de difusión en redes sociales",
                                 "goal": 5,
@@ -746,56 +746,56 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "4.4",
                        "name": "4.4 Incrementar la vinculación con instituciones educativas, gubernamentales y empresariales",
                        "goal": 100,
                        "achieve": 90,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.4.1",
                                 "name": "4.4.1 Número de sesiones informativas, congresos y ciclos de conferencias",
                                 "goal": 12,
                                 "achieve": 3
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.4.2",
                                 "name": "4.4.2 Catálogo anual de servicios actualizado",
                                 "goal": 1,
                                 "achieve": 1
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.4.3",
                                 "name": "4.4.3 Número de empresas a la cuales se entrega el catálogo de servicios",
                                 "goal": 66,
                                 "achieve": 18
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.4.4",
                                 "name": "4.4.4 Número de responsables institucionales que participen en las redes de colaboración fijadas por ANUIES",
                                 "goal": 11,
                                 "achieve": 9
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.4.5",
                                 "name": "4.4.5 Número de cátedras con personalidades prominentes de cámaras y empresas",
                                 "goal": 2,
                                 "achieve": 1
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.4.6",
                                 "name": "4.4.6 Número de ferias del empleo realizadas en UTJ",
                                 "goal": 2,
                                 "achieve": 1
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.4.7",
                                 "name": "4.4.7 Proporción de estudiantes colocados de manera pertinente con su formación profesional y académica en las estadías con las empresas",
                                 "goal": 97,
@@ -804,21 +804,21 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "4.5",
                        "name": "4.5 Consolidar la incubadora de negocios",
                        "goal": 100,
                        "achieve": 90,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.5.1",
                                 "name": "4.5.1 Número de espacio físicos adecuados que respondan a necesidades de incubación",
                                 "goal": 1,
                                 "achieve": 1
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.5.2",
                                 "name": "4.5.2 Número de empresas incubadas asesoradas técnica y financieramente",
                                 "goal": 1,
@@ -827,21 +827,21 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "4.6",
                        "name": "4.6 Plantear y estructurar soluciones de problemas administrativos y/o productivos de empresas ante organismos y dependencias",
                        "goal": 100,
                        "achieve": 90,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.6.1",
                                 "name": "4.6.1 Número de empresas ubicadas con problemas",
                                 "goal": 5,
                                 "achieve": 3
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.6.2",
                                 "name": "4.6.2 Número de proyectos presentados a concurso por recursos financieros",
                                 "goal": 5,
@@ -850,35 +850,35 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "4.7",
                        "name": "4.7 Incrementar la suscripción de acuerdos convenios de colaboración y contratos con el sector privado y la gestión de donativos",
                        "goal": 100,
                        "achieve": 90,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.7.1",
                                 "name": "4.7.1 Número de convenios generales de colaboración celebrados con diversos sectores",
                                 "goal": 40,
                                 "achieve": 26
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.7.2",
                                 "name": "4.7.2 Número de contratos de prestación de servicios profesionales",
                                 "goal": 8,
                                 "achieve": 6
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.7.3",
                                 "name": "4.7.3 Número de contratos de incubación y alojamiento físico de la empresa",
                                 "goal": 1,
                                 "achieve": 1
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.7.4",
                                 "name": "4.7.4 Número de donaciones",
                                 "goal": 2,
@@ -887,28 +887,28 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "4.8",
                        "name": "4.8 Capacitar a los alumnos para fomentar el emprendimiento",
                        "goal": 100,
                        "achieve": 90,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.8.1",
                                 "name": "4.8.1 Número de talleres de emprendimiento",
                                 "goal": 2,
                                 "achieve": 1
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.8.2",
                                 "name": "4.8.2 Número de talleres de desarrollo de negocios",
                                 "goal": 2,
                                 "achieve": 1
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "4.8.3",
                                 "name": "4.8.3 Número de talleres de trabajo en equipos de alto desempeño",
                                 "goal": 2,
@@ -919,56 +919,56 @@
                ]
            },
            {
-               "type": "Eje",
+               "type": "axe",
                "label": "5",
                "name": "5 Innovación y desarrollo tecnológico",
                "goal": 100,
                "achieve": 80,
-               "objetivos":[
+               "objectives":[
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "5.1",
                        "name": "5.1 Incrementar el nivel de habilitación de la planta docente de la universidad",
                        "goal": 100,
                        "achieve": 100,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "5.1.1",
                                 "name": "5.1.1 Número de PTC con reconocimiento PRODEP",
                                 "goal": 51,
                                 "achieve": 20
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "5.1.2",
                                 "name": "5.1.2 Número de PTC con posgrado",
                                 "goal": 63,
                                 "achieve": 37
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "5.1.3",
                                 "name": "5.1.3 Número de PTC en el SNI",
                                 "goal": 4,
                                 "achieve": 0
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "5.1.4",
                                 "name": "5.1.4 Número de cuerpos académicos consolidados",
                                 "goal": 3,
                                 "achieve": 0
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "5.1.5",
                                 "name": "5.1.5 Número de cuerpos académicos en consolidación",
                                 "goal": 4,
                                 "achieve": 2
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "5.1.6",
                                 "name": "5.1.6 Número de cuerpos académicos en formación",
                                 "goal": 6,
@@ -977,21 +977,21 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "5.2",
                        "name": "5.2 Fortalecer la preparación, formación y actualización de docentes",
                        "goal": 100,
                        "achieve": 70,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "5.2.1",
                                 "name": "5.2.1 Número de profesores que reciben cursos de capacitación y actualización docente",
                                 "goal": 133,
                                 "achieve": 83
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "5.2.2",
                                 "name": "5.2.2 Número de profesores que participan en actividades o proyectos con el sector empresarial",
                                 "goal": 14,
@@ -1000,21 +1000,21 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "5.3",
                        "name": "5.3 Fortalecer la infraestructura para la investigación, desarrollo tecnológico e innovación en la UTJ",
                        "goal": 100,
                        "achieve": 70,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "5.3.1",
                                 "name": "5.3.1 Número de laboratorios equipados para realizar investigación, desarrollo tecnológico e innovación",
                                 "goal": 5,
                                 "achieve": 0
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "5.3.2",
                                 "name": "5.3.2 Número de profesores que participan en laboratorios de investigación, desarrollo tecnológico e innovación",
                                 "goal": 15,
@@ -1023,42 +1023,42 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "5.4",
                        "name": "5.4 Incrementar la productividad académica a la par con los proyectos de investigación, desarrollo tecnológico e innovación",
                        "goal": 100,
                        "achieve": 70,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "5.4.1",
                                 "name": "5.4.1 Número de proyectos de investigación, desarrollo tecnológico e innovación de profesores de la UTJ",
                                 "goal": 30,
                                 "achieve": 24
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "5.4.2",
                                 "name": "5.4.2 Número de PTC que realizan labores de investigación, desarrollo tecnológico e innovación",
                                 "goal": 46,
                                 "achieve": 37
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "5.4.3",
                                 "name": "5.4.3 Número de alumnos que realizan labores de investigación, desarrollo tecnológico e innovación",
                                 "goal": 47,
                                 "achieve": 38
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "5.4.4",
                                 "name": "5.4.4 Número de artículos arbitrados o indexados publicados",
                                 "goal": 28,
                                 "achieve": 14
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "5.4.5",
                                 "name": "5.4.5 Número de libros y/o capítulos de libro publicados",
                                 "goal": 9,
@@ -1069,42 +1069,42 @@
                ]
            },
            {
-               "type": "Eje",
+               "type": "axe",
                "label": "6",
                "name": "6 Internacionalización e idiomas",
                "goal": 100,
                "achieve": 80,
-               "objetivos":[
+               "objectives":[
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "6.1",
                        "name": "6.1  Mejorar el aprovechamiento de la academia de idiomas para alumnos y profesores",
                        "goal": 100,
                        "achieve": 100,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "6.1.1",
                                 "name": "6.1.1 Número de profesores con certificación en la enseñanza de idiomas",
                                 "goal": 41,
                                 "achieve": 27
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "6.1.2",
                                 "name": "6.1.2 Número de alumnos con certificación en idiomas",
                                 "goal": 132,
                                 "achieve": 17
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "6.1.3",
                                 "name": "6.1.3 Número de egresados de TSU que alcanzan el nivel B1 del marco común de referencia europeo (MCRE)",
                                 "goal": 278,
                                 "achieve": 48
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "6.1.4",
                                 "name": "6.1.4 Número de egresados Ingeniería que alcanzan el nivel B1 del marco común de referencia europeo (MCRE)",
                                 "goal": 119,
@@ -1113,35 +1113,35 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "6.2",
                        "name": "6.2 Facilitar los intercambios académicos para mejorar el dominio de un segundo idioma",
                        "goal": 100,
                        "achieve": 70,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "6.2.1",
                                 "name": "6.2.1 Número de alumnos de intercambio que cursan ciclos lectivos en IES extranjeras",
                                 "goal": 16,
                                 "achieve": 5
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "6.2.2",
                                 "name": "6.2.2 Número de alumnos de intercambio que cursan ciclos lectivos en UTJ provenientes de IES extranjeras",
                                 "goal": 9,
                                 "achieve": 0
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "6.2.3",
                                 "name": "6.2.3 Número de profesores de intercambio que cursan estudios o imparten cátedra en UTJ provenientes de IES extranjeras",
                                 "goal": 4,
                                 "achieve": 0
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "6.2.4",
                                 "name": "6.2.4 Número de profesores de intercambio que cursan estudios o imparten cátedra en IES extranjeras",
                                 "goal": 4,
@@ -1150,28 +1150,28 @@
                        ]
                    },
                    {
-                       "type": "Objetivo",
+                       "type": "objective",
                        "label": "6.3",
                        "name": "6.3 Formar y consolidar redes de cooperación académica nacionales e internacionales",
                        "goal": 100,
                        "achieve": 70,
-                       "indicadores":[
+                       "indicators":[
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "6.3.1",
                                 "name": "6.3.1 Número de redes académicas en las que colabora personal de la UTJ",
                                 "goal": 5,
                                 "achieve": 2
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "6.3.2",
                                 "name": "6.3.2 Número de participantes en redes de cooperación académica",
                                 "goal": 15,
                                 "achieve": 6
                            },
                            {
-                                "type": "Indicador",
+                                "type": "indicator",
                                 "label": "6.3.3",
                                 "name": "6.3.3 Número de profesores que forman parte de programas y proyectos de cooperación académica",
                                 "goal": 46,

@@ -7,8 +7,7 @@ define([],
 
                 var privateData = {
                     dataProvider: dataProvider,
-                    planElementsMap: undefined,
-                    planElementsTree: undefined
+                    planElementsArray: undefined
                 };
 
                 this.ControlPanel_ = function (key) {
@@ -17,22 +16,21 @@ define([],
                     }
                 };
 
-                privateData.planElementsMap = dataProvider.getDataMap();
-                privateData.planElementsTree = dataProvider.getDataTree();
+                privateData.planElementsArray = dataProvider.getDataArray();
             }
 
             var prototype = ControlPanel.prototype;
 
-            prototype.getChildren = function (planElementId) {
-                var planElementsMap = this.getPlanElementsMap();
-                
-                return planElementsMap[planElementId]["children"];
-            };
-            
+//            prototype.getChildren = function (planElement) {
+//                var planElementsArray = this.getPlanElementsArray();
+//
+//                return planElementsArray[planElementId]["children"];
+//            };
+
             prototype.getParents = function (planElementId) {
                 var parentElements = [];
-                var planElementsMap = this.getPlanElementsMap();
-                var element = planElementsMap[planElementId];
+                var planElementsArray = this.getPlanElementsArray();
+                var element = planElementsArray[planElementId];
                 var thresholdValues = [
                     {max: 39, color: "#DF0101"},
                     {max: 59, color: "#FE9A2E"},
@@ -43,7 +41,7 @@ define([],
                 var referenceLines = [{value: 0, color: "#000000"}];
 
                 while (element["parent"]) {
-                    element = planElementsMap[element["parent"]];
+                    element = planElementsArray[element["parent"]];
                     var progress = element["node"]["achieve"] / element["node"]["goal"] * 100;
 
                     var statusMeterElement = {
@@ -66,17 +64,17 @@ define([],
 
                 function toolTipStatusMeter(dataContext) {
                     var id = dataContext.component()[0].id;
-                    var element = planElementsMap[id];
+                    var element = planElementsArray[id];
                     var achieve = element["node"]["achieve"];
                     var goal = element["node"]["goal"];
-                    
+
                     //add to a <table>
                     var toolTip = document.createElement("div");
                     var toolTipValue = document.createElement("div");
                     var toolTipTextValue = document.createTextNode("value: " + achieve);
                     toolTipValue.appendChild(toolTipTextValue);
                     toolTip.appendChild(toolTipValue);
-                    
+
                     var toolTipGoal = document.createElement("div");
                     var toolTipTextGoal = document.createTextNode("goal: " + goal);
                     toolTipGoal.appendChild(toolTipTextGoal);
@@ -89,7 +87,7 @@ define([],
             };
 
             prototype.getPlanElementName = function (planElementId) {
-                var element = this.getPlanElementsMap()[planElementId];
+                var element = this.getPlanElementsArray()[planElementId];
 
                 try {
                     return element["node"]["name"];
@@ -98,12 +96,8 @@ define([],
                 }
             };
 
-            prototype.getPlanElementsMap = function () {
-                return this.ControlPanel_(theKey).planElementsMap;
-            };
-
-            prototype.getPlanElementsTree = function () {
-                return this.ControlPanel_(theKey).planElementsTree;
+            prototype.getPlanElementsArray = function () {
+                return this.ControlPanel_(theKey).planElementsArray;
             };
 
             return ControlPanel;

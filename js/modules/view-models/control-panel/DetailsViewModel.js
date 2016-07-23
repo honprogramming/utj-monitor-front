@@ -46,19 +46,19 @@ define(['knockout', 'view-models/GeneralViewModel',
             DetailsViewModel.prototype = Object.create(GeneralViewModel);
             var prototype = DetailsViewModel.prototype;
 
-            prototype.setSelectedItemId = function (selectedPlanElementId) {
-                this.updateSelectedPlanElement(selectedPlanElementId);
-                this.updateParents(selectedPlanElementId);
-                this.updateChildren(selectedPlanElementId);
+            prototype.setSelectedItem = function (selectedPlanElement) {
+//                this.updateSelectedPlanElement(selectedPlanElement);
+                this.selectedPlanElement(createStatusMeterPlanElement(selectedPlanElement));
+//                this.updateParents(selectedPlanElement);
+//                this.updateChildren(selectedPlanElement);
             };
 
-            prototype.updateSelectedPlanElement = function (selectedPlanElementId) {
-                var controlPanelModel = this.getControlPanelModel();
-                var planElementsMap = controlPanelModel.getPlanElementsMap();
-                var element = planElementsMap[selectedPlanElementId];
-                
-                this.selectedPlanElement(createStatusMeterPlanElement(element));
-            };
+//            prototype.updateSelectedPlanElement = function (selectedPlanElement) {
+//                var controlPanelModel = this.getControlPanelModel();
+//                var planElementsMap = controlPanelModel.getPlanElementsMap();
+//                var element = planElementsMap[selectedPlanElementId];
+//                
+//            };
 
             prototype.updateChildren = function (selectedPlanElementId) {
                 var controlPanelModel = this.getControlPanelModel();

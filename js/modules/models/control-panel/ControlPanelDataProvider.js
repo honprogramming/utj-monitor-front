@@ -7,8 +7,7 @@ define(['jquery'],
                 var privateData = {
                     dataSourceURL: dataSourceURL,
                     controlPanelDataParser: controlPanelDataParser,
-                    planElementsMap: undefined,
-                    planElementsTree: undefined
+                    planElementsArray: undefined
                 };
 
                 this.ControlPanelDataProvider_ = function (key) {
@@ -19,11 +18,8 @@ define(['jquery'],
 
                 $.getJSON(privateData.dataSourceURL,
                         function (data) {
-                            var parsedData = controlPanelDataParser.parse(data);
-                            privateData.planElementsMap = parsedData.map;
-                            privateData.planElementsTree = parsedData.tree;
-                            
-                            self.onDataAvailable(data);
+                            privateData.planElementsArray = controlPanelDataParser.parse(data);
+                            self.onDataAvailable(privateData.planElementsArray);
                         }
                 );
             }
@@ -36,20 +32,10 @@ define(['jquery'],
              * @returns An Object with data stored as a map containing parsed
              * data to be used mainly in the details panel.
              */
-            prototype.getDataMap = function () {
-                return this.ControlPanelDataProvider_(theKey).planElementsMap;
+            prototype.getDataArray = function () {
+                return this.ControlPanelDataProvider_(theKey).planElementsArray;
             };
-            
-            /**
-             * Getter method for data stored as a tree.
-             * 
-             * @returns An Object with data stored as a tree containing parsed
-             * data to be displayed in a Sunburst control.
-             */
-            prototype.getDataTree = function () {
-                return this.ControlPanelDataProvider_(theKey).planElementsTree;
-            };
-            
+
             /**
              * This will be defined by the user, it must be a function that will be
              * called automatically when data is available.

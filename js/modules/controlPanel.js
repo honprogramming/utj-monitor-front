@@ -19,8 +19,8 @@ define(['view-models/control-panel/SunburstViewModel',
                     self.details = new DetailsViewModel(controlPanelModel);
                 };
 
-                function handleSunburstClick(id) {
-                    self.details.setSelectedItemId(id);
+                function handleSunburstClick(planElement) {
+                    self.details.setSelectedItem(planElement);
                 }
             }
 
