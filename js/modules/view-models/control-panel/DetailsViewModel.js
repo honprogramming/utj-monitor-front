@@ -1,13 +1,14 @@
 define(['knockout', 'view-models/GeneralViewModel',
+    'models/control-panel/PlanElementTypes',,
     'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge', 'ojs/ojcollapsible'],
-        function (ko, GeneralViewModel) {
+        function (ko, GeneralViewModel, PlanElementTypes) {
             var theKey = {};
 
             function DetailsViewModel(controlPanelModel) {
                 var self = this;
                 var privateData = {
                     controlPanelModel: controlPanelModel,
-                    collapsiblePanelTitles: ["Click para ver", "Click para ocultar"]
+                    collapsiblePanelTitles: ["Ver mas", "Ocultar"]
                 };
 
                 this.ControlPanelDetails_ = function (key) {
@@ -16,27 +17,20 @@ define(['knockout', 'view-models/GeneralViewModel',
                     }
                 };
 
-                this.thresholdValues = [{max: 39, color: "#DF0101"},
-                    {max: 59, color: "#FE9A2E"}, {max: 89, color: "#D7DF01"},
-                    {color: "#31B404"}];
-                this.referenceLines = [{value: 0, color: "#000000"}];
-                this.min = -20; //if value is negative then min = value else min = 0
-                this.max = 100;
-                this.value = 95;
-                this.title = {text: "value: " + this.value, position: "center"};
                 this.selectedPlanElement = ko.observable();
                 this.currentParents = ko.observableArray();
                 this.currentChildren = ko.observableArray();
-                this.collapsibleParentsPanelTitle = ko.observable(privateData.collapsiblePanelTitles[1]);
-                this.collapsibleChildrenPanelTitle = ko.observable(privateData.collapsiblePanelTitles[1]);
+                this.childrenType = ko.observable();
+                this.collapsibleParentsPanelTitle = ko.observable(privateData.collapsiblePanelTitles[0]);
+                this.collapsibleChildrenPanelTitle = ko.observable(privateData.collapsiblePanelTitles[0]);
                 
-                this.onChangeParents = function(event, ui) {
+                this.onCollapseParents = function(event, ui) {
                     if (ui["option"] === "expanded") {
                         self.collapsibleParentsPanelTitle(privateData.collapsiblePanelTitles[ui["value"] ? 1 : 0]);
                     }
                 };
                 
-                this.onChangeChildren = function(event, ui) {
+                this.onCollapseChildren = function(event, ui) {
                     if (ui["option"] === "expanded") {
                         self.collapsibleChildrenPanelTitle(privateData.collapsiblePanelTitles[ui["value"] ? 1 : 0]);
                     }
@@ -47,43 +41,70 @@ define(['knockout', 'view-models/GeneralViewModel',
             var prototype = DetailsViewModel.prototype;
 
             prototype.setSelectedItem = function (selectedPlanElement) {
-//                this.updateSelectedPlanElement(selectedPlanElement);
-                this.selectedPlanElement(createStatusMeterPlanElement(selectedPlanElement));
-//                this.updateParents(selectedPlanElement);
-//                this.updateChildren(selectedPlanElement);
+                var controlPanelModel = this.getControlPanelModel();
+                this.selectedPlanElement(createStatusMeterPlanElement.call(this, 
+                        selectedPlanElement, controlPanelModel));
+                this.updateParents(selectedPlanElement, controlPanelModel);
+                this.updateChildren(selectedPlanElement, controlPanelModel);
             };
 
-//            prototype.updateSelectedPlanElement = function (selectedPlanElement) {
-//                var controlPanelModel = this.getControlPanelModel();
-//                var planElementsMap = controlPanelModel.getPlanElementsMap();
-//                var element = planElementsMap[selectedPlanElementId];
-//                
-//            };
-
-            prototype.updateChildren = function (selectedPlanElementId) {
-                var controlPanelModel = this.getControlPanelModel();
-                var planElementsMap = controlPanelModel.getPlanElementsMap();
-                var element = planElementsMap[selectedPlanElementId];
+            prototype.updateChildren = function (selectedPlanElement, controlPanelModel) {
                 var childrenPlanElement = [];
                 
-                var children = element["children"];
+                var children = selectedPlanElement.getChildren();
                 if(children) {
                     for (var i = 0; i < children.length; i ++) {
-                        var child = createStatusMeterPlanElement(planElementsMap[children[i]]);
+                        var child = createStatusMeterPlanElement.call(this, children[i], controlPanelModel);
                         childrenPlanElement.push(child);
                     }
                 }
                 
                 this.currentChildren(childrenPlanElement);
+                this.childrenType(this.nls("controlPanel." + PlanElementTypes.getPlural(children[0].getType())));
             };
             
-            prototype.updateParents = function (selectedPlanElementId) {
-                var controlPanelModel = this.getControlPanelModel();
-
-                var parents = controlPanelModel.getParents(selectedPlanElementId);
+            prototype.updateParents = function (selectedPlanElement, controlPanelModel) {
+                var parents = this.getParents(selectedPlanElement, controlPanelModel);
                 this.currentParents(parents);
             };
+            
+            prototype.getParents = function (planElement, controlPanelModel) {
+                var parentElements = [];
+                var id = controlPanelModel.getPlanElementsArray().indexOf(planElement);
+                var thresholdValues = [
+                    {max: 39, color: "#DF0101"},
+                    {max: 59, color: "#FE9A2E"},
+                    {max: 89, color: "#D7DF01"},
+                    {color: "#31B404"}
+                ];
 
+                var referenceLines = [{value: 0, color: "#000000"}];
+
+                while (planElement.getParent()) {
+                    planElement = planElement.getParent();
+                    var progress = Math.round(planElement.getProgress() * 100);
+
+                    var statusMeterElement = {
+                        type: this.nls("controlPanel." + planElement.getType()),
+                        text: planElement.getName(),
+                        values: {
+                            id: id,
+                            min: progress < 0 ? progress : 0,
+                            max: 100,
+                            value: progress < 0 ? 0 : progress,
+                            title: {text: progress + '%', position: "center"},
+                            thresholdValues: thresholdValues,
+                            referenceLines: progress < 0 ? referenceLines : undefined
+//                            ,
+//                            tooltipRenderer: toolTipStatusMeter
+                        }
+                    };
+
+                    parentElements.unshift(statusMeterElement);
+                }
+                
+                return parentElements;
+            };
             /**
              * Getter method for ControlPanel
              * @returns The ControlPanel Model.
@@ -92,8 +113,8 @@ define(['knockout', 'view-models/GeneralViewModel',
                 return this.ControlPanelDetails_(theKey).controlPanelModel;
             };
             
-            function createStatusMeterPlanElement(element) {
-                var progress = element["node"]["achieve"] / element["node"]["goal"] * 100;
+            function createStatusMeterPlanElement(element, controlPanelModel) {
+                var progress = element.getProgress() * 100;
                 var thresholdValues = [
                     {max: 39, color: "#DF0101"},
                     {max: 59, color: "#FE9A2E"},
@@ -101,43 +122,45 @@ define(['knockout', 'view-models/GeneralViewModel',
                     {color: "#31B404"}
                 ];
                 
+                var translatedType = this.nls("controlPanel." + element.getType());
                 var statusMeterElement = {
-                    type: element["node"]["type"],
-                    text: element["node"]["name"],
+                    type: translatedType,
+                    text: element.getName(),
                     values: {
-                        id: element["id"],
+                        id: controlPanelModel.getPlanElementsArray().indexOf(element),
                         min: progress < 0 ? progress : 0,
                         max: 100,
                         value: progress < 0 ? 0 : progress,
                         title: {text: progress + '%', position: "center"},
                         thresholdValues: thresholdValues,
-                        referenceLines: progress < 0 ? referenceLines : undefined,
-                        tooltipRenderer: toolTipStatusMeter
+                        referenceLines: progress < 0 ? referenceLines : undefined
+//                        ,
+//                        tooltipRenderer: toolTipStatusMeter
                     }
                 };
                 
                 return statusMeterElement;
                 
-                function toolTipStatusMeter(dataContext) {
-                    var id = dataContext.component()[0].id;
-                    var element = planElementsMap[id];
-                    var achieve = element["node"]["achieve"];
-                    var goal = element["node"]["goal"];
-                    
-                    //add to a <table>
-                    var toolTip = document.createElement("div");
-                    var toolTipValue = document.createElement("div");
-                    var toolTipTextValue = document.createTextNode("value: " + achieve);
-                    toolTipValue.appendChild(toolTipTextValue);
-                    toolTip.appendChild(toolTipValue);
-                    
-                    var toolTipGoal = document.createElement("div");
-                    var toolTipTextGoal = document.createTextNode("goal: " + goal);
-                    toolTipGoal.appendChild(toolTipTextGoal);
-                    toolTip.appendChild(toolTipGoal);
-
-                    return toolTip;
-                }
+//                function toolTipStatusMeter(dataContext) {
+//                    var id = dataContext.component()[0].id;
+//                    var element = planElementsMap[id];
+//                    var achieve = element["node"]["achieve"];
+//                    var goal = element["node"]["goal"];
+//                    
+//                    //add to a <table>
+//                    var toolTip = document.createElement("div");
+//                    var toolTipValue = document.createElement("div");
+//                    var toolTipTextValue = document.createTextNode("value: " + achieve);
+//                    toolTipValue.appendChild(toolTipTextValue);
+//                    toolTip.appendChild(toolTipValue);
+//                    
+//                    var toolTipGoal = document.createElement("div");
+//                    var toolTipTextGoal = document.createTextNode("goal: " + goal);
+//                    toolTipGoal.appendChild(toolTipTextGoal);
+//                    toolTip.appendChild(toolTipGoal);
+//
+//                    return toolTip;
+//                }
             }
             
             return DetailsViewModel;

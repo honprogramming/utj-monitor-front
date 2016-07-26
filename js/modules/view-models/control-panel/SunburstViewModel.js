@@ -25,7 +25,7 @@ define(['knockout', 'view-models/GeneralViewModel',
                     if (data.option === "selection") {
                         var id = data.value[0];
 
-                        self.onClick(privateData.planElementsMap[id]);
+                        self.onClick(privateData.planElementsArray[id]);
                     }
                 };
             }
@@ -49,15 +49,18 @@ define(['knockout', 'view-models/GeneralViewModel',
                 var id = 0;
                 var nodesMap = {};
                 var visionObject = planElementsArray[0];
-
-                nodesMap[id] = createNode(id++, visionObject, 360);
+                
+                var textId = id.toString();
+                nodesMap[textId] = createNode(textId, visionObject, 360);
+                id ++;
 
                 for (var i = 1; i < planElementsArray.length; i++, id++) {
                     var planElement = planElementsArray[i];
                     var parentElement = planElement.getParent();
                     var sibilings = parentElement.getChildren().length;
-
-                    nodesMap[id] = createNode(id, planElement, sibilings);
+                    textId = id.toString();
+                    
+                    nodesMap[textId] = createNode(textId, planElement, sibilings);
                 }
 
                 for (var id in nodesMap) {
@@ -71,17 +74,18 @@ define(['knockout', 'view-models/GeneralViewModel',
                 
                 var progress = planElement.getProgress();
                 var shortDesc = "&lt;b&gt;" + planElement.getName() + "&lt;/b&gt;";
-                var color = getColor(progress);
                 
-                if (planElement.getType() !== PlanElementTypes.INDICATOR) {
-                    progress *= 100;
-                } else {
+                if (planElement.getType() === PlanElementTypes.INDICATOR) {
                     var goalPlusAchieve = "&lt;br/&gt;" + "Meta: " + planElement.getGoal() + 
                             "&lt;br/&gt;" + "Avance: " + planElement.getAchieve();
                     shortDesc += goalPlusAchieve;
                 }
                 
-                var progressDesc = "&lt;br/&gt;Progreso: " + progress;
+                progress *= 100;
+                progress = Math.round(progress);
+                
+                var color = getColor(progress);
+                var progressDesc = "&lt;br/&gt;Progreso: " + progress + "%";
                 shortDesc += progressDesc;
                 
                 return {
@@ -123,11 +127,11 @@ define(['knockout', 'view-models/GeneralViewModel',
              * @returns {String}
              */
             function getColor(progress) {
-                if (progress >= 0.9) {
+                if (progress >= 90) {
                     return "#31B404";
-                } else if (progress >= 0.6) {
+                } else if (progress >= 60) {
                     return "#D7DF01";
-                } else if (progress >= 0.4) {
+                } else if (progress >= 40) {
                     return "#FE9A2E";
                 } else {
                     return "#DF0101";

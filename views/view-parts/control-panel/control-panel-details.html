@@ -4,8 +4,8 @@
          data-bind="visible: currentParents().length > 0,
             ojComponent: {
                 component: 'ojCollapsible', 
-                expanded: true,
-                optionChange: onChangeParents
+                expanded: false,
+                optionChange: onCollapseParents
          }">
         <div>
             <label data-bind="text: collapsibleParentsPanelTitle"></label>
@@ -28,7 +28,6 @@
                          value: value,
                          referenceLines: referenceLines,
                          title: title,
-                         tooltip: {renderer: tooltipRenderer},
                          plotArea: {rendered: 'on'}
                         }" 
                              style= "margin:5px;height:20px; width:100%;"
@@ -79,13 +78,14 @@
          data-bind="visible: currentChildren().length > 0,
             ojComponent: {
                 component: 'ojCollapsible', 
-                expanded: true,
-                optionChange: onChangeChildren
+                expanded: false,
+                optionChange: onCollapseChildren
          }">
         <div>
             <label data-bind="text: collapsibleChildrenPanelTitle"></label>
         </div>
-        <div class="oj-flex">
+        <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-center">
+            <div class="oj-flex-item oj-sm-12 centered title" data-bind="text: childrenType"></div>
             <!-- ko foreach: currentChildren -->
             <div class="oj-flex-item oj-sm-6" style="margin:10px 0px 10px 0px">
                 <div class="oj-flex oj-sm-flex-direction-column">

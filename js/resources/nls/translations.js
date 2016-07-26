@@ -33,6 +33,15 @@ define({
         },
         "footer": {
             "copyright": "Copyright &copy; 2016 UTJ Monitor and/or its affiliates. All rights reserved"
+        },
+        "controlPanel": {
+            "vision": "Visión",
+            "axe": "Eje",
+            "axes": "Ejes",
+            "objective": "Objetivo",
+            "objectives": "Objetivos",
+            "indicator": "Indicador",
+            "indicators": "Indicadores"
         }
     }
 }
