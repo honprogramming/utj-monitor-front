@@ -268,7 +268,7 @@
                    {
                        "type": "objective",
                        "label": "2.2",
-                       "name": "2.2 Mejorar la e~ciencia terminal de los PE de TSU e Ingenierías",
+                       "name": "2.2 Mejorar la eficiencia terminal de los PE de TSU e Ingenierías",
                        "goal": 100,
                        "achieve": 70,
                        "indicators":[
@@ -291,7 +291,7 @@
                    {
                        "type": "objective",
                        "label": "2.3",
-                       "name": "objective 2.3 Reducir los efectos de las de~ciencias en educación básica y media superior en los alumnos de la UTJ",
+                       "name": "2.3 Reducir los efectos de las deficiencias en educación básica y media superior en los alumnos de la UTJ",
                        "goal": 100,
                        "achieve": 70,
                        "indicators":[

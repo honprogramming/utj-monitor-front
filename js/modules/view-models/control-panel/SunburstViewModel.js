@@ -7,6 +7,7 @@ define(['knockout', 'view-models/GeneralViewModel',
             function SunburstViewModel(controlPanelModel) {
                 var self = this;
                 var privateData = {
+                    //delete as it's used only twice in the constructor
                     planElementsArray: controlPanelModel.getPlanElementsArray(),
                     planElementsMap: undefined
                 };

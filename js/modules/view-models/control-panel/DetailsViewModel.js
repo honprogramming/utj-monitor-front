@@ -1,6 +1,6 @@
 define(['knockout', 'view-models/GeneralViewModel',
-    'models/control-panel/PlanElementTypes',,
-    'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge', 'ojs/ojcollapsible'],
+    'models/control-panel/PlanElementTypes', ,
+            'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge', 'ojs/ojcollapsible'],
         function (ko, GeneralViewModel, PlanElementTypes) {
             var theKey = {};
 
@@ -8,6 +8,7 @@ define(['knockout', 'view-models/GeneralViewModel',
                 var self = this;
                 var privateData = {
                     controlPanelModel: controlPanelModel,
+                    statusMeterPlanElementsMap: {},
                     collapsiblePanelTitles: ["Ver mas", "Ocultar"]
                 };
 
@@ -23,88 +24,105 @@ define(['knockout', 'view-models/GeneralViewModel',
                 this.childrenType = ko.observable();
                 this.collapsibleParentsPanelTitle = ko.observable(privateData.collapsiblePanelTitles[0]);
                 this.collapsibleChildrenPanelTitle = ko.observable(privateData.collapsiblePanelTitles[0]);
-                
-                this.onCollapseParents = function(event, ui) {
+
+                this.collapseParentsHandler = function (event, ui) {
                     if (ui["option"] === "expanded") {
                         self.collapsibleParentsPanelTitle(privateData.collapsiblePanelTitles[ui["value"] ? 1 : 0]);
                     }
                 };
-                
-                this.onCollapseChildren = function(event, ui) {
+
+                this.collapseChildrenHandler = function (event, ui) {
                     if (ui["option"] === "expanded") {
                         self.collapsibleChildrenPanelTitle(privateData.collapsiblePanelTitles[ui["value"] ? 1 : 0]);
                     }
+                };
+
+                this.clickHandler = function (data, event) {
+                    self.onClick(data.id);
                 };
             }
 
             DetailsViewModel.prototype = Object.create(GeneralViewModel);
             var prototype = DetailsViewModel.prototype;
 
+            prototype.onClick = function (selectedPlanElementId) {
+                var controlPanelModel = this.getControlPanelModel();
+                this.setSelectedItem(controlPanelModel.getPlanElementsArray()[selectedPlanElementId]);
+            };
+
             prototype.setSelectedItem = function (selectedPlanElement) {
                 var controlPanelModel = this.getControlPanelModel();
-                this.selectedPlanElement(createStatusMeterPlanElement.call(this, 
-                        selectedPlanElement, controlPanelModel));
-                this.updateParents(selectedPlanElement, controlPanelModel);
-                this.updateChildren(selectedPlanElement, controlPanelModel);
+                var planElementIndex = controlPanelModel.getPlanElementsArray().indexOf(selectedPlanElement);
+
+                var statusMeterPlanElement = this.getStatusMeterPlanElement(planElementIndex);
+
+                if (!statusMeterPlanElement) {
+                    statusMeterPlanElement = addNewPlanElementToMap.call(this, selectedPlanElement, controlPanelModel, this.getStatusMeterPlanElementsMap());
+                }
+
+                this.selectedPlanElement(statusMeterPlanElement);
+                this.updateParents(selectedPlanElement);
+                this.updateChildren(selectedPlanElement);
             };
 
-            prototype.updateChildren = function (selectedPlanElement, controlPanelModel) {
+            prototype.getStatusMeterPlanElement = function (id) {
+                var statusMeterPlanElementsMap = this.getStatusMeterPlanElementsMap();
+
+                return statusMeterPlanElementsMap[id];
+            };
+
+            prototype.getStatusMeterPlanElementsMap = function () {
+                return this.ControlPanelDetails_(theKey).statusMeterPlanElementsMap;
+            };
+
+            prototype.updateChildren = function (selectedPlanElement) {
                 var childrenPlanElement = [];
-                
+
                 var children = selectedPlanElement.getChildren();
-                if(children) {
-                    for (var i = 0; i < children.length; i ++) {
-                        var child = createStatusMeterPlanElement.call(this, children[i], controlPanelModel);
+                if (children) {
+                    for (var i = 0; i < children.length; i++) {
+                        var child = this.getStatusMeterPlanElement(children[i]);
+
+                        if (!child) {
+                            child = addNewPlanElementToMap.call(this, children[i],
+                                    this.getControlPanelModel(),
+                                    this.getStatusMeterPlanElementsMap());
+                        }
+
                         childrenPlanElement.push(child);
                     }
+
+                    this.childrenType(this.nls("controlPanel." + PlanElementTypes.getPlural(children[0].getType())));
                 }
-                
+
                 this.currentChildren(childrenPlanElement);
-                this.childrenType(this.nls("controlPanel." + PlanElementTypes.getPlural(children[0].getType())));
             };
-            
-            prototype.updateParents = function (selectedPlanElement, controlPanelModel) {
-                var parents = this.getParents(selectedPlanElement, controlPanelModel);
+
+            prototype.updateParents = function (selectedPlanElement) {
+                var parents = getParents.call(this, selectedPlanElement,
+                        this.getControlPanelModel(), this.getStatusMeterPlanElementsMap());
                 this.currentParents(parents);
             };
-            
-            prototype.getParents = function (planElement, controlPanelModel) {
-                var parentElements = [];
-                var id = controlPanelModel.getPlanElementsArray().indexOf(planElement);
-                var thresholdValues = [
-                    {max: 39, color: "#DF0101"},
-                    {max: 59, color: "#FE9A2E"},
-                    {max: 89, color: "#D7DF01"},
-                    {color: "#31B404"}
-                ];
 
-                var referenceLines = [{value: 0, color: "#000000"}];
+            function getParents(planElement, controlPanelModel, statusMeterPlanElementsMap) {
+                var parentElements = [];
 
                 while (planElement.getParent()) {
                     planElement = planElement.getParent();
-                    var progress = Math.round(planElement.getProgress() * 100);
+                    var id = controlPanelModel.getPlanElementsArray().indexOf(planElement);
+                    var statusMeterElement = statusMeterPlanElementsMap[id];
 
-                    var statusMeterElement = {
-                        type: this.nls("controlPanel." + planElement.getType()),
-                        text: planElement.getName(),
-                        values: {
-                            id: id,
-                            min: progress < 0 ? progress : 0,
-                            max: 100,
-                            value: progress < 0 ? 0 : progress,
-                            title: {text: progress + '%', position: "center"},
-                            thresholdValues: thresholdValues,
-                            referenceLines: progress < 0 ? referenceLines : undefined
-//                            ,
-//                            tooltipRenderer: toolTipStatusMeter
-                        }
-                    };
+                    if (!statusMeterElement) {
+                        statusMeterElement = addNewPlanElementToMap.call(this, planElement,
+                                controlPanelModel, statusMeterPlanElementsMap);
+                    }
 
                     parentElements.unshift(statusMeterElement);
                 }
-                
+
                 return parentElements;
-            };
+            }
+
             /**
              * Getter method for ControlPanel
              * @returns The ControlPanel Model.
@@ -112,22 +130,31 @@ define(['knockout', 'view-models/GeneralViewModel',
             prototype.getControlPanelModel = function () {
                 return this.ControlPanelDetails_(theKey).controlPanelModel;
             };
-            
-            function createStatusMeterPlanElement(element, controlPanelModel) {
-                var progress = element.getProgress() * 100;
+
+            function addNewPlanElementToMap(element, controlPanelModel, statusMeterPlanElementsMap) {
+                var planElementIndex = controlPanelModel.getPlanElementsArray().indexOf(element);
+                var statusMeterPlanElement = createStatusMeterPlanElement.call(this, planElementIndex, element);
+
+                statusMeterPlanElementsMap[planElementIndex] = statusMeterPlanElement;
+                return statusMeterPlanElement;
+            }
+
+            function createStatusMeterPlanElement(id, element) {
+                var progress = Math.round(element.getProgress() * 100);
+                var referenceLines = [{value: 0, color: "#000000"}];
                 var thresholdValues = [
                     {max: 39, color: "#DF0101"},
                     {max: 59, color: "#FE9A2E"},
                     {max: 89, color: "#D7DF01"},
                     {color: "#31B404"}
                 ];
-                
+
                 var translatedType = this.nls("controlPanel." + element.getType());
                 var statusMeterElement = {
                     type: translatedType,
                     text: element.getName(),
                     values: {
-                        id: controlPanelModel.getPlanElementsArray().indexOf(element),
+                        id: id,
                         min: progress < 0 ? progress : 0,
                         max: 100,
                         value: progress < 0 ? 0 : progress,
@@ -138,9 +165,9 @@ define(['knockout', 'view-models/GeneralViewModel',
 //                        tooltipRenderer: toolTipStatusMeter
                     }
                 };
-                
+
                 return statusMeterElement;
-                
+
 //                function toolTipStatusMeter(dataContext) {
 //                    var id = dataContext.component()[0].id;
 //                    var element = planElementsMap[id];
@@ -162,7 +189,7 @@ define(['knockout', 'view-models/GeneralViewModel',
 //                    return toolTip;
 //                }
             }
-            
+
             return DetailsViewModel;
         }
 );
