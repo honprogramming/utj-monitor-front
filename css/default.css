@@ -188,3 +188,7 @@ footer {
 .title {
     font-weight: bold;
 }
+
+.pointer {
+    cursor: pointer;
+}

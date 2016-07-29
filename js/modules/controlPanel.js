@@ -17,10 +17,15 @@ define(['view-models/control-panel/SunburstViewModel',
                     self.sunburst = new SunburstViewModel(controlPanelModel);
                     self.sunburst.addClickListener(handleSunburstClick);
                     self.details = new DetailsViewModel(controlPanelModel);
+                    self.details.addSelectionListener(handleDetailsSelection);
                 };
 
                 function handleSunburstClick(planElement) {
                     self.details.setSelectedItem(planElement);
+                }
+                
+                function handleDetailsSelection(planElement) {
+                    self.sunburst.setSelectedItem(planElement);
                 }
             }
 

@@ -24,7 +24,7 @@
         <!-- The globalBody section is initially hidden so that content is not partially displayed before content is 
           ** loaded into the dynamic sections.  You will see a jQuery .show() method call at the bottom of the main.js 
           ** file which is what finally displays the page content. -->
-        <div id="globalBody" style="display: none;">
+        <div id="globalBody" style="display: none; overflow-y: scroll;">
             <!-- 
             ** This off-canvas section is used when the browser is resized to a 
             ** medium or smaller media query size. It moves the App Navigation into a drawer.
@@ -43,7 +43,7 @@
             <header id="headerWrapper" role="banner" data-bind="ojModule: {name: 'header'}"></header>
 
             <!-- This is where your main page content will be loaded -->
-            <div id="mainContainer" class="full-height" style="overflow: scroll;">
+            <div id="mainContainer" class="full-height">
                 <!--<div id="mainContent" class="full-height" data-bind="ojModule: {name: 'projects'}"></div>-->
                 <!--<div id="mainContent" class="full-height" data-bind="ojModule: {name: 'home'}"></div>-->
                 <div id="mainContent" class="full-height" data-bind="ojModule: {name: 'controlPanel', viewName: 'control-panel'}"></div>

@@ -3,11 +3,18 @@
      data-bind="ojComponent: {
             component: 'ojSunburst',
             animationOnDisplay: 'auto',
-            nodeDefaults: {labelDisplay: 'rotated'},
-            nodes: nodeValues,
-            animationDuration: '2s',
             animationOnDataChange: 'auto',
-            optionChange: clickHandler
+            animationDuration: '2s',
+            nodes: nodeValues,
+            optionChange: clickHandler,
+            rotation: 'on',
+            startAngle: 30,
+            selection: selection,
+            nodeDefaults: {
+                labelDisplay: 'rotated',
+                selectedInnerColor: '#FFFFFF',
+                selectedOuterColor: '#FFFFFF'
+            }
         }" 
      >
 </div>

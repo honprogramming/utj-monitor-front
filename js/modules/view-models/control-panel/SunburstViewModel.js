@@ -9,7 +9,8 @@ define(['knockout', 'view-models/GeneralViewModel',
                 var privateData = {
                     //delete as it's used only twice in the constructor
                     planElementsArray: controlPanelModel.getPlanElementsArray(),
-                    planElementsMap: undefined
+                    planElementsMap: undefined,
+                    selectedPlanElementId: undefined
                 };
 
                 privateData.planElementsMap = parsePlanElementsArray(privateData.planElementsArray);
@@ -21,7 +22,7 @@ define(['knockout', 'view-models/GeneralViewModel',
                 };
 
                 self.nodeValues = ko.observableArray([self.getMainNode()]);
-
+                self.selection = ko.observableArray();
                 self.clickHandler = function (ui, data) {
                     if (data.option === "selection") {
                         var id = data.value[0];
@@ -41,7 +42,17 @@ define(['knockout', 'view-models/GeneralViewModel',
             prototype.onClick = function (id) {
                 this.callListeners(EventTypes.CLICK_EVENT, id);
             };
-
+            
+            prototype.getPlanElementsArray = function () {
+                return this.SunburstViewModel_(theKey).planElementsArray;
+            };
+            
+            prototype.setSelectedItem = function(selectedPlanElement) {
+                var planElementsArray = this.getPlanElementsArray();
+                var id = planElementsArray.indexOf(selectedPlanElement);
+                this.selection([id]);
+            };
+            
             prototype.getMainNode = function () {
                 return this.SunburstViewModel_(theKey).planElementsMap[0];
             };

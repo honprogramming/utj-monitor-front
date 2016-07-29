@@ -1,11 +1,14 @@
 define(['knockout', 'view-models/GeneralViewModel',
-    'models/control-panel/PlanElementTypes', ,
-            'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge', 'ojs/ojcollapsible'],
-        function (ko, GeneralViewModel, PlanElementTypes) {
+        'models/control-panel/PlanElementTypes',
+        'view-models/events/EventTypes',
+        'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge', 'ojs/ojcollapsible'],
+        function (ko, GeneralViewModel, PlanElementTypes, EventTypes) {
             var theKey = {};
 
             function DetailsViewModel(controlPanelModel) {
                 var self = this;
+                this.listeners = [];
+                
                 var privateData = {
                     controlPanelModel: controlPanelModel,
                     statusMeterPlanElementsMap: {},
@@ -38,13 +41,21 @@ define(['knockout', 'view-models/GeneralViewModel',
                 };
 
                 this.clickHandler = function (data, event) {
-                    self.onClick(data.id);
+                    self.onClick(data.clickHandlerValue);
                 };
             }
 
             DetailsViewModel.prototype = Object.create(GeneralViewModel);
             var prototype = DetailsViewModel.prototype;
-
+            
+            prototype.addSelectionListener = function(listener) {
+                this.addListener(listener, EventTypes.SELECTION_EVENT);
+            };
+            
+            prototype.onSelection = function(value) {
+                this.callListeners(EventTypes.SELECTION_EVENT, value);
+            };
+            
             prototype.onClick = function (selectedPlanElementId) {
                 var controlPanelModel = this.getControlPanelModel();
                 this.setSelectedItem(controlPanelModel.getPlanElementsArray()[selectedPlanElementId]);
@@ -54,11 +65,8 @@ define(['knockout', 'view-models/GeneralViewModel',
                 var controlPanelModel = this.getControlPanelModel();
                 var planElementIndex = controlPanelModel.getPlanElementsArray().indexOf(selectedPlanElement);
 
+                this.onSelection(selectedPlanElement);
                 var statusMeterPlanElement = this.getStatusMeterPlanElement(planElementIndex);
-
-                if (!statusMeterPlanElement) {
-                    statusMeterPlanElement = addNewPlanElementToMap.call(this, selectedPlanElement, controlPanelModel, this.getStatusMeterPlanElementsMap());
-                }
 
                 this.selectedPlanElement(statusMeterPlanElement);
                 this.updateParents(selectedPlanElement);
@@ -67,8 +75,17 @@ define(['knockout', 'view-models/GeneralViewModel',
 
             prototype.getStatusMeterPlanElement = function (id) {
                 var statusMeterPlanElementsMap = this.getStatusMeterPlanElementsMap();
-
-                return statusMeterPlanElementsMap[id];
+                var statusMeterPlanElement = statusMeterPlanElementsMap[id];
+                
+                if (!statusMeterPlanElement) {
+                    var controlPanelModel = this.getControlPanelModel();
+                    var planElement = controlPanelModel.getPlanElementsArray()[id];
+                    
+                    return addNewPlanElementToMap.call(this, planElement,
+                            controlPanelModel, statusMeterPlanElementsMap);
+                } else {
+                    return statusMeterPlanElement;
+                }
             };
 
             prototype.getStatusMeterPlanElementsMap = function () {
@@ -77,18 +94,12 @@ define(['knockout', 'view-models/GeneralViewModel',
 
             prototype.updateChildren = function (selectedPlanElement) {
                 var childrenPlanElement = [];
-
+                var planElementsArray = this.getControlPanelModel().getPlanElementsArray();
                 var children = selectedPlanElement.getChildren();
+                
                 if (children) {
                     for (var i = 0; i < children.length; i++) {
-                        var child = this.getStatusMeterPlanElement(children[i]);
-
-                        if (!child) {
-                            child = addNewPlanElementToMap.call(this, children[i],
-                                    this.getControlPanelModel(),
-                                    this.getStatusMeterPlanElementsMap());
-                        }
-
+                        var child = this.getStatusMeterPlanElement(planElementsArray.indexOf(children[i]));
                         childrenPlanElement.push(child);
                     }
 
@@ -106,16 +117,12 @@ define(['knockout', 'view-models/GeneralViewModel',
 
             function getParents(planElement, controlPanelModel, statusMeterPlanElementsMap) {
                 var parentElements = [];
-
+                var planElementsArray = controlPanelModel.getPlanElementsArray();
+                
                 while (planElement.getParent()) {
                     planElement = planElement.getParent();
-                    var id = controlPanelModel.getPlanElementsArray().indexOf(planElement);
-                    var statusMeterElement = statusMeterPlanElementsMap[id];
-
-                    if (!statusMeterElement) {
-                        statusMeterElement = addNewPlanElementToMap.call(this, planElement,
-                                controlPanelModel, statusMeterPlanElementsMap);
-                    }
+                    var id = planElementsArray.indexOf(planElement);
+                    var statusMeterElement = this.getStatusMeterPlanElement(id);
 
                     parentElements.unshift(statusMeterElement);
                 }
@@ -153,12 +160,13 @@ define(['knockout', 'view-models/GeneralViewModel',
                 var statusMeterElement = {
                     type: translatedType,
                     text: element.getName(),
+                    clickHandlerValue: id,
                     values: {
                         id: id,
                         min: progress < 0 ? progress : 0,
                         max: 100,
                         value: progress < 0 ? 0 : progress,
-                        title: {text: progress + '%', position: "center"},
+                        title: {text: progress + '%', position: 'center'},
                         thresholdValues: thresholdValues,
                         referenceLines: progress < 0 ? referenceLines : undefined
 //                        ,
