@@ -14,7 +14,7 @@ define(['view-models/control-panel/SunburstViewModel',
 
                 controlPanelDataProvider.onDataAvailable = function () {
                     var controlPanelModel = new ControlPanelModel(controlPanelDataProvider);
-                    self.sunburst = new SunburstViewModel(controlPanelModel);
+                    self.sunburst = new SunburstViewModel("control_panel", controlPanelModel);
                     self.sunburst.addClickListener(handleSunburstClick);
                     self.details = new DetailsViewModel(controlPanelModel);
                     self.details.addSelectionListener(handleDetailsSelection);

@@ -1,6 +1,7 @@
 <!-- ko with: $parent.sunburst -->
 <div class="full-width full-height" 
-     data-bind="ojComponent: {
+     data-bind="attr: {id: id},
+        ojComponent: {
             component: 'ojSunburst',
             animationOnDisplay: 'auto',
             animationOnDataChange: 'auto',
@@ -10,6 +11,7 @@
             rotation: 'on',
             startAngle: 30,
             selection: selection,
+            rotation: 'on',
             nodeDefaults: {
                 labelDisplay: 'rotated',
                 selectedInnerColor: '#FFFFFF',

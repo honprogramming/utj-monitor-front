@@ -50,7 +50,7 @@
         <div class="oj-flex-item">
             <div class="title"  data-bind="text: $data.type"></div>
         </div>
-        <div class="oj-flex-item oj-sm-12">
+        <div class="oj-flex-item oj-sm-12" data-bind="click: $parent.clickHandler.bind($data.clickHandlerValue)">
             <div class="oj-flex-item">
                 <div  data-bind="text: $data.text"></div>
             </div>

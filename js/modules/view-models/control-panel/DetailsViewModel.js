@@ -52,20 +52,17 @@ define(['knockout', 'view-models/GeneralViewModel',
                 this.addListener(listener, EventTypes.SELECTION_EVENT);
             };
             
-            prototype.onSelection = function(value) {
-                this.callListeners(EventTypes.SELECTION_EVENT, value);
-            };
-            
             prototype.onClick = function (selectedPlanElementId) {
                 var controlPanelModel = this.getControlPanelModel();
-                this.setSelectedItem(controlPanelModel.getPlanElementsArray()[selectedPlanElementId]);
+                var selectedPlanElement = controlPanelModel.getPlanElementsArray()[selectedPlanElementId];
+                this.setSelectedItem(selectedPlanElement);
+                this.callListeners(EventTypes.SELECTION_EVENT, selectedPlanElement);
             };
 
             prototype.setSelectedItem = function (selectedPlanElement) {
                 var controlPanelModel = this.getControlPanelModel();
                 var planElementIndex = controlPanelModel.getPlanElementsArray().indexOf(selectedPlanElement);
 
-                this.onSelection(selectedPlanElement);
                 var statusMeterPlanElement = this.getStatusMeterPlanElement(planElementIndex);
 
                 this.selectedPlanElement(statusMeterPlanElement);

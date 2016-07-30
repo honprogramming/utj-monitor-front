@@ -1,54 +1,67 @@
-define(['knockout', 'view-models/GeneralViewModel',
+define(['jquery', 'knockout', 'view-models/GeneralViewModel',
     'view-models/events/EventTypes',
     'models/control-panel/PlanElementTypes',
     'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojsunburst'],
-        function (ko, GeneralViewModel, EventTypes, PlanElementTypes) {
+        function ($, ko, GeneralViewModel, EventTypes, PlanElementTypes) {
             var theKey = {};
-            function SunburstViewModel(controlPanelModel) {
+            function SunburstViewModel(prefix, controlPanelModel) {
                 var self = this;
                 var privateData = {
-                    //delete as it's used only twice in the constructor
-                    planElementsArray: controlPanelModel.getPlanElementsArray(),
+                    controlPanelModel: controlPanelModel,
                     planElementsMap: undefined,
                     selectedPlanElementId: undefined
                 };
 
-                privateData.planElementsMap = parsePlanElementsArray(privateData.planElementsArray);
+                privateData.planElementsMap = 
+                        parsePlanElementsArray(controlPanelModel.getPlanElementsArray());
 
                 this.SunburstViewModel_ = function (key) {
                     if (theKey === key) {
                         return privateData;
                     }
                 };
-
+                
+                self.id = prefix + "_sunburst";
                 self.nodeValues = ko.observableArray([self.getMainNode()]);
                 self.selection = ko.observableArray();
+                
                 self.clickHandler = function (ui, data) {
                     if (data.option === "selection") {
-                        var id = data.value[0];
-
-                        self.onClick(privateData.planElementsArray[id]);
+                        if (data.value.length > 0) {
+                            var id = data.value[0];
+                            self.onClick(self.getControlPanelModel().getPlanElementsArray()[id]);
+                        }
                     }
                 };
             }
 
             SunburstViewModel.prototype = Object.create(GeneralViewModel);
             var prototype = SunburstViewModel.prototype;
-
+            
+            prototype.getControlPanelModel = function() {
+                return this.SunburstViewModel_(theKey).controlPanelModel;
+            };
+            
             prototype.addClickListener = function (listener) {
                 this.addListener(listener, EventTypes.CLICK_EVENT);
             };
 
-            prototype.onClick = function (id) {
-                this.callListeners(EventTypes.CLICK_EVENT, id);
+            prototype.onClick = function (planElement) {
+                this.callListeners(EventTypes.CLICK_EVENT, planElement);
+                updateSiblingsNodes.call(this, planElement, this.getPlanElementsMap(), this.getControlPanelModel());
+                this.selection([]);
             };
             
             prototype.getPlanElementsArray = function () {
                 return this.SunburstViewModel_(theKey).planElementsArray;
             };
             
+            prototype.getPlanElementsMap = function () {
+                return this.SunburstViewModel_(theKey).planElementsMap;
+            };
+            
             prototype.setSelectedItem = function(selectedPlanElement) {
-                var planElementsArray = this.getPlanElementsArray();
+                var planElementsArray = this.getControlPanelModel().getPlanElementsArray();
                 var id = planElementsArray.indexOf(selectedPlanElement);
                 this.selection([id]);
             };
@@ -56,7 +69,53 @@ define(['knockout', 'view-models/GeneralViewModel',
             prototype.getMainNode = function () {
                 return this.SunburstViewModel_(theKey).planElementsMap[0];
             };
-
+            
+            function updateSiblingsNodes(planElement, planElementsMap, controlPanelModel) {
+                var planElementParent = planElement.getParent();
+                
+                if (planElementParent) {
+                    var planElementIndex = controlPanelModel.getPlanElementsArray().indexOf(planElement);
+                    var planElementNodeToKeep = planElementsMap[planElementIndex];
+                    var parentElementIndex = controlPanelModel.getPlanElementsArray().indexOf(planElementParent);
+                    var planElementParentNode = planElementsMap[parentElementIndex];
+                    
+                    updateChildrenNodes(planElementParentNode, planElementNodeToKeep);
+                } else {
+                    for (var nodeId in planElementsMap) {
+                        showChildrenNodes(planElementsMap[nodeId]);
+                    }
+                }
+                
+                $("#" + this.id).ojSunburst("refresh");
+            }
+            
+            function updateChildrenNodes(planElementParentNode, planElementNodeToKeep) {
+                if (planElementParentNode.hiddenNodes.length > 0) {
+                    showChildrenNodes(planElementParentNode);
+                } else {
+                    hideChildrenNodes(planElementParentNode, planElementNodeToKeep);
+                }
+            }
+            
+            function showChildrenNodes(planElementNode) {
+                if (planElementNode.hiddenNodes.length > 0) {
+                    var nodes = planElementNode.nodes;
+                    planElementNode.hiddenNodes.push(nodes[0]);
+                    planElementNode.nodes = planElementNode.hiddenNodes;
+                    
+                    nodes.splice(0, 1);
+                    planElementNode.hiddenNodes = nodes;
+                }
+            }
+            
+            function hideChildrenNodes(planElementNode, planElementNodeToKeep) {
+                var nodes = planElementNode.nodes;
+                var indexToKeep = nodes.indexOf(planElementNodeToKeep);
+                planElementNode.hiddenNodes = nodes;
+                
+                planElementNode.nodes = planElementNode.hiddenNodes.splice(indexToKeep, 1);
+            }
+            
             function parsePlanElementsArray(planElementsArray) {
                 var id = 0;
                 var nodesMap = {};
@@ -112,8 +171,9 @@ define(['knockout', 'view-models/GeneralViewModel',
 
             /**
              * 
-             * @param {type} parent
-             * @param {type} childNodes
+             * @param {type} id
+             * @param {type} planElementsArray
+             * @param {type} nodesMap
              * @returns {undefined}
              */
             function addChildNodes(id, planElementsArray, nodesMap) {
@@ -122,7 +182,8 @@ define(['knockout', 'view-models/GeneralViewModel',
                 var node = nodesMap[id];
 
                 node.nodes = [];
-
+                node.hiddenNodes = [];
+                
                 if (children) {
                     var nodes = node.nodes;
                     var childrenLength = children.length;
