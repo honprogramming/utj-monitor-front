@@ -38,10 +38,16 @@ define({
             "vision": "Visión",
             "axe": "Eje",
             "axes": "Ejes",
+            "theme": "Tema",
+            "themes": "Temas",
             "objective": "Objetivo",
             "objectives": "Objetivos",
             "indicator": "Indicador",
-            "indicators": "Indicadores"
+            "indicators": "Indicadores",
+            "project": "Proyecto",
+            "projects": "Proyectos",
+            "product": "Producto",
+            "products": "Productos"
         }
     }
 }

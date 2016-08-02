@@ -94,6 +94,20 @@ define(['knockout', 'view-models/GeneralViewModel',
                 var planElementsArray = this.getControlPanelModel().getPlanElementsArray();
                 var children = selectedPlanElement.getChildren();
                 
+                if (selectedPlanElement.getType() === PlanElementTypes.AXE) {
+                    var objectives = [];
+
+                    for (var i = 0; i < children.length; i++) {
+                        children[i].getChildren().forEach(
+                                function (objective) {
+                                    objectives.push(objective);
+                                }
+                        );
+                    }
+                    
+                    children = objectives;
+                }
+                
                 if (children) {
                     for (var i = 0; i < children.length; i++) {
                         var child = this.getStatusMeterPlanElement(planElementsArray.indexOf(children[i]));
@@ -112,12 +126,17 @@ define(['knockout', 'view-models/GeneralViewModel',
                 this.currentParents(parents);
             };
 
-            function getParents(planElement, controlPanelModel, statusMeterPlanElementsMap) {
+            function getParents(planElement, controlPanelModel) {
                 var parentElements = [];
                 var planElementsArray = controlPanelModel.getPlanElementsArray();
                 
                 while (planElement.getParent()) {
                     planElement = planElement.getParent();
+                    
+                    if (planElement.getType() === PlanElementTypes.THEME) {
+                        planElement = planElement.getParent();
+                    }
+                    
                     var id = planElementsArray.indexOf(planElement);
                     var statusMeterElement = this.getStatusMeterPlanElement(id);
 

@@ -32,26 +32,37 @@ define(['models/control-panel/PlanElementCalculated',
                         visionElement.getChildren().push(axeElement);
                         planElements.push(axeElement);
                         
-                        var objectivesArray = axeObject[PlanElementTypes.OBJECTIVES];
-                        for (var j = 0; j < objectivesArray.length; j++) {
-                            var objectiveObject = objectivesArray[j];
-                            var objectiveElement = new PlanElementCalculated(
-                                    PlanElementTypes.OBJECTIVE, objectiveObject["label"],
-                                    objectiveObject["name"], axeElement, []);
-                                    
-                            axeElement.getChildren().push(objectiveElement);
-                            planElements.push(objectiveElement);
+                        var themesArray = axeObject[PlanElementTypes.THEMES];
+                        for (var j = 0; j < themesArray.length; j++) {
+                            var themeObject = themesArray[j];
+                            var themeElement = new PlanElementCalculated(
+                                    PlanElementTypes.THEME, themeObject["label"],
+                                    themeObject["name"], axeElement, []);
 
-                            var indicatorsArray = objectiveObject[PlanElementTypes.INDICATORS];
-                            for (var z = 0; z < indicatorsArray.length; z++) {
-                                var indicatorObject = indicatorsArray[z];
-                                var indicatorElement = new PlanElement(
-                                        PlanElementTypes.INDICATOR, indicatorObject["label"],
-                                        indicatorObject["name"], indicatorObject["goal"], 
-                                        indicatorObject["achieve"], objectiveElement, null);
+                            axeElement.getChildren().push(themeElement);
+                            planElements.push(themeElement);
+                        
+                            var objectivesArray = themeObject[PlanElementTypes.OBJECTIVES];
+                            for (var k = 0; k < objectivesArray.length; k++) {
+                                var objectiveObject = objectivesArray[k];
+                                var objectiveElement = new PlanElementCalculated(
+                                        PlanElementTypes.OBJECTIVE, objectiveObject["label"],
+                                        objectiveObject["name"], themeElement, []);
 
-                                objectiveElement.getChildren().push(indicatorElement);
-                                planElements.push(indicatorElement);
+                                themeElement.getChildren().push(objectiveElement);
+                                planElements.push(objectiveElement);
+
+                                var indicatorsArray = objectiveObject[PlanElementTypes.INDICATORS];
+                                for (var z = 0; z < indicatorsArray.length; z++) {
+                                    var indicatorObject = indicatorsArray[z];
+                                    var indicatorElement = new PlanElement(
+                                            PlanElementTypes.INDICATOR, indicatorObject["label"],
+                                            indicatorObject["name"], indicatorObject["goal"], 
+                                            indicatorObject["achieve"], objectiveElement, null);
+
+                                    objectiveElement.getChildren().push(indicatorElement);
+                                    planElements.push(indicatorElement);
+                                }
                             }
                         }
                     }
