@@ -1,3 +1,11 @@
+/**
+ * Queries and parses the data from an URL and makes it available through the
+ * function "onDataAvailable" which is triggered immediately after the data is
+ * parsed.
+ * 
+ * @param {Object} $ The jquery library
+ * @returns {Function} The ControlPanelProvider class.
+ */
 define(['jquery'],
         function ($) {
             var theKey = {};

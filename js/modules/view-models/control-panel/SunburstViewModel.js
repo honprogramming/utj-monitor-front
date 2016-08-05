@@ -1,8 +1,9 @@
 define(['jquery', 'knockout', 'view-models/GeneralViewModel',
     'view-models/events/EventTypes',
+    'models/control-panel/PlanElement',
     'models/control-panel/PlanElementTypes',
     'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojsunburst'],
-        function ($, ko, GeneralViewModel, EventTypes, PlanElementTypes) {
+        function ($, ko, GeneralViewModel, EventTypes, PlanElement, PlanElementTypes) {
             var theKey = {};
             function SunburstViewModel(prefix, controlPanelModel) {
                 var self = this;
@@ -75,10 +76,6 @@ define(['jquery', 'knockout', 'view-models/GeneralViewModel',
                 
                 
                 if (planElementParent) {
-                    if (planElementParent.getType() === PlanElementTypes.THEME) {
-                        planElementParent = planElementParent.getParent();
-                    }
-                    
                     var planElementIndex = controlPanelModel.getPlanElementsArray().indexOf(planElement);
                     var planElementNodeToKeep = planElementsMap[planElementIndex];
                     var parentElementIndex = controlPanelModel.getPlanElementsArray().indexOf(planElementParent);
@@ -135,10 +132,7 @@ define(['jquery', 'knockout', 'view-models/GeneralViewModel',
                     var parentElement = planElement.getParent();
                     var sibilings = parentElement.getChildren().length;
                     textId = id.toString();
-
-                    if (planElement.getType() !== PlanElementTypes.THEME) {
-                        nodesMap[textId] = createNode(textId, planElement, sibilings);
-                    }
+                    nodesMap[textId] = createNode(textId, planElement, sibilings);
                 }
 
                 for (var id in nodesMap) {
@@ -153,7 +147,7 @@ define(['jquery', 'knockout', 'view-models/GeneralViewModel',
                 var progress = planElement.getProgress();
                 var shortDesc = "&lt;b&gt;" + planElement.getName() + "&lt;/b&gt;";
 
-                if (planElement.getType() === PlanElementTypes.INDICATOR) {
+                if (planElement instanceof PlanElement) {
                     var goalPlusAchieve = "&lt;br/&gt;" + "Meta: " + planElement.getGoal() +
                             "&lt;br/&gt;" + "Avance: " + planElement.getAchieve();
                     shortDesc += goalPlusAchieve;
@@ -186,21 +180,6 @@ define(['jquery', 'knockout', 'view-models/GeneralViewModel',
             function addChildNodes(id, planElementsArray, nodesMap) {
                 var planElement = planElementsArray[id];
                 var children = planElement.getChildren();
-
-                if (planElement.getType() === PlanElementTypes.AXE) {
-                    var objectives = [];
-
-                    for (var i = 0; i < children.length; i++) {
-                        children[i].getChildren().forEach(
-                                function (objective) {
-                                    objectives.push(objective);
-                                }
-                        );
-                    }
-                    
-                    children = objectives;
-                }
-
                 var node = nodesMap[id];
 
                 node.nodes = [];

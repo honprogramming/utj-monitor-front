@@ -1,11 +1,3 @@
-/* 
- * Copyright (c) 2016, Plan eXpert and/or its affiliates. All rights reserved.
- * 
- * MODIFIED (MM/DD/YY)
- * 
- * jjsanche 11/17/15 - Creation.
- */
-
 /**
  * This file contains an Object which serves as prototype for all View Model classes.
  * The properties in this Object will be inherited by all subclasses.

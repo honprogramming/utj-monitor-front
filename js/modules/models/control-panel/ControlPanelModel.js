@@ -1,10 +1,14 @@
+/**
+ * This class will hold a set of PlanElement and PlanElementCalculated objects.
+ * It's intetion is to provide functions to manage the data, like get, sort etc.
+ * 
+ * @returns {Function} The ControlPanel class.
+ */
 define([],
         function () {
             var theKey = {};
 
-            function ControlPanel(dataProvider) {
-                var self = this;
-
+            function ControlPanelModel(dataProvider) {
                 var privateData = {
                     dataProvider: dataProvider,
                     planElementsArray: undefined
@@ -19,12 +23,17 @@ define([],
                 privateData.planElementsArray = dataProvider.getDataArray();
             }
 
-            var prototype = ControlPanel.prototype;
-
+            var prototype = ControlPanelModel.prototype;
+            
+            /**
+             * Returns the Array of objects for this model.
+             * 
+             * @returns {Array} An Array containing the plan elements of the model.
+             */
             prototype.getPlanElementsArray = function () {
                 return this.ControlPanel_(theKey).planElementsArray;
             };
 
-            return ControlPanel;
+            return ControlPanelModel;
         }
 );

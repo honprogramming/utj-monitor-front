@@ -1,3 +1,9 @@
+/**
+ * This object contains the constants for the diferent types of elements.
+ * It also contains the plural of each type.
+ * 
+ * @returns {Object} PlanElementTypes Object with String constants.
+ */
 define([], 
     function() {
         var PlanElementTypes = {
@@ -14,6 +20,12 @@ define([],
             PROJECTS: "projects",
             PRODUCT: "product",
             PRODUCTS: "products",
+            /**
+             * Returns the plurar of the given type.
+             * @param {String} planElementType One of the singular types defined
+             * in this Object.
+             * @returns {String} A String with the plural name of the given type.
+             */
             getPlural: function(planElementType) {
                 switch(planElementType) {
                     case this.AXE:
