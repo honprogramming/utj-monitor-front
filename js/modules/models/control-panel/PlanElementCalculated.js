@@ -7,13 +7,15 @@
         function() {
             var theKey = {};
             
-            function PlanElementCalculated(type, label, name, parent, children) {
+            function PlanElementCalculated(type, label, name, parent, children,
+                    responsibles) {
                 var privateData = {
                     type: type,
                     label: label,
                     name: name,
                     parent: parent,
                     children: children,
+                    responsibles: responsibles,
                     calculatedGoal: undefined,
                     calculatedProgress: undefined
                 };
@@ -77,6 +79,10 @@
              */
             prototype.getChildren = function() {
                 return this.PlanElementCalculated_(theKey).children;
+            };
+            
+            prototype.getResponsibles = function() {
+                return this.PlanElementCalculated_(theKey).responsibles;
             };
             
             /**

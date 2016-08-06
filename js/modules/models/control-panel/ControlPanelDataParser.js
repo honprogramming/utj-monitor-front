@@ -37,7 +37,7 @@ define(['models/control-panel/PlanElementCalculated',
                         var axeObject = axesArray[i];
                         var axeElement = new PlanElementCalculated(
                                 PlanElementTypes.AXE, axeObject["label"],
-                                axeObject["name"], visionElement, []);
+                                axeObject["name"], visionElement, [], axeObject["responsibles"]);
                         
                         visionElement.getChildren().push(axeElement);
                         planElements.push(axeElement);

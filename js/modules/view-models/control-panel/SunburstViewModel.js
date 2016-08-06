@@ -1,9 +1,11 @@
-define(['jquery', 'knockout', 'view-models/GeneralViewModel',
-    'view-models/events/EventTypes',
-    'models/control-panel/PlanElement',
-    'models/control-panel/PlanElementTypes',
-    'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojsunburst'],
-        function ($, ko, GeneralViewModel, EventTypes, PlanElement, PlanElementTypes) {
+define(
+        [
+            'jquery', 'knockout', 'view-models/GeneralViewModel',
+            'view-models/events/EventTypes',
+            'models/control-panel/PlanElement',
+            'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojsunburst'
+        ],
+        function ($, ko, GeneralViewModel, EventTypes, PlanElement) {
             var theKey = {};
             function SunburstViewModel(prefix, controlPanelModel) {
                 var self = this;
@@ -73,8 +75,8 @@ define(['jquery', 'knockout', 'view-models/GeneralViewModel',
 
             function updateSiblingsNodes(planElement, planElementsMap, controlPanelModel) {
                 var planElementParent = planElement.getParent();
-                
-                
+
+
                 if (planElementParent) {
                     var planElementIndex = controlPanelModel.getPlanElementsArray().indexOf(planElement);
                     var planElementNodeToKeep = planElementsMap[planElementIndex];
@@ -158,7 +160,41 @@ define(['jquery', 'knockout', 'view-models/GeneralViewModel',
 
                 var color = getColor(progress);
                 var progressDesc = "&lt;br/&gt;Progreso: " + progress + "%";
-                shortDesc += progressDesc;
+                var responsiblesDesc;
+                
+                var responsibles = planElement.getResponsibles();
+                
+                if (responsibles) {
+                    responsiblesDesc = "&lt;br/&gt;Responsable(s):&lt;br/&gt;";
+                    responsiblesDesc += "&lt;table style='margin:2px' border='1'&gt;";
+                    responsiblesDesc += "&lt;tr&gt;";
+                    responsiblesDesc += "&lt;td style='text-align:center'&gt;";
+                    responsiblesDesc += "&lt;b&gt;";
+                    responsiblesDesc += "Persona";
+                    responsiblesDesc += "&lt;/b&gt;";
+                    responsiblesDesc += "&lt;/td&gt;";
+                    responsiblesDesc += "&lt;td style='text-align:center'&gt;";
+                    responsiblesDesc += "&lt;b&gt;";
+                    responsiblesDesc += "Area";
+                    responsiblesDesc += "&lt;/b&gt;";
+                    responsiblesDesc += "&lt;/td&gt;";
+                    responsiblesDesc += "&lt;/tr&gt;";
+                    
+                    for (var i = 0; i < responsibles.length; i ++) {
+                        responsiblesDesc += "&lt;tr&gt;";
+                        responsiblesDesc += "&lt;td&gt;";
+                        responsiblesDesc += responsibles[i]["person"];
+                        responsiblesDesc += "&lt;/td&gt;";
+                        responsiblesDesc += "&lt;td&gt;";
+                        responsiblesDesc += responsibles[i]["area"];
+                        responsiblesDesc += "&lt;/td&gt;";
+                        responsiblesDesc += "&lt;/tr&gt;";
+                    }
+                    
+                    responsiblesDesc += "&lt;/table&gt;";
+                }
+                
+                shortDesc += progressDesc + responsiblesDesc;
 
                 return {
                     id: id,

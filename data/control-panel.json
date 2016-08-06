@@ -10,8 +10,12 @@
                 "type": "axe",
                 "label": "1",
                 "name": "1 Calidad Educativa",
-                "responsible_area": "Área responsable",
-                "responsible_person": "Persona responsable",
+                "responsibles": [
+                    {
+                        "area": "Area responsable Eje 1",
+                        "person": "Persona responsable Eje 1"
+                    }
+                ],
                 "goal": 100,
                 "achieve": 70,
                 "themes": [

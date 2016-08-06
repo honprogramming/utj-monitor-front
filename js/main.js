@@ -22,7 +22,8 @@ requirejs.config({
         'async': libs + '/require/async',
         'google': libs + '/google/maps/maps',
         'models': 'modules/models',
-        'view-models': 'modules/view-models'
+        'view-models': 'modules/view-models',
+        'views': '../views'
     },
     // Shim configurations for modules that do not expose AMD
     shim: {
@@ -56,18 +57,26 @@ requirejs.config({
  * by the modules themselves), we are listing them explicitly to get the references to the 'oj' and 'ko'
  * objects in the callback
  */
-require(['ojs/ojcore',
-    'knockout',
-    'jquery',
-    'ojs/ojrouter',
-    'ojs/ojknockout',
-    'ojs/ojbutton',
-    'ojs/ojtoolbar',
-    'ojs/ojmenu',
-    'ojs/ojmodule'
-],
-        function (oj, ko, $) // this callback gets executed when all required modules are loaded
-        {
+require(
+        [
+            'ojs/ojcore',
+            'knockout',
+            'jquery',
+            'ojs/ojrouter',
+            'ojs/ojknockout',
+            'ojs/ojbutton',
+            'ojs/ojtoolbar',
+            'ojs/ojmenu',
+            'ojs/ojmodule',
+            'view-models/templates/templateManager'
+        ],
+        /**
+         * 
+         * @param {type} oj
+         * @param {type} ko
+         * @param {type} $
+         */
+        function (oj, ko, $) { // this callback gets executed when all required modules are loaded
             oj.ModuleBinding.defaults.modelPath = 'modules/';
             oj.ModuleBinding.defaults.viewPath = 'text!../views/';
             oj.ModuleBinding.defaults.viewSuffix = '.html';
@@ -99,10 +108,12 @@ require(['ojs/ojcore',
 //                    function () {
 //                        //bind your ViewModel for the content of the whole page body.
 //                        ko.applyBindings(new RootViewModel(), document.getElementById('globalBody'));
-            $(document).ready(function() {
-                $('#globalBody').show();
-                ko.applyBindings(vm, document.getElementById('globalBody'));
-            });            
+            $(document).ready(
+                    function () {
+                        $('#globalBody').show();
+                        ko.applyBindings(vm, document.getElementById('globalBody'));
+                    }
+            );
 //                    },
 //                    function (error) {
 //                        oj.Logger.error('Error in root start: ' + error.message);
