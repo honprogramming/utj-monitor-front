@@ -1,14 +1,15 @@
 define(['knockout', 'view-models/GeneralViewModel',
-        'models/control-panel/PlanElementTypes',
-        'view-models/events/EventTypes',
-        'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge', 'ojs/ojcollapsible'],
+    'models/control-panel/PlanElementTypes',
+    'view-models/events/EventTypes',
+    'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge',
+    'ojs/ojcollapsible', 'ojs/ojmasonrylayout'],
         function (ko, GeneralViewModel, PlanElementTypes, EventTypes) {
             var theKey = {};
 
             function DetailsViewModel(controlPanelModel) {
                 var self = this;
                 this.listeners = [];
-                
+
                 var privateData = {
                     controlPanelModel: controlPanelModel,
                     statusMeterPlanElementsMap: {},
@@ -43,15 +44,94 @@ define(['knockout', 'view-models/GeneralViewModel',
                 this.clickHandler = function (data, event) {
                     self.onClick(data.clickHandlerValue);
                 };
+
+                this.flipHandler = function (data, event) {
+                    var target = event.target;
+                    var tile = $(target).closest(".demo-tile");
+
+                    var tileFront = tile.find(".demo-tile-front");
+                    var tileBack = tile.find(".demo-tile-back");
+
+                    var bForward = tileBack.hasClass("demo-hidden");
+                    var f = function () {
+                        demoFlipEnd(tile, tileFront, tileBack, bForward);
+                    };
+                    tile[0]._flipFunc = f;
+                    tile[0].addEventListener("transitionend", f, false);
+                    tile[0].addEventListener("webkittransitionend", f, false);
+
+                    //Unhide the new side of the tile to which it is flipping, 
+                    //and flip that side by 180 degrees so that it is facing the 
+                    //opposite direction of the current side.  The new side will
+                    //then be facing the user after the tile itself is flipped by 
+                    //180 degrees.  
+                    if (bForward)
+                    {
+                        tileBack.removeClass("demo-hidden");
+                        tileBack.addClass("demo-flipped");
+                    } else
+                    {
+                        tileFront.removeClass("demo-hidden");
+                        tileFront.addClass("demo-flipped");
+                    }
+
+                    //Flip the tile itself.
+                    tile.addClass(bForward ?
+                            "demo-flip-forward" :
+                            "demo-flip-backward");
+                    event.stopPropagation();
+                };
+
+                //Called after the flip transition ends.
+                demoFlipEnd = function (tile, tileFront, tileBack, bForward)
+                {
+                    var f = tile[0]._flipFunc;
+                    tile[0]._flipFunc = null;
+                    tile[0].removeEventListener("transitionend", f, false);
+                    tile[0].removeEventListener("webkittransitionend", f, false);
+
+                    var button = null;
+                    if (bForward)
+                    {
+                        //Remove the flip class from the tile itself so the tile is
+                        //no longer rotated.
+                        tile.removeClass("demo-flip-forward");
+                        //Hide the old side of the tile that is no longer showing.
+                        tileFront.addClass("demo-hidden");
+                        //Remove the flip class from the new side of the tile so 
+                        //that it is no longer rotated.  This side still faces the
+                        //user because the tile itself is no longer rotated.
+                        tileBack.removeClass("demo-flipped");
+                        //Find the flip button on the new tile side.
+                        button = tileBack.find(".demo-back-flip-icon");
+                    } else
+                    {
+                        //Remove the flip class from the tile itself so the tile is
+                        //no longer rotated.
+                        tile.removeClass("demo-flip-backward");
+                        //Hide the old side of the tile that is no longer showing.
+                        tileBack.addClass("demo-hidden");
+                        //Remove the flip class from the new side of the tile so 
+                        //that it is no longer rotated.  This side still faces the
+                        //user because the tile itself is no longer rotated.
+                        tileFront.removeClass("demo-flipped");
+                        //Find the flip button on the new tile side.
+                        button = tileFront.find(".demo-front-flip-icon");
+                    }
+                    //Before the tile was flipped, the button used to flip the 
+                    //tile had focus, so now restore focus to the flip button on
+                    //the side of the tile that is now showing.
+                    button[0].focus();
+                };
             }
 
             DetailsViewModel.prototype = Object.create(GeneralViewModel);
             var prototype = DetailsViewModel.prototype;
-            
-            prototype.addSelectionListener = function(listener) {
+
+            prototype.addSelectionListener = function (listener) {
                 this.addListener(listener, EventTypes.SELECTION_EVENT);
             };
-            
+
             prototype.onClick = function (selectedPlanElementId) {
                 var controlPanelModel = this.getControlPanelModel();
                 var selectedPlanElement = controlPanelModel.getPlanElementsArray()[selectedPlanElementId];
@@ -73,11 +153,11 @@ define(['knockout', 'view-models/GeneralViewModel',
             prototype.getStatusMeterPlanElement = function (id) {
                 var statusMeterPlanElementsMap = this.getStatusMeterPlanElementsMap();
                 var statusMeterPlanElement = statusMeterPlanElementsMap[id];
-                
+
                 if (!statusMeterPlanElement) {
                     var controlPanelModel = this.getControlPanelModel();
                     var planElement = controlPanelModel.getPlanElementsArray()[id];
-                    
+
                     return addNewPlanElementToMap.call(this, planElement,
                             controlPanelModel, statusMeterPlanElementsMap);
                 } else {
@@ -93,7 +173,7 @@ define(['knockout', 'view-models/GeneralViewModel',
                 var childrenPlanElement = [];
                 var planElementsArray = this.getControlPanelModel().getPlanElementsArray();
                 var children = selectedPlanElement.getChildren();
-                
+
                 if (children) {
                     for (var i = 0; i < children.length; i++) {
                         var child = this.getStatusMeterPlanElement(planElementsArray.indexOf(children[i]));
@@ -115,10 +195,10 @@ define(['knockout', 'view-models/GeneralViewModel',
             function getParents(planElement, controlPanelModel) {
                 var parentElements = [];
                 var planElementsArray = controlPanelModel.getPlanElementsArray();
-                
+
                 while (planElement.getParent()) {
                     planElement = planElement.getParent();
-                    
+
                     var id = planElementsArray.indexOf(planElement);
                     var statusMeterElement = this.getStatusMeterPlanElement(id);
 
