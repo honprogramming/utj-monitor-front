@@ -12,8 +12,8 @@ define(['models/control-panel/PlanElementCalculated'],
         function(PlanElementCalculated) {
             var theKey = {};
             
-            function PlanElement(type, label, name, goal, achieve, parent, children) {
-                PlanElementCalculated.call(this, type, label, name, parent, children);
+            function PlanElement(type, label, name, goal, achieve, parent, children, responsibles) {
+                PlanElementCalculated.call(this, type, label, name, parent, children, responsibles);
                 
                 var privateData = {
                     goal: goal,

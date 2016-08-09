@@ -57,7 +57,8 @@ define(['models/control-panel/PlanElementCalculated',
                                 var objectiveObject = objectivesArray[k];
                                 var objectiveElement = new PlanElementCalculated(
                                         PlanElementTypes.OBJECTIVE, objectiveObject["label"],
-                                        objectiveObject["name"], axeElement, []);
+                                        objectiveObject["name"], axeElement, [],
+                                        objectiveObject["responsibles"]);
 
 //                                themeElement.getChildren().push(objectiveElement);
                                 axeElement.getChildren().push(objectiveElement);
@@ -69,7 +70,8 @@ define(['models/control-panel/PlanElementCalculated',
                                     var indicatorElement = new PlanElement(
                                             PlanElementTypes.INDICATOR, indicatorObject["label"],
                                             indicatorObject["name"], indicatorObject["goal"], 
-                                            indicatorObject["achieve"], objectiveElement, null);
+                                            indicatorObject["achieve"], objectiveElement, null,
+                                            indicatorObject["responsibles"]);
 
                                     objectiveElement.getChildren().push(indicatorElement);
                                     planElements.push(indicatorElement);

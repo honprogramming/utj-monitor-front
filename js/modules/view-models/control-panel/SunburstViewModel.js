@@ -160,13 +160,15 @@ define(
 
                 var color = getColor(progress);
                 var progressDesc = "&lt;br/&gt;Progreso: " + progress + "%";
-                var responsiblesDesc;
+
+                shortDesc += progressDesc;
                 
+                var responsiblesDesc;
                 var responsibles = planElement.getResponsibles();
                 
                 if (responsibles) {
                     responsiblesDesc = "&lt;br/&gt;Responsable(s):&lt;br/&gt;";
-                    responsiblesDesc += "&lt;table style='margin:2px' border='1'&gt;";
+                    responsiblesDesc += "&lt;table style='width:100%;margin:2px' border='1'&gt;";
                     responsiblesDesc += "&lt;tr&gt;";
                     responsiblesDesc += "&lt;td style='text-align:center'&gt;";
                     responsiblesDesc += "&lt;b&gt;";
@@ -192,9 +194,9 @@ define(
                     }
                     
                     responsiblesDesc += "&lt;/table&gt;";
+                    shortDesc += responsiblesDesc;
                 }
                 
-                shortDesc += progressDesc + responsiblesDesc;
 
                 return {
                     id: id,
