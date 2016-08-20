@@ -238,6 +238,7 @@ define(['knockout', 'view-models/GeneralViewModel',
                 var statusMeterElement = {
                     type: translatedType,
                     text: element.getName(),
+                    responsibles: element.getResponsibles(),
                     clickHandlerValue: id,
                     values: {
                         id: id,

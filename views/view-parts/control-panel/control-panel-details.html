@@ -115,19 +115,29 @@
                                         icons: {start:  'oj-fwk-icon-caret-start oj-component-icon'}
                                     }, 
                                     click: $parent.flipHandler"
-                                        title="Flip back"
-                                        class="demo-back-flip-icon"
-                                        >
+                                    title="Flip back"
+                                    class="demo-back-flip-icon"
+                                    >
                             </button>
                         </div>
                         <div class="oj-flex-item">
-                            <div class="title"  data-bind="text: $data.type"></div>
-                        </div>
-                        <div class="oj-flex-item">
-                            <div class="title"  data-bind="text: $data.text"></div>
-                        </div>
-                        <div class="oj-flex-item">
-                            <div class="title"  data-bind="text: $data.values.title.text"></div>
+                            <div class="oj-flex oj-sm-flex-direction-column">
+                                <div class="oj-flex-item title" style="text-align: left;" 
+                                     data-bind="text: $data.type + ':' + $data.text + ' ' + $data.values.value + '%'"></div>
+                                <!-- ko foreach: {data: $data.responsibles, as: 'responsible'} -->
+                                    <div class="oj-flex-item">
+                                        <div class="oj-flex">
+                                            <img data-bind="attr: {src: 'css/images/avatar_24px_2x.png'}"/>
+                                            <div class="oj-flex-item">
+                                                <div class="oj-flex oj-sm-flex-direction-column">
+                                                    <div class="oj-flex-item" style="text-align: left;" data-bind="text: responsible.person"></div>
+                                                    <div class="oj-flex-item oj-text-xs oj-text-secondary-color" style="text-align: left" data-bind="text: responsible.area"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- /ko -->
+                            </div>
                         </div>
                     </div>
                 </div>

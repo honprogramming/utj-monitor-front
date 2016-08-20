@@ -14,19 +14,35 @@ define(
                         new ControlPanelDataProvider("data/control-panel.json",
                                 ControlPanelDataParser);
 
-                controlPanelDataProvider.onDataAvailable = function () {
-                    var controlPanelModel = new ControlPanelModel(controlPanelDataProvider);
-                    self.sunburst = new SunburstViewModel("control_panel", controlPanelModel);
-                    self.sunburst.addClickListener(handleSunburstClick);
-                    self.details = new DetailsViewModel(controlPanelModel);
-                    self.details.addSelectionListener(handleDetailsSelection);
+                var fetchData = controlPanelDataProvider.fetchData();
 
-                };
+                fetchData.then(
+                        function () {
+                            console.log("callback from CP");
+                            var controlPanelModel = new ControlPanelModel(controlPanelDataProvider);
+                            self.sunburst = new SunburstViewModel("control_panel", controlPanelModel);
+                            self.sunburst.addClickListener(handleSunburstClick);
+                            self.details = new DetailsViewModel(controlPanelModel);
+                            self.details.addSelectionListener(handleDetailsSelection);
+                        }
+                );
 
+                /**
+                 * Callback function for click event on Details panel.
+                 * 
+                 * @param {PlanElementCalculated} planElement The object from
+                 * the model with the info for the clicked view element.
+                 */
                 function handleSunburstClick(planElement) {
                     self.details.setSelectedItem(planElement);
                 }
 
+                /**
+                 * Callback function for click event on Sunburst graphic.
+                 * 
+                 * @param {PlanElementCalculated} planElement The object from
+                 * the model with the info for the clicked view element.
+                 */
                 function handleDetailsSelection(planElement) {
                     self.sunburst.setSelectedItem(planElement);
                 }

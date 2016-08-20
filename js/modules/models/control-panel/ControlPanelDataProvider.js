@@ -11,7 +11,6 @@ define(['jquery'],
             var theKey = {};
 
             function ControlPanelDataProvider(dataSourceURL, controlPanelDataParser) {
-                var self = this;
                 var privateData = {
                     dataSourceURL: dataSourceURL,
                     controlPanelDataParser: controlPanelDataParser,
@@ -23,21 +22,52 @@ define(['jquery'],
                         return privateData;
                     }
                 };
-
-                $.getJSON(privateData.dataSourceURL,
-                        function (data) {
-                            privateData.planElementsArray = controlPanelDataParser.parse(data);
-                            self.onDataAvailable(privateData.planElementsArray);
-                        }
-                );
             }
 
             var prototype = ControlPanelDataProvider.prototype;
 
             /**
-             * Getter method for data stored as a map.
+             * Returns the URL used by this data provider.
              * 
-             * @returns An Object with data stored as a map containing parsed
+             * @returns {String} The URL as text used by this data provider
+             * to fetch data.
+             */
+            prototype.getSourceURL = function () {
+                return this.ControlPanelDataProvider_(theKey).dataSourceURL;
+            };
+
+            /**
+             * Returns the parser used for this data provider.
+             * 
+             * @returns {ControlPanelDataParser} The data parser object used by
+             * this class to parse data returned by the ajax call.
+             */
+            prototype.getDataParser = function () {
+                return this.ControlPanelDataProvider_(theKey).controlPanelDataParser;
+            };
+
+            /**
+             * Returns the Promise Object created by the ajax call done in this
+             * method.
+             * 
+             * @returns {Promise} An Object promise created by the ajax call.
+             */
+            prototype.fetchData = function () {
+                var self = this;
+                var promise = $.getJSON(this.getSourceURL()).then(
+                        function (data) {
+                            console.log("Ajax from CPDP");
+                            self.setDataArray(self.getDataParser().parse(data));
+                        }
+                );
+
+                return promise;
+            };
+
+            /**
+             * Getter method for data stored as an Array.
+             * 
+             * @returns An Object with data stored as an Array containing parsed
              * data to be used mainly in the details panel.
              */
             prototype.getDataArray = function () {
@@ -45,10 +75,14 @@ define(['jquery'],
             };
 
             /**
-             * This will be defined by the user, it must be a function that will be
-             * called automatically when data is available.
+             * Setter method for data stored as an Array.
+             * 
+             * @param{Array} planElementsArray An Object with data stored as 
+             * an Array containing parsed data.
              */
-            prototype.onDataAvaliable = null;
+            prototype.setDataArray = function (planElementsArray) {
+                this.ControlPanelDataProvider_(theKey).planElementsArray = planElementsArray;
+            };
 
             return ControlPanelDataProvider;
         }
