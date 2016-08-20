@@ -56,7 +56,6 @@ define(['jquery'],
                 var self = this;
                 var promise = $.getJSON(this.getSourceURL()).then(
                         function (data) {
-                            console.log("Ajax from CPDP");
                             self.setDataArray(self.getDataParser().parse(data));
                         }
                 );

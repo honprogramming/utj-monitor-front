@@ -4,11 +4,18 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<div class="appheader-logo" >
-    <div class="appheader-logo-block">
-        <span role="img" class="oj-icon appheader-logo-oracle" title="Logo" alt="Logo"></span>  
+<!--<div class="appheader-logo">-->
+<div class="oj-flex oj-sm-12">
+    <!--<div class="appheader-logo-block oj-flex-item oj-sm-8">-->
+    <div class="oj-flex-item oj-sm-8">
+        <!--<span role="img" class="oj-icon appheader-logo-oracle" title="Logo" alt="Logo"></span>-->  
+        <img src="css/images/utj-logo.png" title="Logo" alt="Logo"/>
     </div>
-    <div class="appheader-appname-block">
-        <span style="" class="appheader-appname" data-bind="text: $parent.appTitle"></span>
+    <!--<div class="appheader-appname-block">-->
+    <div class="oj-flex-item oj-sm-3 oj-sm-align-self-center">
+        <div class="oj-flex oj-sm-justify-content-center">
+            <!--<span class="appheader-appname" data-bind="text: $parent.appTitle"></span>-->
+            <span class="app-title" data-bind="text: $parent.appTitle"></span>
+        </div>
     </div>
 </div>

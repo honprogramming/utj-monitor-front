@@ -15,7 +15,7 @@ html, body {
 
 #globalBody {
     /*if any margin is modified then header and footer may be modified too*/
-    margin: 100px 0px 80px 0px;
+    margin: 100px 0px 60px 0px;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -28,12 +28,15 @@ header {
     margin-top: -100px;
     height: 100px;
     width: 100%;
+    position: fixed;
 }
 
 #mainContainer {
-    min-height: 100%;
-    margin-left: 5%;
-    margin-right: 5%;
+/*    height: 100%;
+    width: 100%;*/
+    overflow-y: scroll;
+    /*margin-left: 5px;*/
+    /*margin-right: 5px;*/
 }
 
 footer {
@@ -43,6 +46,13 @@ footer {
     width: 100%;
     bottom: 0;
     position: fixed;
+}
+
+.app-title {
+    font-size: xx-large;
+    font-style: normal;
+    font-weight: bold;
+    font-stretch: ultra-expanded;
 }
 
 .full-width {

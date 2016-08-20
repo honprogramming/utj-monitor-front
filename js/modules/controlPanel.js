@@ -18,7 +18,6 @@ define(
 
                 fetchData.then(
                         function () {
-                            console.log("callback from CP");
                             var controlPanelModel = new ControlPanelModel(controlPanelDataProvider);
                             self.sunburst = new SunburstViewModel("control_panel", controlPanelModel);
                             self.sunburst.addClickListener(handleSunburstClick);

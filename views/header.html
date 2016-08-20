@@ -3,18 +3,18 @@ Header file which contains links to the different sections of the application.
 Contains three main areas: appname/logo, global navigation, and application navigation.
 -->
 <div class="appheader">
-    <div class="oj-row appheader-classic">
-        <div class="oj-col appheader-col">
-            <div class="oj-row">
+    <div class="oj-flex appheader-classic">
+        <div class="oj-flex-item">
+            <div class="oj-flex">
 
                 <!-- Button that toggles off-canvas mobile menu content. -->  
-                <div id="header-mobile-menu" data-bind="ojModule: {viewName: 'view-parts/header/mobile-menu'}"></div>
+                <div id="header-mobile-menu" class="oj-flex-item oj-sm-0" data-bind="ojModule: {viewName: 'view-parts/header/mobile-menu'}"></div>
 
                 <!-- logo -->  
-                <div id="header-logo" data-bind="ojModule: {viewName: 'view-parts/header/logo'}"></div>
+                <div id="header-logo" class="oj-flex-item oj-sm-9" data-bind="ojModule: {viewName: 'view-parts/header/logo'}"></div>
 
                 <!-- Toolbar -->  
-                <div id="header-tool-bar" data-bind="ojModule: {viewName: 'view-parts/header/tool-bar'}"></div>
+                <div id="header-tool-bar" class="oj-flex-item oj-sm-3" data-bind="ojModule: {viewName: 'view-parts/header/tool-bar'}"></div>
 
                 <!-- Application Navigation -->
                 <!--<div id="header-home-menu" data-bind="ojModule: {viewName: 'view-parts/header/home-menu'}"></div>-->

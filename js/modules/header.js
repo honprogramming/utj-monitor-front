@@ -8,10 +8,13 @@
  * @param {type} oj
  * @returns {header_L9.HeaderViewModel}
  */
-define(['view-models/GeneralViewModel',
-    'view-models/header/MobileMenuViewModel',
-    'view-models/header/MenuViewModel',
-    'view-models/header/ToolBarViewModel'],
+define(
+        [
+            'view-models/GeneralViewModel',
+            'view-models/header/MobileMenuViewModel',
+            'view-models/header/MenuViewModel',
+            'view-models/header/ToolBarViewModel'
+        ],
         function (GeneralViewModel, MobileMenuViewModel, MenuViewModel, ToolBarViewModel) {
             /**
              * The view model for the header module
@@ -26,4 +29,5 @@ define(['view-models/GeneralViewModel',
                 self.appTitle = GeneralViewModel.nls("appTitle");
             }
             return HeaderViewModel;
-        });
+        }
+);
