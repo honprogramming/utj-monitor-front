@@ -1,12 +1,13 @@
 define(
         [
+            'knockout',
             'view-models/control-panel/SunburstViewModel',
             'models/control-panel/ControlPanelModel',
             'models/control-panel/ControlPanelDataProvider',
             'models/control-panel/ControlPanelDataParser',
             'view-models/control-panel/DetailsViewModel'
         ],
-        function (SunburstViewModel, ControlPanelModel,
+        function (ko, SunburstViewModel, ControlPanelModel,
                 ControlPanelDataProvider, ControlPanelDataParser, DetailsViewModel) {
             function ControlPanel() {
                 var self = this;
@@ -15,7 +16,8 @@ define(
                                 ControlPanelDataParser);
 
                 var fetchData = controlPanelDataProvider.fetchData();
-
+                self.observableSunburst = ko.observable();
+                
                 fetchData.then(
                         function () {
                             var controlPanelModel = new ControlPanelModel(controlPanelDataProvider);
@@ -23,6 +25,7 @@ define(
                             self.sunburst.addClickListener(handleSunburstClick);
                             self.details = new DetailsViewModel(controlPanelModel);
                             self.details.addSelectionListener(handleDetailsSelection);
+                            self.observableSunburst(self.sunburst);
                         }
                 );
 
