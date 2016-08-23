@@ -17,6 +17,7 @@ define(
 
                 var fetchData = controlPanelDataProvider.fetchData();
                 self.observableSunburst = ko.observable();
+                self.observableDetails = ko.observable();
                 
                 fetchData.then(
                         function () {
@@ -26,6 +27,7 @@ define(
                             self.details = new DetailsViewModel(controlPanelModel);
                             self.details.addSelectionListener(handleDetailsSelection);
                             self.observableSunburst(self.sunburst);
+                            self.observableDetails(self.details);
                         }
                 );
 
