@@ -162,7 +162,7 @@
                 <div class="oj-flex oj-sm-flex-direction-column" 
                      data-bind="click: $parent.clickHandler.bind($data.clickHandlerValue)">
                     <!-- ko with: $data.values -->  
-                    <div class="oj-flex-item" data-bind="ojComponent: {
+                    <div class="oj-flex-item oj-sm-12" data-bind="ojComponent: {
                                         component: 'ojStatusMeterGauge', 
                                         min: min, 
                                         max: max, 
@@ -177,10 +177,13 @@
                                         animationOnDisplay: 'auto',
                                         animationDuration: '1s'
                                     }" 
-                         style="align:center;margin:5px;height:90%;width:100%">
+                         style="align:center;height: 150px;">
                     </div>
                     <!-- /ko -->
-                    <div class="oj-flex-item pointer" data-bind="text: $data.text"></div>
+                    <div class="oj-flex-item oj-sm-12 pointer" 
+                            style="margin-top: 5px;text-align: center;"
+                            data-bind="text: $data.text">
+                    </div>
                 </div>
             </div>
             <!-- /ko -->
