@@ -22,8 +22,9 @@
                         <div data-bind="text: $data.text" class="pointer"></div>
                     </div>
                     <!-- ko with: $data.values -->
-                    <div class="oj-flex-item">
-                        <div data-bind="attr:{id: id},
+                    <div class="oj-flex-item oj-sm-12" 
+                         style="padding-right: 5px; max-height:20px;"
+                         data-bind="attr:{id: id},
                                 ojComponent: {
                                         component: 'ojStatusMeterGauge', 
                                         min: min, 
@@ -36,8 +37,7 @@
                                         animationOnDisplay: 'auto',
                                         animationDuration: '1s'
                                 }" 
-                             style= "margin:5px;height:20px; width:100%;">
-                        </div>
+                         style="">
                     </div>
                     <!-- /ko -->
                 </div>
@@ -125,17 +125,17 @@
                                 <div class="oj-flex-item title" style="text-align: left;" 
                                      data-bind="text: $data.type + ':' + $data.text + ' ' + $data.values.value + '%'"></div>
                                 <!-- ko foreach: {data: $data.responsibles, as: 'responsible'} -->
-                                    <div class="oj-flex-item">
-                                        <div class="oj-flex">
-                                            <img data-bind="attr: {src: 'css/images/avatar_24px_2x.png'}"/>
-                                            <div class="oj-flex-item">
-                                                <div class="oj-flex oj-sm-flex-direction-column">
-                                                    <div class="oj-flex-item" style="text-align: left;" data-bind="text: responsible.person"></div>
-                                                    <div class="oj-flex-item oj-text-xs oj-text-secondary-color" style="text-align: left" data-bind="text: responsible.area"></div>
-                                                </div>
+                                <div class="oj-flex-item">
+                                    <div class="oj-flex">
+                                        <img data-bind="attr: {src: 'css/images/avatar_24px_2x.png'}"/>
+                                        <div class="oj-flex-item">
+                                            <div class="oj-flex oj-sm-flex-direction-column">
+                                                <div class="oj-flex-item" style="text-align: left;" data-bind="text: responsible.person"></div>
+                                                <div class="oj-flex-item oj-text-xs oj-text-secondary-color" style="text-align: left" data-bind="text: responsible.area"></div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                                 <!-- /ko -->
                             </div>
                         </div>
@@ -181,8 +181,8 @@
                     </div>
                     <!-- /ko -->
                     <div class="oj-flex-item oj-sm-12 pointer" 
-                            style="margin-top: 5px;text-align: center;"
-                            data-bind="text: $data.text">
+                         style="margin-top: 5px;text-align: center;"
+                         data-bind="text: $data.text">
                     </div>
                 </div>
             </div>

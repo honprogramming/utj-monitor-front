@@ -1,7 +1,7 @@
 /* 
     Document   : override
-    Created on : <date>
-    Author     : <author>
+    Created on : 25/08/2016
+    Author     : alonsocucei
     Description:
         This is where any of your application specific styles should be included
 */
@@ -32,11 +32,8 @@ header {
 }
 
 #mainContainer {
-/*    height: 100%;
-    width: 100%;*/
-    overflow-y: scroll;
-    /*margin-left: 5px;*/
-    /*margin-right: 5px;*/
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 footer {
@@ -63,136 +60,8 @@ footer {
     height: 100%;
 }
 
-.page-content-area {
-    background: #ffffff;
-    border-radius: 3px;
-    border: 1px solid #d6dfe6;
-    margin: 10px;
-    min-height: 100%;
-    padding-right: 20px;
-    padding-left: 20px;
-    padding-bottom: 20px;
-}
-
-.icon-sprite {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    line-height: 1;
-    overflow: hidden;
-    direction: ltr;
-    text-align: center;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-}
-.icon-sprite:before {
-    display: inline-block;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-}
-
-.icon-sprite:before {
-    content: url("images/small-icons_454545_256x240.png");
-}
-
-.oj-enabled .icon-sprite:before {
-    content: url("images/small-icons_454545_256x240.png");
-}
-
-.oj-hover .icon-sprite:before {
-    content: url("images/small-icons_0572ce_256x240.png");
-}
-
-.oj-active .icon-sprite:before {
-    content: url("images/small-icons_ffffff_256x240.png");
-}
-
-/* positioning */
-.icon-compass:before {
-    margin: -32px 0 0 0; 
-}
-
-.icon-search:before {
-    margin: -32px 0 0 -16px;
-}
-
-.image {
-    padding: 10px 10px 10px 0px; 
-    width:auto;
-}
-
 .centered {
     text-align:center;
-}
-
-.home-even {
-    margin: 20px;
-    padding: 20px;
-}
-
-.home-odd {
-    background:#E8E8E8;
-    margin: 20px;
-    padding: 20px;
-    box-shadow: inset 100px 0px 100px -50px #F8F8F8 , 
-        inset -100px 0px 100px -50px #F8F8F8 ;
-}
-
-.home-description-title {
-    font-size: 2em;
-    padding-top: 20px;
-}
-
-.home-description-text, .home-contact-descritpion {
-    text-align: justify;
-    line-height: 1.8;
-    padding: 10px 20px 0px 0px;
-    font-size: 1.2em;
-
-}
-
-.home-description-image {
-    padding: 30px 10px 10px 0px; 
-    width:100%; 
-    max-width: 100%; 
-    max-height: 100%
-}
-
-.home-demo-title {
-    font-size: 2em;
-    padding-top: 20px;
-    text-align:center;
-}
-
-.home-demo-video {
-    padding-left: 10px;
-    padding-right: 10px;
-    width: 100%;
-    height: 400px;
-    border: 0px;
-}
-
-.home-memberships-title, .home-crew-title {
-    font-size: 2em;
-    padding-top: 20px;
-    text-align:center;
-    margin-bottom: 40px;
-}
-
-.home-memberships-table, .home-crew-table {
-    width:80%; 
-    margin-left: 10%; 
-    margin-right: 10%; 
-}
-
-.home-contact-title {
-    font-size: 2em;
-    padding-top: 20px;
-}
-
-.home-contact-map {
-    width:auto;
-    height:400px;
 }
 
 .title {
@@ -201,4 +70,8 @@ footer {
 
 .pointer {
     cursor: pointer;
+}
+
+.scrolly {
+    overflow-y: auto;
 }

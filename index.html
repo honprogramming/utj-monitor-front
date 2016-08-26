@@ -35,7 +35,12 @@
             <!-- off-canvas content -->
             <div id="appDrawer" 
                  class="oj-offcanvas-start oj-panel appheader-offscreencontent full-height">
-                <div id='appHeaderOffCanvasInnerDiv' data-bind="ojModule: {name: 'header', viewName: 'view-parts/header/appHeaderOffCanvasTemplate'}"></div>
+                <div id='appHeaderOffCanvasInnerDiv'
+                     data-bind="ojModule: {
+                            name: 'header',
+                                    viewName: 'view-parts/header/appHeaderOffCanvasTemplate'
+                            }">
+                </div>
             </div>
 
             <!-- Header section which contains the Global Branding, Global Navigation, 
@@ -44,12 +49,19 @@
             <header id="headerWrapper" role="banner" data-bind="ojModule: {name: 'header'}"></header>
 
             <!-- This is where your main page content will be loaded -->
-            <div id="mainContainer" class="oj-flex full-height">
+            <div id="mainContainer" role="main" class="oj-flex full-height">
                 <!--<div id="mainContent" class="full-height" data-bind="ojModule: {name: 'projects'}"></div>-->
                 <!--<div id="mainContent" class="full-height" data-bind="ojModule: {name: 'home'}"></div>-->
-                <div id="mainContent" class="oj-flex-item full-height" data-bind="ojModule: {name: 'controlPanel', viewName: 'control-panel'}"></div>
+                <div id="mainContent" class="oj-flex-item full-height"
+                    data-bind="ojModule: {
+                            name: 'controlPanel',
+                            viewName: 'control-panel'
+                    }">
+                </div>
             </div>
-            <footer id="footerWrapper" role="footer" data-bind="ojModule: {name: 'footer'}" ></footer>
+            <footer id="footerWrapper" role="footer"
+                    data-bind="ojModule: {name: 'footer'}">
+            </footer>
         </div>
     </body>
 </html>
