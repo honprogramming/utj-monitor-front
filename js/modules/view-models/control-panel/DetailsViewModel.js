@@ -1,9 +1,14 @@
-define(['knockout', 'view-models/GeneralViewModel',
-    'models/control-panel/PlanElementTypes',
-    'view-models/events/EventTypes',
-    'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge',
-    'ojs/ojcollapsible', 'ojs/ojmasonrylayout'],
-        function (ko, GeneralViewModel, PlanElementTypes, EventTypes) {
+define(
+        [
+            'knockout', 'view-models/GeneralViewModel',
+            'models/control-panel/PlanElementCalculated',
+            'models/control-panel/PlanElementTypes',
+            'view-models/events/EventTypes',
+            'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge',
+            'ojs/ojcollapsible', 'ojs/ojmasonrylayout'
+        ],
+        function (ko, GeneralViewModel, PlanElementCalculated, PlanElementTypes,
+                EventTypes) {
             var theKey = {};
 
             function DetailsViewModel(controlPanelModel) {
@@ -172,7 +177,7 @@ define(['knockout', 'view-models/GeneralViewModel',
             prototype.updateChildren = function (selectedPlanElement) {
                 var childrenPlanElement = [];
                 var planElementsArray = this.getControlPanelModel().getPlanElementsArray();
-                var children = selectedPlanElement.getChildren();
+                var children = selectedPlanElement.getChildren(PlanElementCalculated);
 
                 if (children) {
                     for (var i = 0; i < children.length; i++) {

@@ -2,10 +2,11 @@ define(
         [
             'jquery', 'knockout', 'view-models/GeneralViewModel',
             'view-models/events/EventTypes',
-            'models/control-panel/PlanElement',
+            'models/control-panel/PlanElementCalculated',
+            'models/control-panel/PlanElementMeasurable',
             'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojsunburst'
         ],
-        function ($, ko, GeneralViewModel, EventTypes, PlanElement) {
+        function ($, ko, GeneralViewModel, EventTypes, PlanElementCalculated, PlanElementMeasurable) {
             var theKey = {};
             function SunburstViewModel(prefix, controlPanelModel) {
                 var self = this;
@@ -131,10 +132,15 @@ define(
 
                 for (var i = 1; i < planElementsArray.length; i++, id++) {
                     var planElement = planElementsArray[i];
-                    var parentElement = planElement.getParent();
-                    var sibilings = parentElement.getChildren().length;
-                    textId = id.toString();
-                    nodesMap[textId] = createNode(textId, planElement, sibilings);
+                    if (planElement instanceof PlanElementCalculated) {
+                        var parentElement = planElement.getParent();
+                        var sibilings = parentElement.getChildren(PlanElementCalculated).length;
+                        textId = id.toString();
+                        nodesMap[textId] = createNode(textId, planElement, sibilings);
+                    } 
+//                    else {
+//                        id --;
+//                    }
                 }
 
                 for (var id in nodesMap) {
@@ -149,7 +155,7 @@ define(
                 var progress = planElement.getProgress();
                 var shortDesc = "&lt;b&gt;" + planElement.getName() + "&lt;/b&gt;";
 
-                if (planElement instanceof PlanElement) {
+                if (planElement instanceof PlanElementMeasurable) {
                     var goalPlusAchieve = "&lt;br/&gt;" + "Meta: " + planElement.getGoal() +
                             "&lt;br/&gt;" + "Avance: " + planElement.getAchieve();
                     shortDesc += goalPlusAchieve;
@@ -217,7 +223,7 @@ define(
              */
             function addChildNodes(id, planElementsArray, nodesMap) {
                 var planElement = planElementsArray[id];
-                var children = planElement.getChildren();
+                var children = planElement.getChildren(PlanElementCalculated);
                 var node = nodesMap[id];
 
                 node.nodes = [];
@@ -228,7 +234,8 @@ define(
                     var childrenLength = children.length;
 
                     for (var i = 0; i < childrenLength; i++) {
-                        nodes.push(nodesMap[planElementsArray.indexOf(children[i])]);
+                        var child = children[i];
+                        nodes.push(nodesMap[planElementsArray.indexOf(child)]);
                     }
                 }
             }

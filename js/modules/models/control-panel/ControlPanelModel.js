@@ -1,5 +1,5 @@
 /**
- * This class will hold a set of PlanElement and PlanElementCalculated objects.
+ * This class will hold a set of PlanElementMeasurable and PlanElementCalculated objects.
  * It's intetion is to provide functions to manage the data, like get, sort etc.
  * 
  * @returns {Function} The ControlPanel class.

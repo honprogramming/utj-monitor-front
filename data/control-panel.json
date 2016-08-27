@@ -2847,7 +2847,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 90,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -3007,7 +3007,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 30,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -3227,7 +3227,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 30,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -3512,7 +3512,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 30,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -3617,7 +3617,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 30,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -3837,7 +3837,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 30,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -4122,7 +4122,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 30,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -4352,7 +4352,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 30,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -4597,7 +4597,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 50,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -4942,7 +4942,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 90,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -5162,7 +5162,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 90,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -5507,7 +5507,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 90,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -5987,7 +5987,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 90,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -6152,7 +6152,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 90,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -6312,7 +6312,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 90,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -6592,7 +6592,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 90,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -6827,7 +6827,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 100,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -7237,7 +7237,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 70,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -7402,7 +7402,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 70,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -7592,7 +7592,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 70,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -7962,7 +7962,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 100,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -8262,7 +8262,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 70,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",
@@ -8557,7 +8557,7 @@
                                 ],
                                 "goal": 100,
                                 "achieve": 70,
-                                "Strategies": [
+                                "strategies": [
                                     {
                                         "type": "strategy",
                                         "label": "a)",

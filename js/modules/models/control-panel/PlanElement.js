@@ -2,22 +2,19 @@
  * Represents a plan element which values are provided from the constructor.
  * This class is immutable.
  * 
- * Inherits:
- * models/control-panel/PlanElementCalculated
- * 
- * @param {Function} PlanElementCalculated The base class of a plan element.
- * @returns {Function} Theh PlanElement class.
+ * @returns {Function} The PlanElement class.
  */
-define(['models/control-panel/PlanElementCalculated'], 
-        function(PlanElementCalculated) {
+define([], 
+        function() {
             var theKey = {};
             
-            function PlanElement(type, label, name, goal, achieve, parent, children, responsibles) {
-                PlanElementCalculated.call(this, type, label, name, parent, children, responsibles);
-                
+            function PlanElement(type, label, name, parent, children) {
                 var privateData = {
-                    goal: goal,
-                    achieve: achieve
+                    type: type,
+                    label: label,
+                    name: name,
+                    parent: parent,
+                    children: children
                 };
                 
                 this.PlanElement_ = function(key) {
@@ -25,37 +22,70 @@ define(['models/control-panel/PlanElementCalculated'],
                         return privateData;
                     }
                 };
+                
+                return this;
             }
             
-            PlanElement.prototype = Object.create(PlanElementCalculated.prototype);
             var prototype = PlanElement.prototype;
             
             /**
-             * Returns the goal for this element.
+             * Returns the type of this element.
+             * Types are defined in PlanElementTypes Object.
              * 
-             * @returns {Number} An integer with the current goal of the element.
+             * @returns {String} One of the constant Strings in PlanElementTypes.
              */
-            prototype.getGoal = function() {
-                return this.PlanElement_(theKey).goal;
+            prototype.getType = function() {
+                return this.PlanElement_(theKey).type;
             };
             
             /**
-             * Returns the achieve for this element.
+             * Returns a String with the label to display.
              * 
-             * @returns {Number} An integer with the current achieve of the element.
+             * @returns {String} Returns a String to be displayed as label.
              */
-            prototype.getAchieve = function() {
-                return this.PlanElement_(theKey).achieve;
+            prototype.getLabel = function() {
+                return this.PlanElement_(theKey).label;
             };
             
             /**
-             * Returns the current progress for this element.
+             * Returns the name of the element.
              * 
-             * @returns {Decimal} A decimal number calculated from goal and 
-             * achieve values. 1.0 represents 100%.
+             * @returns {String} A String with the name of the element.
              */
-            prototype.getProgress = function() {
-                return this.getAchieve() / this.getGoal();
+            prototype.getName = function() {
+                return this.PlanElement_(theKey).name;
+            };
+            
+            /**
+             * Returns the current parent of this element or null if it's 
+             * the root element.
+             * 
+             * @returns {Object} A reference to the parent Object or null if it's
+             * the root element.
+             */
+            prototype.getParent = function() {
+                return this.PlanElement_(theKey).parent;
+            };
+            
+            /**
+             * Returns the children elements of this element.
+             * If the element doesn't have any children it will return an empty
+             * array.
+             * 
+             * @returns {Array} An Array containing the children elements.
+             */
+            prototype.getChildren = function(classType) {
+                var children = this.PlanElement_(theKey).children;
+                
+                if (classType && children) {
+                    return children.filter(
+                                function(element) {
+                                    return element instanceof classType;
+                                }
+                            );
+                } else {
+                    return children;
+                }
             };
             
             return PlanElement;

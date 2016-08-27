@@ -60,8 +60,12 @@ footer {
     height: 100%;
 }
 
+.left-align {
+    text-align: left;
+}
+
 .centered {
-    text-align:center;
+    text-align: center;
 }
 
 .title {
@@ -74,4 +78,12 @@ footer {
 
 .scrolly {
     overflow-y: auto;
+}
+
+.component-padding {
+    padding: 15px;
+}
+
+.bottom-padding {
+    padding-bottom: 5px;
 }

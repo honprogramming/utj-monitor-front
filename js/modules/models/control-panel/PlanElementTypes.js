@@ -14,6 +14,8 @@ define([],
             THEMES: "themes",
             OBJECTIVE: "objective",
             OBJECTIVES: "objectives",
+            STRATEGY: "strategy",
+            STRATEGIES: "strategies",
             INDICATOR: "indicator",
             INDICATORS: "indicators",
             PROJECT: "project",
@@ -36,6 +38,8 @@ define([],
                         return this.OBJECTIVES;
                     case this.INDICATOR:
                         return this.INDICATORS;
+                    case this.STRATEGY:
+                        return this.STRATEGIES;
                     case this.PROJECT:
                         return this.PROJECTS;
                     case this.PRODUCT:
