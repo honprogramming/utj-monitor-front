@@ -1,4 +1,5 @@
 <!-- ko if: $data -->
+<div data-bind="text: title" class="component-title"></div>
 <div id="panel-details-container" class="oj-flex oj-sm-flex-direction-column">
     <div class="oj-flex-item" 
          data-bind="visible: currentParents().length > 0,
@@ -16,7 +17,7 @@
                 <div class="oj-flex oj-sm-flex-direction-column"
                      data-bind="click: $parent.clickHandler.bind($data.clickHandlerValue)">
                     <div class="oj-flex-item">
-                        <div class="title" data-bind="text: $data.type"></div>
+                        <div class="section-title" data-bind="text: $data.type"></div>
                     </div>
                     <div class="oj-flex-item">
                         <div data-bind="text: $data.text" class="pointer"></div>
@@ -51,12 +52,12 @@
             <div class="demo-tile-content">
                 <div class="demo-tile-front">
                     <div class="oj-flex-item">
-                        <div class="title"  data-bind="text: $data.type"></div>
+                        <div class="section-title pointer"  
+                                data-bind="text: $data.type + ' ' + $data.text,
+                                    click: $parent.clickHandler.bind($data.clickHandlerValue)">
+                        </div>
                     </div>
                     <div class="oj-flex-item oj-sm-12">
-                        <div class="oj-flex-item" data-bind="click: $parent.clickHandler.bind($data.clickHandlerValue)">
-                            <div  data-bind="text: $data.text"></div>
-                        </div>
                         <div class="oj-sm-12 oj-flex" data-bind="click: $parent.clickHandler.bind($data.clickHandlerValue)">
                             <!-- ko with: $data.values -->
                             <div class="oj-sm-11" data-bind="ojComponent: {
@@ -122,8 +123,8 @@
                         </div>
                         <div class="oj-flex-item">
                             <div class="oj-flex oj-flex-items-pad oj-sm-flex-direction-column">
-                                <div class="oj-flex-item title left-align bottom-padding"
-                                     data-bind="text: $data.type + ':' + $data.text + ' ' + $data.values.value + '%'">
+                                <div class="oj-flex-item section-title left-align bottom-padding"
+                                     data-bind="text: $data.type + ' ' + $data.text + ' ' + $data.values.value + '%'">
                                 </div>
                                 <!-- ko foreach: {data: $data.responsibles, as: 'responsible'} -->
                                 <div class="oj-flex-item">
@@ -159,7 +160,7 @@
             <label data-bind="text: collapsibleChildrenPanelTitle"></label>
         </div>
         <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-center">
-            <div class="oj-flex-item oj-sm-12 centered title" data-bind="text: childrenType"></div>
+            <div class="oj-flex-item oj-sm-12 centered section-title" data-bind="text: childrenType"></div>
             <!-- ko foreach: currentChildren -->
             <div class="oj-flex-item oj-sm-6" style="margin:10px 0px 10px 0px">
                 <div class="oj-flex oj-sm-flex-direction-column" 

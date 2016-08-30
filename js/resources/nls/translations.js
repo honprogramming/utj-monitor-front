@@ -35,6 +35,12 @@ define({
             "copyright": "Copyright &copy; 2016 UTJ Monitor and/or its affiliates. All rights reserved"
         },
         "controlPanel": {
+            "sunburst": {
+                "title": "Cumplimiento de metas PIDE"
+            },
+            "details": {
+                "title": "Detalles de cumplimiento de metas PIDE"
+            },
             "vision": "Visión",
             "axe": "Eje",
             "axes": "Ejes",

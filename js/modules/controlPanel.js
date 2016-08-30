@@ -22,9 +22,11 @@ define(
                 fetchData.then(
                         function () {
                             var controlPanelModel = new ControlPanelModel(controlPanelDataProvider);
-                            self.sunburst = new SunburstViewModel("control_panel", controlPanelModel);
+                            self.sunburst = new SunburstViewModel("control_panel", 
+                                    "controlPanel.sunburst.title", controlPanelModel);
                             self.sunburst.addClickListener(handleSunburstClick);
-                            self.details = new DetailsViewModel(controlPanelModel);
+                            self.details = new DetailsViewModel("controlPanel.details.title", 
+                                    controlPanelModel);
                             self.details.addSelectionListener(handleDetailsSelection);
                             self.observableSunburst(self.sunburst);
                             self.observableDetails(self.details);

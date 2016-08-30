@@ -8,7 +8,7 @@ define(
         ],
         function ($, ko, GeneralViewModel, EventTypes, PlanElementCalculated, PlanElementMeasurable) {
             var theKey = {};
-            function SunburstViewModel(prefix, controlPanelModel) {
+            function SunburstViewModel(prefix, title, controlPanelModel) {
                 var self = this;
                 var privateData = {
                     controlPanelModel: controlPanelModel,
@@ -26,6 +26,7 @@ define(
                 };
 
                 self.id = prefix + "_sunburst";
+                self.title = this.nls(title);
                 self.nodeValues = ko.observableArray([self.getMainNode()]);
                 self.selection = ko.observableArray();
 

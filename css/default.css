@@ -15,7 +15,7 @@ html, body {
 
 #globalBody {
     /*if any margin is modified then header and footer may be modified too*/
-    margin: 100px 0px 60px 0px;
+    margin: 80px 0px 60px 0px;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -25,8 +25,8 @@ html, body {
 
 header {
     /*this margin will depend on globalBody margins*/
-    margin-top: -100px;
-    height: 100px;
+    margin-top: -80px;
+    height: 80px;
     width: 100%;
     position: fixed;
 }
@@ -52,6 +52,21 @@ footer {
     font-stretch: ultra-expanded;
 }
 
+.component-title {
+    text-align: center;
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+.section-title {
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.title {
+    font-weight: bold;
+}
+
 .full-width {
     width: 100%;
 }
@@ -66,10 +81,6 @@ footer {
 
 .centered {
     text-align: center;
-}
-
-.title {
-    font-weight: bold;
 }
 
 .pointer {

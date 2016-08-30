@@ -11,7 +11,7 @@ define(
                 EventTypes) {
             var theKey = {};
 
-            function DetailsViewModel(controlPanelModel) {
+            function DetailsViewModel(title, controlPanelModel) {
                 var self = this;
                 this.listeners = [];
 
@@ -27,6 +27,7 @@ define(
                     }
                 };
 
+                this.title = this.nls(title);
                 this.selectedPlanElement = ko.observable();
                 this.currentParents = ko.observableArray();
                 this.currentChildren = ko.observableArray();
