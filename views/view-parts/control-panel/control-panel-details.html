@@ -124,7 +124,7 @@
                         <div class="oj-flex-item">
                             <div class="oj-flex oj-flex-items-pad oj-sm-flex-direction-column">
                                 <div class="oj-flex-item section-title left-align bottom-padding"
-                                     data-bind="text: $data.type + ' ' + $data.text + ' ' + $data.values.value + '%'">
+                                     data-bind="text: $data.type + ' ' + $data.text + ' - ' + $data.values.value + '%'">
                                 </div>
                                 <!-- ko foreach: {data: $data.responsibles, as: 'responsible'} -->
                                 <div class="oj-flex-item">
@@ -140,6 +140,23 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- /ko -->
+                                <!-- ko if: childrenType -->
+                                <div class="oj-flex-item" data-bind="text: childrenType">
+                                </div>
+                                <!-- /ko -->
+                                <!-- ko foreach: {data: $data.children, as: 'child'} -->
+                                    <div class="oj-flex-item">
+                                        <div class="oj-flex oj-sm-flex-direction-column">
+                                            <div class="oj-flex-item">
+                                                <div class="oj-flex">
+                                                    <div class="oj-flex-item left-align" data-bind="text: child.getName()"></div>
+                                                    <!--<div class="oj-flex-item oj-text-xs oj-text-secondary-color left-align" data-bind="text: responsible.area"></div>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                 <!-- /ko -->
                             </div>
                         </div>

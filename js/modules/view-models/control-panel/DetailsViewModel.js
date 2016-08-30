@@ -2,13 +2,14 @@ define(
         [
             'knockout', 'view-models/GeneralViewModel',
             'models/control-panel/PlanElementCalculated',
+            'models/control-panel/PlanElementMeasurable',
             'models/control-panel/PlanElementTypes',
             'view-models/events/EventTypes',
             'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge',
             'ojs/ojcollapsible', 'ojs/ojmasonrylayout'
         ],
-        function (ko, GeneralViewModel, PlanElementCalculated, PlanElementTypes,
-                EventTypes) {
+        function (ko, GeneralViewModel, PlanElementCalculated, PlanElementMeasurable,
+                PlanElementTypes, EventTypes) {
             var theKey = {};
 
             function DetailsViewModel(title, controlPanelModel) {
@@ -241,10 +242,26 @@ define(
                 ];
 
                 var translatedType = this.nls("controlPanel." + element.getType());
+                var children = element.getChildren();
+                var childrenType = null;
+                
+                if (children) {
+                    children = children.filter(
+                            function(element) {
+                                return ! ((element instanceof PlanElementCalculated) ||
+                                        (element instanceof PlanElementMeasurable));
+                            }
+                    );
+            
+                    childrenType =  children.length > 0 ? PlanElementTypes.getPlural(children[0].getType()) : null;
+                }
+                
                 var statusMeterElement = {
                     type: translatedType,
                     text: element.getName(),
                     responsibles: element.getResponsibles(),
+                    children: children,
+                    childrenType: childrenType,
                     clickHandlerValue: id,
                     values: {
                         id: id,

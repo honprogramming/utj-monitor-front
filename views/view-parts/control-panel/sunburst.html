@@ -1,23 +1,25 @@
 <!-- ko if: $data -->
-<div data-bind="text: title" class="component-title"></div>
-<div class="full-width full-height" 
-     data-bind="attr: {id: id},
-        ojComponent: {
-            component: 'ojSunburst',
-            animationOnDisplay: 'auto',
-            animationOnDataChange: 'auto',
-            animationDuration: '2s',
-            nodes: nodeValues,
-            optionChange: clickHandler,
-            rotation: 'on',
-            startAngle: 30,
-            selection: selection,
-            nodeDefaults: {
-                labelDisplay: 'rotated',
-                selectedInnerColor: '#FFFFFF',
-                selectedOuterColor: '#FFFFFF'
-            }
-        }" 
-     >
+<div class="oj-flex full-height">
+    <div data-bind="text: title" class="oj-flex-item oj-sm-12 component-title"></div>
+    <div class="oj-flex-item oj-sm-12"
+         data-bind="attr: {id: id},
+            ojComponent: {
+                component: 'ojSunburst',
+                animationOnDisplay: 'auto',
+                animationOnDataChange: 'auto',
+                animationDuration: '2s',
+                nodes: nodeValues,
+                optionChange: clickHandler,
+                rotation: 'on',
+                startAngle: 30,
+                selection: selection,
+                nodeDefaults: {
+                    labelDisplay: 'rotated',
+                    selectedInnerColor: '#FFFFFF',
+                    selectedOuterColor: '#FFFFFF'
+                }
+            }" 
+         >
+    </div>
 </div>
 <!-- /ko -->
