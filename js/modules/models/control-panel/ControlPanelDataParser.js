@@ -50,12 +50,12 @@ define(
                         var themesArray = axeObject[PlanElementTypes.THEMES];
                         for (var j = 0; j < themesArray.length; j++) {
                             var themeObject = themesArray[j];
-//                            var themeElement = new PlanElementCalculated(
-//                                    PlanElementTypes.THEME, themeObject["label"],
-//                                    themeObject["name"], axeElement, []);
-//
-//                            axeElement.getChildren().push(themeElement);
-//                            planElements.push(themeElement);
+                            var themeElement = new PlanElement(
+                                    PlanElementTypes.THEME, themeObject["label"],
+                                    themeObject["name"], axeElement, []);
+
+                            axeElement.getChildren().push(themeElement);
+                            planElements.push(themeElement);
 
                             var objectivesArray = themeObject[PlanElementTypes.OBJECTIVES];
                             for (var k = 0; k < objectivesArray.length; k++) {

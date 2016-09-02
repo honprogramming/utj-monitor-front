@@ -52,13 +52,14 @@ footer {
     font-stretch: ultra-expanded;
 }
 
-.component-title {
+.section-title {
     text-align: center;
     font-size: x-large;
     font-weight: bolder;
+    height: 5%;
 }
 
-.section-title {
+.component-title {
     font-size: larger;
     font-weight: bolder;
 }
@@ -91,10 +92,14 @@ footer {
     overflow-y: auto;
 }
 
+.section-padding {
+    padding: 15px;
+}
+
 .component-padding {
     padding: 15px;
 }
 
 .bottom-padding {
-    padding-bottom: 5px;
+    padding-bottom: 10px;
 }

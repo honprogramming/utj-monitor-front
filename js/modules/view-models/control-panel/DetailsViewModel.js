@@ -254,6 +254,10 @@ define(
                     );
             
                     childrenType =  children.length > 0 ? PlanElementTypes.getPlural(children[0].getType()) : null;
+                    
+                    if (childrenType) {
+                        childrenType = this.nls("controlPanel." + childrenType);
+                    }
                 }
                 
                 var statusMeterElement = {
@@ -263,6 +267,7 @@ define(
                     children: children,
                     childrenType: childrenType,
                     clickHandlerValue: id,
+                    doesItFlip: element.getType() !== PlanElementTypes.VISION,
                     values: {
                         id: id,
                         min: progress < 0 ? progress : 0,

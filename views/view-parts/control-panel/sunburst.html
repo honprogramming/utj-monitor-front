@@ -1,6 +1,6 @@
 <!-- ko if: $data -->
-<div class="oj-flex full-height">
-    <div data-bind="text: title" class="oj-flex-item oj-sm-12 component-title"></div>
+<div class="oj-flex oj-sm-12 full-height">
+    <div data-bind="text: title" class="oj-flex-item oj-sm-12 section-title"></div>
     <div class="oj-flex-item oj-sm-12"
          data-bind="attr: {id: id},
             ojComponent: {
@@ -17,6 +17,9 @@
                     labelDisplay: 'rotated',
                     selectedInnerColor: '#FFFFFF',
                     selectedOuterColor: '#FFFFFF'
+                },
+                rootAttributes: {
+                    style: 'height: 95%;'
                 }
             }" 
          >

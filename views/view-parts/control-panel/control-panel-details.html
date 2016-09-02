@@ -1,5 +1,5 @@
 <!-- ko if: $data -->
-<div data-bind="text: title" class="component-title"></div>
+<div data-bind="text: title" class="section-title"></div>
 <div id="panel-details-container" class="oj-flex oj-sm-flex-direction-column">
     <div class="oj-flex-item" 
          data-bind="visible: currentParents().length > 0,
@@ -52,7 +52,7 @@
             <div class="demo-tile-content">
                 <div class="demo-tile-front">
                     <div class="oj-flex-item">
-                        <div class="section-title pointer"  
+                        <div class="component-title pointer"  
                                 data-bind="text: $data.type + ' ' + $data.text,
                                     click: $parent.clickHandler.bind($data.clickHandlerValue)">
                         </div>
@@ -80,6 +80,7 @@
                                  style="align:center;margin-top:5px;margin-bottom:5px;height:150px;">
                             </div>
                             <!-- /ko -->
+                            <!-- ko if: doesItFlip -->
                             <div class="oj-sm-1 oj-sm-align-self-center">
                                 <button data-bind="
                                     attr: {
@@ -98,6 +99,7 @@
                                         >
                                 </button>
                             </div>
+                            <!-- /ko -->
                         </div>
                     </div>
                 </div>
@@ -121,13 +123,13 @@
                                     >
                             </button>
                         </div>
-                        <div class="oj-flex-item">
+                        <div class="oj-flex-item oj-sm-11">
                             <div class="oj-flex oj-flex-items-pad oj-sm-flex-direction-column">
-                                <div class="oj-flex-item section-title left-align bottom-padding"
+                                <div class="oj-flex-item component-title left-align bottom-padding"
                                      data-bind="text: $data.type + ' ' + $data.text + ' - ' + $data.values.value + '%'">
                                 </div>
                                 <!-- ko foreach: {data: $data.responsibles, as: 'responsible'} -->
-                                <div class="oj-flex-item">
+                                <div class="oj-flex-item bottom-padding">
                                     <div class="oj-flex">
                                         <div class="oj-flex-item oj-sm-2">
                                             <img data-bind="attr: {src: 'css/images/avatar_24px_2x.png'}"/>
@@ -141,23 +143,14 @@
                                     </div>
                                 </div>
                                 <!-- /ko -->
+                                <div class="oj-flex oj-sm-flex-direction-column">
                                 <!-- ko if: childrenType -->
-                                <div class="oj-flex-item" data-bind="text: childrenType">
+                                    <div class="oj-flex-item title left-align" data-bind="text: childrenType"></div>
+                                    <!-- ko foreach: {data: $data.children, as: 'child'} -->
+                                        <div class="oj-flex-item left-align" data-bind="text: child.getName()"></div>
+                                    <!-- /ko -->
+                                <!-- /ko -->
                                 </div>
-                                <!-- /ko -->
-                                <!-- ko foreach: {data: $data.children, as: 'child'} -->
-                                    <div class="oj-flex-item">
-                                        <div class="oj-flex oj-sm-flex-direction-column">
-                                            <div class="oj-flex-item">
-                                                <div class="oj-flex">
-                                                    <div class="oj-flex-item left-align" data-bind="text: child.getName()"></div>
-                                                    <!--<div class="oj-flex-item oj-text-xs oj-text-secondary-color left-align" data-bind="text: responsible.area"></div>-->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                <!-- /ko -->
                             </div>
                         </div>
                     </div>

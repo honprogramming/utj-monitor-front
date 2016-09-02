@@ -48,6 +48,8 @@ define({
             "themes": "Temas",
             "objective": "Objetivo",
             "objectives": "Objetivos",
+            "strategy": "Estrategia",
+            "strategies": "Estrategias",
             "indicator": "Indicador",
             "indicators": "Indicadores",
             "project": "Proyecto",
