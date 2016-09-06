@@ -1,0 +1,133 @@
+<div id="form-container">
+    <div class="oj-form-layout">
+        <div class="oj-form oj-sm-odd-cols-6">  
+            <div class="oj-flex">  
+                <div class="oj-flex-item">
+                    <label for="type">Tipo</label>
+                </div>
+                <div class="oj-flex-item">
+                    <input id="type" list="indicator-types" data-bind="
+                            ojComponent: {
+                                component: 'ojCombobox', 
+                                value: 'result',
+                                rootAttributes: {
+                                    style:'max-width:20em'
+                                }
+                            }"/>
+                    <datalist id="indicator-types">
+                        <option value="result">Resultado</option>
+                        <option value="esfuerzo">Esfuerzo</option>
+                    </datalist>
+                </div>
+            </div>
+            <div class="oj-flex"> 
+                <div class="oj-flex-item">
+                    <label for="name">Nombre</label>
+                </div>
+                <div class="oj-flex-item">
+                    <input id="name" data-bind="
+                        ojComponent: {
+                            component: 'ojInputText', 
+                            placeholder:'nombre...'
+                        }">
+                </div>
+            </div>
+            <div class="oj-flex"> 
+                <div class="oj-flex-item">
+                    <label  for="description">Descripci&oacute;n</label>
+                </div>
+                <div class="oj-flex-item">
+                    <textarea id="description" data-bind="
+                            ojComponent: {
+                                component: 'ojTextArea', 
+                                placeholder: 'descripción...',
+                                value: ''
+                            }">
+                    </textarea>
+                </div>
+            </div>
+            <div class="oj-flex">  
+                <div class="oj-flex-item">
+                    <label for="sentido">Sentido</label>
+                </div>
+                <div class="oj-flex-item">
+                    <input id="sentido" list="sentido-types" data-bind="
+                            ojComponent: {
+                                component: 'ojCombobox', 
+                                value: 'positive',
+                                rootAttributes: {
+                                    style:'max-width:20em'
+                                }
+                            }"/>
+                    <datalist id="sentido-types">
+                        <option value="positive">Positivo</option>
+                        <option value="negative">Negativo</option>
+                    </datalist>
+                </div>
+            </div>
+            <div class="oj-flex">  
+                <div class="oj-flex-item">
+                    <label for="measure-unit">Unidad de Medida</label>
+                </div>
+                <div class="oj-flex-item">
+                    <div class="oj-flex-item">
+                        <input id="measure-unit" data-bind="
+                        ojComponent: {
+                            component: 'ojInputText', 
+                            placeholder:'persona, estudiante, profesor, etc...'
+                        }">
+                    </div>
+                </div>
+            </div>
+            <div class="oj-flex">  
+                <div class="oj-flex-item">
+                    <label for="start-date">Línea Base</label>
+                </div>
+                <div class="oj-flex-item">
+                    <div class="oj-flex-item">
+                        <input id="start-date" data-bind="
+                        ojComponent: {
+                            component: 'ojInputDate',
+                            value: $parent.startDate
+                        }">
+                    </div>
+                </div>
+            </div>
+            <div class="oj-flex">  
+                <div class="oj-flex-item">
+                    <label for="last-update">Ultima actualización</label>
+                </div>
+                <div class="oj-flex-item">
+                    <div class="oj-flex-item">
+                        <input id="last-update" data-bind="
+                        ojComponent: {
+                            component: 'ojInputDate',
+                            value: $parent.lastUpdate
+                        }">
+                    </div>
+                </div>
+            </div>
+            <div class="oj-flex">  
+                <div class="oj-flex-item">
+                    <label for="frequency-update">Frecuencia de Actualización</label>
+                </div>
+                <div class="oj-flex-item">
+                    <input id="frequency-update" list="frequency-types" data-bind="
+                            ojComponent: {
+                                component: 'ojCombobox', 
+                                value: 'month',
+                                rootAttributes: {
+                                    style:'max-width:20em'
+                                }
+                            }"/>
+                    <datalist id="frequency-types">
+                        <option value="month">Mensual</option>
+                        <option value="quater">Cuatrimestral</option>
+                        <option value="semester">Semestral</option>
+                        <option value="year">Anual</option>
+                    </datalist>
+                </div>
+            </div>
+        </div>    
+    </div>
+</div>
