@@ -1,0 +1,76 @@
+<div id="method-form-container">
+    <div class="oj-form-layout">
+        <div class="oj-form oj-sm-odd-cols-6">
+            <div class="oj-flex"> 
+                <div class="oj-flex-item">
+                    <label  for="source">Fuente</label>
+                </div>
+                <div class="oj-flex-item">
+                    <textarea id="source" style="resize: both;" data-bind="
+                            ojComponent: {
+                                component: 'ojTextArea', 
+                                placeholder: '(Quien publica la información)',
+                                value: ''
+                            }">
+                    </textarea>
+                </div>
+            </div>
+            <div class="oj-flex"> 
+                <div class="oj-flex-item">
+                    <label  for="link">Vínculo</label>
+                </div>
+                <div class="oj-flex-item">
+                    <textarea id="link" style="resize: both;" data-bind="
+                            ojComponent: {
+                                component: 'ojTextArea', 
+                                placeholder: '(Sitio web donde se publica la información) http://www...',
+                                value: ''
+                            }">
+                    </textarea>
+                </div>
+            </div>
+            <div class="oj-flex"> 
+                <div class="oj-flex-item">
+                    <label  for="formula">Fórmula</label>
+                </div>
+                <div class="oj-flex-item">
+                    <textarea id="formula" style="resize: both;" data-bind="
+                            ojComponent: {
+                                component: 'ojTextArea', 
+                                placeholder: 'P = (O + D) / N',
+                                value: ''
+                            }">
+                    </textarea>
+                </div>
+            </div>
+            <div class="oj-flex"> 
+                <div class="oj-flex-item">
+                    <label  for="variables">Variables</label>
+                </div>
+                <div class="oj-flex-item">
+                    <textarea id="variables" style="resize: both;" data-bind="
+                            ojComponent: {
+                                component: 'ojTextArea', 
+                                placeholder: 'P = Progreso\nD = Delta',
+                                value: ''
+                            }">
+                    </textarea>
+                </div>
+            </div>
+            <div class="oj-flex"> 
+                <div class="oj-flex-item">
+                    <label  for="methodology">Metodología de elaboración</label>
+                </div>
+                <div class="oj-flex-item">
+                    <textarea id="methodology" style="resize: both;" data-bind="
+                            ojComponent: {
+                                component: 'ojTextArea', 
+                                placeholder: 'Para llegar a este objetivo se siguen....',
+                                value: ''
+                            }">
+                    </textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

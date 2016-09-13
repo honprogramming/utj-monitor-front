@@ -1,0 +1,122 @@
+<div id="integration-form-container">
+    <div class="component-title centered component-padding">Alineación al PIDE</div>
+    <div class="oj-form-layout">
+        <div class="oj-form oj-sm-odd-cols-6">
+            <div class="oj-flex"> 
+                <div class="oj-flex-item">
+                    <label  for="axe">Eje</label>
+                </div>
+                <div class="oj-flex-item">
+                    <input id="axe" list="axes" data-bind="
+                            ojComponent: {
+                                component: 'ojCombobox', 
+                                value: 'axe1',
+                                rootAttributes: {
+                                    style:'max-width:20em'
+                                }
+                            }"/>
+                    <datalist id="axes">
+                        <option value="axe1">Eje 1</option>
+                        <option value="axe2">Eje 2</option>
+                    </datalist>
+                </div>
+            </div>
+            <div class="oj-flex"> 
+                <div class="oj-flex-item">
+                    <label  for="theme">Tema</label>
+                </div>
+                <div class="oj-flex-item">
+                    <input id="theme" list="themes" data-bind="
+                            ojComponent: {
+                                component: 'ojCombobox', 
+                                value: 'theme1',
+                                rootAttributes: {
+                                    style:'max-width:20em'
+                                }
+                            }"/>
+                    <datalist id="themes">
+                        <option value="theme1">Tema 1</option>
+                        <option value="theme2">Tema 2</option>
+                    </datalist>
+                </div>
+            </div>
+            <div class="oj-flex"> 
+                <div class="oj-flex-item">
+                    <label  for="objective">Objetivo</label>
+                </div>
+                <div class="oj-flex-item">
+                    <input id="objective" list="objectives" data-bind="
+                            ojComponent: {
+                                component: 'ojCombobox', 
+                                value: 'objective1',
+                                rootAttributes: {
+                                    style:'max-width:20em'
+                                }
+                            }"/>
+                    <datalist id="objectives">
+                        <option value="objective1">Objetivo 1</option>
+                        <option value="objective2">Objetivo 2</option>
+                    </datalist>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="component-title centered component-padding">Alineación de Proyectos</div>
+    <div class="oj-flex oj-sm-justify-content-center">
+        <div class="oj-flex-item oj-sm-justify-content-flex-end">
+            <input id="processes" placeholder="Buscar..." data-bind="
+                            ojComponent: {
+                                component: 'ojInputSearch',
+                                value: 'my',
+                                options: [{label: 'my process'}, {label: 'your process'}],
+                                rootAttributes: {
+                                    style:'max-width: 20em'
+                                }
+                    }"/>
+        </div>
+    </div>
+    <div class="oj-form-layout">
+        <div class="oj-form">
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                    <label for="processes2">Procesos2</label>
+                    <table id="processes2" summary="Processes List" 
+                           aria-label="Processes Table"
+                           data-bind="
+                                ojComponent: {
+                                    component: 'ojTable', 
+                                    data: $parent.selectedProjects, 
+                                    columnsDefault: {sortable: 'none'}, 
+                                    columns: [
+                                        {headerText: 'Nombre', field: 'name'},
+                                        {headerText: 'Responsable', field: 'responsible'},
+                                        {headerText: 'Fecha de Alta', field: 'startDate'},
+                                        {headerText: 'Operaciones', field: 'id'}
+                                    ]
+                                }">
+                    </table>
+                </div>
+            </div>
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                    <label for="processes">Procesos</label>
+                    <table id="processes" summary="Processes List" 
+                           aria-label="Processes Table"
+                           data-bind="
+                                ojComponent: {
+                                    component: 'ojTable', 
+                                    data: $parent.selectedProcesses, 
+                                    columnsDefault: {sortable: 'none'}, 
+                                    columns: [
+                                        {headerText: 'Nombre', field: 'name'},
+                                        {headerText: 'Responsable', field: 'responsible'},
+                                        {headerText: 'Fecha de Alta', field: 'startDate'},
+                                        {headerText: 'Operaciones', field: 'id'}
+                                    ]
+                                }">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

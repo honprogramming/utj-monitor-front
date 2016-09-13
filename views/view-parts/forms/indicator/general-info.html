@@ -1,4 +1,4 @@
-<div id="form-container">
+<div id="general-form-container">
     <div class="oj-form-layout">
         <div class="oj-form oj-sm-odd-cols-6">  
             <div class="oj-flex">  
@@ -37,7 +37,7 @@
                     <label  for="description">Descripci&oacute;n</label>
                 </div>
                 <div class="oj-flex-item">
-                    <textarea id="description" data-bind="
+                    <textarea id="description" style="resize: both;" data-bind="
                             ojComponent: {
                                 component: 'ojTextArea', 
                                 placeholder: 'descripción...',
@@ -126,6 +126,16 @@
                         <option value="semester">Semestral</option>
                         <option value="year">Anual</option>
                     </datalist>
+                </div>
+            </div>
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                    <label for="values">Valores</label>
+                </div>
+            </div>
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                    <label for="goals">Metas</label>
                 </div>
             </div>
         </div>    
