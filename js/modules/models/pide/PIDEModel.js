@@ -8,7 +8,7 @@ define([],
         function () {
             var theKey = {};
 
-            function ControlPanelModel(dataProvider) {
+            function PIDEModel(dataProvider) {
                 var privateData = {
                     dataProvider: dataProvider,
                     planElementsArray: undefined
@@ -23,7 +23,7 @@ define([],
                 privateData.planElementsArray = dataProvider.getDataArray();
             }
 
-            var prototype = ControlPanelModel.prototype;
+            var prototype = PIDEModel.prototype;
             
             /**
              * Returns the Array of objects for this model.
@@ -34,6 +34,6 @@ define([],
                 return this.ControlPanel_(theKey).planElementsArray;
             };
 
-            return ControlPanelModel;
+            return PIDEModel;
         }
 );

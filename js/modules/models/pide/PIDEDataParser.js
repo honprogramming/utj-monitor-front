@@ -11,13 +11,13 @@
  */
 define(
         [
-            'models/control-panel/PlanElement',
-            'models/control-panel/PlanElementCalculated',
-            'models/control-panel/PlanElementMeasurable',
-            'models/control-panel/PlanElementTypes'
+            'models/pide/PlanElement',
+            'models/pide/PlanElementCalculated',
+            'models/pide/PlanElementMeasurable',
+            'models/pide/PlanElementTypes'
         ],
         function (PlanElement, PlanElementCalculated, PlanElementMeasurable, PlanElementTypes) {
-            var ControlPanelDataParser = {
+            var PIDEDataParser = {
                 /**
                  * Parses the data from JSON format into an Array of
                  * PlanElementCalculated and PlanElementMeasurable objects.
@@ -100,6 +100,6 @@ define(
                 }
             };
 
-            return ControlPanelDataParser;
+            return PIDEDataParser;
         }
 );

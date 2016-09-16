@@ -2,8 +2,8 @@ define(
         [
             'jquery', 'knockout', 'view-models/GeneralViewModel',
             'view-models/events/EventTypes',
-            'models/control-panel/PlanElementCalculated',
-            'models/control-panel/PlanElementMeasurable',
+            'models/pide/PlanElementCalculated',
+            'models/pide/PlanElementMeasurable',
             'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojsunburst'
         ],
         function ($, ko, GeneralViewModel, EventTypes, PlanElementCalculated, PlanElementMeasurable) {

@@ -10,21 +10,21 @@ define(['jquery'],
         function ($) {
             var theKey = {};
 
-            function ControlPanelDataProvider(dataSourceURL, controlPanelDataParser) {
+            function PIDEDataProvider(dataSourceURL, controlPanelDataParser) {
                 var privateData = {
                     dataSourceURL: dataSourceURL,
                     controlPanelDataParser: controlPanelDataParser,
                     planElementsArray: undefined
                 };
 
-                this.ControlPanelDataProvider_ = function (key) {
+                this.PIDEDataProvider_ = function (key) {
                     if (theKey === key) {
                         return privateData;
                     }
                 };
             }
 
-            var prototype = ControlPanelDataProvider.prototype;
+            var prototype = PIDEDataProvider.prototype;
 
             /**
              * Returns the URL used by this data provider.
@@ -33,7 +33,7 @@ define(['jquery'],
              * to fetch data.
              */
             prototype.getSourceURL = function () {
-                return this.ControlPanelDataProvider_(theKey).dataSourceURL;
+                return this.PIDEDataProvider_(theKey).dataSourceURL;
             };
 
             /**
@@ -43,7 +43,7 @@ define(['jquery'],
              * this class to parse data returned by the ajax call.
              */
             prototype.getDataParser = function () {
-                return this.ControlPanelDataProvider_(theKey).controlPanelDataParser;
+                return this.PIDEDataProvider_(theKey).controlPanelDataParser;
             };
 
             /**
@@ -70,7 +70,7 @@ define(['jquery'],
              * data to be used mainly in the details panel.
              */
             prototype.getDataArray = function () {
-                return this.ControlPanelDataProvider_(theKey).planElementsArray;
+                return this.PIDEDataProvider_(theKey).planElementsArray;
             };
 
             /**
@@ -80,9 +80,9 @@ define(['jquery'],
              * an Array containing parsed data.
              */
             prototype.setDataArray = function (planElementsArray) {
-                this.ControlPanelDataProvider_(theKey).planElementsArray = planElementsArray;
+                this.PIDEDataProvider_(theKey).planElementsArray = planElementsArray;
             };
 
-            return ControlPanelDataProvider;
+            return PIDEDataProvider;
         }
 );

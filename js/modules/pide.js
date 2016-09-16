@@ -1,19 +1,19 @@
 define(
         [
             'knockout',
-            'view-models/control-panel/SunburstViewModel',
-            'models/control-panel/ControlPanelModel',
-            'models/control-panel/ControlPanelDataProvider',
-            'models/control-panel/ControlPanelDataParser',
-            'view-models/control-panel/DetailsViewModel'
+            'view-models/pide/SunburstViewModel',
+            'models/pide/PIDEModel',
+            'models/pide/PIDEDataProvider',
+            'models/pide/PIDEDataParser',
+            'view-models/pide/DetailsViewModel'
         ],
-        function (ko, SunburstViewModel, ControlPanelModel,
-                ControlPanelDataProvider, ControlPanelDataParser, DetailsViewModel) {
-            function ControlPanel() {
+        function (ko, SunburstViewModel, PIDEModel,
+                PIDEDataProvider, PIDEDataParser, DetailsViewModel) {
+            function PIDEViewModel() {
                 var self = this;
                 var controlPanelDataProvider =
-                        new ControlPanelDataProvider("data/control-panel.json",
-                                ControlPanelDataParser);
+                        new PIDEDataProvider("data/pide.json",
+                                PIDEDataParser);
 
                 var fetchData = controlPanelDataProvider.fetchData();
                 self.observableSunburst = ko.observable();
@@ -21,7 +21,7 @@ define(
                 
                 fetchData.then(
                         function () {
-                            var controlPanelModel = new ControlPanelModel(controlPanelDataProvider);
+                            var controlPanelModel = new PIDEModel(controlPanelDataProvider);
                             self.sunburst = new SunburstViewModel("control_panel", 
                                     "controlPanel.sunburst.title", controlPanelModel);
                             self.sunburst.addClickListener(handleSunburstClick);
@@ -54,6 +54,6 @@ define(
                 }
             }
 
-            return ControlPanel;
+            return PIDEViewModel;
         }
 );

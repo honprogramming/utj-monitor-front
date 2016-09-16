@@ -1,9 +1,9 @@
 define(
         [
             'knockout', 'view-models/GeneralViewModel',
-            'models/control-panel/PlanElementCalculated',
-            'models/control-panel/PlanElementMeasurable',
-            'models/control-panel/PlanElementTypes',
+            'models/pide/PlanElementCalculated',
+            'models/pide/PlanElementMeasurable',
+            'models/pide/PlanElementTypes',
             'view-models/events/EventTypes',
             'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge',
             'ojs/ojcollapsible', 'ojs/ojmasonrylayout'
@@ -22,7 +22,7 @@ define(
                     collapsiblePanelTitles: ["Ver mas", "Ocultar"]
                 };
 
-                this.ControlPanelDetails_ = function (key) {
+                this.DetailsViewModel_ = function (key) {
                     if (theKey === key) {
                         return privateData;
                     }
@@ -173,7 +173,7 @@ define(
             };
 
             prototype.getStatusMeterPlanElementsMap = function () {
-                return this.ControlPanelDetails_(theKey).statusMeterPlanElementsMap;
+                return this.DetailsViewModel_(theKey).statusMeterPlanElementsMap;
             };
 
             prototype.updateChildren = function (selectedPlanElement) {
@@ -220,7 +220,7 @@ define(
              * @returns The ControlPanel Model.
              */
             prototype.getControlPanelModel = function () {
-                return this.ControlPanelDetails_(theKey).controlPanelModel;
+                return this.DetailsViewModel_(theKey).controlPanelModel;
             };
 
             function addNewPlanElementToMap(element, controlPanelModel, statusMeterPlanElementsMap) {

@@ -1,0 +1,107 @@
+<div class="oj-flex oj-sm-justify-content-flex-end component-padding" data-bind="visible: !$parent.showForm()">
+    <div class="oj-flex-item oj-sm-2">
+        <label class="title">Agregar</label>
+    </div>
+    <div class="oj-flex-item oj-sm-1">
+        <a id="add" href="#" data-bind="click: $parent.setFormVisibility.bind($data, true)">
+            <i class="fa fa-plus"></i>
+        </a>
+    </div>
+</div>
+<div id="responsibles-form-container" data-bind="visible: $parent.showForm">
+    <div class="oj-form-layout">
+        <div class="oj-form oj-sm-odd-cols-3">
+            <div class="oj-flex"> 
+                <div class="oj-flex-item">
+                    <label  for="secretariat">Secretaría</label>
+                </div>
+                <div class="oj-flex-item">
+                    <input id="secretariat" list="secretariats" 
+                           data-bind="
+                                ojComponent: {
+                                    component: 'ojCombobox', 
+                                    value: 'academic',
+                                    rootAttributes: {
+                                        style:'max-width: 100%'
+                                    }
+                                }"/>
+                    <datalist id="secretariats">
+                        <option value="academic">Academica</option>
+                        <option value="administrative">Administrativa</option>
+                        <option value="link-up">Vinculación</option>
+                    </datalist>
+                </div>
+            </div>
+            <div class="oj-flex"> 
+                <div class="oj-flex-item">
+                    <label  for="direction">Dirección</label>
+                </div>
+                <div class="oj-flex-item">
+                    <input id="direction" list="directions" 
+                           data-bind="
+                                ojComponent: {
+                                    component: 'ojCombobox', 
+                                    value: 'direction1',
+                                    rootAttributes: {
+                                        style:'max-width: 100%'
+                                    }
+                                }"/>
+                    <datalist id="directions">
+                        <option value="direction1">Dirección 1</option>
+                        <option value="direction2">Dirección 2</option>
+                    </datalist>
+                </div>
+            </div>
+            <div class="oj-flex"> 
+                <div class="oj-flex-item">
+                    <label  for="direction">Persona</label>
+                </div>
+                <div class="oj-flex-item">
+                    <input id="processes" placeholder="Buscar..." data-bind="
+                            ojComponent: {
+                                component: 'ojInputSearch',
+                                value: 'person',
+                                options: [
+                                    {label: 'person1', value: 'p1'},
+                                    {label: 'person2', value: 'p2'}
+                                ],
+                                rootAttributes: {
+                                    style:'max-width: 100%'
+                                }
+                    }"/>
+                </div>
+            </div>
+            <div class="oj-flex"> 
+                <div class="oj-flex-item">
+                    <label for="type">Tipo</label>
+                </div>
+                <div class="oj-flex-item">
+                    <input id="type" list="types" 
+                           data-bind="
+                                ojComponent: {
+                                    component: 'ojCombobox', 
+                                    value: 'type1',
+                                    rootAttributes: {
+                                        style:'max-width: 100%'
+                                    }
+                                }"/>
+                    <datalist id="types">
+                        <option value="type1">Principal</option>
+                        <option value="type2">Seguimiento</option>
+                    </datalist>
+                </div>
+            </div>
+            <div class="oj-flex oj-sm-justify-content-flex-end"> 
+                <div class="oj-flex-item right-align">
+                    <button id= "button" data-bind="
+                            click: $parent.setFormVisibility.bind($data, false), 
+                            ojComponent: { 
+                                component: 'ojButton',
+                                label: 'Guardar'
+                            }">
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

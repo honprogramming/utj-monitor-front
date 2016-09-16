@@ -5,13 +5,14 @@
             <div id="indicator-form-title" class="oj-flex-item oj-sm-12 section-title">
                 Nueva Ficha de Indicador
             </div>
-            <div id="indicator-tabs" class="oj-flex-item oj-sm-12 full-height" data-bind="
-                ojComponent:{
-                    component: 'ojTabs',
-                    rootAttributes: {
-                        'style': 'width: 100%; height: 95%;'
-                    }
-                }">
+            <div id="indicator-tabs" class="oj-flex-item oj-sm-12 full-height section-padding" 
+                data-bind="
+                    ojComponent:{
+                        component: 'ojTabs',
+                        rootAttributes: {
+                            'style': 'width: 100%; height: 95%;'
+                        }
+                    }">
                 <!-- tab bar -->
                 <ul>
                     <li><span>Información General</span></li>
@@ -26,7 +27,7 @@
                         <div class="oj-flex-item oj-sm-2"></div>
                         <div class="oj-flex-item oj-sm-8" data-bind="
                                 ojModule: {
-                                    viewName: 'view-parts/forms/indicator/general-info'
+                                    viewName: 'forms/indicator/general-info'
                                 }">
                         </div>
                         <div class="oj-flex-item oj-sm-2"></div>
@@ -37,7 +38,7 @@
                         <div class="oj-flex-item oj-sm-2"></div>
                         <div class="oj-flex-item oj-sm-8" data-bind="
                                 ojModule: {
-                                    viewName: 'view-parts/forms/indicator/method-info'
+                                    viewName: 'forms/indicator/method-info'
                                 }">
                         </div>
                         <div class="oj-flex-item oj-sm-2"></div>
@@ -48,7 +49,18 @@
                         <div class="oj-flex-item oj-sm-2"></div>
                         <div class="oj-flex-item oj-sm-8" data-bind="
                                 ojModule: {
-                                    viewName: 'view-parts/forms/indicator/integration-info'
+                                    viewName: 'forms/indicator/integration-info'
+                                }">
+                        </div>
+                        <div class="oj-flex-item oj-sm-2"></div>
+                    </div>
+                </div>
+                <div id="responsibles-info-tab" class="oj-flex-item full-height">
+                    <div class="oj-flex full-height">
+                        <div class="oj-flex-item oj-sm-2"></div>
+                        <div class="oj-flex-item oj-sm-8" data-bind="
+                                ojModule: {
+                                    viewName: 'forms/indicator/responsibles-info'
                                 }">
                         </div>
                         <div class="oj-flex-item oj-sm-2"></div>

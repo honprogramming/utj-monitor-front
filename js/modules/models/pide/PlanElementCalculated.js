@@ -4,7 +4,7 @@
  * 
  * @param {Object} PlanElement The parent PlanElement class.
  * @returns {Function} The PlanElementCalculated class.
- */define(['models/control-panel/PlanElement'], 
+ */define(['models/pide/PlanElement'], 
         function(PlanElement) {
             var theKey = {};
             
