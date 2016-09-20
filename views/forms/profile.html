@@ -3,7 +3,7 @@
     <div class="oj-flex-item oj-sm-8">
         <div id="form-container" class="oj-flex oj-sm-12 full-height">
             <div id="indicator-form-title" class="oj-flex-item oj-sm-12 section-title">
-                Nueva Ficha de Indicador
+                Nueva Ficha de Perfil de Puesto
             </div>
             <div id="indicator-tabs" class="oj-flex-item oj-sm-12 full-height section-padding" 
                 data-bind="
@@ -15,10 +15,10 @@
                     }">
                 <!-- tab bar -->
                 <ul>
-                    <li><span>Información General</span></li>
-                    <li><span>Aspectos Metodológicos</span></li>
-                    <li><span>Alineación</span></li>
-                    <li><span>Responsables</span></li>
+                    <li><span>Información Personal</span></li>
+                    <li><span>Información UTJ</span></li>
+                    <li><span></span></li>
+                    <li><span></span></li>
                 </ul>
 
                 <!-- tab contents -->
@@ -27,40 +27,18 @@
                         <div class="oj-flex-item oj-sm-2"></div>
                         <div class="oj-flex-item oj-sm-8" data-bind="
                                 ojModule: {
-                                    viewName: 'forms/indicator/general-info'
+                                    viewName: 'forms/profile/personal-info'
                                 }">
                         </div>
                         <div class="oj-flex-item oj-sm-2"></div>
                     </div>
                 </div>
-                <div id="method-info-tab" class="oj-flex-item full-height">
+                <div id="utj-info-tab" class="oj-flex-item full-height">
                     <div class="oj-flex full-height">
                         <div class="oj-flex-item oj-sm-2"></div>
                         <div class="oj-flex-item oj-sm-8" data-bind="
                                 ojModule: {
-                                    viewName: 'forms/indicator/method-info'
-                                }">
-                        </div>
-                        <div class="oj-flex-item oj-sm-2"></div>
-                    </div>
-                </div>
-                <div id="integration-info-tab" class="oj-flex-item full-height scrolly">
-                    <div class="oj-flex full-height">
-                        <div class="oj-flex-item oj-sm-2"></div>
-                        <div class="oj-flex-item oj-sm-8" data-bind="
-                                ojModule: {
-                                    viewName: 'forms/indicator/integration-info'
-                                }">
-                        </div>
-                        <div class="oj-flex-item oj-sm-2"></div>
-                    </div>
-                </div>
-                <div id="responsibles-info-tab" class="oj-flex-item full-height">
-                    <div class="oj-flex full-height">
-                        <div class="oj-flex-item oj-sm-2"></div>
-                        <div class="oj-flex-item oj-sm-8" data-bind="
-                                ojModule: {
-                                    viewName: 'forms/indicator/responsibles-info'
+                                    viewName: 'forms/profile/utj-info'
                                 }">
                         </div>
                         <div class="oj-flex-item oj-sm-2"></div>

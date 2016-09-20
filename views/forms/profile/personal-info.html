@@ -1,0 +1,138 @@
+<div id="personal-info-form-container">
+    <div class="oj-form-layout">
+        <div class="oj-form oj-sm-odd-cols-6">  
+            <div class="oj-flex">  
+                <div class="oj-flex-item">
+                    <label for="name">Nombre(s)</label>
+                </div>
+                <div class="oj-flex-item">
+                    <div class="oj-flex-item">
+                    <div class="oj-flex-item">
+                        <input id="name" data-bind="
+                                ojComponent: {
+                                    component: 'ojInputText', 
+                                    placeholder: 'Nombre',
+                                    rootAttributes: {
+                                        style: 'max-width: 100%'
+                                    }
+                                }"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="oj-flex">  
+                <div class="oj-flex-item">
+                    <label for="lastName">Apellido Paterno</label>
+                </div>
+                <div class="oj-flex-item">
+                    <div class="oj-flex-item">
+                    <div class="oj-flex-item">
+                        <input id="lastName" data-bind="
+                                ojComponent: {
+                                    component: 'ojInputText', 
+                                    placeholder:'Apellido Paterno',
+                                    rootAttributes: {
+                                        style: 'max-width: 100%'
+                                    }
+                                }"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="oj-flex">  
+                <div class="oj-flex-item">
+                    <label for="secondLastName">Apellido Materno</label>
+                </div>
+                <div class="oj-flex-item">
+                    <div class="oj-flex-item">
+                    <div class="oj-flex-item">
+                        <input id="secondLastName" data-bind="
+                                ojComponent: {
+                                    component: 'ojInputText', 
+                                    placeholder:'Apellido Materno',
+                                    rootAttributes: {
+                                        style: 'max-width: 100%'
+                                    }
+                                }"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="oj-flex"> 
+                <div class="oj-flex-item">
+                    <label for="phoneNumber">Teléfono de contacto</label>
+                </div>
+                <div class="oj-flex-item">
+                    <input id="phoneNumber" data-bind="
+                        ojComponent: {
+                            component: 'ojInputText', 
+                            placeholder:'33...',
+                            rootAttributes: {
+                                style: 'max-width: 100%'
+                            }
+                        }">
+                </div>
+            </div>
+            <div class="oj-flex"> 
+                <div class="oj-flex-item">
+                    <label for="personalEmail">Correo personal</label>
+                </div>
+                <div class="oj-flex-item">
+                    <input id="personalEmail" data-bind="
+                        ojComponent: {
+                            component: 'ojInputText', 
+                            placeholder:'nombre@dominio.com',
+                            rootAttributes: {
+                                style: 'max-width: 100%'
+                            }
+                        }">
+                </div>
+            </div>
+            <div class="oj-flex">  
+                <div class="oj-flex-item">
+                    <label for="studyLevel">Último grado de estudios</label>
+                </div>
+                <div class="oj-flex-item">
+                    <input id="studyLevel" list="level-types" data-bind="
+                            ojComponent: {
+                                component: 'ojCombobox', 
+                                value: 'university',
+                                rootAttributes: {
+                                    style:'max-width: 100%;'
+                                }
+                            }"/>
+                    <datalist id="level-types">
+                        <option value="primary">Primaria</option>
+                        <option value="secondary">Secundaria</option>
+                        <option value="highschool">Bachillerato</option>
+                        <option value="tsu">Técnico Superior Universitario</option>
+                        <option value="university">Licenciatura</option>
+                        <option value="master">Maestría</option>
+                        <option value="phd">Doctorado</option>
+                    </datalist>
+                </div>
+            </div>
+            <div class="oj-flex">  
+                <div class="oj-flex-item">
+                    <label for="studyStatus">Status de grado de estudios</label>
+                </div>
+                <div class="oj-flex-item">
+                    <input id="studyStatus" list="status-types" data-bind="
+                            ojComponent: {
+                                component: 'ojCombobox', 
+                                value: 'certified',
+                                rootAttributes: {
+                                    style:'max-width: 100%;'
+                                }
+                            }"/>
+                    <datalist id="status-types">
+                        <option value="progress">En Curso</option>
+                        <option value="graduate">Egresado</option>
+                        <option value="truncate">Trunco</option>
+                        <option value="certified">Titulado</option>
+                    </datalist>
+                </div>
+            </div>
+        </div>    
+    </div>
+</div>
