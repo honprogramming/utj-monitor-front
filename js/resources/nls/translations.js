@@ -56,6 +56,39 @@ define({
             "projects": "Proyectos",
             "product": "Producto",
             "products": "Productos"
+        },
+        "forms": {
+            "profile": {
+                "title": "Nueva Ficha de Perfil de Puesto",
+                "tabs": {
+                    "personal-info": {
+                        "title": "Información Personal",
+                        "name": "Nombre(s)",
+                        "lastName": "Apellido Paterno",
+                        "secondLastName": "Apellido Materno",
+                        "phone": "Teléfono de contacto",
+                        "email": "Correo personal",
+                        "studyLevel": "Último grado de estudios",
+                        "studyLevelStatus": "Status de último grado de estudios"
+                    },
+                    "utj-info": {
+                        "title": "Información UTJ",
+                        "area": "Area",
+                        "subArea": "Sub-Area",
+                        "position": "Cargo",
+                        "manager": "Superior Inmediato",
+                        "email": "Correco Electrónico UTJ",
+                        "phone": "Teléfono UTJ",
+                        "ext": "Extensión",
+                        "joinDate": "Fecha de Ingreso"
+                    }
+                }
+            },
+            "buttons": {
+                "next": "Siguiente",
+                "previous": "Anterior",
+                "save": "Guardar"
+            }
         }
     }
 }

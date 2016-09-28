@@ -3,7 +3,7 @@
         <div class="oj-form oj-sm-odd-cols-6">  
             <div class="oj-flex"> 
                 <div class="oj-flex-item">
-                    <label  for="area">Area</label>
+                    <label  for="area" data-bind="text: $parent.areaLabel"></label>
                 </div>
                 <div class="oj-flex-item">
                     <input id="area" list="secretariats" 
@@ -25,7 +25,7 @@
             </div>
             <div class="oj-flex">  
                 <div class="oj-flex-item">
-                    <label for="subArea">Sub-Area</label>
+                    <label for="subArea" data-bind="text: $parent.subAreaLabel"></label>
                 </div>
                 <div class="oj-flex-item">
                     <input id="subArea" list="subArea-types" data-bind="
@@ -45,7 +45,7 @@
             </div>
             <div class="oj-flex">
                 <div class="oj-flex-item">
-                    <label for="position">Cargo</label>
+                    <label for="position" data-bind="text: $parent.positionLabel"></label>
                 </div>
                 <div class="oj-flex-item">
                     <div class="oj-flex-item">
@@ -70,7 +70,7 @@
             </div>
             <div class="oj-flex">  
                 <div class="oj-flex-item">
-                    <label for="manager">Superior Inmediato</label>
+                    <label for="manager" data-bind="text: $parent.managerLabel"></label>
                 </div>
                 <div class="oj-flex-item">
                     <input id="manager" list="manager-list" data-bind="
@@ -89,7 +89,7 @@
             </div>
             <div class="oj-flex">  
                 <div class="oj-flex-item">
-                    <label for="utjEmail">Correo Electrónico UTJ</label>
+                    <label for="utjEmail" data-bind="text: $parent.emailUTJLabel"></label>
                 </div>
                 <div class="oj-flex-item">
                     <div class="oj-flex-item">
@@ -108,7 +108,7 @@
             </div>
             <div class="oj-flex"> 
                 <div class="oj-flex-item">
-                    <label for="phoneNumberUTJ">Teléfono UTJ</label>
+                    <label for="phoneNumberUTJ" data-bind="text: $parent.phoneUTJLabel"></label>
                 </div>
                 <div class="oj-flex-item">
                     <input id="phoneNumberUTJ" data-bind="
@@ -123,7 +123,7 @@
             </div>
             <div class="oj-flex"> 
                 <div class="oj-flex-item">
-                    <label for="ext">Extensión</label>
+                    <label for="ext" data-bind="text: $parent.extLabel"></label>
                 </div>
                 <div class="oj-flex-item">
                     <input id="ext" data-bind="
@@ -138,7 +138,7 @@
             </div>
             <div class="oj-flex">  
                 <div class="oj-flex-item">
-                    <label for="startDate">Fecha de ingreso</label>
+                    <label for="startDate" data-bind="text: $parent.joinDateLabel"></label>
                 </div>
                 <div class="oj-flex-item">
                     <input id="startDate" data-bind="
@@ -149,6 +149,28 @@
                                     style:'max-width: 100%;'
                                 }
                             }"/>
+                </div>
+            </div>
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                    <div class="oj-flex">
+                        <input id="inputButton" type="button" 
+                                            data-bind="click: $parent.relative.bind(this, -1),
+                                            ojComponent: {
+                                                component: 'ojButton', 
+                                                label: $parent.previousButtonLabel
+                                            }"/>
+                     </div>
+                </div>
+                <div class="oj-flex-item">
+                    <div class="oj-flex oj-sm-justify-content-flex-end">
+                        <input id="inputButton" type="button" 
+                                            data-bind=" 
+                                            ojComponent: {
+                                                component: 'ojButton', 
+                                                label: $parent.saveButtonLabel
+                                            }"/>
+                     </div>
                 </div>
             </div>
         </div>    

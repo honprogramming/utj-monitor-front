@@ -3,15 +3,24 @@
         <div class="oj-form oj-sm-odd-cols-6">  
             <div class="oj-flex">  
                 <div class="oj-flex-item">
-                    <label for="name">Nombre(s)</label>
+                    <label for="name" data-bind="text: $parent.nameLabel"></label>
                 </div>
                 <div class="oj-flex-item">
                     <div class="oj-flex-item">
-                    <div class="oj-flex-item">
-                        <input id="name" data-bind="
+                        <div class="oj-flex-item">
+                            <input id="name" data-bind="
                                 ojComponent: {
                                     component: 'ojInputText', 
                                     placeholder: 'Nombre',
+                                    required: true,
+                                    value: $parent.name,
+                                    invalidComponentTracker: $parent.tracker,
+                                    translations: {
+                                        'required': {
+                                            messageSummary: 'Valor Requerido',  
+                                            messageDetail: ' '
+                                        }
+                                    },
                                     rootAttributes: {
                                         style: 'max-width: 100%'
                                     }
@@ -22,15 +31,22 @@
             </div>
             <div class="oj-flex">  
                 <div class="oj-flex-item">
-                    <label for="lastName">Apellido Paterno</label>
+                    <label for="lastName" data-bind="text: $parent.lastNameLabel"></label>
                 </div>
                 <div class="oj-flex-item">
                     <div class="oj-flex-item">
-                    <div class="oj-flex-item">
-                        <input id="lastName" data-bind="
+                        <div class="oj-flex-item">
+                            <input id="lastName" data-bind="
                                 ojComponent: {
                                     component: 'ojInputText', 
                                     placeholder:'Apellido Paterno',
+                                    required: true,
+                                    translations: {
+                                        'required': {
+                                            messageSummary: 'Valor Requerido',  
+                                            messageDetail: 'Se requirere un valor para el campo - \'{label}\'.'
+                                        }
+                                    },
                                     rootAttributes: {
                                         style: 'max-width: 100%'
                                     }
@@ -41,15 +57,22 @@
             </div>
             <div class="oj-flex">  
                 <div class="oj-flex-item">
-                    <label for="secondLastName">Apellido Materno</label>
+                    <label for="secondLastName" data-bind="text: $parent.secondLastNameLabel"></label>
                 </div>
                 <div class="oj-flex-item">
                     <div class="oj-flex-item">
-                    <div class="oj-flex-item">
-                        <input id="secondLastName" data-bind="
+                        <div class="oj-flex-item">
+                            <input id="secondLastName" data-bind="
                                 ojComponent: {
                                     component: 'ojInputText', 
                                     placeholder:'Apellido Materno',
+                                    required: true,
+                                    translations: {
+                                        'required': {
+                                            messageSummary: 'Valor Requerido',  
+                                            messageDetail: 'Se requirere un valor para el campo - \'{label}\'.'
+                                        }
+                                    },
                                     rootAttributes: {
                                         style: 'max-width: 100%'
                                     }
@@ -60,7 +83,7 @@
             </div>
             <div class="oj-flex"> 
                 <div class="oj-flex-item">
-                    <label for="phoneNumber">Teléfono de contacto</label>
+                    <label for="phoneNumber" data-bind="text: $parent.phoneLabel"></label>
                 </div>
                 <div class="oj-flex-item">
                     <input id="phoneNumber" data-bind="
@@ -75,7 +98,7 @@
             </div>
             <div class="oj-flex"> 
                 <div class="oj-flex-item">
-                    <label for="personalEmail">Correo personal</label>
+                    <label for="personalEmail" data-bind="text: $parent.emailLabel"></label>
                 </div>
                 <div class="oj-flex-item">
                     <input id="personalEmail" data-bind="
@@ -90,7 +113,7 @@
             </div>
             <div class="oj-flex">  
                 <div class="oj-flex-item">
-                    <label for="studyLevel">Último grado de estudios</label>
+                    <label for="studyLevel" data-bind="text: $parent.studyLevelLabel"></label>
                 </div>
                 <div class="oj-flex-item">
                     <input id="studyLevel" list="level-types" data-bind="
@@ -114,7 +137,7 @@
             </div>
             <div class="oj-flex">  
                 <div class="oj-flex-item">
-                    <label for="studyStatus">Status de grado de estudios</label>
+                    <label for="studyStatus" data-bind="text: $parent.studyLevelStatusLabel"></label>
                 </div>
                 <div class="oj-flex-item">
                     <input id="studyStatus" list="status-types" data-bind="
@@ -131,6 +154,19 @@
                         <option value="truncate">Trunco</option>
                         <option value="certified">Titulado</option>
                     </datalist>
+                </div>
+            </div>
+            <div class="oj-flex">
+                <div class="oj-flex-item"></div>
+                <div class="oj-flex-item">
+                    <div class="oj-flex oj-sm-justify-content-flex-end">
+                        <input id="inputButton" type="button" 
+                               data-bind="click: $parent.relative.bind(this, 1),
+                                            ojComponent: {
+                                                component: 'ojButton', 
+                                                label: $parent.nextButtonLabel
+                                            }"/>
+                    </div>
                 </div>
             </div>
         </div>    
