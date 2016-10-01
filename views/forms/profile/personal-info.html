@@ -11,13 +11,13 @@
                             <input id="name" data-bind="
                                 ojComponent: {
                                     component: 'ojInputText', 
-                                    placeholder: 'Nombre',
                                     required: true,
+                                    placeholder: $parent.nameLabel,
                                     value: $parent.name,
-                                    invalidComponentTracker: $parent.tracker,
+                                    invalidComponentTracker: $parent.trackers[0],
                                     translations: {
                                         'required': {
-                                            messageSummary: 'Valor Requerido',  
+                                            messageSummary: $parent.messageSummary,  
                                             messageDetail: ' '
                                         }
                                     },
@@ -39,12 +39,14 @@
                             <input id="lastName" data-bind="
                                 ojComponent: {
                                     component: 'ojInputText', 
-                                    placeholder:'Apellido Paterno',
                                     required: true,
+                                    placeholder: $parent.lastNameLabel,
+                                    value: $parent.lastName,
+                                    invalidComponentTracker: $parent.trackers[0],
                                     translations: {
                                         'required': {
-                                            messageSummary: 'Valor Requerido',  
-                                            messageDetail: 'Se requirere un valor para el campo - \'{label}\'.'
+                                            messageSummary: $parent.messageSummary,  
+                                            messageDetail: ' '
                                         }
                                     },
                                     rootAttributes: {
@@ -65,12 +67,14 @@
                             <input id="secondLastName" data-bind="
                                 ojComponent: {
                                     component: 'ojInputText', 
-                                    placeholder:'Apellido Materno',
                                     required: true,
+                                    placeholder: $parent.secondLastNameLabel,
+                                    value: $parent.secondLastName,
+                                    invalidComponentTracker: $parent.trackers[0],
                                     translations: {
                                         'required': {
-                                            messageSummary: 'Valor Requerido',  
-                                            messageDetail: 'Se requirere un valor para el campo - \'{label}\'.'
+                                            messageSummary: $parent.messageSummary,  
+                                            messageDetail: ' '
                                         }
                                     },
                                     rootAttributes: {
@@ -89,7 +93,17 @@
                     <input id="phoneNumber" data-bind="
                         ojComponent: {
                             component: 'ojInputText', 
-                            placeholder:'33...',
+                            placeholder: $parent.phonePlaceHolder,
+                            value: $parent.phoneNumber,                            
+                            validators: [
+                                {
+                                    type: 'regExp',
+                                    options: {
+                                        pattern: '(\\d(-|\\s)?){10}',
+                                        messageDetail: 'Debes escribir un teléfono de casa o celular a 10 dígitos, separado por espacios o guiones.'
+                                    }
+                                }
+                            ],
                             rootAttributes: {
                                 style: 'max-width: 100%'
                             }
@@ -104,7 +118,17 @@
                     <input id="personalEmail" data-bind="
                         ojComponent: {
                             component: 'ojInputText', 
-                            placeholder:'nombre@dominio.com',
+                            placeholder: $parent.emailPlaceHolder,
+                            value: $parent.email,                            
+                            validators: [
+                                {
+                                    type: 'regExp',
+                                    options: {
+                                        pattern: '\\w+@\\w+\\.\\w{2,}',
+                                        messageDetail: 'Debes escribir una dirección de correo válida.'
+                                    }
+                                }
+                            ],
                             rootAttributes: {
                                 style: 'max-width: 100%'
                             }
@@ -118,8 +142,9 @@
                 <div class="oj-flex-item">
                     <input id="studyLevel" list="level-types" data-bind="
                             ojComponent: {
-                                component: 'ojCombobox', 
-                                value: 'university',
+                                component: 'ojCombobox',
+                                placeholder: $parent.comboboxPlaceHolder,
+                                value: $parent.studyLevel,
                                 rootAttributes: {
                                     style:'max-width: 100%;'
                                 }
@@ -142,8 +167,9 @@
                 <div class="oj-flex-item">
                     <input id="studyStatus" list="status-types" data-bind="
                             ojComponent: {
-                                component: 'ojCombobox', 
-                                value: 'certified',
+                                component: 'ojCombobox',
+                                placeholder: $parent.comboboxPlaceHolder,
+                                value: $parent.studyStatus,
                                 rootAttributes: {
                                     style:'max-width: 100%;'
                                 }

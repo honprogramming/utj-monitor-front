@@ -9,8 +9,17 @@
                     <input id="area" list="secretariats" 
                            data-bind="
                                 ojComponent: {
-                                    component: 'ojCombobox', 
-                                    value: 'academic',
+                                    component: 'ojCombobox',
+                                    required: true,
+                                    value: $parent.area,
+                                    placeholder: $parent.comboboxPlaceHolder,
+                                    invalidComponentTracker: $parent.trackers[1],
+                                    translations: {
+                                        'required': {
+                                            messageSummary: $parent.messageSummary,  
+                                            messageDetail: ' '
+                                        }
+                                    },
                                     rootAttributes: {
                                         style:'max-width: 100%'
                                     }
@@ -30,8 +39,17 @@
                 <div class="oj-flex-item">
                     <input id="subArea" list="subArea-types" data-bind="
                             ojComponent: {
-                                component: 'ojCombobox', 
-                                value: 'career',
+                                component: 'ojCombobox',
+                                required: true,
+                                value: $parent.subArea,
+                                placeholder: $parent.comboboxPlaceHolder,
+                                invalidComponentTracker: $parent.trackers[1],
+                                translations: {
+                                    'required': {
+                                        messageSummary: $parent.messageSummary,  
+                                        messageDetail: ' '
+                                    }
+                                },
                                 rootAttributes: {
                                     style:'max-width: 100%;'
                                 }
@@ -53,7 +71,16 @@
                             <input id="position" list="position-types" data-bind="
                             ojComponent: {
                                 component: 'ojCombobox', 
-                                value: 'assistant',
+                                required: true,
+                                value: $parent.position,
+                                placeholder: $parent.comboboxPlaceHolder,
+                                invalidComponentTracker: $parent.trackers[1],
+                                translations: {
+                                    'required': {
+                                        messageSummary: $parent.messageSummary,  
+                                        messageDetail: ' '
+                                    }
+                                },
                                 rootAttributes: {
                                     style:'max-width: 100%;'
                                 }
@@ -75,8 +102,17 @@
                 <div class="oj-flex-item">
                     <input id="manager" list="manager-list" data-bind="
                             ojComponent: {
-                                component: 'ojCombobox', 
-                                value: 'manager1',
+                                component: 'ojCombobox',
+                                required: true,
+                                value: $parent.manager,
+                                placeholder: $parent.comboboxPlaceHolder,
+                                invalidComponentTracker: $parent.trackers[1],
+                                translations: {
+                                    'required': {
+                                        messageSummary: $parent.messageSummary,  
+                                        messageDetail: ' '
+                                    }
+                                },
                                 rootAttributes: {
                                     style:'max-width: 100%;'
                                 }

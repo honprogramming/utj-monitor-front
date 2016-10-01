@@ -10,6 +10,7 @@
                 data-bind="attr: {id: id},
                     ojComponent:{
                         component: 'ojTabs',
+                        beforeSelect: selectionHandler,        
                         rootAttributes: {
                             'style': 'width: 100%; height: 95%;'
                         }
