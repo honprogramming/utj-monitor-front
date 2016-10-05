@@ -22,7 +22,7 @@
                                         }
                                     },
                                     rootAttributes: {
-                                        style: 'max-width: 100%'
+                                        class: 'full-width'
                                     }
                                 }"/>
                         </div>
@@ -50,7 +50,7 @@
                                         }
                                     },
                                     rootAttributes: {
-                                        style: 'max-width: 100%'
+                                        class: 'full-width'
                                     }
                                 }"/>
                         </div>
@@ -78,7 +78,7 @@
                                         }
                                     },
                                     rootAttributes: {
-                                        style: 'max-width: 100%'
+                                        class: 'full-width'
                                     }
                                 }"/>
                         </div>
@@ -94,18 +94,18 @@
                         ojComponent: {
                             component: 'ojInputText', 
                             placeholder: $parent.phonePlaceHolder,
-                            value: $parent.phoneNumber,                            
+                            value: $parent.phoneNumber,                          
                             validators: [
                                 {
                                     type: 'regExp',
                                     options: {
                                         pattern: '(\\d(-|\\s)?){10}',
-                                        messageDetail: 'Debes escribir un teléfono de casa o celular a 10 dígitos, separado por espacios o guiones.'
+                                        messageDetail: $parent.phoneValidationMessage
                                     }
                                 }
                             ],
                             rootAttributes: {
-                                style: 'max-width: 100%'
+                                class: 'full-width'
                             }
                         }">
                 </div>
@@ -125,12 +125,12 @@
                                     type: 'regExp',
                                     options: {
                                         pattern: '\\w+@\\w+\\.\\w{2,}',
-                                        messageDetail: 'Debes escribir una dirección de correo válida.'
+                                        messageDetail: $parent.emailValidationMessage
                                     }
                                 }
                             ],
                             rootAttributes: {
-                                style: 'max-width: 100%'
+                                class: 'full-width'
                             }
                         }">
                 </div>
@@ -146,7 +146,7 @@
                                 placeholder: $parent.comboboxPlaceHolder,
                                 value: $parent.studyLevel,
                                 rootAttributes: {
-                                    style:'max-width: 100%;'
+                                    class: 'full-width'
                                 }
                             }"/>
                     <datalist id="level-types">
@@ -171,7 +171,7 @@
                                 placeholder: $parent.comboboxPlaceHolder,
                                 value: $parent.studyStatus,
                                 rootAttributes: {
-                                    style:'max-width: 100%;'
+                                    class: 'full-width'
                                 }
                             }"/>
                     <datalist id="status-types">

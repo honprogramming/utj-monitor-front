@@ -23,7 +23,7 @@ define(['ojs/ojcore', 'ojs/ojvalidation'],
             var numberConverterFactory = oj.Validation.converterFactory("number");
             var dateTimeConverterFactory = oj.Validation.converterFactory("datetime");
             var dateTimeOptions = {formatType: 'datetime', pattern: 'MMM d, y, h:mm a'};
-            var dateOptions = {formatType: 'datetime', pattern: 'MMM d, y'};
+            var dateOptions = {formatType: 'datetime', pattern: 'dd/MM/yy'};
             var decimalOptions = {style: 'decimal', decimalFormat: 'short'};
 
 //    var percentOptions = {style: 'percent', maximumFractionDigits: 2};

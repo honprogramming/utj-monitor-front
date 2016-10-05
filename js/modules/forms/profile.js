@@ -10,7 +10,7 @@ define(
             function ProfileViewModel() {
                 var self = this;
 
-                self.id = "profile-tab";
+                self.id = "profile-form";
                 self.name = ko.observable();
                 self.lastName = ko.observable();
                 self.secondLastName = ko.observable();
@@ -26,6 +26,8 @@ define(
                 self.phoneUTJ = ko.observable();
                 self.extension = ko.observable();
                 self.joinDate = ko.observable();
+                self.startDate = ko.observable();
+                self.dateConverter = GeneralViewModel.converters.date;
 
                 self.title = GeneralViewModel.nls("forms.profile.title");
                 self.personalInfoTabTitle = GeneralViewModel.nls("forms.profile.tabs.personal-info.title");
@@ -52,27 +54,33 @@ define(
                 self.emailPlaceHolder = GeneralViewModel.nls("forms.validation.email");
                 self.phonePlaceHolder = GeneralViewModel.nls("forms.validation.phone");
                 self.comboboxPlaceHolder = GeneralViewModel.nls("forms.combobox.placeholder");
+                
+                self.emailUTJPlaceHolder = GeneralViewModel.nls("forms.validation.emailUTJ");
+                self.extPlaceHolder = GeneralViewModel.nls("forms.validation.ext");
+                self.datePlaceHolder = GeneralViewModel.nls("forms.validation.date");
 
                 self.nextButtonLabel = GeneralViewModel.nls("forms.buttons.next");
                 self.previousButtonLabel = GeneralViewModel.nls("forms.buttons.previous");
                 self.saveButtonLabel = GeneralViewModel.nls("forms.buttons.save");
-
-                self.startDate = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
+                
+                self.phoneValidationMessage = GeneralViewModel.nls("forms.validation.phoneMessage");
+                self.emailValidationMessage = GeneralViewModel.nls("forms.validation.emailMessage");
+                self.extValidationMessage = GeneralViewModel.nls("forms.validation.extMessage");
 
                 self.trackers = [ko.observable(), ko.observable()];
 
-                self.selectionHandler = function (event, ui) {
-                    if (ui.originalEvent) {
+                self.selectionHandler = function (event) {
+                    if (event.originalEvent) {
                         var currentTab = getCurrentTab.call(self);
 
-                        return !validate(getTabTracker.call(self, currentTab));
+                        return isTrackerClean(getTabTracker.call(self, currentTab));
                     }
                 };
 
                 self.relative = function (tabsNumber) {
                     var currentTab = getCurrentTab.call(self);
 
-                    if (!validate(getTabTracker.call(self, currentTab))) {
+                    if (isTrackerClean(getTabTracker.call(self, currentTab))) {
                         $("#" + self.id).ojTabs("option", "selected", currentTab + tabsNumber);
                     }
                 };
@@ -85,10 +93,11 @@ define(
                     return this.trackers[tabNumber];
                 }
 
-                function validate(observableTracker) {
+                function isTrackerClean(observableTracker) {
                     var tracker = ko.unwrap(observableTracker);
                     tracker.showMessages();
-                    return tracker.focusOnFirstInvalid();
+                    
+                    return !tracker.focusOnFirstInvalid();
                 }
             }
 

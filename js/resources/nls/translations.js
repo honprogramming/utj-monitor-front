@@ -78,7 +78,7 @@ define(
                                 "subArea": "Sub-Area",
                                 "position": "Cargo",
                                 "manager": "Superior Inmediato",
-                                "email": "Correco Electrónico UTJ",
+                                "email": "Correo Electrónico UTJ",
                                 "phone": "Teléfono UTJ",
                                 "ext": "Extensión",
                                 "joinDate": "Fecha de Ingreso"
@@ -93,7 +93,13 @@ define(
                     "validation": {
                         "messageSummary": "Valor Requerido",
                         "email": "nombre@dominio.com",
-                        "phone": "33 3333 3333"
+                        "emailUTJ": "nombre@utj.edu.mx",
+                        "phone": "33 3333 3333",
+                        "ext": "1234",
+                        "date": "dd/mm/aa",
+                        "phoneMessage": "Debes escribir un teléfono de casa o celular a 10 dígitos, separado por espacios o guiones.",
+                        "emailMessage": "Debes escribir una dirección de correo válida.",
+                        "extMessage": "Debes escribir una extensión telefónica de 4 dígitos, separado por espacios o guiones."
                     },
                     "combobox": {
                         "placeholder": "Selecciona una opción"

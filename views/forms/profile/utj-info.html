@@ -21,7 +21,7 @@
                                         }
                                     },
                                     rootAttributes: {
-                                        style:'max-width: 100%'
+                                        class: 'full-width'
                                     }
                                 }"/>
                     <datalist id="secretariats">
@@ -51,7 +51,7 @@
                                     }
                                 },
                                 rootAttributes: {
-                                    style:'max-width: 100%;'
+                                    class: 'full-width'
                                 }
                             }"/>
                     <datalist id="subArea-types">
@@ -82,7 +82,7 @@
                                     }
                                 },
                                 rootAttributes: {
-                                    style:'max-width: 100%;'
+                                    class: 'full-width'
                                 }
                             }"/>
                             <datalist id="position-types">
@@ -114,7 +114,7 @@
                                     }
                                 },
                                 rootAttributes: {
-                                    style:'max-width: 100%;'
+                                    class: 'full-width'
                                 }
                             }"/>
                     <datalist id="manager-list">
@@ -133,9 +133,19 @@
                             <input id="utjEmail" data-bind="
                                 ojComponent: {
                                     component: 'ojInputText', 
-                                    placeholder:'nombre@utj.edu.mx',
+                                    placeholder: $parent.emailUTJPlaceHolder,
+                                    value: $parent.emailUTJ,
+                                    validators: [
+                                        {
+                                            type: 'regExp',
+                                            options: {
+                                                pattern: '\\w+@\\w+\\.(\\w{2,}\\.)?\\w{2,}',
+                                                messageDetail: $parent.emailValidationMessage
+                                            }
+                                        }
+                                    ],
                                     rootAttributes: {
-                                        style:'max-width: 100%;'
+                                        class: 'full-width'
                                     }
                                 }"/>
                         </div>
@@ -150,9 +160,19 @@
                     <input id="phoneNumberUTJ" data-bind="
                         ojComponent: {
                             component: 'ojInputText', 
-                            placeholder:'33...',
+                            placeholder: $parent.phonePlaceHolder,
+                            value: $parent.phoneUTJ,
+                            validators: [
+                                {
+                                    type: 'regExp',
+                                    options: {
+                                        pattern: '(\\d(-|\\s)?){10}',
+                                        messageDetail: $parent.phoneValidationMessage
+                                    }
+                                }
+                            ],
                             rootAttributes: {
-                                style:'max-width: 100%;'
+                                class: 'full-width'
                             }
                         }">
                 </div>
@@ -165,9 +185,19 @@
                     <input id="ext" data-bind="
                         ojComponent: {
                             component: 'ojInputText', 
-                            placeholder:'(1234)',
+                            placeholder: $parent.extPlaceHolder,
+                            value: $parent.extension,
+                            validators: [
+                                {
+                                    type: 'regExp',
+                                    options: {
+                                        pattern: '(\\d(-|\\s)?){4}',
+                                        messageDetail: $parent.extValidationMessage
+                                    }
+                                }
+                            ],
                             rootAttributes: {
-                                style:'max-width: 100%;'
+                                class: 'full-width'
                             }
                         }">
                 </div>
@@ -179,10 +209,15 @@
                 <div class="oj-flex-item">
                     <input id="startDate" data-bind="
                             ojComponent: {
-                                component: 'ojInputDate', 
+                                component: 'ojInputDate',
+                                displayOptions: {
+                                    'converterHint': 'none'
+                                },
+                                placeholder: $parent.datePlaceHolder,
                                 value: $parent.startDate,
+                                converter: $parent.dateConverter,
                                 rootAttributes: {
-                                    style:'max-width: 100%;'
+                                    class: 'full-width'
                                 }
                             }"/>
                 </div>
