@@ -1,4 +1,4 @@
-<div id="personal-info-form-container">
+<div data-bind="attr: {id: $parent.utjTabId}">
     <div class="oj-form-layout">
         <div class="oj-form oj-sm-odd-cols-6">  
             <div class="oj-flex"> 
@@ -13,7 +13,7 @@
                                     required: true,
                                     value: $parent.area,
                                     placeholder: $parent.comboboxPlaceHolder,
-                                    invalidComponentTracker: $parent.trackers[1],
+                                    invalidComponentTracker: $parent.getTracker($parent.utjTabId),
                                     translations: {
                                         'required': {
                                             messageSummary: $parent.messageSummary,  
@@ -21,7 +21,7 @@
                                         }
                                     },
                                     rootAttributes: {
-                                        class: 'full-width'
+                                        class: 'full-max-width'
                                     }
                                 }"/>
                     <datalist id="secretariats">
@@ -43,7 +43,7 @@
                                 required: true,
                                 value: $parent.subArea,
                                 placeholder: $parent.comboboxPlaceHolder,
-                                invalidComponentTracker: $parent.trackers[1],
+                                invalidComponentTracker: $parent.getTracker($parent.utjTabId),
                                 translations: {
                                     'required': {
                                         messageSummary: $parent.messageSummary,  
@@ -51,7 +51,7 @@
                                     }
                                 },
                                 rootAttributes: {
-                                    class: 'full-width'
+                                    class: 'full-max-width'
                                 }
                             }"/>
                     <datalist id="subArea-types">
@@ -74,7 +74,7 @@
                                 required: true,
                                 value: $parent.position,
                                 placeholder: $parent.comboboxPlaceHolder,
-                                invalidComponentTracker: $parent.trackers[1],
+                                invalidComponentTracker: $parent.getTracker($parent.utjTabId),
                                 translations: {
                                     'required': {
                                         messageSummary: $parent.messageSummary,  
@@ -82,7 +82,7 @@
                                     }
                                 },
                                 rootAttributes: {
-                                    class: 'full-width'
+                                    class: 'full-max-width'
                                 }
                             }"/>
                             <datalist id="position-types">
@@ -106,7 +106,7 @@
                                 required: true,
                                 value: $parent.manager,
                                 placeholder: $parent.comboboxPlaceHolder,
-                                invalidComponentTracker: $parent.trackers[1],
+                                invalidComponentTracker: $parent.getTracker($parent.utjTabId),
                                 translations: {
                                     'required': {
                                         messageSummary: $parent.messageSummary,  
@@ -114,7 +114,7 @@
                                     }
                                 },
                                 rootAttributes: {
-                                    class: 'full-width'
+                                    class: 'full-max-width'
                                 }
                             }"/>
                     <datalist id="manager-list">
@@ -145,7 +145,7 @@
                                         }
                                     ],
                                     rootAttributes: {
-                                        class: 'full-width'
+                                        class: 'full-max-width'
                                     }
                                 }"/>
                         </div>
@@ -172,7 +172,7 @@
                                 }
                             ],
                             rootAttributes: {
-                                class: 'full-width'
+                                class: 'full-max-width'
                             }
                         }">
                 </div>
@@ -197,7 +197,7 @@
                                 }
                             ],
                             rootAttributes: {
-                                class: 'full-width'
+                                class: 'full-max-width'
                             }
                         }">
                 </div>
@@ -217,7 +217,7 @@
                                 value: $parent.startDate,
                                 converter: $parent.dateConverter,
                                 rootAttributes: {
-                                    class: 'full-width'
+                                    class: 'full-max-width'
                                 }
                             }"/>
                 </div>
@@ -239,7 +239,8 @@
                                             data-bind=" 
                                             ojComponent: {
                                                 component: 'ojButton', 
-                                                label: $parent.saveButtonLabel
+                                                label: $parent.saveButtonLabel,
+                                                disabled: $parent.saveDisabled
                                             }"/>
                      </div>
                 </div>

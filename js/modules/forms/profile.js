@@ -1,16 +1,17 @@
 define(
         [
-            'jquery', 'knockout', 'ojs/ojcore',
-            'view-models/GeneralViewModel',
-            'ojs/ojknockout', 'ojs/ojtabs',
+            'jquery', 'knockout', 'view-models/GeneralViewModel',
+            'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojtabs',
             'ojs/ojinputtext', 'ojs/ojselectcombobox', 'ojs/ojinputnumber',
             'ojs/ojdatetimepicker', 'ojs/ojknockout-validation'
         ],
-        function ($, ko, oj, GeneralViewModel) {
+        function ($, ko, GeneralViewModel) {
             function ProfileViewModel() {
                 var self = this;
 
                 self.id = "profile-form";
+                self.personalTabId = "ppi";
+                self.utjTabId = "pui";
                 self.name = ko.observable();
                 self.lastName = ko.observable();
                 self.secondLastName = ko.observable();
@@ -67,8 +68,16 @@ define(
                 self.emailValidationMessage = GeneralViewModel.nls("forms.validation.emailMessage");
                 self.extValidationMessage = GeneralViewModel.nls("forms.validation.extMessage");
 
-                self.trackers = [ko.observable(), ko.observable()];
-
+                var trackers = {};
+                var tabIds = [self.personalTabId, self.utjTabId];
+                
+                trackers[self.personalTabId] = ko.observable();
+                trackers[self.utjTabId] = ko.observable();
+                
+                self.getTracker = function(tabId) {
+                    return trackers[tabId];
+                };
+                
                 self.selectionHandler = function (event) {
                     if (event.originalEvent) {
                         var currentTab = getCurrentTab.call(self);
@@ -79,25 +88,38 @@ define(
 
                 self.relative = function (tabsNumber) {
                     var currentTab = getCurrentTab.call(self);
-
-                    if (isTrackerClean(getTabTracker.call(self, currentTab))) {
+                    var tracker = getTabTracker.call(self, currentTab);
+                    
+                    if (isTrackerClean(tracker)) {
                         $("#" + self.id).ojTabs("option", "selected", currentTab + tabsNumber);
+                    } else {
+                        tracker.showMessages();
+                        tracker.focusOnFirstInvalid();
                     }
                 };
-
+                
+                self.saveDisabled = ko.pureComputed(
+                        function() {
+                            for (var trackerId in trackers) {
+                                if(!isTrackerClean(ko.unwrap(trackers[trackerId]))) {
+                                    return true;
+                                }
+                            }
+                            
+                            return false;
+                        }
+                );
+        
                 function getCurrentTab() {
                     return  $("#" + this.id).ojTabs("option", "selected");
                 }
 
                 function getTabTracker(tabNumber) {
-                    return this.trackers[tabNumber];
+                    return ko.unwrap(trackers[tabIds[tabNumber]]);
                 }
 
-                function isTrackerClean(observableTracker) {
-                    var tracker = ko.unwrap(observableTracker);
-                    tracker.showMessages();
-                    
-                    return !tracker.focusOnFirstInvalid();
+                function isTrackerClean(tracker) {
+                    return !(tracker.invalidHidden || tracker.invalidShown);
                 }
             }
 

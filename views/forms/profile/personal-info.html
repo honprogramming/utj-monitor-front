@@ -1,4 +1,4 @@
-<div id="personal-info-form-container">
+<div data-bind="attr: {id: $parent.personalTabId}">
     <div class="oj-form-layout">
         <div class="oj-form oj-sm-odd-cols-6">  
             <div class="oj-flex">  
@@ -14,7 +14,7 @@
                                     required: true,
                                     placeholder: $parent.nameLabel,
                                     value: $parent.name,
-                                    invalidComponentTracker: $parent.trackers[0],
+                                    invalidComponentTracker: $parent.getTracker($parent.personalTabId),
                                     translations: {
                                         'required': {
                                             messageSummary: $parent.messageSummary,  
@@ -22,7 +22,7 @@
                                         }
                                     },
                                     rootAttributes: {
-                                        class: 'full-width'
+                                        class: 'full-max-width'
                                     }
                                 }"/>
                         </div>
@@ -42,7 +42,7 @@
                                     required: true,
                                     placeholder: $parent.lastNameLabel,
                                     value: $parent.lastName,
-                                    invalidComponentTracker: $parent.trackers[0],
+                                    invalidComponentTracker: $parent.getTracker($parent.personalTabId),
                                     translations: {
                                         'required': {
                                             messageSummary: $parent.messageSummary,  
@@ -50,7 +50,7 @@
                                         }
                                     },
                                     rootAttributes: {
-                                        class: 'full-width'
+                                        class: 'full-max-width'
                                     }
                                 }"/>
                         </div>
@@ -70,7 +70,7 @@
                                     required: true,
                                     placeholder: $parent.secondLastNameLabel,
                                     value: $parent.secondLastName,
-                                    invalidComponentTracker: $parent.trackers[0],
+                                    invalidComponentTracker: $parent.getTracker($parent.personalTabId),
                                     translations: {
                                         'required': {
                                             messageSummary: $parent.messageSummary,  
@@ -78,7 +78,7 @@
                                         }
                                     },
                                     rootAttributes: {
-                                        class: 'full-width'
+                                        class: 'full-max-width'
                                     }
                                 }"/>
                         </div>
@@ -105,7 +105,7 @@
                                 }
                             ],
                             rootAttributes: {
-                                class: 'full-width'
+                                class: 'full-max-width'
                             }
                         }">
                 </div>
@@ -130,7 +130,7 @@
                                 }
                             ],
                             rootAttributes: {
-                                class: 'full-width'
+                                class: 'full-max-width'
                             }
                         }">
                 </div>
@@ -146,7 +146,7 @@
                                 placeholder: $parent.comboboxPlaceHolder,
                                 value: $parent.studyLevel,
                                 rootAttributes: {
-                                    class: 'full-width'
+                                    class: 'full-max-width'
                                 }
                             }"/>
                     <datalist id="level-types">
@@ -171,7 +171,7 @@
                                 placeholder: $parent.comboboxPlaceHolder,
                                 value: $parent.studyStatus,
                                 rootAttributes: {
-                                    class: 'full-width'
+                                    class: 'full-max-width'
                                 }
                             }"/>
                     <datalist id="status-types">

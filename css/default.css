@@ -68,6 +68,10 @@ footer {
     font-weight: bold;
 }
 
+.full-max-width {
+    max-width: 100%;
+}
+
 .full-width {
     width: 100%;
 }
