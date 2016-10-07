@@ -1,18 +1,18 @@
 define(
         [
             'knockout',
+            'models/data/DataProvider',
             'view-models/pide/SunburstViewModel',
             'models/pide/PIDEModel',
-            'models/pide/PIDEDataProvider',
             'models/pide/PIDEDataParser',
             'view-models/pide/DetailsViewModel'
         ],
-        function (ko, SunburstViewModel, PIDEModel,
-                PIDEDataProvider, PIDEDataParser, DetailsViewModel) {
+        function (ko, DataProvider, SunburstViewModel, PIDEModel,
+                 PIDEDataParser, DetailsViewModel) {
             function PIDEViewModel() {
                 var self = this;
                 var controlPanelDataProvider =
-                        new PIDEDataProvider("data/pide.json",
+                        new DataProvider("data/pide.json",
                                 PIDEDataParser);
 
                 var fetchData = controlPanelDataProvider.fetchData();

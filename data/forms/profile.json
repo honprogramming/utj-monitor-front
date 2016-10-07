@@ -1,0 +1,11 @@
+{
+    "studyLevels": [
+        "Primaria",
+        "Secundaria",
+        "Bachillerato",
+        "Técnico Superior Universitario",
+        "Licenciatura",
+        "Maestría",
+        "Doctorado"
+    ]
+}

@@ -1,14 +1,19 @@
 define(
         [
             'jquery', 'knockout', 'view-models/GeneralViewModel',
+            'models/data/DataProvider',
+            'models/forms/FormsDataParser',
             'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojtabs',
             'ojs/ojinputtext', 'ojs/ojselectcombobox', 'ojs/ojinputnumber',
             'ojs/ojdatetimepicker', 'ojs/ojknockout-validation'
         ],
-        function ($, ko, GeneralViewModel) {
+        function ($, ko, GeneralViewModel, DataProvider, FormsDataParser) {
             function ProfileViewModel() {
                 var self = this;
-
+                var formsDataProvider =
+                        new DataProvider("data/forms/profile.json",
+                                FormsDataParser);
+                                
                 self.id = "profile-form";
                 self.personalTabId = "ppi";
                 self.utjTabId = "pui";

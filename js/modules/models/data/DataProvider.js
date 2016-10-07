@@ -10,21 +10,21 @@ define(['jquery'],
         function ($) {
             var theKey = {};
 
-            function PIDEDataProvider(dataSourceURL, controlPanelDataParser) {
+            function DataProvider(dataSourceURL, dataParser) {
                 var privateData = {
                     dataSourceURL: dataSourceURL,
-                    controlPanelDataParser: controlPanelDataParser,
-                    planElementsArray: undefined
+                    dataParser: dataParser,
+                    dataArray: undefined
                 };
 
-                this.PIDEDataProvider_ = function (key) {
+                this.DataProvider_ = function (key) {
                     if (theKey === key) {
                         return privateData;
                     }
                 };
             }
 
-            var prototype = PIDEDataProvider.prototype;
+            var prototype = DataProvider.prototype;
 
             /**
              * Returns the URL used by this data provider.
@@ -33,7 +33,7 @@ define(['jquery'],
              * to fetch data.
              */
             prototype.getSourceURL = function () {
-                return this.PIDEDataProvider_(theKey).dataSourceURL;
+                return this.DataProvider_(theKey).dataSourceURL;
             };
 
             /**
@@ -43,7 +43,7 @@ define(['jquery'],
              * this class to parse data returned by the ajax call.
              */
             prototype.getDataParser = function () {
-                return this.PIDEDataProvider_(theKey).controlPanelDataParser;
+                return this.DataProvider_(theKey).dataParser;
             };
 
             /**
@@ -70,19 +70,19 @@ define(['jquery'],
              * data to be used mainly in the details panel.
              */
             prototype.getDataArray = function () {
-                return this.PIDEDataProvider_(theKey).planElementsArray;
+                return this.DataProvider_(theKey).dataArray;
             };
 
             /**
              * Setter method for data stored as an Array.
              * 
-             * @param{Array} planElementsArray An Object with data stored as 
+             * @param{Array} dataArray An Object with data stored as 
              * an Array containing parsed data.
              */
-            prototype.setDataArray = function (planElementsArray) {
-                this.PIDEDataProvider_(theKey).planElementsArray = planElementsArray;
+            prototype.setDataArray = function (dataArray) {
+                this.DataProvider_(theKey).dataArray = dataArray;
             };
 
-            return PIDEDataProvider;
+            return DataProvider;
         }
 );
