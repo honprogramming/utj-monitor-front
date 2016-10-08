@@ -10,10 +10,24 @@ define(
         function ($, ko, GeneralViewModel, DataProvider, FormsDataParser) {
             function ProfileViewModel() {
                 var self = this;
-                var formsDataProvider =
-                        new DataProvider("data/forms/profile.json",
-                                FormsDataParser);
-                                
+                var formsDataProvider = 
+                        new DataProvider("data/forms/profile.json", FormsDataParser);
+                
+                var dataPromise = formsDataProvider.fetchData();
+                
+                self.studyLevels = ko.observableArray([]);
+                self.statusTypes = ko.observableArray([]);
+                
+                dataPromise.done(
+                    function(data) {
+                        var studyLevels = data["studyLevels"];
+                        var statusTypes = data["statusTypes"];
+                        
+                        self.studyLevels(studyLevels);
+                        self.statusTypes(statusTypes);
+                    }
+                );
+        
                 self.id = "profile-form";
                 self.personalTabId = "ppi";
                 self.utjTabId = "pui";
@@ -79,24 +93,46 @@ define(
                 trackers[self.personalTabId] = ko.observable();
                 trackers[self.utjTabId] = ko.observable();
                 
+                /**
+                 * 
+                 * @param {Number} tabId
+                 * @returns {Object}
+                 */
                 self.getTracker = function(tabId) {
                     return trackers[tabId];
                 };
                 
-                self.selectionHandler = function (event) {
+                /**
+                 * 
+                 * @param {type} event
+                 * @param {type} data
+                 * @returns {Boolean}
+                 */
+                self.selectionHandler = function (event, data) {
                     if (event.originalEvent) {
-                        var currentTab = getCurrentTab.call(self);
+                        var fromIndex = tabIds.indexOf(data.fromContent.selector.substring(1));
+                        var toIndex = tabIds.indexOf(data.toContent.selector.substring(1));
 
-                        return isTrackerClean(getTabTracker.call(self, currentTab));
+                        if (toIndex < fromIndex) {
+                            return true;
+                        } else {
+                            var currentTab = getCurrentTab.call(self);
+
+                            return isTrackerClean(getTabTracker.call(self, currentTab));
+                        }
                     }
                 };
 
-                self.relative = function (tabsNumber) {
+                /**
+                 * 
+                 * @param {Number} numberTabsToMove
+                 */
+                self.relative = function (numberTabsToMove) {
                     var currentTab = getCurrentTab.call(self);
                     var tracker = getTabTracker.call(self, currentTab);
                     
-                    if (isTrackerClean(tracker)) {
-                        $("#" + self.id).ojTabs("option", "selected", currentTab + tabsNumber);
+                    if (numberTabsToMove < 0 || isTrackerClean(tracker)) {
+                        $("#" + self.id).ojTabs("option", "selected", currentTab + numberTabsToMove);
                     } else {
                         tracker.showMessages();
                         tracker.focusOnFirstInvalid();

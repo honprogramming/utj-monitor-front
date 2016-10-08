@@ -15,11 +15,11 @@ define(
                         new DataProvider("data/pide.json",
                                 PIDEDataParser);
 
-                var fetchData = controlPanelDataProvider.fetchData();
+                var dataPromise = controlPanelDataProvider.fetchData();
                 self.observableSunburst = ko.observable();
                 self.observableDetails = ko.observable();
                 
-                fetchData.then(
+                dataPromise.then(
                         function () {
                             var controlPanelModel = new PIDEModel(controlPanelDataProvider);
                             self.sunburst = new SunburstViewModel("control_panel", 

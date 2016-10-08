@@ -1,47 +1,16 @@
-<div data-bind="attr: {id: $parent.utjTabId}">
-    <div class="oj-form-layout">
-        <div class="oj-form oj-sm-odd-cols-6">  
-            <div class="oj-flex"> 
-                <div class="oj-flex-item">
-                    <label  for="area" data-bind="text: $parent.areaLabel"></label>
-                </div>
-                <div class="oj-flex-item">
-                    <input id="area" list="secretariats" 
-                           data-bind="
-                                ojComponent: {
-                                    component: 'ojSelect',
-                                    required: true,
-                                    value: $parent.area,
-                                    placeholder: $parent.comboboxPlaceHolder,
-                                    invalidComponentTracker: $parent.getTracker($parent.utjTabId),
-                                    translations: {
-                                        'required': {
-                                            messageSummary: $parent.messageSummary,  
-                                            messageDetail: ' '
-                                        }
-                                    },
-                                    rootAttributes: {
-                                        class: 'full-max-width'
-                                    }
-                                }"/>
-                    <datalist id="secretariats">
-                        <option value="dean">Rectoría</option>
-                        <option value="academic">Academica</option>
-                        <option value="administrative">Administrativa</option>
-                        <option value="link-up">Vinculación</option>
-                    </datalist>
-                </div>
+<div class="oj-form-layout">
+    <div class="oj-form oj-sm-odd-cols-6">  
+        <div class="oj-flex"> 
+            <div class="oj-flex-item">
+                <label  for="area" data-bind="text: $parent.areaLabel"></label>
             </div>
-            <div class="oj-flex">  
-                <div class="oj-flex-item">
-                    <label for="subArea" data-bind="text: $parent.subAreaLabel"></label>
-                </div>
-                <div class="oj-flex-item">
-                    <input id="subArea" list="subArea-types" data-bind="
+            <div class="oj-flex-item">
+                <input id="area" list="secretariats" 
+                       data-bind="
                             ojComponent: {
                                 component: 'ojSelect',
                                 required: true,
-                                value: $parent.subArea,
+                                value: $parent.area,
                                 placeholder: $parent.comboboxPlaceHolder,
                                 invalidComponentTracker: $parent.getTracker($parent.utjTabId),
                                 translations: {
@@ -54,197 +23,226 @@
                                     class: 'full-max-width'
                                 }
                             }"/>
-                    <datalist id="subArea-types">
-                        <option value="planning">Planeación</option>
-                        <option value="career">Carrera...</option>
-                        <option value="services">Servicios Estudiantiles</option>
-                    </datalist>
-                </div>
+                <datalist id="secretariats">
+                    <option value="dean">Rectoría</option>
+                    <option value="academic">Academica</option>
+                    <option value="administrative">Administrativa</option>
+                    <option value="link-up">Vinculación</option>
+                </datalist>
             </div>
-            <div class="oj-flex">
-                <div class="oj-flex-item">
-                    <label for="position" data-bind="text: $parent.positionLabel"></label>
-                </div>
+        </div>
+        <div class="oj-flex">  
+            <div class="oj-flex-item">
+                <label for="subArea" data-bind="text: $parent.subAreaLabel"></label>
+            </div>
+            <div class="oj-flex-item">
+                <input id="subArea" list="subArea-types" data-bind="
+                        ojComponent: {
+                            component: 'ojSelect',
+                            required: true,
+                            value: $parent.subArea,
+                            placeholder: $parent.comboboxPlaceHolder,
+                            invalidComponentTracker: $parent.getTracker($parent.utjTabId),
+                            translations: {
+                                'required': {
+                                    messageSummary: $parent.messageSummary,  
+                                    messageDetail: ' '
+                                }
+                            },
+                            rootAttributes: {
+                                class: 'full-max-width'
+                            }
+                        }"/>
+                <datalist id="subArea-types">
+                    <option value="planning">Planeación</option>
+                    <option value="career">Carrera...</option>
+                    <option value="services">Servicios Estudiantiles</option>
+                </datalist>
+            </div>
+        </div>
+        <div class="oj-flex">
+            <div class="oj-flex-item">
+                <label for="position" data-bind="text: $parent.positionLabel"></label>
+            </div>
+            <div class="oj-flex-item">
                 <div class="oj-flex-item">
                     <div class="oj-flex-item">
-                        <div class="oj-flex-item">
-                            <input id="position" list="position-types" data-bind="
-                            ojComponent: {
-                                component: 'ojSelect', 
-                                required: true,
-                                value: $parent.position,
-                                placeholder: $parent.comboboxPlaceHolder,
-                                invalidComponentTracker: $parent.getTracker($parent.utjTabId),
-                                translations: {
-                                    'required': {
-                                        messageSummary: $parent.messageSummary,  
-                                        messageDetail: ' '
-                                    }
-                                },
-                                rootAttributes: {
-                                    class: 'full-max-width'
+                        <input id="position" list="position-types" data-bind="
+                        ojComponent: {
+                            component: 'ojSelect', 
+                            required: true,
+                            value: $parent.position,
+                            placeholder: $parent.comboboxPlaceHolder,
+                            invalidComponentTracker: $parent.getTracker($parent.utjTabId),
+                            translations: {
+                                'required': {
+                                    messageSummary: $parent.messageSummary,  
+                                    messageDetail: ' '
                                 }
-                            }"/>
-                            <datalist id="position-types">
-                                <option value="secretary">Secretario(a)</option>
-                                <option value="director">Director(a)</option>
-                                <option value="assistant">Asistente</option>
-                                <option value="departmentChief">Jefe(a) de Departamento</option>
-                            </datalist>
-                        </div>
+                            },
+                            rootAttributes: {
+                                class: 'full-max-width'
+                            }
+                        }"/>
+                        <datalist id="position-types">
+                            <option value="secretary">Secretario(a)</option>
+                            <option value="director">Director(a)</option>
+                            <option value="assistant">Asistente</option>
+                            <option value="departmentChief">Jefe(a) de Departamento</option>
+                        </datalist>
                     </div>
                 </div>
             </div>
-            <div class="oj-flex">  
-                <div class="oj-flex-item">
-                    <label for="manager" data-bind="text: $parent.managerLabel"></label>
-                </div>
-                <div class="oj-flex-item">
-                    <input id="manager" list="manager-list" data-bind="
-                            ojComponent: {
-                                component: 'ojSelect',
-                                required: true,
-                                value: $parent.manager,
-                                placeholder: $parent.comboboxPlaceHolder,
-                                invalidComponentTracker: $parent.getTracker($parent.utjTabId),
-                                translations: {
-                                    'required': {
-                                        messageSummary: $parent.messageSummary,  
-                                        messageDetail: ' '
-                                    }
-                                },
-                                rootAttributes: {
-                                    class: 'full-max-width'
-                                }
-                            }"/>
-                    <datalist id="manager-list">
-                        <option value="manager1">Manager1</option>
-                        <option value="manager2">Manager2</option>
-                    </datalist>
-                </div>
+        </div>
+        <div class="oj-flex">  
+            <div class="oj-flex-item">
+                <label for="manager" data-bind="text: $parent.managerLabel"></label>
             </div>
-            <div class="oj-flex">  
-                <div class="oj-flex-item">
-                    <label for="utjEmail" data-bind="text: $parent.emailUTJLabel"></label>
-                </div>
+            <div class="oj-flex-item">
+                <input id="manager" list="manager-list" data-bind="
+                        ojComponent: {
+                            component: 'ojSelect',
+                            required: true,
+                            value: $parent.manager,
+                            placeholder: $parent.comboboxPlaceHolder,
+                            invalidComponentTracker: $parent.getTracker($parent.utjTabId),
+                            translations: {
+                                'required': {
+                                    messageSummary: $parent.messageSummary,  
+                                    messageDetail: ' '
+                                }
+                            },
+                            rootAttributes: {
+                                class: 'full-max-width'
+                            }
+                        }"/>
+                <datalist id="manager-list">
+                    <option value="manager1">Manager1</option>
+                    <option value="manager2">Manager2</option>
+                </datalist>
+            </div>
+        </div>
+        <div class="oj-flex">  
+            <div class="oj-flex-item">
+                <label for="utjEmail" data-bind="text: $parent.emailUTJLabel"></label>
+            </div>
+            <div class="oj-flex-item">
                 <div class="oj-flex-item">
                     <div class="oj-flex-item">
-                        <div class="oj-flex-item">
-                            <input id="utjEmail" data-bind="
-                                ojComponent: {
-                                    component: 'ojInputText', 
-                                    placeholder: $parent.emailUTJPlaceHolder,
-                                    value: $parent.emailUTJ,
-                                    validators: [
-                                        {
-                                            type: 'regExp',
-                                            options: {
-                                                pattern: '\\w+@\\w+\\.(\\w{2,}\\.)?\\w{2,}',
-                                                messageDetail: $parent.emailValidationMessage
-                                            }
+                        <input id="utjEmail" data-bind="
+                            ojComponent: {
+                                component: 'ojInputText', 
+                                placeholder: $parent.emailUTJPlaceHolder,
+                                value: $parent.emailUTJ,
+                                validators: [
+                                    {
+                                        type: 'regExp',
+                                        options: {
+                                            pattern: '\\w+@\\w+\\.(\\w{2,}\\.)?\\w{2,}',
+                                            messageDetail: $parent.emailValidationMessage
                                         }
-                                    ],
-                                    rootAttributes: {
-                                        class: 'full-max-width'
                                     }
-                                }"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="oj-flex"> 
-                <div class="oj-flex-item">
-                    <label for="phoneNumberUTJ" data-bind="text: $parent.phoneUTJLabel"></label>
-                </div>
-                <div class="oj-flex-item">
-                    <input id="phoneNumberUTJ" data-bind="
-                        ojComponent: {
-                            component: 'ojInputText', 
-                            placeholder: $parent.phonePlaceHolder,
-                            value: $parent.phoneUTJ,
-                            validators: [
-                                {
-                                    type: 'regExp',
-                                    options: {
-                                        pattern: '(\\d(-|\\s)?){10}',
-                                        messageDetail: $parent.phoneValidationMessage
-                                    }
-                                }
-                            ],
-                            rootAttributes: {
-                                class: 'full-max-width'
-                            }
-                        }">
-                </div>
-            </div>
-            <div class="oj-flex"> 
-                <div class="oj-flex-item">
-                    <label for="ext" data-bind="text: $parent.extLabel"></label>
-                </div>
-                <div class="oj-flex-item">
-                    <input id="ext" data-bind="
-                        ojComponent: {
-                            component: 'ojInputText', 
-                            placeholder: $parent.extPlaceHolder,
-                            value: $parent.extension,
-                            validators: [
-                                {
-                                    type: 'regExp',
-                                    options: {
-                                        pattern: '(\\d(-|\\s)?){4}',
-                                        messageDetail: $parent.extValidationMessage
-                                    }
-                                }
-                            ],
-                            rootAttributes: {
-                                class: 'full-max-width'
-                            }
-                        }">
-                </div>
-            </div>
-            <div class="oj-flex">  
-                <div class="oj-flex-item">
-                    <label for="startDate" data-bind="text: $parent.joinDateLabel"></label>
-                </div>
-                <div class="oj-flex-item">
-                    <input id="startDate" data-bind="
-                            ojComponent: {
-                                component: 'ojInputDate',
-                                displayOptions: {
-                                    'converterHint': 'none'
-                                },
-                                placeholder: $parent.datePlaceHolder,
-                                value: $parent.startDate,
-                                converter: $parent.dateConverter,
+                                ],
                                 rootAttributes: {
                                     class: 'full-max-width'
                                 }
                             }"/>
+                    </div>
                 </div>
             </div>
-            <div class="oj-flex">
-                <div class="oj-flex-item">
-                    <div class="oj-flex">
-                        <input id="inputButton" type="button" 
-                                            data-bind="click: $parent.relative.bind(this, -1),
-                                            ojComponent: {
-                                                component: 'ojButton', 
-                                                label: $parent.previousButtonLabel
-                                            }"/>
-                     </div>
-                </div>
-                <div class="oj-flex-item">
-                    <div class="oj-flex oj-sm-justify-content-flex-end">
-                        <input id="inputButton" type="button" 
-                                            data-bind=" 
-                                            ojComponent: {
-                                                component: 'ojButton', 
-                                                label: $parent.saveButtonLabel,
-                                                disabled: $parent.saveDisabled
-                                            }"/>
-                     </div>
-                </div>
+        </div>
+        <div class="oj-flex"> 
+            <div class="oj-flex-item">
+                <label for="phoneNumberUTJ" data-bind="text: $parent.phoneUTJLabel"></label>
             </div>
-        </div>    
-    </div>
+            <div class="oj-flex-item">
+                <input id="phoneNumberUTJ" data-bind="
+                    ojComponent: {
+                        component: 'ojInputText', 
+                        placeholder: $parent.phonePlaceHolder,
+                        value: $parent.phoneUTJ,
+                        validators: [
+                            {
+                                type: 'regExp',
+                                options: {
+                                    pattern: '(\\d(-|\\s)?){10}',
+                                    messageDetail: $parent.phoneValidationMessage
+                                }
+                            }
+                        ],
+                        rootAttributes: {
+                            class: 'full-max-width'
+                        }
+                    }">
+            </div>
+        </div>
+        <div class="oj-flex"> 
+            <div class="oj-flex-item">
+                <label for="ext" data-bind="text: $parent.extLabel"></label>
+            </div>
+            <div class="oj-flex-item">
+                <input id="ext" data-bind="
+                    ojComponent: {
+                        component: 'ojInputText', 
+                        placeholder: $parent.extPlaceHolder,
+                        value: $parent.extension,
+                        validators: [
+                            {
+                                type: 'regExp',
+                                options: {
+                                    pattern: '(\\d(-|\\s)?){4}',
+                                    messageDetail: $parent.extValidationMessage
+                                }
+                            }
+                        ],
+                        rootAttributes: {
+                            class: 'full-max-width'
+                        }
+                    }">
+            </div>
+        </div>
+        <div class="oj-flex">  
+            <div class="oj-flex-item">
+                <label for="startDate" data-bind="text: $parent.joinDateLabel"></label>
+            </div>
+            <div class="oj-flex-item">
+                <input id="startDate" data-bind="
+                        ojComponent: {
+                            component: 'ojInputDate',
+                            displayOptions: {
+                                'converterHint': 'none'
+                            },
+                            placeholder: $parent.datePlaceHolder,
+                            value: $parent.startDate,
+                            converter: $parent.dateConverter,
+                            rootAttributes: {
+                                class: 'full-max-width'
+                            }
+                        }"/>
+            </div>
+        </div>
+        <div class="oj-flex">
+            <div class="oj-flex-item">
+                <div class="oj-flex">
+                    <input id="inputButton" type="button" 
+                                        data-bind="click: $parent.relative.bind(this, -1),
+                                        ojComponent: {
+                                            component: 'ojButton', 
+                                            label: $parent.previousButtonLabel
+                                        }"/>
+                 </div>
+            </div>
+            <div class="oj-flex-item">
+                <div class="oj-flex oj-sm-justify-content-flex-end">
+                    <input id="inputButton" type="button" 
+                                        data-bind=" 
+                                        ojComponent: {
+                                            component: 'ojButton', 
+                                            label: $parent.saveButtonLabel,
+                                            disabled: $parent.saveDisabled
+                                        }"/>
+                 </div>
+            </div>
+        </div>
+    </div>    
 </div>

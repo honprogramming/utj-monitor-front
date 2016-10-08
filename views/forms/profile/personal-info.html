@@ -1,200 +1,193 @@
-<div data-bind="attr: {id: $parent.personalTabId}">
-    <div class="oj-form-layout">
-        <div class="oj-form oj-sm-odd-cols-6">  
-            <div class="oj-flex">  
-                <div class="oj-flex-item">
-                    <label for="name" data-bind="text: $parent.nameLabel"></label>
-                </div>
+<div class="oj-form-layout">
+    <div class="oj-form oj-sm-odd-cols-6">  
+        <div class="oj-flex">  
+            <div class="oj-flex-item">
+                <label for="name" data-bind="text: $parent.nameLabel"></label>
+            </div>
+            <div class="oj-flex-item">
                 <div class="oj-flex-item">
                     <div class="oj-flex-item">
-                        <div class="oj-flex-item">
-                            <input id="name" data-bind="
-                                ojComponent: {
-                                    component: 'ojInputText', 
-                                    required: true,
-                                    placeholder: $parent.nameLabel,
-                                    value: $parent.name,
-                                    invalidComponentTracker: $parent.getTracker($parent.personalTabId),
-                                    translations: {
-                                        'required': {
-                                            messageSummary: $parent.messageSummary,  
-                                            messageDetail: ' '
-                                        }
-                                    },
-                                    rootAttributes: {
-                                        class: 'full-max-width'
-                                    }
-                                }"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="oj-flex">  
-                <div class="oj-flex-item">
-                    <label for="lastName" data-bind="text: $parent.lastNameLabel"></label>
-                </div>
-                <div class="oj-flex-item">
-                    <div class="oj-flex-item">
-                        <div class="oj-flex-item">
-                            <input id="lastName" data-bind="
-                                ojComponent: {
-                                    component: 'ojInputText', 
-                                    required: true,
-                                    placeholder: $parent.lastNameLabel,
-                                    value: $parent.lastName,
-                                    invalidComponentTracker: $parent.getTracker($parent.personalTabId),
-                                    translations: {
-                                        'required': {
-                                            messageSummary: $parent.messageSummary,  
-                                            messageDetail: ' '
-                                        }
-                                    },
-                                    rootAttributes: {
-                                        class: 'full-max-width'
-                                    }
-                                }"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="oj-flex">  
-                <div class="oj-flex-item">
-                    <label for="secondLastName" data-bind="text: $parent.secondLastNameLabel"></label>
-                </div>
-                <div class="oj-flex-item">
-                    <div class="oj-flex-item">
-                        <div class="oj-flex-item">
-                            <input id="secondLastName" data-bind="
-                                ojComponent: {
-                                    component: 'ojInputText', 
-                                    required: true,
-                                    placeholder: $parent.secondLastNameLabel,
-                                    value: $parent.secondLastName,
-                                    invalidComponentTracker: $parent.getTracker($parent.personalTabId),
-                                    translations: {
-                                        'required': {
-                                            messageSummary: $parent.messageSummary,  
-                                            messageDetail: ' '
-                                        }
-                                    },
-                                    rootAttributes: {
-                                        class: 'full-max-width'
-                                    }
-                                }"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="oj-flex"> 
-                <div class="oj-flex-item">
-                    <label for="phoneNumber" data-bind="text: $parent.phoneLabel"></label>
-                </div>
-                <div class="oj-flex-item">
-                    <input id="phoneNumber" data-bind="
-                        ojComponent: {
-                            component: 'ojInputText', 
-                            placeholder: $parent.phonePlaceHolder,
-                            value: $parent.phoneNumber,                          
-                            validators: [
-                                {
-                                    type: 'regExp',
-                                    options: {
-                                        pattern: '(\\d(-|\\s)?){10}',
-                                        messageDetail: $parent.phoneValidationMessage
-                                    }
-                                }
-                            ],
-                            rootAttributes: {
-                                class: 'full-max-width'
-                            }
-                        }">
-                </div>
-            </div>
-            <div class="oj-flex"> 
-                <div class="oj-flex-item">
-                    <label for="personalEmail" data-bind="text: $parent.emailLabel"></label>
-                </div>
-                <div class="oj-flex-item">
-                    <input id="personalEmail" data-bind="
-                        ojComponent: {
-                            component: 'ojInputText', 
-                            placeholder: $parent.emailPlaceHolder,
-                            value: $parent.email,                            
-                            validators: [
-                                {
-                                    type: 'regExp',
-                                    options: {
-                                        pattern: '\\w+@\\w+\\.\\w{2,}',
-                                        messageDetail: $parent.emailValidationMessage
-                                    }
-                                }
-                            ],
-                            rootAttributes: {
-                                class: 'full-max-width'
-                            }
-                        }">
-                </div>
-            </div>
-            <div class="oj-flex">  
-                <div class="oj-flex-item">
-                    <label for="studyLevel" data-bind="text: $parent.studyLevelLabel"></label>
-                </div>
-                <div class="oj-flex-item">
-                    <input id="studyLevel" list="level-types" data-bind="
+                        <input id="name" data-bind="
                             ojComponent: {
-                                component: 'ojSelect',
-                                placeholder: $parent.comboboxPlaceHolder,
-                                value: $parent.studyLevel,
+                                component: 'ojInputText', 
+                                required: true,
+                                placeholder: $parent.nameLabel,
+                                value: $parent.name,
+                                invalidComponentTracker: $parent.getTracker($parent.personalTabId),
+                                translations: {
+                                    'required': {
+                                        messageSummary: $parent.messageSummary,  
+                                        messageDetail: ' '
+                                    }
+                                },
                                 rootAttributes: {
                                     class: 'full-max-width'
                                 }
                             }"/>
-                    <datalist id="level-types">
-                        <option value="primary">Primaria</option>
-                        <option value="secondary">Secundaria</option>
-                        <option value="highschool">Bachillerato</option>
-                        <option value="tsu">Técnico Superior Universitario</option>
-                        <option value="university">Licenciatura</option>
-                        <option value="master">Maestría</option>
-                        <option value="phd">Doctorado</option>
-                    </datalist>
+                    </div>
                 </div>
             </div>
-            <div class="oj-flex">  
+        </div>
+        <div class="oj-flex">  
+            <div class="oj-flex-item">
+                <label for="lastName" data-bind="text: $parent.lastNameLabel"></label>
+            </div>
+            <div class="oj-flex-item">
                 <div class="oj-flex-item">
-                    <label for="studyStatus" data-bind="text: $parent.studyLevelStatusLabel"></label>
-                </div>
-                <div class="oj-flex-item">
-                    <input id="studyStatus" list="status-types" data-bind="
+                    <div class="oj-flex-item">
+                        <input id="lastName" data-bind="
                             ojComponent: {
-                                component: 'ojSelect',
-                                placeholder: $parent.comboboxPlaceHolder,
-                                value: $parent.studyStatus,
+                                component: 'ojInputText', 
+                                required: true,
+                                placeholder: $parent.lastNameLabel,
+                                value: $parent.lastName,
+                                invalidComponentTracker: $parent.getTracker($parent.personalTabId),
+                                translations: {
+                                    'required': {
+                                        messageSummary: $parent.messageSummary,  
+                                        messageDetail: ' '
+                                    }
+                                },
                                 rootAttributes: {
                                     class: 'full-max-width'
                                 }
                             }"/>
-                    <datalist id="status-types">
-                        <option value="progress">En Curso</option>
-                        <option value="graduate">Egresado</option>
-                        <option value="truncate">Trunco</option>
-                        <option value="certified">Titulado</option>
-                    </datalist>
-                </div>
-            </div>
-            <div class="oj-flex">
-                <div class="oj-flex-item"></div>
-                <div class="oj-flex-item">
-                    <div class="oj-flex oj-sm-justify-content-flex-end">
-                        <input id="inputButton" type="button" 
-                               data-bind="click: $parent.relative.bind(this, 1),
-                                            ojComponent: {
-                                                component: 'ojButton', 
-                                                label: $parent.nextButtonLabel
-                                            }"/>
                     </div>
                 </div>
             </div>
-        </div>    
-    </div>
+        </div>
+        <div class="oj-flex">  
+            <div class="oj-flex-item">
+                <label for="secondLastName" data-bind="text: $parent.secondLastNameLabel"></label>
+            </div>
+            <div class="oj-flex-item">
+                <div class="oj-flex-item">
+                    <div class="oj-flex-item">
+                        <input id="secondLastName" data-bind="
+                            ojComponent: {
+                                component: 'ojInputText', 
+                                required: true,
+                                placeholder: $parent.secondLastNameLabel,
+                                value: $parent.secondLastName,
+                                invalidComponentTracker: $parent.getTracker($parent.personalTabId),
+                                translations: {
+                                    'required': {
+                                        messageSummary: $parent.messageSummary,  
+                                        messageDetail: ' '
+                                    }
+                                },
+                                rootAttributes: {
+                                    class: 'full-max-width'
+                                }
+                            }"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="oj-flex"> 
+            <div class="oj-flex-item">
+                <label for="phoneNumber" data-bind="text: $parent.phoneLabel"></label>
+            </div>
+            <div class="oj-flex-item">
+                <input id="phoneNumber" data-bind="
+                    ojComponent: {
+                        component: 'ojInputText', 
+                        placeholder: $parent.phonePlaceHolder,
+                        value: $parent.phoneNumber,                          
+                        validators: [
+                            {
+                                type: 'regExp',
+                                options: {
+                                    pattern: '(\\d(-|\\s)?){10}',
+                                    messageDetail: $parent.phoneValidationMessage
+                                }
+                            }
+                        ],
+                        rootAttributes: {
+                            class: 'full-max-width'
+                        }
+                    }">
+            </div>
+        </div>
+        <div class="oj-flex"> 
+            <div class="oj-flex-item">
+                <label for="personalEmail" data-bind="text: $parent.emailLabel"></label>
+            </div>
+            <div class="oj-flex-item">
+                <input id="personalEmail" data-bind="
+                    ojComponent: {
+                        component: 'ojInputText', 
+                        placeholder: $parent.emailPlaceHolder,
+                        value: $parent.email,                            
+                        validators: [
+                            {
+                                type: 'regExp',
+                                options: {
+                                    pattern: '\\w+@\\w+\\.\\w{2,}',
+                                    messageDetail: $parent.emailValidationMessage
+                                }
+                            }
+                        ],
+                        rootAttributes: {
+                            class: 'full-max-width'
+                        }
+                    }">
+            </div>
+        </div>
+        <div class="oj-flex">  
+            <div class="oj-flex-item">
+                <label for="studyLevel" data-bind="text: $parent.studyLevelLabel"></label>
+            </div>
+            <div class="oj-flex-item">
+                <input id="studyLevel" list="level-types" data-bind="
+                        ojComponent: {
+                            component: 'ojSelect',
+                            placeholder: $parent.comboboxPlaceHolder,
+                            value: $parent.studyLevel,
+                            rootAttributes: {
+                                class: 'full-max-width'
+                            }
+                        }"/>
+                <datalist id="level-types">
+                    <!-- ko foreach: $parent.studyLevels -->
+                        <option data-bind="attr: {value: value}, text: text"></option>
+                    <!-- /ko -->
+                </datalist>
+            </div>
+        </div>
+        <div class="oj-flex">  
+            <div class="oj-flex-item">
+                <label for="studyStatus" data-bind="text: $parent.studyLevelStatusLabel"></label>
+            </div>
+            <div class="oj-flex-item">
+                <input id="studyStatus" list="status-types" data-bind="
+                        ojComponent: {
+                            component: 'ojSelect',
+                            placeholder: $parent.comboboxPlaceHolder,
+                            value: $parent.studyStatus,
+                            rootAttributes: {
+                                class: 'full-max-width'
+                            }
+                        }"/>
+                <datalist id="status-types">
+                    <!-- ko foreach: $parent.statusTypes -->
+                        <option data-bind="attr: {value: value}, text: text"></option>
+                    <!-- /ko -->
+                </datalist>
+            </div>
+        </div>
+        <div class="oj-flex">
+            <div class="oj-flex-item"></div>
+            <div class="oj-flex-item">
+                <div class="oj-flex oj-sm-justify-content-flex-end">
+                    <input id="inputButton" type="button" 
+                           data-bind="click: $parent.relative.bind(this, 1),
+                                        ojComponent: {
+                                            component: 'ojButton', 
+                                            label: $parent.nextButtonLabel
+                                        }"/>
+                </div>
+            </div>
+        </div>
+    </div>    
 </div>

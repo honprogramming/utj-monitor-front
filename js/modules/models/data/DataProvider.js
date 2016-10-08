@@ -54,13 +54,17 @@ define(['jquery'],
              */
             prototype.fetchData = function () {
                 var self = this;
-                var promise = $.getJSON(this.getSourceURL()).then(
+                var promise = $.getJSON(this.getSourceURL());
+                var deferred = $.Deferred();
+                
+                promise.then(
                         function (data) {
                             self.setDataArray(self.getDataParser().parse(data));
+                            deferred.resolve(data);
                         }
                 );
 
-                return promise;
+                return deferred;
             };
 
             /**

@@ -1,11 +1,52 @@
 {
     "studyLevels": [
-        "Primaria",
-        "Secundaria",
-        "Bachillerato",
-        "Técnico Superior Universitario",
-        "Licenciatura",
-        "Maestría",
-        "Doctorado"
+        {
+            "value": "p",
+            "text": "Primaria"
+        },
+        {
+            "value": "s",
+            "text": "Secundaria"
+        },
+        {
+            "value": "b",
+            "text": "Bachillerato"
+        },
+        {
+            "value": "t",
+            "text": "Técnico Superior Universitario"
+        },
+        {
+            "value": "l",
+            "text": "Licenciatura"
+
+        },
+        {
+            "value": "m",
+            "text": "Maestría"
+
+        },
+        {
+            "value": "d",
+            "text": "Doctorado"
+        }
+    ],
+    "statusTypes": [
+        {
+            "value": "p",
+            "text": "En Curso"
+        },
+        {
+            "value": "g",
+            "text": "Egresado"
+        },
+        {
+            "value": "t",
+            "text": "Trunco"
+        },
+        {
+            "value": "c",
+            "text": "Titulado"
+        }
     ]
 }
