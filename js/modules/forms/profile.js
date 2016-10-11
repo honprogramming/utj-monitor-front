@@ -17,14 +17,26 @@ define(
                 
                 self.studyLevels = ko.observableArray([]);
                 self.statusTypes = ko.observableArray([]);
+                self.secretariats = ko.observableArray([]);
+                self.subAreas = ko.observableArray([]);
+                self.positions = ko.observableArray([]);
+                self.managers = ko.observableArray([]);
                 
                 dataPromise.done(
                     function(data) {
                         var studyLevels = data["studyLevels"];
                         var statusTypes = data["statusTypes"];
+                        var secretariats = data["secretariats"];
+                        var subAreas = data["subAreas"];
+                        var positions = data["positions"];
+                        var managers = data["managers"];
                         
                         self.studyLevels(studyLevels);
                         self.statusTypes(statusTypes);
+                        self.secretariats(secretariats);
+                        self.subAreas(subAreas);
+                        self.positions(positions);
+                        self.managers(managers);
                     }
                 );
         
@@ -117,8 +129,15 @@ define(
                             return true;
                         } else {
                             var currentTab = getCurrentTab.call(self);
-
-                            return isTrackerClean(getTabTracker.call(self, currentTab));
+                            var tracker = getTabTracker.call(self, currentTab);
+                            var isFormClean = isTrackerClean(tracker);
+                            
+                            if (!isFormClean) {
+                                tracker.showMessages();
+                                tracker.focusOnFirstInvalid();
+                            }
+                            
+                            return isFormClean;
                         }
                     }
                 };
@@ -160,7 +179,7 @@ define(
                 }
 
                 function isTrackerClean(tracker) {
-                    return !(tracker.invalidHidden || tracker.invalidShown);
+                    return tracker ? !(tracker.invalidHidden || tracker.invalidShown) : false;
                 }
             }
 

@@ -24,10 +24,9 @@
                                 }
                             }"/>
                 <datalist id="secretariats">
-                    <option value="dean">Rectoría</option>
-                    <option value="academic">Academica</option>
-                    <option value="administrative">Administrativa</option>
-                    <option value="link-up">Vinculación</option>
+                    <!-- ko foreach: $parent.secretariats -->
+                        <option data-bind="attr: {value: value}, text: text"></option>
+                    <!-- /ko -->
                 </datalist>
             </div>
         </div>
@@ -54,9 +53,9 @@
                             }
                         }"/>
                 <datalist id="subArea-types">
-                    <option value="planning">Planeación</option>
-                    <option value="career">Carrera...</option>
-                    <option value="services">Servicios Estudiantiles</option>
+                    <!-- ko foreach: $parent.subAreas -->
+                        <option data-bind="attr: {value: value}, text: text"></option>
+                    <!-- /ko -->
                 </datalist>
             </div>
         </div>
@@ -67,7 +66,7 @@
             <div class="oj-flex-item">
                 <div class="oj-flex-item">
                     <div class="oj-flex-item">
-                        <input id="position" list="position-types" data-bind="
+                        <input id="position" list="positions" data-bind="
                         ojComponent: {
                             component: 'ojSelect', 
                             required: true,
@@ -84,11 +83,10 @@
                                 class: 'full-max-width'
                             }
                         }"/>
-                        <datalist id="position-types">
-                            <option value="secretary">Secretario(a)</option>
-                            <option value="director">Director(a)</option>
-                            <option value="assistant">Asistente</option>
-                            <option value="departmentChief">Jefe(a) de Departamento</option>
+                        <datalist id="positions">
+                            <!-- ko foreach: $parent.positions -->
+                                <option data-bind="attr: {value: value}, text: text"></option>
+                            <!-- /ko -->
                         </datalist>
                     </div>
                 </div>
@@ -99,7 +97,7 @@
                 <label for="manager" data-bind="text: $parent.managerLabel"></label>
             </div>
             <div class="oj-flex-item">
-                <input id="manager" list="manager-list" data-bind="
+                <input id="manager" list="managers" data-bind="
                         ojComponent: {
                             component: 'ojSelect',
                             required: true,
@@ -116,9 +114,10 @@
                                 class: 'full-max-width'
                             }
                         }"/>
-                <datalist id="manager-list">
-                    <option value="manager1">Manager1</option>
-                    <option value="manager2">Manager2</option>
+                <datalist id="managers">
+                    <!-- ko foreach: $parent.managers -->
+                        <option data-bind="attr: {value: value}, text: text"></option>
+                    <!-- /ko -->
                 </datalist>
             </div>
         </div>

@@ -48,5 +48,65 @@
             "value": "c",
             "text": "Titulado"
         }
+    ],
+    "secretariats": [
+        {
+            "value": "r",
+            "text": "Rectoría"
+        },
+        {
+            "value": "ac",
+            "text": "Académica"
+        },
+        {
+            "value": "ad",
+            "text": "Administrativa"
+        },
+        {
+            "value": "v",
+            "text": "Vinculación"
+        }
+    ],
+    "subAreas": [
+        {
+            "value": "p",
+            "text": "Planeación"
+        },
+        {
+            "value": "c",
+            "text": "Carrera..."
+        },
+        {
+            "value": "s",
+            "text": "Servicios Estudiantiles"
+        }
+    ],
+    "positions": [
+        {
+            "value": "s",
+            "text": "Secretario(a)"
+        },
+        {
+            "value": "d",
+            "text": "Director(a)"
+        },
+        {
+            "value": "a",
+            "text": "Asistente"
+        },
+        {
+            "value": "j",
+            "text": "Jefe(a) de Departamento"
+        }
+    ],
+    "managers": [
+        {
+            "value": "1",
+            "text": "Manager 1"
+        },
+        {
+            "value": "2",
+            "text": "Manager 2"
+        }
     ]
 }
