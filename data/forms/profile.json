@@ -31,7 +31,7 @@
             "text": "Doctorado"
         }
     ],
-    "statusTypes": [
+    "studyStatus": [
         {
             "value": "p",
             "text": "En Curso"

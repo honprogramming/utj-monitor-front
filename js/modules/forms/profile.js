@@ -11,12 +11,12 @@ define(
             function ProfileViewModel() {
                 var self = this;
                 var formsDataProvider = 
-                        new DataProvider("data/forms/profile.json", FormsDataParser);
+                        new DataProvider("http://localhost:8080/utj-monitor-services/v1/profiles/catalogs", FormsDataParser);
                 
                 var dataPromise = formsDataProvider.fetchData();
                 
                 self.studyLevels = ko.observableArray([]);
-                self.statusTypes = ko.observableArray([]);
+                self.studyStatus = ko.observableArray([]);
                 self.secretariats = ko.observableArray([]);
                 self.subAreas = ko.observableArray([]);
                 self.positions = ko.observableArray([]);
@@ -25,14 +25,14 @@ define(
                 dataPromise.done(
                     function(data) {
                         var studyLevels = data["studyLevels"];
-                        var statusTypes = data["statusTypes"];
+                        var studyStatus = data["studyStatus"];
                         var secretariats = data["secretariats"];
                         var subAreas = data["subAreas"];
                         var positions = data["positions"];
                         var managers = data["managers"];
                         
                         self.studyLevels(studyLevels);
-                        self.statusTypes(statusTypes);
+                        self.studyStatus(studyStatus);
                         self.secretariats(secretariats);
                         self.subAreas(subAreas);
                         self.positions(positions);

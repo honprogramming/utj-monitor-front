@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="css/test.css" type="text/css"/>
 
         <!-- This is the main css file for the default Alta theme -->
-        <link rel="stylesheet" href="libraries/css/libs/oj/v2.0.2/alta/oj-alta-min.css" type="text/css"/>
+        <link rel="stylesheet" href="libs/oraclejet/dist/css/alta/oj-alta-min.css" type="text/css"/>
 
         <!-- These style classes are the alta design style from Oracle. -->
         <link rel="stylesheet" href="css/alta-patterns-min.css"/>
@@ -53,6 +53,7 @@
 
             <!-- This is where your main page content will be loaded -->
             <div id="mainContainer" role="main" class="oj-flex full-height">
+                <div id="mainContent" class="full-height full-width" data-bind="ojModule: {name: 'menu'}"></div>
                 <!--<div id="mainContent" class="full-height" data-bind="ojModule: {name: 'projects'}"></div>-->
                 <!--<div id="mainContent" class="full-height" data-bind="ojModule: {name: 'home'}"></div>-->
 <!--                <div id="mainContent" class="oj-flex-item full-height"
@@ -61,12 +62,12 @@
                             viewName: 'pide/pide'
                     }">
                 </div>-->
-                <div id="mainContent" class="oj-flex-item oj-sm-12 full-height" 
+<!--                <div id="mainContent" class="oj-flex-item oj-sm-12 full-height" 
                         data-bind="ojModule: {
                             name: 'forms/profile', 
                             viewName: 'forms/profile'
                         }">
-                </div>
+                </div>-->
             </div>
             <footer id="footerWrapper" role="footer"
                     data-bind="ojModule: {name: 'footer'}">

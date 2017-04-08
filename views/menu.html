@@ -1,0 +1,16 @@
+<div id="main-menu-container" class="centered">
+    <div id="main-menu-button-set"
+            data-bind="ojComponent: {
+                component: 'ojButtonset'
+            }">
+        <!-- ko foreach: menuItems -->
+        <label data-bind="attr: {for: $data.id}"></label>
+        <input type="radio" name="options"
+               data-bind="value: $data.id, attr: {id: $data.id},
+                          ojComponent: { 
+                              component: 'ojButton',
+                              label: $data.label 
+                          }"/>
+        <!-- /ko -->
+    </div>
+</div>

@@ -3,23 +3,26 @@
  * It contains path configurations and the call to require function which starts
  * loading all other files.
  */
-var libs = "../libraries/js/libs";
+//var libs = "../libraries/js/libs";
+var libs = "../libs";
 
 requirejs.config({
     // Path mappings for the logical module names
     paths: {
-        'knockout': libs + '/knockout/knockout-3.4.0',
-        'jquery': libs + '/jquery/jquery-2.1.3.min',
-        'jqueryui-amd': libs + '/jquery/jqueryui-amd-1.11.4.min',
-        'promise': libs + '/es6-promise/promise-1.0.0.min',
-        'hammerjs': libs + '/hammer/hammer-2.0.4.min',
-        'ojdnd': libs + '/dnd-polyfill/dnd-polyfill-1.0.0.min',
-        'ojs': libs + '/oj/v2.0.2/debug',
-        'ojL10n': libs + '/oj/v2.0.2/ojL10n',
-        'ojtranslations': libs + '/oj/v2.0.2/resources',
-        'signals': libs + '/js-signals/signals.min',
-        'text': libs + '/require/text',
-        'async': libs + '/require/async',
+        'knockout': libs + '/knockout/dist/knockout',
+        'jquery': libs + '/jquery/dist/jquery',
+        'jqueryui-amd': libs + '/jquery-ui/ui',
+        'promise': libs + '/es6-promise/promise',
+        'hammerjs': libs + '/hammerjs/hammer',
+        'ojdnd': libs + '/oraclejet/dist/js/libs/dnd-polyfill/dnd-polyfill-1.0.0',
+        'ojs': libs + '/oraclejet/dist/js/libs/oj/debug',
+        'ojL10n': libs + '/oraclejet/dist/js/libs/oj/ojL10n',
+        'ojtranslations': libs + '/oraclejet/dist/js/libs/oj/resources',
+        'text': libs + '/text/text',
+        'signals': libs + '/js-signals/dist/signals',
+        'customElements': libs + '/webcomponentsjs/CustomElements',
+        'proj4': libs + '/proj4js/dist/proj4-src',
+        'css': libs + '/require-css/css',
         'google': libs + '/google/maps/maps',
         'models': 'modules/models',
         'view-models': 'modules/view-models',
