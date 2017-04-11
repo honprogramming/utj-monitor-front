@@ -9,5 +9,7 @@
     "oraclejet": "3.0.0",
     "font-awesome": "Font-Awesome#4.7.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "grunt": "^1.0.1"
+  }
 }

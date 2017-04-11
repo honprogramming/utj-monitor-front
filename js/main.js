@@ -3,25 +3,24 @@
  * It contains path configurations and the call to require function which starts
  * loading all other files.
  */
-//var libs = "../libraries/js/libs";
 var libs = "../libs";
 
 requirejs.config({
     // Path mappings for the logical module names
     paths: {
-        'knockout': libs + '/knockout/dist/knockout',
-        'jquery': libs + '/jquery/dist/jquery',
+        'knockout': libs + '/knockout/knockout',
+        'jquery': libs + '/jquery/jquery',
         'jqueryui-amd': libs + '/jquery-ui/ui',
-        'promise': libs + '/es6-promise/promise',
+        'promise': libs + '/es6-promise/es6-promise',
         'hammerjs': libs + '/hammerjs/hammer',
-        'ojdnd': libs + '/oraclejet/dist/js/libs/dnd-polyfill/dnd-polyfill-1.0.0',
-        'ojs': libs + '/oraclejet/dist/js/libs/oj/debug',
-        'ojL10n': libs + '/oraclejet/dist/js/libs/oj/ojL10n',
-        'ojtranslations': libs + '/oraclejet/dist/js/libs/oj/resources',
+        'ojdnd': libs + '/oraclejet/js/libs/dnd-polyfill/dnd-polyfill-1.0.0',
+        'ojs': libs + '/oraclejet/js/libs/oj/debug',
+        'ojL10n': libs + '/oraclejet/js/libs/oj/ojL10n',
+        'ojtranslations': libs + '/oraclejet/js/libs/oj/resources',
         'text': libs + '/text/text',
-        'signals': libs + '/js-signals/dist/signals',
+        'signals': libs + '/js-signals/signals',
         'customElements': libs + '/webcomponentsjs/CustomElements',
-        'proj4': libs + '/proj4js/dist/proj4-src',
+        'proj4': libs + '/proj4js/proj4-src',
         'css': libs + '/require-css/css',
         'google': libs + '/google/maps/maps',
         'models': 'modules/models',

@@ -2,6 +2,6 @@
     "directory": "libs",
     "timeout": 10000,
     "scripts": {
-        "postinstall": "find . -name \"*.md\""
+        "postinstall": "grunt --verbose"
     }
 }
