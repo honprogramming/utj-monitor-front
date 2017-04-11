@@ -39,6 +39,12 @@ module.exports = function (grunt) {
                         cwd: libsDir + '/proj4/dist',
                         src: 'proj4{-src,}.js',
                         dest: libsDir + '/proj4'
+                    },
+                    {
+                        expand: true,
+                        cwd: libsDir,
+                        src: 'font-awesome/{css,fonts}/*.*',
+                        dest: 'css'
                     }
                 ]
             }
@@ -62,7 +68,8 @@ module.exports = function (grunt) {
                     libsDir + '/require-css/*', '!' + libsDir + '/require-css/{normalize,css{.min,-builder,}}.js',
                     libsDir + '/requirejs/*', '!' + libsDir + '/requirejs/require.js',
                     libsDir + '/text/*', '!' + libsDir + '/text/text.js',
-                    libsDir + '/webcomponentsjs/*', '!' + libsDir + '/webcomponentsjs/CustomElements{.min,}.js'
+                    libsDir + '/webcomponentsjs/*', '!' + libsDir + '/webcomponentsjs/CustomElements{.min,}.js',
+                    libsDir + '/font-awesome'
                 ]
             },
             production: {
