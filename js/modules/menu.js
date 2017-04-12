@@ -6,52 +6,40 @@
  * 
  */
 define(
-        [   'knockout',
+        [
+            'knockout',
             'view-models/GeneralViewModel',
+            'view-models/events/EventTypes',
+            'view-models/menu/MenuItems',
             'ojs/ojcore', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton'
         ],
-        function (ko, GeneralViewModel) {
+        function (ko, GeneralViewModel, EventTypes, MenuItems) {
             /**
              * The view model for the menu
              */
 
             function MenuViewModel() {
                 var self = this;
-                
-                self.menuItems = [
-                    {
-                        id: "pide",
-                        label: "PIDE"
-                    },
-                    {
-                        id: "mecasut",
-                        label: "MECASUT"
-                    },
-                    {
-                        id: "pe",
-                        label: "PE"
-                    },
-                    {
-                        id: "poa",
-                        label: "POA"
-                    },
-                    {
-                        id: "performance",
-                        label: "DESEMPEÑO"
-                    },
-                    {
-                        id: "admin",
-                        label: "ADMINISTRADOR"
-                    }
-                ];
-                
-//                self.clickHandler = function(item) {
-//                    self.checked([item.id]);
-//                };
+                self.listeners = [];
+                self.checked = ko.observable();
+                self.menuItems = Object.values(MenuItems);
+
+                self.clickHandler = function (event, ui) {
+                    self.onClick(ui.value);
+                };
+
+                self.addClickListener = function (listener) {
+                    self.addListener(listener, EventTypes.CLICK_EVENT);
+                };
+
+                self.onClick = function (value) {
+                    self.checked(value);
+                    self.callListeners(EventTypes.CLICK_EVENT, value);
+                };
             }
-            
-            return MenuViewModel;
+
+            MenuViewModel.prototype = Object.create(GeneralViewModel);
+
+            return new MenuViewModel();
         }
 );
-
-
