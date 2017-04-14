@@ -1,0 +1,21 @@
+<div id="admin-container">
+    <div id="tabs" 
+         data-bind="ojComponent:{
+           component: 'ojTabs',
+                   orientation: 'vertical'
+       }">
+        <!-- tab bar -->
+        <ul>
+            <!-- ko foreach: tabItems -->
+                <li><span data-bind="text: $data.label"></span></li>
+            <!-- /ko -->
+        </ul>
+
+        <!-- tab contents -->
+        <!-- ko foreach: tabItems -->
+            <div data-bind="attr: {id: $data.id}" class="full-height full-width">
+                <div data-bind="ojModule: $data.module" class="full-height full-width"></div>
+            </div>
+        <!-- /ko -->
+    </div>
+</div>

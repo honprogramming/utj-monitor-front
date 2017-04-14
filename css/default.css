@@ -92,6 +92,22 @@ footer {
     text-align: center;
 }
 
+.form-container {
+    padding: 5px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.edit {
+    color: #555;
+    cursor: pointer;    
+}
+
+.edit-disabled {
+    color: #eee;
+    cursor: pointer;
+}
+
 .pointer {
     cursor: pointer;
 }

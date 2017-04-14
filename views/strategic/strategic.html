@@ -1,0 +1,65 @@
+<div class="full-height full-width">
+    <h2 class="centered" data-bind="text: title"></h2>
+    <div id="vision-content" class="full-width form-container"
+         data-bind="ojComponent: {
+                        component: 'ojCollapsible',
+                        expandArea: 'disclosureIcon',
+                        expanded: true
+                    }">
+        <h4 id="strategic-vision" class="" data-bind="text: visionLabel"></h4>
+        <textarea id="vision-text-area"
+                  data-bind="ojComponent: {
+                                 component: 'ojTextArea', 
+                                 value: vision,
+                                 placeholder: placeholder,
+                                 required: true,
+                                 rootAttributes: {
+                                    style: 'max-width: 100%'
+                                 }
+                             }"></textarea>
+    </div>
+    <div id="axes-content" class="full-width form-container"
+         data-bind="ojComponent: {
+                        component: 'ojCollapsible',
+                        expandArea: 'disclosureIcon',
+                        expanded: true
+                    }">
+        <h4 id="strategic-axes" class="" data-bind="text: axesLabel"></h4>
+        <div class="oj-flex full-width">
+            <i class="fa fa-plus pointer" title="Nuevo"></i>
+            <table id="axes-table"
+                   summary="Ejes Estratégicos"
+                   aria-label="Tabla de Ejes Estratégicos"
+                   data-bind="ojComponent: {
+                                  component: 'ojTable',
+                                  data: dataSource,
+                                  editMode: 'rowEdit',
+                                  columns: columns,
+                                  rowTemplate: getRowTemplate,
+                                  rootAttributes: {
+                                      style: 'width: 100%'
+                                  },
+                                  display: 'grid'
+                            }">
+                <script type="text/html" id="rowTemplate">
+                    <tr>
+                        <td data-bind="text: name">
+                        </td>
+                    </tr>
+                </script>
+                <script type="text/html" id="editRowTemplate">
+                    <tr>
+                        <td>
+                            <input type="text" id="name"
+                                data-bind="ojComponent:{
+                                               component: 'ojInputText',
+                                               value: name
+                                           }">
+                            </input>
+                        </td>
+                    </tr>
+                </script>
+            </table>
+        </div>
+    </div>
+</div>

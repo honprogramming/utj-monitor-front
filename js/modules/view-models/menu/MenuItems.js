@@ -41,7 +41,7 @@ define(
                     id: "admin",
                     label: "ADMINISTRADOR",
                     module: {
-                        viewName: "empty"
+                        name: "admin"
                     }
                 }
             };

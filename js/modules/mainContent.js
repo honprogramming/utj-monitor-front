@@ -11,7 +11,7 @@ define(
             'view-models/menu/MenuItems'
         ],
         function (ko, menu, GeneralViewModel, MenuItems) {
-            var firstMenuId = menu.menuItems[1]["id"];
+            var firstMenuId = menu.menuItems[0]["id"];
             
             var mainContentViewModel = {
                 selectedModule: ko.observable(MenuItems[firstMenuId]["module"]),
