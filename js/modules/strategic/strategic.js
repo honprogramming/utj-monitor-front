@@ -56,11 +56,19 @@ define(
                 self.columns = [
                     {
                         headerText: 'Nombre',
-                        headerStyle: 'min-width: 100%; max-width: 100%; width: 100%',
+                        headerStyle: 'min-width: 90%; max-width: 90%; width: 90%',
                         headerClassName: 'oj-helper-text-align-start',
-                        style: 'min-width: 100%; max-width: 100%; width: 100%; background-color: #FFF',
-                        className: 'oj-helper-text-align-start oj-read-only',
+                        style: 'min-width: 90%; max-width: 90%; width: 90%;',
+                        className: 'oj-helper-text-align-start',
                         sortProperty: 'name'
+                    },
+                    {
+                        headerText: 'Acciones',
+                        headerStyle: 'min-width: 10%; max-width: 10%; width: 10%',
+                        headerClassName: 'oj-helper-text-align-start',
+                        style: 'min-width: 10%; max-width: 10%; width: 10%;',
+                        className: '',
+                        sortable: 'disabled'
                     }
                 ];
 
