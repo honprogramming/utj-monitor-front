@@ -5,24 +5,18 @@
  */
 
 define(
-        ['knockout',
+        [
+            'ojs/ojcore','knockout', 'jquery',
             'view-models/admin/AdminItems',
-            'ojs/ojcore', 'jquery', 'ojs/ojknockout',
+            'ojs/ojknockout',
             'ojs/ojcollapsible', 'ojs/ojinputtext',
             'ojs/ojtable', 'ojs/ojinputtext', 'ojs/ojarraytabledatasource'
         ],
-        function (ko, AdminItems) {
+        function (oj, ko, $, AdminItems) {
             function StrategicViewModel() {
                 var self = this;
-
-                self.title = AdminItems["strategic"]["label"];
-                self.visionLabel = "Visión";
-                self.axesLabel = "Ejes";
-                self.vision = ko.observable();
-                self.placeholder = "La visión de la escuela...";
-
-                self.dataSource = new oj.ArrayTableDataSource(
-                        [
+                var currentRow = -1;
+                var data = [
                             {
                                 id: 1,
                                 name: "Calidad Educativa"
@@ -47,10 +41,20 @@ define(
                                 id: 6,
                                 name: "Internacionalización e idiomas"
                             }
-                        ],
-                        {
-                            idAttribute: "id"
-                        }
+                        ];
+                        
+                self.title = AdminItems["strategic"]["label"];
+                self.visionLabel = "Visión";
+                self.axesLabel = "Ejes";
+                self.vision = ko.observable();
+                self.placeholder = "La visión de la escuela...";
+
+                self.dataSource = ko.observable(
+                        new oj.ArrayTableDataSource(data,
+                            {
+                                idAttribute: "id"
+                            }
+                        )
                 );
 
                 self.columns = [
@@ -66,8 +70,7 @@ define(
                         headerText: 'Acciones',
                         headerStyle: 'min-width: 10%; max-width: 10%; width: 10%',
                         headerClassName: 'oj-helper-text-align-start',
-                        style: 'min-width: 10%; max-width: 10%; width: 10%;',
-                        className: '',
+                        style: 'min-width: 10%; max-width: 10%; width: 10%; text-align:center;',
                         sortable: 'disabled'
                     }
                 ];
@@ -80,6 +83,23 @@ define(
                     } else if (mode === 'navigation') {
                         return 'rowTemplate';
                     }
+                };
+                
+                self.newClickHandler = function() {
+                    data.push({id: "", name: ""});
+                    self.dataSource(new oj.ArrayTableDataSource(data, {idAttribute: "id"}));
+                    $("#axes-table").ojTable("refresh");
+                };
+                
+                self.clickHandler = function(event, ui) {
+                    if (ui.option === "currentRow") {
+                        currentRow = ui.value.rowIndex;
+                    }
+                };
+                
+                self.deleteHandler = function() {
+                    data.splice(currentRow, 1);
+                    self.dataSource(new oj.ArrayTableDataSource(data, {idAttribute: "id"}));
                 };
             }
 

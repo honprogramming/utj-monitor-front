@@ -26,7 +26,8 @@
                     }">
         <h4 id="strategic-axes" class="" data-bind="text: axesLabel"></h4>
         <div class="oj-flex full-width">
-            <i class="fa fa-plus pointer" title="Nuevo"></i>
+            <i class="fa fa-plus fa-lg pointer icon-padding" title="Nuevo"
+               data-bind="click: newClickHandler"></i>
             <table id="axes-table"
                    summary="Ejes Estratégicos"
                    aria-label="Tabla de Ejes Estratégicos"
@@ -36,6 +37,7 @@
                                   editMode: 'rowEdit',
                                   columns: columns,
                                   rowTemplate: getRowTemplate,
+                                  optionChange: clickHandler,
                                   rootAttributes: {
                                       style: 'width: 100%'
                                   },
@@ -46,8 +48,9 @@
                         <td data-bind="text: name">
                         </td>
                         <td>
-                            <i class="fa fa-filter fa-border fa-lg"></i>
-                            <i class="fa fa-trash fa-border fa-lg"></i>
+                            <i class="fa fa-filter fa-border fa-lg pointer"></i>
+                            <i class="fa fa-trash fa-border fa-lg pointer"
+                               data-bind="click: $parent.deleteHandler"></i>
                         </td>
                     </tr>
                 </script>
@@ -62,8 +65,9 @@
                             </input>
                         </td>
                         <td>
-                            <i class="fa fa-filter fa-border fa-lg"></i>
-                            <i class="fa fa-trash fa-border fa-lg"></i>
+                            <i class="fa fa-filter fa-border fa-lg pointer"></i>
+                            <i class="fa fa-trash fa-border fa-lg pointer"
+                               data-bind="click: $parent.deleteHandler"></i>
                         </td>
                     </tr>
                 </script>

@@ -98,22 +98,16 @@ footer {
     border-width: 1px;
 }
 
-.edit {
-    color: #555;
-    cursor: pointer;    
-}
-
-.edit-disabled {
-    color: #eee;
-    cursor: pointer;
-}
-
 .pointer {
     cursor: pointer;
 }
 
 .scrolly {
     overflow-y: auto;
+}
+
+.icon-padding {
+    padding: 5px;
 }
 
 .section-padding {
