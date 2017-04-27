@@ -7,12 +7,19 @@
 define(
         [
             'ojs/ojcore','knockout', 'jquery',
+            'models/data/DataProvider',
+            'models/strategic/StrategicDataParser',
+            'models/strategic/StrategicModel',
+            'models/strategic/StrategicType',
+            'view-models/templates/EditableTable',
             'view-models/admin/AdminItems',
             'ojs/ojknockout',
             'ojs/ojcollapsible', 'ojs/ojinputtext',
-            'ojs/ojtable', 'ojs/ojinputtext', 'ojs/ojarraytabledatasource'
+            'ojs/ojtable', 'ojs/ojarraytabledatasource'
         ],
-        function (oj, ko, $, AdminItems) {
+        function (oj, ko, $, DataProvider,
+                StrategicDataParser, StrategicModel, StrategicType,
+                EditableTable, AdminItems) {
             function StrategicViewModel() {
                 var self = this;
                 var currentRow = -1;
@@ -101,6 +108,31 @@ define(
                     data.splice(currentRow, 1);
                     self.dataSource(new oj.ArrayTableDataSource(data, {idAttribute: "id"}));
                 };
+                
+                var strategicDataProvider =
+                        new DataProvider("data/strategic.json",
+                                StrategicDataParser);
+
+                var dataPromise = strategicDataProvider.fetchData();
+                self.observableAxesTable = ko.observable();
+                
+                dataPromise.then(
+                        function() {
+                            var strategicModel = new StrategicModel(strategicDataProvider);
+                            self.axesTable = new EditableTable(strategicModel, 
+                                    {
+                                        id: "axes-table",
+                                        title: "Ejes",
+                                        tableSummary: "admin.strategic.axesTable.tableSummary",
+                                        tableAria: "admin.strategic.axesTable.tableAria",
+                                        columns: self.columns,
+                                        type: StrategicType.AXE
+                                    }
+                            );
+                    
+                            self.observableAxesTable(self.axesTable);
+                        }
+                );
             }
 
             return new StrategicViewModel();

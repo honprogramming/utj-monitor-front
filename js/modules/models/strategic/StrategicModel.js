@@ -2,9 +2,11 @@ define(
         function () {
             var theKey = {};
             
-            function StrategicModel(rootItem) {
+            function StrategicModel(dataProvider) {
                 var privateData = {
-                    items: {}
+                    dataProvider: dataProvider,
+                    itemsArray: undefined,
+                    itemsMap: {}
                 };
                 
                 this.StrategicModel_ = function(key) {
@@ -13,13 +15,15 @@ define(
                     }
                 };
                 
+                privateData.itemsArray = dataProvider.getDataArray();
+                
                 var item;
-                var items = [rootItem];
+                var items = privateData.itemsArray.slice();
                 
                 while (items.length > 0) {
                     item = items[0];
-                    items[item.getId()] = items[0];
-                    items = items.concat(item.children());
+                    privateData.itemsMap[item.id] = items[0];
+                    items = items.concat(item.children);
                     items.splice(0, 1);
                 }
             }
@@ -27,16 +31,27 @@ define(
             var prototype = StrategicModel.prototype;
             
             prototype.getItems = function() {
-                return this.StrategicModel_(theKey).items;
+                return this.StrategicModel_(theKey).itemsMap;
             };
             
             prototype.getItemsByType = function(type) {
                 var items = this.getItems();
-                var typeItems = items.filter(
-                            function(element) {
-                                return element.getType() === type;
+                var itemKeys = Object.keys(items);
+                var itemKeys = itemKeys.filter(
+                            function(key) {
+                                var item = items[key];
+                                
+                                return item.type === type;
                             }
                         );
+                
+                var typeItems = [];
+                
+                itemKeys.forEach(
+                        function(key) {
+                            typeItems.push(items[key]);
+                        }
+                );
                 
                 return typeItems;
             };
@@ -50,7 +65,7 @@ define(
                                 
                                 for (var i = 0; i < parents.length; i ++) {
                                     parentItem = allItems[i];
-                                    if (parentItem.children().includes(element)) {
+                                    if (parentItem.children.includes(element)) {
                                         return true;
                                     }
                                 }

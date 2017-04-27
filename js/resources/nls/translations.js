@@ -32,6 +32,19 @@ define(
                     "crewTitle": "Nuestro equipo",
                     "crewTableSeeMore": "Ver más"
                 },
+                "templates": {
+                    "editableTable": {
+                        "newHint": "Nuevo"
+                    }
+                },
+                "admin": {
+                    "strategic": {
+                        "axesTable": {
+                            "tableSummary": "Ejes Estratégicos",
+                            "tableAria": "Tabla de Ejes Estratégicos"
+                        }
+                    }
+                },
                 "footer": {
                     "copyright": "Copyright &copy; 2016 UTJ Monitor and/or its affiliates. All rights reserved"
                 },

@@ -28,7 +28,7 @@
         <div class="oj-flex full-width">
             <i class="fa fa-plus fa-lg pointer icon-padding" title="Nuevo"
                data-bind="click: newClickHandler"></i>
-            <table id="axes-table"
+            <table id="ax-table"
                    summary="Ejes Estratégicos"
                    aria-label="Tabla de Ejes Estratégicos"
                    data-bind="ojComponent: {
@@ -74,4 +74,5 @@
             </table>
         </div>
     </div>
+    <div data-bind="template: {name: 'EditableTable', data: observableAxesTable}"></div>
 </div>

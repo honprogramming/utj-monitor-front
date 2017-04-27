@@ -12,6 +12,7 @@ define(
             'knockout',
             'text!views/pide/details.html!strip',
             'text!views/pide/sunburst.html!strip',
+            'text!views/templates/EditableTable.html!strip',
             'ojs/ojknockout'
         ],
         /**
@@ -21,11 +22,13 @@ define(
          * @param {type} ko The knockout library.
          * @param {type} Details The template for the progress bar in activity chart and time picker.
          * @param {type} Sunburst The template for time selector component.
+         * @param {type} EditableTable The template for an editable table.
          */
-                function (oj, ko, Details, Sunburst) {
+                function (oj, ko, Details, Sunburst, EditableTable) {
                     oj.koStringTemplateEngine.install();
 
                     ko.templates["Details"] = Details;
                     ko.templates["Sunburst"] = Sunburst;
+                    ko.templates["EditableTable"] = EditableTable;
                 }
         );

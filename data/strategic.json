@@ -1,0 +1,32 @@
+{
+    "vision": {
+        "id": 1,
+        "name": "La vision",
+        "axes": [
+            {
+                "id": 2,
+                "name": "Calidad Educativa"
+            },
+            {
+                "id": 3,
+                "name": "Formación Integral"
+            },
+            {
+                "id": 4,
+                "name": "Planeación"
+            },
+            {
+                "id": 5,
+                "name": "Vinculación"
+            },
+            {
+                "id": 6,
+                "name": "Inovación"
+            },
+            {
+                "id": 7,
+                "name": "Internacionalización"
+            }
+        ]
+    } 
+}

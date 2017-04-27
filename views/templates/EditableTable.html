@@ -1,0 +1,60 @@
+<!-- ko if: $data -->
+<div class="full-width form-container"
+     data-bind="attr: {id: collapsibleId},
+                ojComponent: {
+                    component: 'ojCollapsible',
+                    expandArea: 'disclosureIcon',
+                    expanded: true
+                }">
+    <h4 class="" data-bind="attr:{id: titleId}, text: title"></h4>
+    <div class="oj-flex full-width">
+        <i class="fa fa-plus fa-lg pointer icon-padding"
+           data-bind="attr: {title: newHint}, click: newClickHandler"></i>
+        <table data-bind="attr:{
+                              id: id,
+                              summary: tableSummary,
+                              'aria-label': tableAria
+                          },
+                          ojComponent: {
+                              component: 'ojTable',
+                              data: observableDataSource,
+                              editMode: 'rowEdit',
+                              columns: columns,
+                              rowTemplate: getRowTemplate,
+                              rootAttributes: {
+                                  style: 'width: 100%'
+                              },
+                              display: 'grid'
+                          }">
+            <script type="text/html" data-bind="attr:{id: rowTemplateId}">
+                <tr>
+                    <td data-bind="text: $parent.name">
+                    </td>
+                    <td>
+                        <i class="fa fa-filter fa-border fa-lg pointer"></i>
+                        <i class="fa fa-trash fa-border fa-lg pointer"
+                           data-bind="click: deleteHandler"></i>
+                    </td>
+                </tr>
+            </script>
+            <script type="text/html" data-bind="attr:{id: editRowTemplate}">
+                <tr>
+                    <td>
+                        <input type="text" id="name"
+                               data-bind="ojComponent:{
+                                           component: 'ojInputText',
+                                           value: $parent.name
+                                       }">
+                        </input>
+                    </td>
+                    <td>
+                        <i class="fa fa-filter fa-border fa-lg pointer"></i>
+                        <i class="fa fa-trash fa-border fa-lg pointer"
+                           data-bind="click: deleteHandler"></i>
+                    </td>
+                </tr>
+            </script>
+        </table>
+    </div>
+</div>
+<!-- /ko -->
