@@ -10,6 +10,36 @@
     <div class="oj-flex full-width">
         <i class="fa fa-plus fa-lg pointer icon-padding"
            data-bind="attr: {title: newHint}, click: newClickHandler"></i>
+        <script type="text/html" data-bind="attr:{id: rowTemplateId}">
+            <tr>
+                <td data-bind="text: name">
+                </td>
+                <td>
+                    <i class="fa fa-filter fa-border fa-lg pointer"
+                        data-bind="click: $parent.filterHandler"></i>
+                    <i class="fa fa-trash fa-border fa-lg pointer"
+                       data-bind="click: $parent.deleteHandler"></i>
+                </td>
+            </tr>
+        </script>
+        <script type="text/html" data-bind="attr:{id: editRowTemplateId}">
+            <tr>
+                <td>
+                    <input type="text" id="name"
+                           data-bind="ojComponent:{
+                                       component: 'ojInputText',
+                                       value: name
+                                   }">
+                    </input>
+                </td>
+                <td>
+                    <i class="fa fa-filter fa-border fa-lg pointer"
+                        data-bind="click: $parent.filterHandler"></i>
+                    <i class="fa fa-trash fa-border fa-lg pointer"
+                       data-bind="click: $parent.deleteHandler"></i>
+                </td>
+            </tr>
+        </script>
         <table data-bind="attr:{
                               id: id,
                               summary: tableSummary,
@@ -26,34 +56,6 @@
                               },
                               display: 'grid'
                           }">
-            <script type="text/html" data-bind="attr:{id: rowTemplateId}">
-                <tr>
-                    <td data-bind="text: $parent.name">
-                    </td>
-                    <td>
-                        <i class="fa fa-filter fa-border fa-lg pointer"></i>
-                        <i class="fa fa-trash fa-border fa-lg pointer"
-                           data-bind="click: deleteHandler"></i>
-                    </td>
-                </tr>
-            </script>
-            <script type="text/html" data-bind="attr:{id: editRowTemplate}">
-                <tr>
-                    <td>
-                        <input type="text" id="name"
-                               data-bind="ojComponent:{
-                                           component: 'ojInputText',
-                                           value: $parent.name
-                                       }">
-                        </input>
-                    </td>
-                    <td>
-                        <i class="fa fa-filter fa-border fa-lg pointer"></i>
-                        <i class="fa fa-trash fa-border fa-lg pointer"
-                           data-bind="click: deleteHandler"></i>
-                    </td>
-                </tr>
-            </script>
         </table>
     </div>
 </div>

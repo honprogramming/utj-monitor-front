@@ -38,12 +38,58 @@ define(
                     }
                 },
                 "admin": {
+                    "label": "ADMINISTRADOR",
                     "strategic": {
+                        "label": "Apartado Estratégico",
+                        "vision": {
+                            "title": "Visión",
+                            "placeHolder": "La visión de la escuela..."
+                        },
                         "axesTable": {
+                            "title": "Ejes",
                             "tableSummary": "Ejes Estratégicos",
                             "tableAria": "Tabla de Ejes Estratégicos"
+                        },
+                        "topicsTable": {
+                            "title": "Temas",
+                            "tableSummary": "Temas Estratégicos",
+                            "tableAria": "Tabla de Temas Estratégicos"
+                        },
+                        "objectivesTable": {
+                            "title": "Objetivos",
+                            "tableSummary": "Objetivos Estratégicos",
+                            "tableAria": "Tabla de Objetivos Estratégicos"
+                        },
+                        "strategiesTable": {
+                            "title": "Estrategias",
+                            "tableSummary": "Estrategias Estratégicos",
+                            "tableAria": "Tabla de Estrategias Estratégicas"
                         }
+                    },
+                    "indicators": {
+                        "label": "Indicadores estratégicos"
+                    },
+                    "pe": {
+                        "label": "Programas Educativos"
+                    },
+                    "poa": {
+                        "label": "Ficha POA"
                     }
+                },
+                "pide": {
+                    "label": "PIDE"
+                },
+                "mecasut": {
+                    "label": "MECASUT"
+                },
+                "pe": {
+                    "label": "PE"
+                },
+                "poa": {
+                    "label": "POA"
+                },
+                "performance": {
+                    "label": "DESEMPEÑO"
                 },
                 "footer": {
                     "copyright": "Copyright &copy; 2016 UTJ Monitor and/or its affiliates. All rights reserved"

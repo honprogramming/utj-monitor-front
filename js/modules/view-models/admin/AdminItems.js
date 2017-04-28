@@ -1,30 +1,33 @@
 define(
-        function () {
+        [
+            'view-models/GeneralViewModel'
+        ],
+        function (GeneralViewModel) {
             var adminItems = {
                 strategic: {
                     id: "strategic",
-                    label: "Apartado Estratégico",
+                    label: GeneralViewModel.nls("admin.strategic.label"),
                     module: {
                         name: "strategic/strategic"
                     }
                 },
                 indicators: {
                     id: "indicators",
-                    label: "Indicadores estratégicos",
+                    label: GeneralViewModel.nls("admin.indicators.label"),
                     module: {
                         viewName: "empty"
                     }
                 },
                 pe: {
                     id: "pe",
-                    label: "Programas Educativos",
+                    label: GeneralViewModel.nls("admin.pe.label"),
                     module: {
                         viewName: "empty"
                     }
                 },
                 poa: {
                     id: "poa",
-                    label: "Ficha POA",
+                    label: GeneralViewModel.nls("admin.poa.label"),
                     module: {
                         viewName: "empty"
                     }

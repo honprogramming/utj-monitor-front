@@ -1,9 +1,12 @@
 define(
-        function () {
+        [
+            'view-models/GeneralViewModel'
+        ],
+        function (GeneralViewModel) {
             var items = {
                 pide: {
                     id: "pide",
-                    label: "PIDE",
+                    label: GeneralViewModel.nls("pide.label"),
                     module: {
                         name: "pide",
                         viewName: "pide/pide"
@@ -11,28 +14,28 @@ define(
                 },
                 mecasut: {
                     id: "mecasut",
-                    label: "MECASUT",
+                    label: GeneralViewModel.nls("mecasut.label"),
                     module: {
                         viewName: "empty"
                     }
                 },
                 pe: {
                     id: "pe",
-                    label: "PE",
+                    label: GeneralViewModel.nls("pe.label"),
                     module: {
                         viewName: "empty"
                     }
                 },
                 poa: {
                     id: "poa",
-                    label: "POA",
+                    label: GeneralViewModel.nls("poa.label"),
                     module: {
                         viewName: "empty"
                     }
                 },
                 performance: {
                     id: "performance",
-                    label: "DESEMPEÑO",
+                    label: GeneralViewModel.nls("performance.label"),
                     module: {
                         viewName: "empty"
                     }

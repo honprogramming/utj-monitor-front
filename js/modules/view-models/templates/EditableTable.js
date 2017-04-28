@@ -2,16 +2,18 @@ define(
         [
             'knockout', 'ojs/ojcore', 'jquery',
             'view-models/GeneralViewModel',
+            'view-models/events/EventTypes',
             'utils/IdGenerator',
             'ojs/ojknockout',
             'ojs/ojcollapsible', 'ojs/ojinputtext',
             'ojs/ojtable', 'ojs/ojarraytabledatasource'
         ],
-        function (ko, oj, $, GeneralViewModel, IdGenerator) {
+        function (ko, oj, $, GeneralViewModel, EventTypes, IdGenerator) {
             var theKey = {};
             
             function EditableTable(model, params) {
                 var self = this;
+                self.listeners = [];
                 
                 var privateData = {
                     model: model,
@@ -35,11 +37,12 @@ define(
                 self.rowTemplateId = self.id + "-rowTemplate";
                 self.editRowTemplateId = self.id + "-editRowTemplate";
                 self.columns = [{headerText: 'Column Header'}];
+                
                 var dataSource = new oj.ArrayTableDataSource([]);
                 self.observableDataSource = ko.observable(dataSource);
                         
                 if (params) {
-                    self.title = params.title || "Title";
+                    self.title = params.title ? self.nls(params.title) : "Title";
                     self.columns = params.columns || [{headerText: 'Column Header'}];
                     self.tableSummary = params.tableSummary ? self.nls(params.tableSummary) : "";
                     self.tableAria = params.tableAria ? self.nls(params.tableAria) : "";
@@ -58,12 +61,7 @@ define(
 
                 self.getRowTemplate = function (data, context) {
                     var mode = context.$rowContext['mode'];
-
-                    if (mode === 'edit') {
-                        return 'editRowTemplate';
-                    } else if (mode === 'navigation') {
-                        return 'rowTemplate';
-                    }
+                    return mode === 'edit' ? self.editRowTemplateId : self.rowTemplateId;
                 };
 
                 self.newClickHandler = function () {
@@ -73,17 +71,27 @@ define(
                     self.observableDataSource().add({id: id, name: ""});
                 };
 
-                self.deleteHandler = function (row) {
+                self.deleteHandler = function () {
                     var currentRow = self.getCurrentRow();
                     console.debug("currentRow: %o", currentRow);
                     
                     self.observableDataSource().remove({id: currentRow.rowKey});
+                };
+                
+                self.filterHandler = function() {
+                    var currentRow = self.getCurrentRow();
+                    
+                    self.callListeners(EventTypes.FILTER_EVENT, currentRow.rowKey);
                 };
             }
             
             EditableTable.prototype = Object.create(GeneralViewModel);
             
             var prototype = EditableTable.prototype;
+            
+            prototype.addFilterListener = function(listener) {
+                this.addListener(listener, EventTypes.FILTER_EVENT);
+            };
             
             prototype.getData = function() {
                 return this.EditableTable_(theKey).data;

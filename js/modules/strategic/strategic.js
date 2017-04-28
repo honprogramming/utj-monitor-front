@@ -6,63 +6,30 @@
 
 define(
         [
-            'ojs/ojcore','knockout', 'jquery',
+            'knockout',
+            'view-models/GeneralViewModel',
             'models/data/DataProvider',
             'models/strategic/StrategicDataParser',
             'models/strategic/StrategicModel',
             'models/strategic/StrategicType',
             'view-models/templates/EditableTable',
             'view-models/admin/AdminItems',
+            'jquery',
+            'ojs/ojcore',
             'ojs/ojknockout',
             'ojs/ojcollapsible', 'ojs/ojinputtext',
             'ojs/ojtable', 'ojs/ojarraytabledatasource'
         ],
-        function (oj, ko, $, DataProvider,
+        function (ko, GeneralViewModel, DataProvider,
                 StrategicDataParser, StrategicModel, StrategicType,
                 EditableTable, AdminItems) {
             function StrategicViewModel() {
                 var self = this;
-                var currentRow = -1;
-                var data = [
-                            {
-                                id: 1,
-                                name: "Calidad Educativa"
-                            },
-                            {
-                                id: 2,
-                                name: "Formación integral y aprovechamiento académico"
-                            },
-                            {
-                                id: 3,
-                                name: "Planeación, administración, equidad y gobierno"
-                            },
-                            {
-                                id: 4,
-                                name: "Vinculación e incubación de empresas"
-                            },
-                            {
-                                id: 5,
-                                name: "Inovación y desarrollo tecnológico"
-                            },
-                            {
-                                id: 6,
-                                name: "Internacionalización e idiomas"
-                            }
-                        ];
                         
                 self.title = AdminItems["strategic"]["label"];
-                self.visionLabel = "Visión";
-                self.axesLabel = "Ejes";
+                self.visionTitle = GeneralViewModel.nls("admin.strategic.vision.title");
                 self.vision = ko.observable();
-                self.placeholder = "La visión de la escuela...";
-
-                self.dataSource = ko.observable(
-                        new oj.ArrayTableDataSource(data,
-                            {
-                                idAttribute: "id"
-                            }
-                        )
-                );
+                self.placeholder = GeneralViewModel.nls("admin.strategic.vision.placeHolder");
 
                 self.columns = [
                     {
@@ -82,39 +49,15 @@ define(
                     }
                 ];
 
-                self.getRowTemplate = function (data, context) {
-                    var mode = context.$rowContext['mode'];
-
-                    if (mode === 'edit') {
-                        return 'editRowTemplate';
-                    } else if (mode === 'navigation') {
-                        return 'rowTemplate';
-                    }
-                };
-                
-                self.newClickHandler = function() {
-                    data.push({id: "", name: ""});
-                    self.dataSource(new oj.ArrayTableDataSource(data, {idAttribute: "id"}));
-                    $("#axes-table").ojTable("refresh");
-                };
-                
-                self.clickHandler = function(event, ui) {
-                    if (ui.option === "currentRow") {
-                        currentRow = ui.value.rowIndex;
-                    }
-                };
-                
-                self.deleteHandler = function() {
-                    data.splice(currentRow, 1);
-                    self.dataSource(new oj.ArrayTableDataSource(data, {idAttribute: "id"}));
-                };
-                
                 var strategicDataProvider =
                         new DataProvider("data/strategic.json",
                                 StrategicDataParser);
 
                 var dataPromise = strategicDataProvider.fetchData();
                 self.observableAxesTable = ko.observable();
+                self.observableTopicsTable = ko.observable();
+                self.observableObjectivesTable = ko.observable();
+                self.observableStrategiesTable = ko.observable();
                 
                 dataPromise.then(
                         function() {
@@ -122,15 +65,78 @@ define(
                             self.axesTable = new EditableTable(strategicModel, 
                                     {
                                         id: "axes-table",
-                                        title: "Ejes",
+                                        title: "admin.strategic.axesTable.title",
                                         tableSummary: "admin.strategic.axesTable.tableSummary",
                                         tableAria: "admin.strategic.axesTable.tableAria",
                                         columns: self.columns,
                                         type: StrategicType.AXE
                                     }
                             );
-                    
+                            
+                            self.axesTable.addFilterListener(
+                                function(rowKey) {
+                                    console.trace("filter listener: %o", rowKey);
+                                }
+                            );
+                            
                             self.observableAxesTable(self.axesTable);
+                            
+                            self.topicsTable = new EditableTable(strategicModel, 
+                                    {
+                                        id: "axes-table",
+                                        title: "admin.strategic.topicsTable.title",
+                                        tableSummary: "admin.strategic.topicsTable.tableSummary",
+                                        tableAria: "admin.strategic.topicsTable.tableAria",
+                                        columns: self.columns,
+                                        type: StrategicType.TOPIC
+                                    }
+                            );
+                            
+                            self.topicsTable.addFilterListener(
+                                function(rowKey) {
+                                    console.trace("filter listener: %o", rowKey);
+                                }
+                            );
+                            
+                            self.observableTopicsTable(self.topicsTable);
+                            
+                            self.objectivesTable = new EditableTable(strategicModel, 
+                                    {
+                                        id: "axes-table",
+                                        title: "admin.strategic.objectivesTable.title",
+                                        tableSummary: "admin.strategic.objectivesTable.tableSummary",
+                                        tableAria: "admin.strategic.objectivesTable.tableAria",
+                                        columns: self.columns,
+                                        type: StrategicType.TOPIC
+                                    }
+                            );
+                            
+                            self.objectivesTable.addFilterListener(
+                                function(rowKey) {
+                                    console.trace("filter listener: %o", rowKey);
+                                }
+                            );
+                            
+                            self.observableObjectivesTable(self.objectivesTable);
+                            
+                            self.strategiesTable = new EditableTable(strategicModel, 
+                                    {
+                                        id: "axes-table",
+                                        title: "admin.strategic.strategiesTable.title",
+                                        tableSummary: "admin.strategic.strategiesTable.tableSummary",
+                                        tableAria: "admin.strategic.strategiesTable.tableAria",
+                                        columns: self.columns,
+                                        type: StrategicType.TOPIC
+                                    }
+                            );
+                            
+                            self.strategiesTable.addFilterListener(
+                                function(rowKey) {
+                                    console.trace("filter listener: %o", rowKey);
+                                }
+                            );
+                            
+                            self.observableStrategiesTable(self.strategiesTable);
                         }
                 );
             }

@@ -6,7 +6,7 @@
                         expandArea: 'disclosureIcon',
                         expanded: true
                     }">
-        <h4 id="strategic-vision" class="" data-bind="text: visionLabel"></h4>
+        <h4 id="strategic-vision" data-bind="text: visionTitle"></h4>
         <textarea id="vision-text-area"
                   data-bind="ojComponent: {
                                  component: 'ojTextArea', 
@@ -18,61 +18,8 @@
                                  }
                              }"></textarea>
     </div>
-    <div id="axes-content" class="full-width form-container"
-         data-bind="ojComponent: {
-                        component: 'ojCollapsible',
-                        expandArea: 'disclosureIcon',
-                        expanded: true
-                    }">
-        <h4 id="strategic-axes" class="" data-bind="text: axesLabel"></h4>
-        <div class="oj-flex full-width">
-            <i class="fa fa-plus fa-lg pointer icon-padding" title="Nuevo"
-               data-bind="click: newClickHandler"></i>
-            <table id="ax-table"
-                   summary="Ejes Estratégicos"
-                   aria-label="Tabla de Ejes Estratégicos"
-                   data-bind="ojComponent: {
-                                  component: 'ojTable',
-                                  data: dataSource,
-                                  editMode: 'rowEdit',
-                                  columns: columns,
-                                  rowTemplate: getRowTemplate,
-                                  optionChange: clickHandler,
-                                  rootAttributes: {
-                                      style: 'width: 100%'
-                                  },
-                                  display: 'grid'
-                            }">
-                <script type="text/html" id="rowTemplate">
-                    <tr>
-                        <td data-bind="text: name">
-                        </td>
-                        <td>
-                            <i class="fa fa-filter fa-border fa-lg pointer"></i>
-                            <i class="fa fa-trash fa-border fa-lg pointer"
-                               data-bind="click: $parent.deleteHandler"></i>
-                        </td>
-                    </tr>
-                </script>
-                <script type="text/html" id="editRowTemplate">
-                    <tr>
-                        <td>
-                            <input type="text" id="name"
-                                data-bind="ojComponent:{
-                                               component: 'ojInputText',
-                                               value: name
-                                           }">
-                            </input>
-                        </td>
-                        <td>
-                            <i class="fa fa-filter fa-border fa-lg pointer"></i>
-                            <i class="fa fa-trash fa-border fa-lg pointer"
-                               data-bind="click: $parent.deleteHandler"></i>
-                        </td>
-                    </tr>
-                </script>
-            </table>
-        </div>
-    </div>
     <div data-bind="template: {name: 'EditableTable', data: observableAxesTable}"></div>
+    <div data-bind="template: {name: 'EditableTable', data: observableTopicsTable}"></div>
+    <div data-bind="template: {name: 'EditableTable', data: observableObjectivesTable}"></div>
+    <div data-bind="template: {name: 'EditableTable', data: observableStrategiesTable}"></div>
 </div>
