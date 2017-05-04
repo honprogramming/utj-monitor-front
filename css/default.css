@@ -94,8 +94,10 @@ footer {
 
 .form-container {
     padding: 5px;
-    border-style: solid;
-    border-width: 1px;
+}
+
+.collapsible-content {
+    background-color: #fafafa;
 }
 
 .pointer {

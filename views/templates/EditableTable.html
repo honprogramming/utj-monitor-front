@@ -1,5 +1,5 @@
 <!-- ko if: $data -->
-<div class="full-width form-container"
+<div class="full-width form-container oj-accordion-collapsible"
      data-bind="attr: {id: collapsibleId},
                 ojComponent: {
                     component: 'ojCollapsible',
@@ -7,11 +7,13 @@
                     expanded: true
                 }">
     <h4 class="" data-bind="attr:{id: titleId}, text: title"></h4>
-    <div class="oj-flex full-width">
+    <div class="oj-flex full-width collapsible-content">
         <i class="fa fa-plus fa-lg pointer icon-padding"
-           data-bind="attr: {title: newHint}, click: newClickHandler"></i>
+           data-bind="attr: {title: newHint}, style: {opacity: state}, click: newClickHandler"></i>
+        <i class="fa fa-exclamation-circle fa-lg icon-padding" style="color: orange"
+           data-bind="visible:showError, text: errorText"></i>
         <script type="text/html" data-bind="attr:{id: rowTemplateId}">
-            <tr>
+            <tr data-bind="style: {'background-color': $parent.computedColor(id, $data)}">
                 <td data-bind="text: name">
                 </td>
                 <td>
@@ -48,9 +50,10 @@
                           ojComponent: {
                               component: 'ojTable',
                               data: observableDataSource,
-                              editMode: 'rowEdit',
                               columns: columns,
                               rowTemplate: getRowTemplate,
+                              beforeCurrentRow: currentRowHandler,
+                              editMode: 'rowEdit',
                               rootAttributes: {
                                   style: 'width: 100%'
                               },

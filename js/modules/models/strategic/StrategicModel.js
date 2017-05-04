@@ -30,8 +30,22 @@ define(
             
             var prototype = StrategicModel.prototype;
             
+            prototype.addItem = function(parentItemId, item) {
+                var parentItem = this.getItemById(parentItemId);
+                
+                if (parentItem) {
+                    var itemsMap = this.getItems();
+                    parentItem.children.push(item);
+                    itemsMap[item.id] = item;
+                }
+            };
+            
             prototype.getItems = function() {
                 return this.StrategicModel_(theKey).itemsMap;
+            };
+            
+            prototype.getItemById = function(itemId) {
+                return this.getItems()[itemId];
             };
             
             prototype.getItemsByType = function(type) {

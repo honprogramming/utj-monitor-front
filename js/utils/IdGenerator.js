@@ -6,7 +6,7 @@ define(
                 console.debug("ids: %o", idsArray);
                 
                 do {
-                    newId = Math.floor(Math.random() * scale);
+                    newId = Math.floor(Math.random() * scale + 1);
                     console.debug("newId: %d", newId);
                 } while (idsArray.includes(newId.toString()));
                 

@@ -14,6 +14,7 @@ define(
             'models/strategic/StrategicType',
             'view-models/templates/EditableTable',
             'view-models/admin/AdminItems',
+            'view-models/events/ActionTypes',
             'jquery',
             'ojs/ojcore',
             'ojs/ojknockout',
@@ -22,10 +23,9 @@ define(
         ],
         function (ko, GeneralViewModel, DataProvider,
                 StrategicDataParser, StrategicModel, StrategicType,
-                EditableTable, AdminItems) {
+                EditableTable, AdminItems, ActionTypes) {
             function StrategicViewModel() {
                 var self = this;
-                        
                 self.title = AdminItems["strategic"]["label"];
                 self.visionTitle = GeneralViewModel.nls("admin.strategic.vision.title");
                 self.vision = ko.observable();
@@ -62,15 +62,26 @@ define(
                 dataPromise.then(
                         function() {
                             var strategicModel = new StrategicModel(strategicDataProvider);
-                            self.axesTable = new EditableTable(strategicModel, 
+                            var axesArray = strategicModel.getItemsByType(StrategicType.AXE);
+                            var visionItem = strategicModel.getItemsByType(StrategicType.VISION)[0];
+                            
+                            self.vision(visionItem.name);
+                            
+                            self.axesTable = new EditableTable(axesArray, strategicModel,
                                     {
                                         id: "axes-table",
-                                        title: "admin.strategic.axesTable.title",
-                                        tableSummary: "admin.strategic.axesTable.tableSummary",
-                                        tableAria: "admin.strategic.axesTable.tableAria",
+                                        title: GeneralViewModel.nls("admin.strategic.axesTable.title"),
+                                        tableSummary: GeneralViewModel.nls("admin.strategic.axesTable.tableSummary"),
+                                        tableAria: GeneralViewModel.nls("admin.strategic.axesTable.tableAria"),
                                         columns: self.columns,
                                         type: StrategicType.AXE
                                     }
+                            );
+                    
+                            self.enableAxesNew = ko.computed(
+                                function() {
+                                    self.axesTable.setNewEnabled(self.vision().length > 0);
+                                }
                             );
                             
                             self.axesTable.addFilterListener(
@@ -79,17 +90,40 @@ define(
                                 }
                             );
                             
+                            self.axesTable.addDataListener(
+                                function(item, action) {
+                                    switch(action) {
+                                        case ActionTypes.ADD:
+                                            strategicModel.addItem(visionItem.id, item);
+                                        break;
+                                    }
+                                }
+                            );
+                            
                             self.observableAxesTable(self.axesTable);
                             
-                            self.topicsTable = new EditableTable(strategicModel, 
+                            var topicsArray = strategicModel.getItemsByType(StrategicType.TOPIC);
+                            
+                            self.topicsTable = new EditableTable(topicsArray, strategicModel,
                                     {
-                                        id: "axes-table",
-                                        title: "admin.strategic.topicsTable.title",
-                                        tableSummary: "admin.strategic.topicsTable.tableSummary",
-                                        tableAria: "admin.strategic.topicsTable.tableAria",
+                                        id: "topics-table",
+                                        title: GeneralViewModel.nls("admin.strategic.topicsTable.title"),
+                                        tableSummary: GeneralViewModel.nls("admin.strategic.topicsTable.tableSummary"),
+                                        tableAria: GeneralViewModel.nls("admin.strategic.topicsTable.tableAria"),
                                         columns: self.columns,
-                                        type: StrategicType.TOPIC
+                                        type: StrategicType.TOPIC,
+                                        newEnabled: false,
+                                        errorText: GeneralViewModel.nls("admin.strategic.topicsTable.errorText"),
+                                        newValidator: function() {
+                                            return self.axesTable.currentRow();
+                                        }
                                     }
+                            );
+                            
+                            self.enableTopicsNew = ko.computed(
+                                function() {
+                                    self.topicsTable.setNewEnabled(self.axesTable.currentRow());
+                                }
                             );
                             
                             self.topicsTable.addFilterListener(
@@ -98,19 +132,43 @@ define(
                                 }
                             );
                             
+                            self.topicsTable.addDataListener(
+                                function(item, action) {
+                                    switch(action) {
+                                        case ActionTypes.ADD:
+                                            var currentAxe = self.axesTable.getCurrentRow();
+                                            strategicModel.addItem(currentAxe.rowKey, item);
+                                        break;
+                                    }
+                                }
+                            );
+                    
                             self.observableTopicsTable(self.topicsTable);
                             
-                            self.objectivesTable = new EditableTable(strategicModel, 
+                            var objectivesArray = strategicModel.getItemsByType(StrategicType.OBJECTIVE);
+                            
+                            self.objectivesTable = new EditableTable(objectivesArray, strategicModel,
                                     {
-                                        id: "axes-table",
-                                        title: "admin.strategic.objectivesTable.title",
-                                        tableSummary: "admin.strategic.objectivesTable.tableSummary",
-                                        tableAria: "admin.strategic.objectivesTable.tableAria",
+                                        id: "objectives-table",
+                                        title: GeneralViewModel.nls("admin.strategic.objectivesTable.title"),
+                                        tableSummary: GeneralViewModel.nls("admin.strategic.objectivesTable.tableSummary"),
+                                        tableAria: GeneralViewModel.nls("admin.strategic.objectivesTable.tableAria"),
                                         columns: self.columns,
-                                        type: StrategicType.TOPIC
+                                        type: StrategicType.OBJECTIVE,
+                                        newEnabled: false,
+                                        errorText: GeneralViewModel.nls("admin.strategic.objectivesTable.errorText"),
+                                        newValidator: function() {
+                                            return self.topicsTable.currentRow();
+                                        }
                                     }
                             );
                             
+                            self.enableObjectivesNew = ko.computed(
+                                function() {
+                                    self.objectivesTable.setNewEnabled(self.topicsTable.currentRow());
+                                }
+                            );
+                    
                             self.objectivesTable.addFilterListener(
                                 function(rowKey) {
                                     console.trace("filter listener: %o", rowKey);
@@ -119,17 +177,30 @@ define(
                             
                             self.observableObjectivesTable(self.objectivesTable);
                             
-                            self.strategiesTable = new EditableTable(strategicModel, 
+                            var strategiesArray = strategicModel.getItemsByType(StrategicType.STRATEGY);
+                            
+                            self.strategiesTable = new EditableTable(strategiesArray, strategicModel,
                                     {
-                                        id: "axes-table",
-                                        title: "admin.strategic.strategiesTable.title",
-                                        tableSummary: "admin.strategic.strategiesTable.tableSummary",
-                                        tableAria: "admin.strategic.strategiesTable.tableAria",
+                                        id: "strategies-table",
+                                        title: GeneralViewModel.nls("admin.strategic.strategiesTable.title"),
+                                        tableSummary: GeneralViewModel.nls("admin.strategic.strategiesTable.tableSummary"),
+                                        tableAria: GeneralViewModel.nls("admin.strategic.strategiesTable.tableAria"),
                                         columns: self.columns,
-                                        type: StrategicType.TOPIC
+                                        type: StrategicType.STRATEGY,
+                                        newEnabled: false,
+                                        errorText: GeneralViewModel.nls("admin.strategic.strategiesTable.errorText"),
+                                        newValidator: function() {
+                                            return self.objectivesTable.currentRow();
+                                        }
                                     }
                             );
                             
+                            self.enableStrategiesNew = ko.computed(
+                                function() {
+                                    self.strategiesTable.setNewEnabled(self.objectivesTable.currentRow());
+                                }
+                            );
+                    
                             self.strategiesTable.addFilterListener(
                                 function(rowKey) {
                                     console.trace("filter listener: %o", rowKey);

@@ -53,17 +53,20 @@ define(
                         "topicsTable": {
                             "title": "Temas",
                             "tableSummary": "Temas Estratégicos",
-                            "tableAria": "Tabla de Temas Estratégicos"
+                            "tableAria": "Tabla de Temas Estratégicos",
+                            "errorText": "Debes seleccionar un eje"
                         },
                         "objectivesTable": {
                             "title": "Objetivos",
                             "tableSummary": "Objetivos Estratégicos",
-                            "tableAria": "Tabla de Objetivos Estratégicos"
+                            "tableAria": "Tabla de Objetivos Estratégicos",
+                            "errorText": "Debes seleccionar un tema"
                         },
                         "strategiesTable": {
                             "title": "Estrategias",
                             "tableSummary": "Estrategias Estratégicos",
-                            "tableAria": "Tabla de Estrategias Estratégicas"
+                            "tableAria": "Tabla de Estrategias Estratégicas",
+                            "errorText": "Debes seleccionar un objetivo"
                         }
                     },
                     "indicators": {
