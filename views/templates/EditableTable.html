@@ -11,7 +11,7 @@
         <i class="fa fa-plus fa-lg pointer icon-padding"
            data-bind="attr: {title: newHint}, style: {opacity: state}, click: newClickHandler"></i>
         <i class="fa fa-exclamation-circle fa-lg icon-padding" style="color: orange"
-           data-bind="visible:showError, text: errorText"></i>
+           data-bind="visible:showNewError, text: newErrorText"></i>
         <script type="text/html" data-bind="attr:{id: rowTemplateId}">
             <tr data-bind="style: {'background-color': $parent.computedColor(id, $data)}">
                 <td data-bind="text: name">
@@ -60,6 +60,24 @@
                               display: 'grid'
                           }">
         </table>
+    </div>
+    <div id="dialogWrapper">
+        <div style="display:none"
+           data-bind="attr: {id: deleteErrorDialogId, title: deleteErrorDialogTitle},
+                    ojComponent: {
+                        component: 'ojDialog',
+                        initialVisibility: 'hide'
+                    }">
+            <div class="oj-dialog-body" data-bind="text: deleteErrorText"></div>
+            <div class="oj-dialog-footer">
+                <button data-bind="click: closeErrorDialog,
+                                   ojComponent: {
+                                       component: 'ojButton',
+                                       label: deleteErrorDialogOkButtonLabel
+                                   }">
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 <!-- /ko -->

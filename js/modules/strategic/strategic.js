@@ -11,6 +11,7 @@ define(
             'models/data/DataProvider',
             'models/strategic/StrategicDataParser',
             'models/strategic/StrategicModel',
+            'models/strategic/StrategicItem',
             'models/strategic/StrategicType',
             'view-models/templates/EditableTable',
             'view-models/admin/AdminItems',
@@ -22,7 +23,7 @@ define(
             'ojs/ojtable', 'ojs/ojarraytabledatasource'
         ],
         function (ko, GeneralViewModel, DataProvider,
-                StrategicDataParser, StrategicModel, StrategicType,
+                StrategicDataParser, StrategicModel, StrategicItem, StrategicType,
                 EditableTable, AdminItems, ActionTypes) {
             function StrategicViewModel() {
                 var self = this;
@@ -65,6 +66,29 @@ define(
                             var axesArray = strategicModel.getItemsByType(StrategicType.AXE);
                             var visionItem = strategicModel.getItemsByType(StrategicType.VISION)[0];
                             
+                            function hasNoChildren(itemId) {
+                                var item = strategicModel.getItemById(itemId);
+                                
+                                if (item) {
+                                    return item.children.length === 0;
+                                }
+                                
+                                return true;
+                            }
+                            
+                            function createItem(id, table) {
+                                var newItem = new StrategicItem(id, "", StrategicType.AXE);
+                                var parentRow = table.getCurrentRow();
+                                strategicModel.addItem(parentRow.rowKey, newItem);
+                                
+                                return newItem;
+                            }
+                            
+                            function removeItem(itemId) {
+                                var item = strategicModel.getItemById(itemId);
+                                strategicModel.removeItem(item);
+                            };
+                            
                             self.vision(visionItem.name);
                             
                             self.axesTable = new EditableTable(axesArray, strategicModel,
@@ -74,7 +98,20 @@ define(
                                         tableSummary: GeneralViewModel.nls("admin.strategic.axesTable.tableSummary"),
                                         tableAria: GeneralViewModel.nls("admin.strategic.axesTable.tableAria"),
                                         columns: self.columns,
-                                        type: StrategicType.AXE
+                                        type: StrategicType.AXE,
+                                        errorText: GeneralViewModel.nls("admin.strategic.axesTable.errorText"),
+                                        deleteErrorText: GeneralViewModel.nls("admin.strategic.axesTable.deleteErrorText"),
+                                        deleteValidator: hasNoChildren,
+                                        newValidator: function() {
+                                            return self.vision().length > 0;
+                                        },
+                                        itemCreator: function(id) {
+                                            var newItem = new StrategicItem(id, "", StrategicType.AXE);
+                                            strategicModel.addItem(visionItem.id, newItem);
+                                            
+                                            return newItem;
+                                        },
+                                        itemRemover: removeItem
                                     }
                             );
                     
@@ -87,16 +124,6 @@ define(
                             self.axesTable.addFilterListener(
                                 function(rowKey) {
                                     console.trace("filter listener: %o", rowKey);
-                                }
-                            );
-                            
-                            self.axesTable.addDataListener(
-                                function(item, action) {
-                                    switch(action) {
-                                        case ActionTypes.ADD:
-                                            strategicModel.addItem(visionItem.id, item);
-                                        break;
-                                    }
                                 }
                             );
                             
@@ -114,9 +141,15 @@ define(
                                         type: StrategicType.TOPIC,
                                         newEnabled: false,
                                         errorText: GeneralViewModel.nls("admin.strategic.topicsTable.errorText"),
+                                        deleteErrorText: GeneralViewModel.nls("admin.strategic.topicsTable.deleteErrorText"),
+                                        deleteValidator: hasNoChildren,
                                         newValidator: function() {
                                             return self.axesTable.currentRow();
-                                        }
+                                        },
+                                        itemCreator: function(id) {
+                                            return createItem(id, self.axesTable);
+                                        },
+                                        itemRemover: removeItem
                                     }
                             );
                             
@@ -157,9 +190,15 @@ define(
                                         type: StrategicType.OBJECTIVE,
                                         newEnabled: false,
                                         errorText: GeneralViewModel.nls("admin.strategic.objectivesTable.errorText"),
+                                        deleteErrorText: GeneralViewModel.nls("admin.strategic.objectivesTable.deleteErrorText"),
+                                        deleteValidator: hasNoChildren,
                                         newValidator: function() {
                                             return self.topicsTable.currentRow();
-                                        }
+                                        },
+                                        itemCreator: function(id) {
+                                            return createItem(id, self.topicsTable);
+                                        },
+                                        itemRemover: removeItem
                                     }
                             );
                             
@@ -175,6 +214,17 @@ define(
                                 }
                             );
                             
+                            self.objectivesTable.addDataListener(
+                                function(item, action) {
+                                    switch(action) {
+                                        case ActionTypes.ADD:
+                                            var currentTopic = self.topicsTable.getCurrentRow();
+                                            strategicModel.addItem(currentTopic.rowKey, item);
+                                        break;
+                                    }
+                                }
+                            );
+                    
                             self.observableObjectivesTable(self.objectivesTable);
                             
                             var strategiesArray = strategicModel.getItemsByType(StrategicType.STRATEGY);
@@ -189,9 +239,15 @@ define(
                                         type: StrategicType.STRATEGY,
                                         newEnabled: false,
                                         errorText: GeneralViewModel.nls("admin.strategic.strategiesTable.errorText"),
+                                        deleteErrorText: GeneralViewModel.nls("admin.strategic.strategiesTable.deleteErrorText"),
+                                        deleteValidator: hasNoChildren,
                                         newValidator: function() {
                                             return self.objectivesTable.currentRow();
-                                        }
+                                        },
+                                        itemCreator: function(id) {
+                                            return createItem(id, self.objectivesTable);
+                                        },
+                                        itemRemover: removeItem
                                     }
                             );
                             
@@ -207,6 +263,17 @@ define(
                                 }
                             );
                             
+                            self.strategiesTable.addDataListener(
+                                function(item, action) {
+                                    switch(action) {
+                                        case ActionTypes.ADD:
+                                            var currentObjective = self.objectivesTable.getCurrentRow();
+                                            strategicModel.addItem(currentObjective.rowKey, item);
+                                        break;
+                                    }
+                                }
+                            );
+                    
                             self.observableStrategiesTable(self.strategiesTable);
                         }
                 );

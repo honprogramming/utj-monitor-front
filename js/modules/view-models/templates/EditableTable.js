@@ -3,13 +3,12 @@ define(
             'knockout', 'ojs/ojcore', 'jquery',
             'view-models/GeneralViewModel',
             'view-models/events/EventTypes',
-            'view-models/events/ActionTypes',
             'utils/IdGenerator',
             'ojs/ojknockout',
             'ojs/ojcollapsible', 'ojs/ojinputtext',
             'ojs/ojtable', 'ojs/ojarraytabledatasource'
         ],
-        function (ko, oj, $, GeneralViewModel, EventTypes, ActionTypes, IdGenerator) {
+        function (ko, oj, $, GeneralViewModel, EventTypes, IdGenerator) {
             var theKey = {};
             
             function EditableTable(data, model, params) {
@@ -21,10 +20,12 @@ define(
                     model: model,
                     data: [],
                     type: null,
-                    newValidator: function() {return true;},
                     ENABLED: 1.0,
-                    DISABLED: 0.5
-                    
+                    DISABLED: 0.5,
+                    newValidator: function() {return true;},
+                    deleteValidator: function() {return false;},
+                    itemCreator: function() {return {};},
+                    itemRemover: function() {return false;}
                 };
                 
                 this.EditableTable_ = function(key) {
@@ -36,6 +37,7 @@ define(
                 self.id = params.id || Math.random();
                 self.collapsibleId = self.id + "-collapsible";
                 self.titleId = self.id + "-title";
+                self.deleteErrorDialogId = self.id + "-deleteErrorDialog";
                 self.title = "Title";
                 self.newHint = self.nls("templates.editableTable.newHint");
                 self.summaryTable = "";
@@ -44,8 +46,11 @@ define(
                 self.editRowTemplateId = self.id + "-editRowTemplate";
                 self.columns = [{headerText: 'Column Header'}];
                 self.state = ko.observable(privateData.ENABLE);
-                self.showError = ko.observable(false);
-                self.errorText = "Error";
+                self.showNewError = ko.observable(false);
+                self.newErrorText = "Error";
+                self.deleteErrorText = "Error";
+                self.deleteErrorDialogOkButtonLabel = self.nls("templates.editableTable.deleteErrorDialog.okButtonLabel");
+                self.deleteErrorDialogTitle = self.nls("templates.editableTable.deleteErrorDialog.title");
                 self.currentRow = ko.observable();
                 
                 var dataSource = new oj.ArrayTableDataSource([]);
@@ -56,8 +61,12 @@ define(
                     self.columns = params.columns || [{headerText: 'Column Header'}];
                     self.tableSummary = params.tableSummary ? params.tableSummary : "";
                     self.tableAria = params.tableAria ? params.tableAria : "";
-                    self.errorText = params.errorText ? params.errorText : "Error";
+                    self.newErrorText = params.newErrorText ? params.newErrorText : "Error";
+                    self.deleteErrorText = params.deleteErrorText ? params.deleteErrorText : "Error";
                     self.setNewValidator(params.newValidator);
+                    self.setDeleteValidator(params.deleteValidator);
+                    self.setItemCreator(params.itemCreator);
+                    self.setItemRemover(params.itemRemover);
                     self.setNewEnabled(params.newEnabled !== undefined ? params.newEnabled : true);
                     
                     privateData.type = params.type;
@@ -79,23 +88,27 @@ define(
                 };
 
                 self.newClickHandler = function () {
-                    if (self.validate()) {
+                    if (self.validateOnNew(theKey)) {
                         var itemIds = Object.keys(self.getModel().getItems());
                         var id = IdGenerator.getNewIntegerId(itemIds, itemIds.length * 2);
                         
-                        var newItem = {id: id, name: ""};
+                        var newItem = self.createItem(id, theKey);
                         self.observableDataSource().add(newItem);
-                        self.callListeners(EventTypes.DATA_EVENT, newItem, ActionTypes.ADD);
                     } else {
-                        self.showError(true);
+                        self.showNewError(true);
                     }
                 };
 
                 self.deleteHandler = function () {
                     var currentRow = self.getCurrentRow();
                     console.debug("currentRow: %o", currentRow);
-                    
-                    self.observableDataSource().remove({id: currentRow.rowKey});
+
+                    if (self.validateOnDelete(currentRow.rowKey, theKey)) {
+                        self.removeItem(currentRow.rowKey, theKey);
+                        self.observableDataSource().remove({id: currentRow.rowKey});
+                    } else {
+                        $("#" + self.deleteErrorDialogId).ojDialog("open");
+                    }
                 };
                 
                 self.filterHandler = function() {
@@ -119,15 +132,66 @@ define(
                                 }
                             );
                 };
+                
+                self.closeErrorDialog = function() {
+                    $("#" + self.deleteErrorDialogId).ojDialog("close");
+                };
             }
             
             EditableTable.prototype = Object.create(GeneralViewModel);
             
             var prototype = EditableTable.prototype;
             
-            prototype.validate = function() {
-                var validator = this.getNewValidator();
-                return validator();
+            prototype.removeItem = function(id, key) {
+                if (theKey === key) {
+                    var remover = this.getItemRemover();
+                    return remover(id);
+                }
+            };
+            
+            prototype.getItemRemover = function() {
+                return this.EditableTable_(theKey).itemRemover;
+            };
+            
+            prototype.setItemRemover = function(itemRemover) {
+                if (typeof itemRemover === 'function') {
+                    this.EditableTable_(theKey).itemRemover = itemRemover;
+                }
+            };
+            
+            prototype.createItem = function(id, key) {
+                if (theKey === key) {
+                    var creator = this.getItemCreator();
+                    return creator(id);
+                }
+            };
+            
+            prototype.getItemCreator = function() {
+                return this.EditableTable_(theKey).itemCreator;
+            };
+            
+            prototype.setItemCreator = function(itemCreator) {
+                if (typeof itemCreator === 'function') {
+                    this.EditableTable_(theKey).itemCreator = itemCreator;
+                }
+            };
+            
+            prototype.validateOnDelete = function(item, key) {
+                if (theKey === key) {
+                    var validator = this.getDeleteValidator();
+                    return validator(id);
+                }
+                
+                return false;
+            };
+            
+            prototype.validateOnNew = function(key) {
+                if (theKey === key) {
+                    var validator = this.getNewValidator();
+                    return validator();
+                }
+                
+                return false;
             };
             
             prototype.getNewValidator = function() {
@@ -140,11 +204,30 @@ define(
                 }
             };
             
+            prototype.validateOnDelete = function(item, key) {
+                if (theKey === key) {
+                    var validator = this.getDeleteValidator();
+                    return validator(item);
+                }
+                
+                return false;
+            };
+            
+            prototype.getDeleteValidator = function() {
+                return this.EditableTable_(theKey).deleteValidator;
+            };
+            
+            prototype.setDeleteValidator = function(deleteValidator) {
+                if (typeof deleteValidator === 'function') {
+                    this.EditableTable_(theKey).deleteValidator = deleteValidator;
+                }
+            };
+            
             prototype.setNewEnabled = function(state) {
                 var privateData = this.EditableTable_(theKey);
                 
                 if(state) {
-                    this.showError(false);
+                    this.showNewError(false);
                 }
                 
                 this.state(state ? privateData.ENABLED : privateData.DISABLED) ;

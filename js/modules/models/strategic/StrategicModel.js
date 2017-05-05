@@ -48,6 +48,26 @@ define(
                 return this.getItems()[itemId];
             };
             
+            prototype.removeItem = function(target) {
+                var items = this.getItems();
+                
+                for(var id in items) {
+                    var item = items[id];
+                    
+                    if (item.children.includes(target)) {
+                        item.children = item.children.filter(
+                                    function(value) {
+                                        return value !== target;
+                                    }
+                                );
+                        
+                        delete items[target.id];
+                        
+                        return target;
+                    }
+                }
+            };
+            
             prototype.getItemsByType = function(type) {
                 var items = this.getItems();
                 var itemKeys = Object.keys(items);
