@@ -45,13 +45,13 @@ define(
                         visionItem.children.push(axeElement);
                         strategicItems.push(axeElement);
 
-                        var themesArray = axeObject[StrategicType.getPlural(StrategicType.THEME)];
+                        var themesArray = axeObject[StrategicType.getPlural(StrategicType.TOPIC)];
                         for (var j = 0; j < themesArray.length; j++) {
                             var themeObject = themesArray[j];
                             var themeElement = new StrategicItem(
                                     themeObject["id"],
                                     themeObject["name"],
-                                    StrategicType.THEME
+                                    StrategicType.TOPIC
                             );
 
                             axeElement.children.push(themeElement);

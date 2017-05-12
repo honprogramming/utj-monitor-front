@@ -89,6 +89,21 @@ define(
                                 strategicModel.removeItem(item);
                             };
                             
+                            function getItemsChildren(ids) {
+                                var items = strategicModel.getItemsById(ids);
+                                var children = [];
+                                
+                                if (Array.isArray(items)) {
+                                    items.forEach(
+                                            function(item) {
+                                                children = children.concat(item.children);
+                                            }
+                                    );
+                                }
+                                
+                                return children;
+                            }
+                            
                             self.vision(visionItem.name);
                             
                             self.axesTable = new EditableTable(axesArray, strategicModel,
@@ -123,19 +138,19 @@ define(
                             
                             self.observableAxesTable(self.axesTable);
                             
-                            var topicsArray = strategicModel.getItemsByType(StrategicType.THEME);
+                            var topicsArray = strategicModel.getItemsByType(StrategicType.TOPIC);
                             
                             self.topicsTable = new EditableTable(topicsArray, strategicModel,
                                     {
                                         id: "topics-table",
-                                        title: GeneralViewModel.nls("admin.strategic.topicsTable.title"),
-                                        tableSummary: GeneralViewModel.nls("admin.strategic.topicsTable.tableSummary"),
-                                        tableAria: GeneralViewModel.nls("admin.strategic.topicsTable.tableAria"),
+                                        title: GeneralViewModel.nls("admin.strategic.themesTable.title"),
+                                        tableSummary: GeneralViewModel.nls("admin.strategic.themesTable.tableSummary"),
+                                        tableAria: GeneralViewModel.nls("admin.strategic.themesTable.tableAria"),
                                         columns: self.columns,
                                         type: StrategicType.TOPIC,
                                         newEnabled: false,
-                                        errorText: GeneralViewModel.nls("admin.strategic.topicsTable.errorText"),
-                                        deleteErrorText: GeneralViewModel.nls("admin.strategic.topicsTable.deleteErrorText"),
+                                        errorText: GeneralViewModel.nls("admin.strategic.themesTable.errorText"),
+                                        deleteErrorText: GeneralViewModel.nls("admin.strategic.themesTable.deleteErrorText"),
                                         deleteValidator: hasNoChildren,
                                         newValidator: function() {
                                             return self.axesTable.currentRow();
@@ -153,12 +168,6 @@ define(
                                 }
                             );
                             
-                            self.topicsTable.addFilterListener(
-                                function(rowKey) {
-                                    console.trace("filter listener: %o", rowKey);
-                                }
-                            );
-                            
                             self.topicsTable.addDataListener(
                                 function(item, action) {
                                     switch(action) {
@@ -173,11 +182,10 @@ define(
                             self.observableTopicsTable(self.topicsTable);
                             
                             self.axesTable.addFilterListener(
-                                function(rowKey) {
-                                    var item = strategicModel.getItemById(rowKey);
-                                    var children = item.children;
+                                function(ids) {
+                                    var itemsToKeep = getItemsChildren(ids);
                                     
-                                    self.topicsTable.filter(children);
+                                    self.topicsTable.filter(itemsToKeep);
                                 }
                             );
                     
@@ -196,10 +204,10 @@ define(
                                         deleteErrorText: GeneralViewModel.nls("admin.strategic.objectivesTable.deleteErrorText"),
                                         deleteValidator: hasNoChildren,
                                         newValidator: function() {
-                                            return self.topicsTable.currentRow();
+                                            return self.themesTable.currentRow();
                                         },
                                         itemCreator: function(id) {
-                                            return createItem(id, self.topicsTable);
+                                            return createItem(id, self.themesTable);
                                         },
                                         itemRemover: removeItem
                                     }
@@ -211,17 +219,11 @@ define(
                                 }
                             );
                     
-                            self.objectivesTable.addFilterListener(
-                                function(rowKey) {
-                                    console.trace("filter listener: %o", rowKey);
-                                }
-                            );
-                            
                             self.objectivesTable.addDataListener(
                                 function(item, action) {
                                     switch(action) {
                                         case ActionTypes.ADD:
-                                            var currentTopic = self.topicsTable.getCurrentRow();
+                                            var currentTopic = self.themesTable.getCurrentRow();
                                             strategicModel.addItem(currentTopic.rowKey, item);
                                         break;
                                     }
@@ -230,6 +232,14 @@ define(
                     
                             self.observableObjectivesTable(self.objectivesTable);
                             
+                            self.topicsTable.addFilterListener(
+                                function(ids) {
+                                    var itemsToKeep = getItemsChildren(ids);
+                                    
+                                    self.objectivesTable.filter(itemsToKeep);
+                                }
+                            );
+                    
                             var strategiesArray = strategicModel.getItemsByType(StrategicType.STRATEGY);
                             
                             self.strategiesTable = new EditableTable(strategiesArray, strategicModel,
@@ -278,6 +288,14 @@ define(
                             );
                     
                             self.observableStrategiesTable(self.strategiesTable);
+                            
+                            self.objectivesTable.addFilterListener(
+                                function(ids) {
+                                    var itemsToKeep = getItemsChildren(ids);
+                                    
+                                    self.strategiesTable.filter(itemsToKeep);
+                                }
+                            );
                         }
                 );
             }

@@ -1,25 +1,25 @@
 define(
         function () {
             var theKey = {};
-            
+
             function StrategicModel(dataProvider) {
                 var privateData = {
                     dataProvider: dataProvider,
                     itemsArray: undefined,
                     itemsMap: {}
                 };
-                
-                this.StrategicModel_ = function(key) {
+
+                this.StrategicModel_ = function (key) {
                     if (theKey === key) {
                         return privateData;
                     }
                 };
-                
+
                 privateData.itemsArray = dataProvider.getDataArray();
-                
+
                 var item;
                 var items = privateData.itemsArray.slice();
-                
+
                 while (items.length > 0) {
                     item = items[0];
                     privateData.itemsMap[item.id] = items[0];
@@ -27,90 +27,106 @@ define(
                     items.splice(0, 1);
                 }
             }
-            
+
             var prototype = StrategicModel.prototype;
-            
-            prototype.addItem = function(parentItemId, item) {
+
+            prototype.addItem = function (parentItemId, item) {
                 var parentItem = this.getItemById(parentItemId);
-                
+
                 if (parentItem) {
                     var itemsMap = this.getItems();
                     parentItem.children.push(item);
                     itemsMap[item.id] = item;
                 }
             };
-            
-            prototype.getItems = function() {
+
+            prototype.getItems = function () {
                 return this.StrategicModel_(theKey).itemsMap;
             };
-            
-            prototype.getItemById = function(itemId) {
+
+            prototype.getItemById = function (itemId) {
                 return this.getItems()[itemId];
             };
-            
-            prototype.removeItem = function(target) {
-                var items = this.getItems();
+
+            prototype.getItemsById = function (itemIds) {
+                var items = [];
+
+                if (Array.isArray(itemIds)) {
+                    itemIds.forEach(
+                            function (id) {
+                                items.push(this.getItems()[id]);
+                            }
+                    , this);
+                } else {
+                    items.push(this.getItemById(itemIds));
+                }
                 
-                for(var id in items) {
+                return items;
+            };
+
+            prototype.removeItem = function (target) {
+                var items = this.getItems();
+
+                for (var id in items) {
                     var item = items[id];
-                    
+
                     if (item.children.includes(target)) {
                         item.children = item.children.filter(
-                                    function(value) {
-                                        return value !== target;
-                                    }
-                                );
-                        
+                                function (value) {
+                                    return value !== target;
+                                }
+                        );
+
                         delete items[target.id];
-                        
+
                         return target;
                     }
                 }
             };
-            
-            prototype.getItemsByType = function(type) {
+
+            prototype.getItemsByType = function (type) {
                 var items = this.getItems();
                 var itemKeys = Object.keys(items);
                 var itemKeys = itemKeys.filter(
-                            function(key) {
-                                var item = items[key];
-                                
-                                return item.type === type;
-                            }
-                        );
-                
+                        function (key) {
+                            var item = items[key];
+
+                            return item.type === type;
+                        }
+                );
+
                 var typeItems = [];
-                
+
                 itemKeys.forEach(
-                        function(key) {
+                        function (key) {
                             typeItems.push(items[key]);
                         }
                 );
-                
+
                 return typeItems;
             };
-            
-            prototype.getItemsByTypeByParent = function(type, parents) {
+
+            prototype.getItemsByTypeByParent = function (type, parents) {
                 var allItems = this.getItems();
                 var typeItems = this.getItemsByType(type);
                 var parentItems = typeItems.filter(
-                            function(element) {
-                                var parentItem;
-                                
-                                for (var i = 0; i < parents.length; i ++) {
-                                    parentItem = allItems[i];
-                                    if (parentItem.children.includes(element)) {
-                                        return true;
-                                    }
+                        function (element) {
+                            var parentItem;
+
+                            for (var i = 0; i < parents.length; i++) {
+                                parentItem = allItems[i];
+                                if (parentItem.children.includes(element)) {
+                                    return true;
                                 }
-                                
-                                return false;
                             }
-                        );
-                
+
+                            return false;
+                        }
+                );
+
                 return parentItems;
             };
-            
+
             return StrategicModel;
         }
 );

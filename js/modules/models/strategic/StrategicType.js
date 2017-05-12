@@ -3,7 +3,7 @@ define(
             var types = {
                 VISION: "vision",
                 AXE: "axe",
-                THEME: "theme",
+                TOPIC: "topic",
                 OBJECTIVE: "objective",
                 STRATEGY: "strategy",
                 getPlural: function (type) {

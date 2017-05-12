@@ -122,7 +122,7 @@ define(
                 };
                 
                 self.computedColor = function(id, data) {
-                    console.debug("data: %o", data);
+//                    console.trace("data: %o", data);
                     return ko.pureComputed(
                                 function() {
                                     if (self.currentRow()) {
@@ -144,6 +144,13 @@ define(
             
             prototype.filter = function(itemsToKeep) {
                 this.observableDataSource().reset(itemsToKeep);
+                
+                var idsToKeep = itemsToKeep.map(
+                            function(item) {
+                                return item.id;
+                            }
+                        );
+                this.callListeners(EventTypes.FILTER_EVENT, idsToKeep);
             };
             
             prototype.removeItem = function(id, key) {

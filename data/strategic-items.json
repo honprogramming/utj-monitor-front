@@ -6,7 +6,7 @@
             {
                 "id": 2,
                 "name": "1 Calidad Educativa",
-                "themes": [
+                "topics": [
                     {
                         "id": 3,
                         "name": "Atención de recomendaciones para acreditación de Programas Educativos",
@@ -230,7 +230,7 @@
             {
                 "id": 50,
                 "name": "2 Formación integral y aprovechamiento académico",
-                "themes": [
+                "topics": [
                     {
                         "id": 51,
                         "name": "Formación integral del estudiante",
@@ -432,7 +432,7 @@
             {
                 "id": 94,
                 "name": "3 Planeación, administración, equidad y gobierno",
-                "themes": [
+                "topics": [
                     {
                         "id": 95,
                         "name": "Planeación y evaluación",
@@ -734,7 +734,7 @@
             {
                 "id": 157,
                 "name": "4 Vinculación e incubación de empresas",
-                "themes": [
+                "topics": [
                     {
                        "id": 158,
                        "name": "Pertinencia de los Programas Educativos",
@@ -1068,7 +1068,7 @@
             {
                 "id": 228,
                 "name": "5 Innovación y desarrollo tecnológico",
-                "themes": [
+                "topics": [
                     {
                         "id": 229,
                         "name": "Capacidad Académica",
@@ -1270,7 +1270,7 @@
             {
                 "id": 272,
                 "name": "6 Internacionalización e idiomas",
-                "themes": [
+                "topics": [
                     {
                         "id": 273,
                         "name": "Academia de Idiomas",
