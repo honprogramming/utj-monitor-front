@@ -1,0 +1,1420 @@
+{
+    "vision": {
+        "id": 1,
+        "name": "Institución reconocida, que atiende los requerimientos del sector productivo de bienes y de servicios caracterizados por su calidad, pertinencia y relevancia",
+        "axes": [
+            {
+                "id": 2,
+                "name": "1 Calidad Educativa",
+                "themes": [
+                    {
+                        "id": 3,
+                        "name": "Atención de recomendaciones para acreditación de Programas Educativos",
+                        "objectives": [
+                            {
+                                "id": 4,
+                                "name": "1.1 Acreditar los programas educativos",
+                                "strategies": [
+                                    {
+                                        "id": 5,
+                                        "name": "a) Mejorar la infraestructura física, académica y metodológica de los PE"
+                                    },
+                                    {
+                                        "id": 6,
+                                        "name": "b) Realizar evaluaciones constantes de los PE de acuerdo a los requisitos de acreditación de CIEES y COPAES"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 7,
+                                        "name": "1.1.1 Número de programas educativos acreditados ante COPAES"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 8,
+                        "name": "Evaluación del aprendizaje",
+                        "objectives": [
+                            {
+                                "id": 9,
+                                "name": "1.2 Mejorar el rendimiento y aprendizaje de los estudiantes",
+                                "strategies": [
+                                    {
+                                        "id": 10,
+                                        "name": "a) Fortalecer el seguimiento de los estudiantes"
+                                    },
+                                    {
+                                        "id": 11,
+                                        "name": "b) Reducir las tasas de reprobación y deserción"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 12,
+                                        "name": "1.2.1 Tasa de reprobación de los estudiantes de TSU (anual)" 
+                                    },
+                                    {
+                                        "id": 13,
+                                        "name": "1.2.2 Tasa de reprobación de los estudiantes de ingeniería (anual)"  
+                                    },
+                                    {
+                                        "id": 14,
+                                        "name": "1.2.3 Promedio global de calificaciones de alumnos de TSU"
+                                    },
+                                    {
+                                        "id": 15,
+                                        "name": "1.2.4 Promedio global de calificaciones de alumnos de ingenierías"
+                                    },
+                                    {
+                                        "id": 16,
+                                        "name": "1.2.5 Tasa de deserción de estudiantes de TSU (anual)"
+                                    },
+                                    {
+                                        "id": 17,
+                                        "name": "1.2.6 Tasa de deserción de estudiantes de ingeniería (anual)"
+                                    },
+                                    {
+                                        "id": 18,
+                                        "name": "1.2.7 Número de estudiantes que abandonaron sus estudios (anual)"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                       "id": 19,
+                       "name": "Infraestructura educativa, cultural y deportiva",
+                       "objectives": [
+                            {
+                                "id": 20,
+                                "name": "1.3 Optimizar la infraestructura educativa, cultural y deportiva",
+                                "strategies": [
+                                    {
+                                        "id": 21,
+                                        "name": "a) Ampliar y aprovechar de forma adecuada las instalaciones deportivas y culturales"
+                                    },
+                                    {
+                                        "id": 22,
+                                        "name": "b) Utilizar de manera eficiente la infraestructura educativa"
+                                    },
+                                    {
+                                        "id": 23,
+                                        "name": "c) Mejorar la infraestructura y equipamiento en aulas, talleres y laboratorios"
+                                    },
+                                    {
+                                        "id": 24,
+                                        "name": "d) Contar con un plan maestro de infraestructura"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 25,
+                                        "name": "1.3.1 Número de programas educativos con espacios óptimos para realizar actividades docentes"
+                                    },
+                                    {
+                                        "id": 26,
+                                        "name": "1.3.2 Número de espacios adecuados para las actividades culturales, deportivas y artísticas"
+                                    },
+                                    {
+                                        "id": 27,
+                                        "name": "1.3.3 Número de grupos por PE"
+                                    },
+                                    {
+                                        "id": 28,
+                                        "name": "1.3.4 Promedio de materias impartidas por profesor"
+                                    },
+                                    {
+                                        "id": 29,
+                                        "name": "1.3.5 Número de estudiantes por grupo"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 30,
+                        "name": "Innovación Educativa",
+                        "objectives": [
+                            {
+                                "id": 31,
+                                "name": "1.4 Incrementar el uso de TIC para fortalecer el aprendizaje",
+                                "strategies": [
+                                    {
+                                        "id": 32,
+                                        "name": "a) Consolidar los enfoques y modelos educativos centrados en el aprendizaje"
+                                    },
+                                    {
+                                        "id": 33,
+                                        "name": "b) Fortalecer el desarrollo de habilidades en los profesores en el uso de TIC para el aprendizaje con tendencia al e-learning"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 34,
+                                        "name": "1.4.1 Número de alumnos por computadora en funcionamiento"
+                                    },
+                                    {
+                                        "id": 35,
+                                        "name": "1.4.2 Relación de computadoras en estado óptimo por PTC"
+                                    },
+                                    {
+                                        "id": 36,
+                                        "name": "1.4.3 Número de edificios con espacios que cuentan con equipo de cómputo para profesores de asignatura"
+                                    },
+                                    {
+                                        "id": 37,
+                                        "name": "1.4.4 Número de asignaturas que utilizan herramientas de TIC especializadas por PE"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 38,
+                        "name": "Biblioteca",
+                        "objectives": [
+                            {
+                                "id": 39,
+                                "name": "1.5 Fortalecer la atención de usuarios para el aprovechamiento de servicios bibliotecarios",
+                                "strategies": [
+                                    {
+                                       "id": 40,
+                                       "name": "a) Incrementar el número de títulos bibliográficos asegurando que se cuente con un acervo especializado (digital e impreso"
+                                    },
+                                    {
+                                        "id": 41,
+                                        "name": "b) Incrementar, optimizar y actualizar el equipamiento y los servicios informáticos"
+                                    },
+                                    {
+                                        "id": 42,
+                                        "name": "c) Mejorar el perfil del personal bibliotecario"
+                                    },
+                                    {
+                                        "id": 43,
+                                        "name": "d) Impulsar el aprovechamiento del projecto JANIUM (avance en la captura, clasificación y re-etiquetación del acervo)"
+                                    },
+                                    {
+                                        "id": 44,
+                                        "name": "e) Impulsar el aprovechamiento del uso de recurso de la Biblioteca Digital del Espacio Común de Educación Superior Tecnológica y politécnica (BiDig-ECEST)"
+                                    },
+                                    {
+                                        "id": 45,
+                                        "name": "f) Impulsar actividades que motiven a la comunidad universitaria para el fomento de la lectura"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 46,
+                                        "name": "1.5.1 Promedio de usuarios que utilizan los servicios de biblioteca (consulta de acervo general mensual)"
+                                    },
+                                    {
+                                        "id": 47,
+                                        "name": "1.5.2 Incremento del acervo bibliográfico (volúmenes)"
+                                    },
+                                    {
+                                        "id": 48,
+                                        "name": "1.5.3 Número de profesores capacitados en el uso de herramientas de la biblioteca"
+                                    },
+                                    {
+                                        "id": 49,
+                                        "name": "1.5.4 Número de alumnos capacitados en el uso de herramientas de la biblioteca (anual)"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 50,
+                "name": "2 Formación integral y aprovechamiento académico",
+                "themes": [
+                    {
+                        "id": 51,
+                        "name": "Formación integral del estudiante",
+                        "objectives": [
+                            {
+                                "id": 52,
+                                "name": "2.1 Asegurar que los estudiantes reciban una formación integral que incluya valores y actividades deportivas, culturales y artísticas",
+                                "strategies": [
+                                    {
+                                        "id": 53,
+                                        "name": "a) Optimizar la infraestructura de apoyo para que los estudiantes reciban una formación integral"
+                                    },
+                                    {
+                                        "id": 54,
+                                        "name": "b) Promover adecuadamente la participación en actividades extracurriculares"
+                                    },
+                                    {
+                                        "id": 55,
+                                        "name": "c) Desarrollar en el estudiante capacidades para la vida y formación de valores"
+                                    },
+                                    {
+                                        "id": 56,
+                                        "name": "d) Organizar torneos deportivos cada ciclo escolar para los alumnos de TSU e Ingenierías"
+                                    },
+                                    {
+                                        "id": 57,
+                                        "name": "e) Formar selecciones deportivas que representen a la UTJ en torneos."
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 58,
+                                        "name": "2.1.1 Número de talleres deportivos y culturales"
+                                    },
+                                    {
+                                        "id": 59,
+                                        "name": "2.1.2 Número de eventos deportivos, artísticos o culturales (internos y externos)"
+                                    },
+                                    {
+                                        "id": 60,
+                                        "name": "2.1.3 Número de ciclos de difusión hacia la comunidad universitaria para promover acciones de fomento deportivo o cultura (publicaciones en vitrinas y redes sociales)"
+                                    },
+                                    {
+                                        "id": 61,
+                                        "name": "2.1.4 Número de ciclos de conferencias implementados"
+                                    },
+                                    {
+                                        "id": 62,
+                                        "name": "2.1.5 Número de estudiantes que participan en actividades culturales, artísticas y deportivas (anual)"
+                                    },
+                                    {
+                                        "id": 63,
+                                        "name": "2.1.6 Número de procesos de selección deportivos y culturales"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 64,
+                        "name": "Eficiencia terminal",
+                        "objectives": [
+                            {
+                                "id": 65,
+                                "name": "2.2 Mejorar la eficiencia terminal de los PE de TSU e Ingenierías",
+                                "strategies": [
+                                    {
+                                        "id": 66,
+                                        "name": "a) Establecer modelos de seguimiento a la trayectoria académica de los estudiantes para detectar alumnos en riesgo de deserción"
+                                    },
+                                    {
+                                        "id": 67,
+                                        "name": "b) Consolidar acciones de apoyo a los estudiantes en los PE que incrementen las tasas de egreso y de titulación"
+                                    },
+                                    {
+                                        "id": 68,
+                                        "name": "c) Promover entre los estudiantes la aplicación para becas totales o parciales"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 69,
+                                        "name": "2.2.1 Tasa de egreso y titulación por cohorte generacional en TSU"
+                                    },
+                                    {
+                                        "id": 70,
+                                        "name": "2.2.2 Tasa de egreso y titulación por cohorte generacional en ingenierías"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 71,
+                        "name": "Tendencias en la educación",
+                        "objectives": [
+                            {
+                                "id": 72,
+                                "name": "2.3 Reducir los efectos de las deficiencias en educación básica y media superior en los alumnos de la UTJ",
+                                "strategies": [
+                                    {
+                                        "id": 73,
+                                        "name": "a) Participar en instancias orientadas a mejorar la articulación entre la educación básica, la educación media superior y la educación superior"
+                                    },
+                                    {
+                                        "id": 74,
+                                        "name": "b) Mejorar los criterios de selección de nuevos alumnos"
+                                    },
+                                    {
+                                        "id": 75,
+                                        "name": "c) Generar cursos adicionales para reforzar los conocimientos básicos que deben tener los estudiantes para iniciar un TSU o ingeniería"
+                                    },
+                                    {
+                                        "id": 76,
+                                        "name": "d) Fomentar el uso de TIC para mejorar el aprovechamiento y regularización académica"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 77,
+                                        "name": "2.3.1 Número de alumnos de primer ingreso que aprobaron cursos propedéuticos (anual)"
+                                    },
+                                    {
+                                        "id": 78,
+                                        "name": "2.3.2 Tasa de retención de estudiantes de primero a segundo año de TSU (anual)"
+                                    },
+                                    {
+                                        "id": 79,
+                                        "name": "2.3.3 Tasa de retención de estudiantes de primero a segundo año de ingeniería (anual)"
+                                    },
+                                    {
+                                        "id": 80,
+                                        "name": "2.3.4 Porcentaje de estudiantes con beca total o parcial en la UTJ"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 81,
+                        "name": "Tutorías",
+                        "objectives": [
+                            {
+                                "id": 82,
+                                "name": "2.4 Fortalecer el programa institucional de tutorías",
+                                "strategies": [
+                                    {
+                                        "id": 83,
+                                        "name": "a) Incrementar la capacidad de los PTC para otorgar tutorías efectivas para los alumnos"
+                                    },
+                                    {
+                                        "id": 84,
+                                        "name": "b) Promover la eficiencia de la tutoría para detectar alumnos que requieren apoyo de asesoría especializada en los PE "
+                                    },
+                                    {
+                                        "id": 85,
+                                        "name": "c) Mejorar la capacitación de los tutores"
+                                    },
+                                    {
+                                        "id": 86,
+                                        "name": "d) Mejorar los mecanismos de detección y análisis de estudiantes con bajo desempeño"
+                                    },
+                                    {
+                                        "id": 87,
+                                        "name": "e) Optimizar la asignación de alumnos por tutor"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 88,
+                                        "name": "2.4.1 Número de alumnos identificados en situación de riesgo académico"
+                                    },
+                                    {
+                                        "id": 89,
+                                        "name": "2.4.2 Número de alumnos identificados en situación de riesgo emocional"
+                                    },
+                                    {
+                                        "id": 90,
+                                        "name": "2.4.3 Número de estudiantes de TSU tutorados canalizados a asesorías psicológicas"
+                                    },
+                                    {
+                                        "id": 91,
+                                        "name": "2.4.4 Número de estudiantes de ingenierías tutorados canalizados a asesorías psicológicas"
+                                    },
+                                    {
+                                        "id": 92,
+                                        "name": "2.4.5 Total de alumnos de TSU enviados a asesorías académicas"
+                                    },
+                                    {
+                                        "id": 93,
+                                        "name": "2.4.6 Total de alumnos de ingenierías enviados a asesorías académicas"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 94,
+                "name": "3 Planeación, administración, equidad y gobierno",
+                "themes": [
+                    {
+                        "id": 95,
+                        "name": "Planeación y evaluación",
+                        "objectives": [
+                            {
+                                "id": 96,
+                                "name": "3.1 Consolidar los trabajos e instrumentos de planeación, seguimiento y evaluación",
+                                "strategies": [
+                                    {
+                                        "id": 97,
+                                        "name": "a) Asegurar que los procesos, proyectos y actividades se realicen de acuerdo al PIDE"
+                                    },
+                                    {
+                                        "id": 98,
+                                        "name": "b) Institucionalizar el seguimiento y evaluación como una práctica continua y necesaria para la tomar de decisiones"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 99,
+                                        "name": "3.1.1 Número de mecanismos de seguimiento y evaluación implementados (POA, acreditaciones, PIDE)"
+                                        },
+                                    {
+                                        "id": 100,
+                                        "name": "3.1.2 Porcentaje de cumplimiento de metas derivadas de los instrumentos de planeación"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 101,
+                        "name": "Estructura administrativa",
+                        "objectives": [
+                            {
+                                "id": 102,
+                                "name": "3.2 Mejorar el desempeño de la estructura organizacional",
+                                "strategies": [
+                                    {
+                                        "id": 103,
+                                        "name": "a) Incentivar el desarrollo profesional de los recursos humanos"
+                                    },
+                                    {
+                                        "id": 104,
+                                        "name": "b) Mejorar la coordinación y colaboración de las áreas administrativas y académicas"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 105,
+                                        "name": "3.2.1 Número de personas que recibieron por lo menos una   capacitación que laboran en áreas administrativas"
+                                    },
+                                    {
+                                        "id": 106,
+                                        "name": "3.2.2 Número de proyectos o herramientas de colaboración implementadas"
+                                    },
+                                    {
+                                        "id": 107,
+                                        "name": "3.2.3 Número de desviaciones detectadas en las auditorías internas del Sistema de Gestión de Calidad"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 108,
+                        "name": "Equidad de género y buen trato entre la comunidad universitaria",
+                        "objectives": [
+                            {
+                                "id": 109,
+                                "name": "3.3 Asegurar que la comunidad universitaria cumpla con las políticas de equidad de género",
+                                "strategies": [
+                                    {
+                                        "id": 110,
+                                        "name": "a) Generar conciencia en la comunidad universitaria sobre la prevención y atención del hostigamiento y acoso sexual"
+                                    },
+                                    {
+                                        "id": 111,
+                                        "name": "b) Promover cursos y capacitaciones orientadas al respeto y equidad de género"
+                                    },
+                                    {
+                                        "id": 112,
+                                        "name": "c) Realizar campañas de difusión de la cultura de equidad de género"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 113,
+                                        "name": "3.3.1 Número de eventos (cursos, talleres, conferencias, etc.) en equidad de género"
+                                    },
+                                    {
+                                        "id": 114,
+                                        "name": "3.3.2 Personal administrativo y docente capacitados en equidad de género"
+                                    },
+                                    {
+                                        "id": 115,
+                                        "name": "3.3.3 Alumnos capacitados en equidad de género"
+                                    },
+                                    {
+                                       "id": 116,
+                                       "name": "3.3.4 Número de incidencias relacionadas con equidad de género reportadas"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 117,
+                        "name": "Inclusión social y acceso a grupos vulnerables",
+                        "objectives": [
+                            {
+                                "id": 118,
+                                "name": "3.4 Promover el acceso a la Universidad a los estudiantes que provienen de grupos vulnerables",
+                                "strategies": [
+                                    {
+                                        "id": 119,
+                                        "name": "a) Generar incentivos que apoyen la inclusión de estudiantes provenientes de grupos vulnerables"
+                                    },
+                                    {
+                                        "id": 120,
+                                        "name": "b) Otorgar un porcentaje de becas a estudiantes provenientes de grupos vulnerables"
+                                    },
+                                    {
+                                        "id": 121,
+                                        "name": "c) Generar instrumentos de promoción de la oferta educativa orientados a la captación de estudiantes provenientes de grupos vulnerables"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 122,
+                                        "name": "3.4.1 Número de estudiantes provenientes de grupos vulnerables por PE"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 123,
+                        "name": "Finanzas",
+                        "objectives": [
+                            {
+                                "id": 124,
+                                "name": "3.5 Incrementar los recursos disponibles para la operación y ampliación de la infraestructura universitaria",
+                                "strategies": [
+                                    {
+                                        "id": 125,
+                                        "name": "a) Reducir la dependencia del presupuesto asignado anualmente"
+                                    },
+                                    {
+                                        "id": 126,
+                                        "name": "b) Aprovechar la disponibilidad de recursos provenientes de los programas federales y otras fuentes de financiamiento externas"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 127,
+                                        "name": "3.5.1 Porcentaje de recursos provenientes de ingresos propios"
+                                    },
+                                    {
+                                        "id": 128,
+                                        "name": "3.5.2 Porcentaje de recursos obtenidos por medio de programas federales"
+                                    },
+                                    {
+                                        "id": 129,
+                                        "name": "3.5.3 Porcentaje de recursos del fondo ordinario"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 130,
+                        "name": "Sistema de Gestión de Calidad",
+                        "objectives": [
+                            {
+                                "id": 131,
+                                "name": "3.6  Incrementar el impacto del sistema de gestión de calidad en la mejora continua del desempeño universitario",
+                                "strategies": [
+                                    {
+                                        "id": 132,
+                                        "name": "a) Promocionar la cultura de la calidad"
+                                    },
+                                    {
+                                        "id": 133,
+                                        "name": "b) Generar un sistema integral de indicadores"
+                                    },
+                                    {
+                                        "id": 134,
+                                        "name": "c) Implementar un modelo de mejora continua"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 135,
+                                        "name": "3.6.1 Número de procesos sustantivos certificados en calidad"
+                                    },
+                                    {
+                                        "id": 136,
+                                        "name": "3.6.2 Número de procesos de apoyo certificados en calidad"
+                                    },
+                                    {
+                                        "id": 137,
+                                        "name": "3.6.3 Número de acciones de mejora identificadas en la aplicación del SGC"
+                                    },
+                                    {
+                                        "id": 138,
+                                        "name": "3.6.4 Número de acciones de mejora atendidas en la aplicación del SGC"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 139,
+                        "name": "Sistema de Gestión Ambiental",
+                        "objectives": [
+                            {
+                                "id": 140,
+                                "name": "3.7 Asegurar el cumplimiento de las normas del sistema de gestión ambiental",
+                                "strategies": [
+                                    {
+                                        "id": 141,
+                                        "name": "a) Mejorar la gestión integral de residuos"
+                                    },
+                                    {
+                                        "id": 142,
+                                        "name": "b) Reducir el desperdicio de recursos como agua, electricidad, papel, etc."
+                                    },
+                                    {
+                                        "id": 143,
+                                        "name": "c) Incrementar la difusión del sistema de gestión ambiental"
+                                    },
+                                    {
+                                        "id": 144,
+                                        "name": "d) Incluir en los PE temas de desarrollo sustentable"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 145,
+                                        "name": "3.7.1 Número de procesos sustantivos certificados en la norma ambiental"
+                                    },
+                                    {
+                                        "id": 146,
+                                        "name": "3.7.2 Número de acciones de mejora identificadas en la aplicación del SGA"
+                                    },
+                                    {
+                                        "id": 147,
+                                        "name": "3.7.3 Número de acciones de mejora atendidas en la aplicación del SGA"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 148,
+                        "name": "Gobierno y normatividad universitaria",
+                        "objectives": [
+                            {
+                                "id": 149,
+                                "name": "3.8  Asegurar la actualización y aplicación de la normatividad universitaria y facilitar los medios para las sesiones del Consejo Directivo de la UTJ",
+                                "strategies": [
+                                    {
+                                        "id": 150,
+                                        "name": "a) Actualizar la normatividad universitaria"
+                                    },
+                                    {
+                                        "id": 151,
+                                        "name": "b) Asegurar que las normas y reglamentos respondan a la realidad académica"
+                                    },
+                                    {
+                                        "id": 152,
+                                        "name": "c) Mantener un estricto seguimiento del sistema integral de gestión"
+                                    },
+                                    {
+                                        "id": 153,
+                                        "name": "d) Asegurar el seguimiento adecuado a las sesiones del Consejo Directivo de la UTJ"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 154,
+                                        "name": "3.8.1 Número de sesiones ordinarias y extraordinarias del Consejo Directivo"
+                                    },
+                                    {
+                                        "id": 155,
+                                        "name": "3.8.2 Normas y reglamentos actualizados"
+                                    },
+                                    {
+                                        "id": 156,
+                                        "name": "3.8.3 Número de incidencias reportadas relacionadas con la aplicación de la norma"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 157,
+                "name": "4 Vinculación e incubación de empresas",
+                "themes": [
+                    {
+                       "id": 158,
+                       "name": "Pertinencia de los Programas Educativos",
+                       "objectives": [
+                            {
+                                "id": 159,
+                                "name": "4.1 Asegurar la calidad y pertinencia de los PE",
+                                "strategies": [
+                                    {
+                                        "id": 160,
+                                        "name": "a) Diseñar un esquema que permita el adecuado seguimiento de egresados y facilite la evaluación de la pertinencia de los PE"
+                                    },
+                                    {
+                                        "id": 161,
+                                        "name": "b) Generar mecanismos que aseguren que las recomendaciones de los empleadores se incorporen al diseño y actualización de los PE"
+                                    },
+                                    {
+                                        "id": 162,
+                                        "name": "c) Fortalecer el proceso de planeación de los PE"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 163,
+                                        "name": "4.1.1 Índice de satisfacción de los PE por parte de empleadores"
+                                    },
+                                    {
+                                        "id": 164,
+                                        "name": "4.1.2 Índice de satisfacción de los PE por parte de egresados"
+                                    },
+                                    {
+                                        "id": 165,
+                                        "name": "4.1.3 Porcentaje de egresados que contestan las encuestas"
+                                    },
+                                    {
+                                        "id": 166,
+                                        "name": "4.1.4 Número de encuestas aplicadas a empleadores"
+                                    },
+                                    {
+                                        "id": 167,
+                                        "name": "4.1.5 Número de acciones derivadas de las reuniones de retroalimentación"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 168,
+                        "name": "Formación de los estudiantes en las empresas",
+                        "objectives": [
+                            {
+                                "id": 169,
+                                "name": "4.2 Mejorar la percepción del sector empresarial respecto a los estudiantes de la UTJ",
+                                "strategies": [
+                                    {
+                                        "id": 170,
+                                        "name": "a) Actualizar los PE con la colaboración del sector empresarial"
+                                    },
+                                    {
+                                        "id": 171,
+                                        "name": "b) Incrementar la participación del sector productivo en la evaluación de las actividades educativas"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 172,
+                                        "name": "4.2.1 Número de  comisiones integradas de vinculación y pertinencia con las divisiones de carrera"
+                                    },
+                                    {
+                                        "id": 173,
+                                        "name": "4.2.2 Número de reuniones de las comisiones de vinculación y pertinencia con las divisiones de carrera"
+                                    },
+                                    {
+                                        "id": 174,
+                                        "name": "4.2.3 Número de programas de educación continua realizados en el sector empresarial"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 175,
+                        "name": "Evaluación de la oferta educativa y ampliación de matrícula",
+                        "objectives": [
+                            {
+                                "id": 176,
+                                "name": "4.3 Evaluar la oferta educativa y aumentar la matrícula de los PE de TSU e Ingenierías",
+                                "strategies": [
+                                    {
+                                        "id": 177,
+                                        "name": "a) Evaluar la oferta académica vigente en función de los estudios de pertinencia"
+                                    },
+                                    {
+                                        "id": 178,
+                                        "name": "b) Modificar la oferta académica en función de las necesidades del desarrollo empresarial,  regional y nacional"
+                                    },
+                                    {
+                                        "id": 179,
+                                        "name": "c) Promover entre los egresados del nivel medio superior las carreras que oferta la UTJ"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 180,
+                                        "name": "4.3.1 Satisfacción de los estudiantes con respecto a su PE (septiembre-diciembre)"
+                                    },
+                                    {
+                                        "id": 181,
+                                        "name": "4.3.2 Número de alumnos de nuevo ingreso por PE (septiembre-diciembre)"
+                                    },
+                                    {
+                                        "id": 182,
+                                        "name": "4.3.3 Número de acuerdos con Instituciones de Educación Media Superior para oferta educativa"
+                                    },
+                                    {
+                                        "id": 183,
+                                        "name": "4.3.4 Número de visitas guiadas hacia UTJ y en sitio con Instituciones de Educación Media Superior"
+                                    },
+                                    {
+                                        "id": 184,
+                                        "name": "4.3.5 Número de eventos de difusión en redes sociales"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 185,
+                        "name": "Vinculación",
+                        "objectives": [
+                            {
+                                "id": 186,
+                                "name": "4.4 Incrementar la vinculación con instituciones educativas, gubernamentales y empresariales",
+                                "strategies": [
+                                    {
+                                        "id": 187,
+                                        "name": "a) Incentivar la movilidad académica nacional e internacional."
+                                    },
+                                    {
+                                        "id": 188,
+                                        "name": "b) Revisión periódica del Catálogo General de Servicios de la UTJ, con Académicos y administrativos."
+                                    },
+                                    {
+                                        "id": 189,
+                                        "name": "c) Fomentar la participación en redes académicas con otras instituciones nacionales e internacionales"
+                                    },
+                                    {
+                                        "id": 190,
+                                        "name": "d) Crear espacios de convivencia y comunicación de la planta académica y de su sector estudiantil de la UTJ con prominentes empresarios, destacados directivos de Cámaras y Organismos empresariales."
+                                    },
+                                    {
+                                        "id": 191,
+                                        "name": "e) Convocar a Empresas del sector privado, Organismos y Dependencias gubernamentales para ofrecer oportunidades de contratación  a estudiantes  y egresados de la UTJ."
+                                    },
+                                    {
+                                        "id": 192,
+                                        "name": "f) Optimizar los resultados de las estadías de estudiantes en el sector empresarial"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 193,
+                                        "name": "4.4.1 Número de sesiones informativas, congresos y ciclos de conferencias"
+                                    },
+                                    {
+                                        "id": 194,
+                                        "name": "4.4.2 Catálogo anual de servicios actualizado"
+                                    },
+                                    {
+                                        "id": 195,
+                                        "name": "4.4.3 Número de empresas a la cuales se entrega el catálogo de servicios"
+                                    },
+                                    {
+                                        "id": 196,
+                                        "name": "4.4.4 Número de responsables institucionales que participen en las redes de colaboración fijadas por ANUIES"
+                                    },
+                                    {
+                                        "id": 197,
+                                        "name": "4.4.5 Número de cátedras con personalidades prominentes de cámaras y empresas"
+                                    },
+                                    {
+                                        "id": 198,
+                                        "name": "4.4.6 Número de ferias del empleo realizadas en UTJ"
+                                    },
+                                    {
+                                        "id": 199,
+                                        "name": "4.4.7 Proporción de estudiantes colocados de manera pertinente con su formación profesional y académica en las estadías con las empresas"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 200,
+                        "name": "Incubación y desarrollo de negocios",
+                        "objectives": [
+                            {
+                                "id": 201,
+                                "name": "4.5 Consolidar la incubadora de negocios",
+                                "strategies": [
+                                    {
+                                        "id": 202,
+                                        "name": "a) Incrementar la promoción e incentivos para incubar empresas"
+                                    },
+                                    {
+                                        "id": 203,
+                                        "name": "b) Mejorar la infraestructura orientada a las necesidades de las empresas incubadas"
+                                    },
+                                    {
+                                        "id": 204,
+                                        "name": "c) Mantener un  seguimiento de la evolución y desempeño de las empresas incubadas"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 205,
+                                        "name": "4.5.1 Número de espacio físicos adecuados que respondan a necesidades de incubación"
+                                    },
+                                    {
+                                        "id": 206,
+                                        "name": "4.5.2 Número de empresas incubadas asesoradas técnica y financieramente"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 207,
+                        "name": "Asesoría técnica y financiera hacia las empresas",
+                        "objectives": [
+                            {
+                                "id": 208,
+                                "name": "4.6 Plantear y estructurar soluciones de problemas administrativos y/o productivos de empresas ante organismos y dependencias",
+                                "strategies": [
+                                    {
+                                        "id": 209,
+                                        "name": "a) Identificar empresas con problemas y/o necesidades que se puedan resolver con propuestas tecnológicas"
+                                    },
+                                    {
+                                        "id": 210,
+                                        "name": "b) Armado de proyectos para presentarlos a concursar por recursos en las distintas convocatorias (INADEM, CONACYT, COECYTJAL, SAGARPA, etc.)"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 211,
+                                        "name": "4.6.1 Número de empresas ubicadas con problemas"
+                                    },
+                                    {
+                                        "id": 212,
+                                        "name": "4.6.2 Número de proyectos presentados a concurso por recursos financieros"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 213,
+                        "name": "Convenios y contratos con el sector privado",
+                        "objectives": [
+                            {
+                                "id": 214,
+                                "name": "4.7 Incrementar la suscripción de acuerdos convenios de colaboración y contratos con el sector privado y la gestión de donativos",
+                                "strategies": [
+                                    {
+                                        "id": 215,
+                                        "name": "a) Identificar la matriz FODA del sector industrial en la ZMG  y en función de la misma, celebrar convenios/contratos con las empresas que contengan una problemática susceptible de ser resuelta por propuestas innovadoras de la UTJ."
+                                    },
+                                    {
+                                        "id": 216,
+                                        "name": "b) Plantear la cesión de materiales, maquinaria  y equipos  a empresas del sector productivo bajo la figura jurídica de donación."
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 217,
+                                        "name": "4.7.1 Número de convenios generales de colaboración celebrados con diversos sectores"
+                                    },
+                                    {
+                                        "id": 218,
+                                        "name": "4.7.2 Número de contratos de prestación de servicios profesionales"
+                                    },
+                                    {
+                                        "id": 219,
+                                        "name": "4.7.3 Número de contratos de incubación y alojamiento físico de la empresa"
+                                    },
+                                    {
+                                        "id": 220,
+                                        "name": "4.7.4 Número de donaciones"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 221,
+                        "name": "Fomento al emprendedor universitario",
+                        "objectives": [
+                            {
+                                "id": 222,
+                                "name": "4.8 Capacitar a los alumnos para fomentar el emprendimiento",
+                                "strategies": [
+                                    {
+                                        "id": 223,
+                                        "name": "a) Convocar y seleccionar a estudiantes de Ingeniería y de TSU, con actitudes y vocacionamiento de emprendurismo"
+                                    },
+                                    {
+                                        "id": 224,
+                                        "name": "b) Propiciar que la disciplina de Desarrollo de Emprendedores se incorpore a mediano plazo en los PE de la UTJ"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 225,
+                                        "name": "4.8.1 Número de talleres de emprendimiento"
+                                    },
+                                    {
+                                        "id": 226,
+                                        "name": "4.8.2 Número de talleres de desarrollo de negocios"
+                                    },
+                                    {
+                                        "id": 227,
+                                        "name": "4.8.3 Número de talleres de trabajo en equipos de alto desempeño"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 228,
+                "name": "5 Innovación y desarrollo tecnológico",
+                "themes": [
+                    {
+                        "id": 229,
+                        "name": "Capacidad Académica",
+                        "objectives": [
+                            {
+                                "id": 230,
+                                "name": "5.1 Incrementar el nivel de habilitación de la planta docente de la universidad",
+                                "strategies": [
+                                    {
+                                        "id": 231,
+                                        "name": "a) Facilitar que los PTC incrementen su grado académico"
+                                    },
+                                    {
+                                        "id": 232,
+                                        "name": "b) Aumentar el número de profesores con reconocimiento PRODEP"
+                                    },
+                                    {
+                                        "id": 233,
+                                        "name": "c) Incentivar la colaboración de PTC en CA"
+                                    },
+                                    {
+                                        "id": 234,
+                                        "name": "d) Impulsar el fortalecimiento y consolidación de CA "
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 235,
+                                        "name": "5.1.1 Número de PTC con reconocimiento PRODEP"
+                                    },
+                                    {
+                                        "id": 236,
+                                        "name": "5.1.2 Número de PTC con posgrado"
+                                    },
+                                    {
+                                        "id": 237,
+                                        "name": "5.1.3 Número de PTC en el SNI"
+                                    },
+                                    {
+                                        "id": 238,
+                                        "name": "5.1.4 Número de cuerpos académicos consolidados"
+                                    },
+                                    {
+                                        "id": 239,
+                                        "name": "5.1.5 Número de cuerpos académicos en consolidación"
+                                    },
+                                    {
+                                        "id": 240,
+                                        "name": "5.1.6 Número de cuerpos académicos en formación"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 241,
+                        "name": "Perfil y actividades del personal académico",
+                        "objectives": [
+                            {
+                                "id": 242,
+                                "name": "5.2 Fortalecer la preparación, formación y actualización de docentes",
+                                "strategies": [
+                                    {
+                                        "id": 243,
+                                        "name": "a) Reducir la rotación de docentes de asignatura"
+                                    },
+                                    {
+                                        "id": 244,
+                                        "name": "b) Facilitar la participación continua de los docentes en la actualización docente de acuerdo a su rama de enseñanza"
+                                    },
+                                    {
+                                        "id": 245,
+                                        "name": "c) Establecer un banco de información de materiales pedagógicos, didácticos y manuales elaborados por los profesores que recibieron la formación de habilidades docentes (Laboratorio para diseñar y  almacenar material didáctico)"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 246,
+                                        "name": "5.2.1 Número de profesores que reciben cursos de capacitación y actualización docente"
+                                    },
+                                    {
+                                        "id": 247,
+                                        "name": "5.2.2 Número de profesores que participan en actividades o proyectos con el sector empresarial"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 248,
+                        "name": "Infraestructura para la investigación",
+                        "objectives": [
+                            {
+                                "id": 249,
+                                "name": "5.3 Fortalecer la infraestructura para la investigación, desarrollo tecnológico e innovación en la UTJ",
+                                "strategies": [
+                                    {
+                                        "id": 250,
+                                        "name": "a) Definición de criterios uniformes para la asignación de apoyo de capacitación a investigadores"
+                                    },
+                                    {
+                                        "id": 251,
+                                        "name": "b) Promoción de incentivos y capacitación para realizar investigación"
+                                    },
+                                    {
+                                        "id": 252,
+                                        "name": "c) Fortalecer la cooperación con otras instituciones para realizar investigación"
+                                    },
+                                    {
+                                        "id": 253,
+                                        "name": "d) Apoyar la adquisición de equipo y herramientas especializadas que faciliten el trabajo de investigación tecnológica y aplicada"
+                                    },
+                                    {
+                                        "id": 254,
+                                        "name": "e) Impulsar la búsqueda de conocimientos especializados en textos y artículos científicos"
+                                    },
+                                    {
+                                        "id": 255,
+                                        "name": "f) Definir métodos de planeación de  la investigación y la canalización de los recursos para llevarla a cabo"
+                                    },
+                                    {
+                                        "id": 256,
+                                        "name": "g) Impulsar la vinculación con la industria para realizar investigación aplicada en la solución de problemas"
+                                    },
+                                    {
+                                        "id": 257,
+                                        "name": "h) Lograr convenios de vinculación intrainstitucional para hacer investigación interdisciplinar"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 258,
+                                        "name": "5.3.1 Número de laboratorios equipados para realizar investigación, desarrollo tecnológico e innovación"
+                                    },
+                                    {
+                                        "id": 259,
+                                        "name": "5.3.2 Número de profesores que participan en laboratorios de investigación, desarrollo tecnológico e innovación"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 260,
+                        "name": "Labores de investigación, desarrollo tecnológico e innovación",
+                        "objectives": [
+                            {
+                                "id": 261,
+                                "name": "5.4 Incrementar la productividad académica a la par con los proyectos de investigación, desarrollo tecnológico e innovación",
+                                "strategies": [
+                                    {
+                                        "id": 262,
+                                        "name": "a) Mejorar los perfiles docentes y del alumnado para realizar investigación"
+                                    },
+                                    {
+                                        "id": 263,
+                                        "name": "b) Optimizar los apoyos y herramientas para promover proyectos de investigación"
+                                    },
+                                    {
+                                        "id": 264,
+                                        "name": "c) Mantener una estrecha colaboración con el sector empresarial para desarrollar proyectos conjuntos de investigación"
+                                    },
+                                    {
+                                        "id": 265,
+                                        "name": "d) Facilitar los recursos para publicar los resultados de investigación en revistas con arbitraje"
+                                    },
+                                    {
+                                       "id": 266,
+                                       "name": "e) Impulsar la oferta educativa a nivel maestría en áreas tecnológicas para seguimiento de proyectos de investigación aplicada"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 267,
+                                        "name": "5.4.1 Número de proyectos de investigación, desarrollo tecnológico e innovación de profesores de la UTJ"
+                                    },
+                                    {
+                                        "id": 268,
+                                        "name": "5.4.2 Número de PTC que realizan labores de investigación, desarrollo tecnológico e innovación"
+                                    },
+                                    {
+                                        "id": 269,
+                                        "name": "5.4.3 Número de alumnos que realizan labores de investigación, desarrollo tecnológico e innovación"
+                                    },
+                                    {
+                                        "id": 270,
+                                        "name": "5.4.4 Número de artículos arbitrados o indexados publicados"
+                                    },
+                                    {
+                                        "id": 271,
+                                        "name": "5.4.5 Número de libros y/o capítulos de libro publicados"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 272,
+                "name": "6 Internacionalización e idiomas",
+                "themes": [
+                    {
+                        "id": 273,
+                        "name": "Academia de Idiomas",
+                        "objectives": [
+                            {
+                                "id": 274,
+                                "name": "6.1  Mejorar el aprovechamiento de la academia de idiomas para alumnos y profesores",
+                                "strategies": [
+                                    {
+                                        "id": 275,
+                                        "name": "a) Reforzar la preparación y certificación de docentes para incrementar su nivel de inglés"
+                                    },
+                                    {
+                                        "id": 276,
+                                        "name": "b) Reducir los niveles de reprobación en inglés y francés de los alumnos"
+                                    },
+                                    {
+                                        "id": 277,
+                                        "name": "c) Mejorar la infraestructura y equipamiento de la academia de idiomas"
+                                    },
+                                    {
+                                        "id": 278,
+                                        "name": "d) Ofrecer cursos de regularización de idiomas para alumnos de primer ingreso"
+                                    },
+                                    {
+                                       "id": 279,
+                                       "name": "e) Incrementar la matrícula en los cursos de francés"
+                                    },
+                                    {
+                                       "id": 280,
+                                       "name": "f) Consolidar la congruencia entre los objetivos  y contenido de los programas curricular de inglés y francés y la práctica docente"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 281,
+                                        "name": "6.1.1 Número de profesores con certificación en la enseñanza de idiomas"
+                                    },
+                                    {
+                                        "id": 282,
+                                        "name": "6.1.2 Número de alumnos con certificación en idiomas"
+                                    },
+                                    {
+                                        "id": 283,
+                                        "name": "6.1.3 Número de egresados de TSU que alcanzan el nivel B1 del marco común de referencia europeo (MCRE)"
+                                    },
+                                    {
+                                        "id": 284,
+                                        "name": "6.1.4 Número de egresados Ingeniería que alcanzan el nivel B1 del marco común de referencia europeo (MCRE)"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 285,
+                        "name": "Movilidad",
+                        "objectives": [
+                            {
+                                "id": 286,
+                                "name": "6.2 Facilitar los intercambios académicos para mejorar el dominio de un segundo idioma",
+                                "strategies": [
+                                    {
+                                        "id": 287,
+                                        "name": "a) Incrementar los destinos para realizar intercambios"
+                                    },
+                                    {
+                                        "id": 288,
+                                        "name": "b) Proporcionar más y mejores fuentes de financiamiento"
+                                    },
+                                    {
+                                        "id": 289,
+                                        "name": "c) Asegurar que los estudiantes que desean ir de intercambio cumplan con los requisitos solicitados por las instituciones receptoras"
+                                    },
+                                    {
+                                        "id": 290,
+                                        "name": "d) Mejorar la articulación y colaboración entre la academia de idiomas y la dirección de vinculación y el área de movilidad"
+                                    },
+                                    {
+                                        "id": 291,
+                                        "name": "e) Fortalecer la difusión de convocatorias para los intercambios o estancias en el extranjero"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 292,
+                                        "name": "6.2.1 Número de alumnos de intercambio que cursan ciclos lectivos en IES extranjeras"
+                                    },
+                                    {
+                                        "id": 293,
+                                        "name": "6.2.2 Número de alumnos de intercambio que cursan ciclos lectivos en UTJ provenientes de IES extranjeras"
+                                    },
+                                    {
+                                        "id": 294,
+                                        "name": "6.2.3 Número de profesores de intercambio que cursan estudios o imparten cátedra en UTJ provenientes de IES extranjeras"
+                                    },
+                                    {
+                                        "id": 295,
+                                        "name": "6.2.4 Número de profesores de intercambio que cursan estudios o imparten cátedra en IES extranjeras"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 296,
+                        "name": "Cooperación académica nacional e internacionalización",
+                        "objectives": [
+                            {
+                                "id": 297,
+                                "name": "6.3 Formar y consolidar redes de cooperación académica nacionales e internacionales",
+                                "strategies": [
+                                    {
+                                        "id": 298,
+                                        "name": "a) Impulsar la colaboración entre docentes afines del subsistema de universidades tecnológicas"
+                                    },
+                                    {
+                                        "id": 299,
+                                        "name": "b) Facilitar administrativa y académicamente la movilidad de profesores hacia IES nacionales y extranjeras"
+                                    },
+                                    {
+                                        "id": 300,
+                                        "name": "c) Incrementar el número de estudiantes y profesores que impulsen la cooperación académica con instituciones nacionales y extranjeras"
+                                    }
+                                ],
+                                "indicators": [
+                                    {
+                                        "id": 301,
+                                        "name": "6.3.1 Número de redes académicas en las que colabora personal de la UTJ"
+                                    },
+                                    {
+                                        "id": 302,
+                                        "name": "6.3.2 Número de participantes en redes de cooperación académica"
+                                    },
+                                    {
+                                        "id": 303,
+                                        "name": "6.3.3 Número de profesores que forman parte de programas y proyectos de cooperación académica"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

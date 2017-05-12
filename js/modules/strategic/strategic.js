@@ -51,7 +51,7 @@ define(
                 ];
 
                 var strategicDataProvider =
-                        new DataProvider("data/strategic.json",
+                        new DataProvider("data/strategic-items.json",
                                 StrategicDataParser);
 
                 var dataPromise = strategicDataProvider.fetchData();
@@ -121,15 +121,9 @@ define(
                                 }
                             );
                             
-                            self.axesTable.addFilterListener(
-                                function(rowKey) {
-                                    console.trace("filter listener: %o", rowKey);
-                                }
-                            );
-                            
                             self.observableAxesTable(self.axesTable);
                             
-                            var topicsArray = strategicModel.getItemsByType(StrategicType.TOPIC);
+                            var topicsArray = strategicModel.getItemsByType(StrategicType.THEME);
                             
                             self.topicsTable = new EditableTable(topicsArray, strategicModel,
                                     {
@@ -178,6 +172,15 @@ define(
                     
                             self.observableTopicsTable(self.topicsTable);
                             
+                            self.axesTable.addFilterListener(
+                                function(rowKey) {
+                                    var item = strategicModel.getItemById(rowKey);
+                                    var children = item.children;
+                                    
+                                    self.topicsTable.filter(children);
+                                }
+                            );
+                    
                             var objectivesArray = strategicModel.getItemsByType(StrategicType.OBJECTIVE);
                             
                             self.objectivesTable = new EditableTable(objectivesArray, strategicModel,

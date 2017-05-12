@@ -111,7 +111,7 @@ define(
                     }
                 };
                 
-                self.filterHandler = function() {
+                self.filterHandler = function(event, ui) {
                     var currentRow = self.getCurrentRow();
                     
                     self.callListeners(EventTypes.FILTER_EVENT, currentRow.rowKey);
@@ -141,6 +141,10 @@ define(
             EditableTable.prototype = Object.create(GeneralViewModel);
             
             var prototype = EditableTable.prototype;
+            
+            prototype.filter = function(itemsToKeep) {
+                this.observableDataSource().reset(itemsToKeep);
+            };
             
             prototype.removeItem = function(id, key) {
                 if (theKey === key) {
