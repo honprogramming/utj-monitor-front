@@ -34,18 +34,18 @@ define(
 
                 self.columns = [
                     {
-                        headerText: 'Nombre',
-                        headerStyle: 'min-width: 90%; max-width: 90%; width: 90%',
+                        headerText: GeneralViewModel.nls("admin.strategic.tableHeaders.nameColumn"),
+                        headerStyle: 'min-width: 50%; max-width: 50em; width: 90%',
                         headerClassName: 'oj-helper-text-align-start',
-                        style: 'min-width: 90%; max-width: 90%; width: 90%;',
+                        style: 'min-width: 50%; max-width: 50em; width: 90%;',
                         className: 'oj-helper-text-align-start',
                         sortProperty: 'name'
                     },
                     {
-                        headerText: 'Acciones',
-                        headerStyle: 'min-width: 10%; max-width: 10%; width: 10%',
+                        headerText: GeneralViewModel.nls("admin.strategic.tableHeaders.actionsColumn"),
+                        headerStyle: 'min-width: 2em; max-width: 5em; width: 10%',
                         headerClassName: 'oj-helper-text-align-start',
-                        style: 'min-width: 10%; max-width: 10%; width: 10%; text-align:center;',
+                        style: 'min-width: 2em; max-width: 5em; width: 10%; text-align:center;',
                         sortable: 'disabled'
                     }
                 ];
@@ -143,14 +143,14 @@ define(
                             self.topicsTable = new EditableTable(topicsArray, strategicModel,
                                     {
                                         id: "topics-table",
-                                        title: GeneralViewModel.nls("admin.strategic.themesTable.title"),
-                                        tableSummary: GeneralViewModel.nls("admin.strategic.themesTable.tableSummary"),
-                                        tableAria: GeneralViewModel.nls("admin.strategic.themesTable.tableAria"),
+                                        title: GeneralViewModel.nls("admin.strategic.topicsTable.title"),
+                                        tableSummary: GeneralViewModel.nls("admin.strategic.topicsTable.tableSummary"),
+                                        tableAria: GeneralViewModel.nls("admin.strategic.topicsTable.tableAria"),
                                         columns: self.columns,
                                         type: StrategicType.TOPIC,
                                         newEnabled: false,
-                                        errorText: GeneralViewModel.nls("admin.strategic.themesTable.errorText"),
-                                        deleteErrorText: GeneralViewModel.nls("admin.strategic.themesTable.deleteErrorText"),
+                                        errorText: GeneralViewModel.nls("admin.strategic.topicsTable.errorText"),
+                                        deleteErrorText: GeneralViewModel.nls("admin.strategic.topicsTable.deleteErrorText"),
                                         deleteValidator: hasNoChildren,
                                         newValidator: function() {
                                             return self.axesTable.currentRow();
@@ -182,8 +182,10 @@ define(
                             self.observableTopicsTable(self.topicsTable);
                             
                             self.axesTable.addFilterListener(
-                                function(ids) {
-                                    var itemsToKeep = getItemsChildren(ids);
+                                function(ids, removeFilter) {
+                                    var itemsToKeep = removeFilter
+                                            ? topicsArray
+                                            : getItemsChildren(ids);
                                     
                                     self.topicsTable.filter(itemsToKeep);
                                 }
@@ -204,10 +206,10 @@ define(
                                         deleteErrorText: GeneralViewModel.nls("admin.strategic.objectivesTable.deleteErrorText"),
                                         deleteValidator: hasNoChildren,
                                         newValidator: function() {
-                                            return self.themesTable.currentRow();
+                                            return self.topicsTable.currentRow();
                                         },
                                         itemCreator: function(id) {
-                                            return createItem(id, self.themesTable);
+                                            return createItem(id, self.topicsTable);
                                         },
                                         itemRemover: removeItem
                                     }
@@ -223,7 +225,7 @@ define(
                                 function(item, action) {
                                     switch(action) {
                                         case ActionTypes.ADD:
-                                            var currentTopic = self.themesTable.getCurrentRow();
+                                            var currentTopic = self.topicsTable.getCurrentRow();
                                             strategicModel.addItem(currentTopic.rowKey, item);
                                         break;
                                     }
@@ -233,8 +235,10 @@ define(
                             self.observableObjectivesTable(self.objectivesTable);
                             
                             self.topicsTable.addFilterListener(
-                                function(ids) {
-                                    var itemsToKeep = getItemsChildren(ids);
+                                function(ids, removeFilter) {
+                                    var itemsToKeep = removeFilter
+                                            ? objectivesArray
+                                            : getItemsChildren(ids);
                                     
                                     self.objectivesTable.filter(itemsToKeep);
                                 }
@@ -253,6 +257,7 @@ define(
                                         newEnabled: false,
                                         errorText: GeneralViewModel.nls("admin.strategic.strategiesTable.errorText"),
                                         deleteErrorText: GeneralViewModel.nls("admin.strategic.strategiesTable.deleteErrorText"),
+                                        actions: ["delete"],
                                         deleteValidator: hasNoChildren,
                                         newValidator: function() {
                                             return self.objectivesTable.currentRow();
@@ -270,12 +275,6 @@ define(
                                 }
                             );
                     
-                            self.strategiesTable.addFilterListener(
-                                function(rowKey) {
-                                    console.trace("filter listener: %o", rowKey);
-                                }
-                            );
-                            
                             self.strategiesTable.addDataListener(
                                 function(item, action) {
                                     switch(action) {
@@ -290,8 +289,10 @@ define(
                             self.observableStrategiesTable(self.strategiesTable);
                             
                             self.objectivesTable.addFilterListener(
-                                function(ids) {
-                                    var itemsToKeep = getItemsChildren(ids);
+                                function(ids, removeFilter) {
+                                    var itemsToKeep = removeFilter
+                                            ? strategiesArray
+                                            : getItemsChildren(ids);
                                     
                                     self.strategiesTable.filter(itemsToKeep);
                                 }

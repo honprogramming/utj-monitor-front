@@ -13,6 +13,7 @@ define(
             
             function EditableTable(data, model, params) {
                 var self = this;
+                var currentFilterRow = ko.observable();
                 
                 self.listeners = [];
                 
@@ -20,6 +21,7 @@ define(
                     model: model,
                     data: [],
                     type: null,
+                    actions: ["filter", "delete", "clone"],
                     ENABLED: 1.0,
                     DISABLED: 0.5,
                     newValidator: function() {return true;},
@@ -68,6 +70,7 @@ define(
                     self.setItemCreator(params.itemCreator);
                     self.setItemRemover(params.itemRemover);
                     self.setNewEnabled(params.newEnabled !== undefined ? params.newEnabled : true);
+                    self.setActions(params.actions !== undefined ? params.actions : [], theKey);
                     
                     privateData.type = params.type;
                 }
@@ -114,14 +117,27 @@ define(
                 self.filterHandler = function(event, ui) {
                     var currentRow = self.getCurrentRow();
                     
-                    self.callListeners(EventTypes.FILTER_EVENT, currentRow.rowKey);
+                    var removeFilter = currentFilterRow() === currentRow.rowKey;
+                    currentFilterRow(removeFilter ? undefined : currentRow.rowKey);
+                    
+                    self.callListeners(EventTypes.FILTER_EVENT, currentRow.rowKey, removeFilter);
                 };
                 
+                self.filterIconComputedColor = function(id) {
+                    return ko.pureComputed(
+                                function() {
+                                    if (currentFilterRow()) {
+                                        return id === currentFilterRow() ? "green" : "";
+                                    }
+                                }
+                            );
+                };
+                        
                 self.currentRowHandler = function(event, ui) {
                     self.currentRow(ui.currentRow);
                 };
                 
-                self.computedColor = function(id, data) {
+                self.rowComputedColor = function(id, data) {
 //                    console.trace("data: %o", data);
                     return ko.pureComputed(
                                 function() {
@@ -141,6 +157,33 @@ define(
             EditableTable.prototype = Object.create(GeneralViewModel);
             
             var prototype = EditableTable.prototype;
+            
+            prototype.displayAction = function(action) {
+                return this.getActions(theKey).includes(action);
+            };
+            
+            prototype.setActions = function(actions, key) {
+                if (theKey === key) {
+                    if (Array.isArray(actions) && actions.length > 0) {
+                        var currentActions = this.getActions(key);
+                        
+                        currentActions = actions.filter(
+                                    function(action) {
+                                        return currentActions.includes(action);
+                                    }
+                                );
+                        
+                        
+                        this.EditableTable_(theKey).actions = currentActions;
+                    }
+                }
+            };
+            
+            prototype.getActions = function(key) {
+                if (theKey === key) {
+                    return this.EditableTable_(theKey).actions;
+                }
+            };
             
             prototype.filter = function(itemsToKeep) {
                 this.observableDataSource().reset(itemsToKeep);

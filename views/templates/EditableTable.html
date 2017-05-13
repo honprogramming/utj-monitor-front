@@ -13,14 +13,18 @@
         <i class="fa fa-exclamation-circle fa-lg icon-padding" style="color: orange"
            data-bind="visible:showNewError, text: newErrorText"></i>
         <script type="text/html" data-bind="attr:{id: rowTemplateId}">
-            <tr data-bind="style: {'background-color': $parent.computedColor(id, $data)}">
+            <tr data-bind="style: {'background-color': $parent.rowComputedColor(id, $data)}">
                 <td data-bind="text: name">
                 </td>
                 <td>
+                    <!-- ko if: $parent.displayAction('filter') -->
                     <i class="fa fa-filter fa-border fa-lg pointer"
-                        data-bind="click: $parent.filterHandler"></i>
+                        data-bind="click: $parent.filterHandler, style: {color: $parent.filterIconComputedColor(id)}"></i>
+                    <!-- /ko -->
+                    <!-- ko if: $parent.displayAction('delete')-->
                     <i class="fa fa-trash fa-border fa-lg pointer"
                        data-bind="click: $parent.deleteHandler"></i>
+                    <!-- /ko -->
                 </td>
             </tr>
         </script>

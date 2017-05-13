@@ -49,6 +49,10 @@ define(
                             "title": "Visión",
                             "placeHolder": "La visión de la escuela..."
                         },
+                        "tableHeaders": {
+                            "nameColumn": "Nombre",
+                            "actionsColumn": "Acciones"
+                        },
                         "axesTable": {
                             "title": "Ejes",
                             "tableSummary": "Ejes Estratégicos",
