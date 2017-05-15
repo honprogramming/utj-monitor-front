@@ -39,12 +39,22 @@ define(
                             "title": "Error",
                             "okButtonLabel": "Aceptar"
                         }
+                    },
+                    "formActions": {
+                        "resetTitle": "Deshace todos los cambios que no han sido guardados.",
+                        "saveTitle": "Guarda todos los cambios."
                     }
                 },
                 "admin": {
                     "label": "ADMINISTRADOR",
                     "strategic": {
                         "label": "Apartado Estratégico",
+                        "resetDialog": {
+                            "title": "¡Cuidado!",
+                            "warningText": "Todos los cambios realizados se perderán.",
+                            "okButton": "Aceptar",
+                            "cancelButton": "Cancelar"
+                        },
                         "vision": {
                             "title": "Visión",
                             "placeHolder": "La visión de la escuela..."

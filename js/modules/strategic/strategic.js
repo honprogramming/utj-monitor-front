@@ -6,6 +6,7 @@
 
 define(
         [
+            'jquery',
             'knockout',
             'view-models/GeneralViewModel',
             'models/data/DataProvider',
@@ -14,17 +15,21 @@ define(
             'models/strategic/StrategicItem',
             'models/strategic/StrategicType',
             'view-models/templates/EditableTable',
+            'view-models/templates/FormActions',
             'view-models/admin/AdminItems',
             'view-models/events/ActionTypes',
-            'jquery',
             'ojs/ojcore',
             'ojs/ojknockout',
-            'ojs/ojcollapsible', 'ojs/ojinputtext',
-            'ojs/ojtable', 'ojs/ojarraytabledatasource'
+            'ojs/ojcollapsible',
+            'ojs/ojinputtext',
+            'ojs/ojtable',
+            'ojs/ojdialog',
+            'ojs/ojbutton',
+            'ojs/ojarraytabledatasource'
         ],
-        function (ko, GeneralViewModel, DataProvider,
+        function ($, ko, GeneralViewModel, DataProvider,
                 StrategicDataParser, StrategicModel, StrategicItem, StrategicType,
-                EditableTable, AdminItems, ActionTypes) {
+                EditableTable, FormActions, AdminItems, ActionTypes) {
             function StrategicViewModel() {
                 var self = this;
                 self.title = AdminItems["strategic"]["label"];
@@ -49,7 +54,31 @@ define(
                         sortable: 'disabled'
                     }
                 ];
+                
+                self.formActions = new FormActions();
+                self.resetDialogId = "strategic-reset-dialog";
+                self.resetDialogTitle = GeneralViewModel.nls("admin.strategic.resetDialog.title");
+                self.resetWarningText = GeneralViewModel.nls("admin.strategic.resetDialog.warningText");
+                self.resetDialogOkButtonLabel = GeneralViewModel.nls("admin.strategic.resetDialog.okButton");
+                self.resetDialogCancelButtonLabel = GeneralViewModel.nls("admin.strategic.resetDialog.cancelButton");
+                
+                self.formActions.addResetListener(
+                        function() {
+                            $("#" + self.resetDialogId).ojDialog("open");
+                        }
+                );
+                
+                var clickOkHandlerObservable = ko.observable();
+                
+                self.clickOkHandler = function() {
+                    var handler = clickOkHandlerObservable();
+                    handler();
+                };
 
+                self.clickCancelHandler = function() {
+                    $("#" + self.resetDialogId).ojDialog("close");
+                };
+                
                 var strategicDataProvider =
                         new DataProvider("data/strategic-items.json",
                                 StrategicDataParser);
@@ -61,7 +90,7 @@ define(
                 self.observableStrategiesTable = ko.observable();
                 
                 dataPromise.then(
-                        function() {
+                        function () {
                             var strategicModel = new StrategicModel(strategicDataProvider);
                             var axesArray = strategicModel.getItemsByType(StrategicType.AXE);
                             var visionItem = strategicModel.getItemsByType(StrategicType.VISION)[0];
@@ -113,7 +142,6 @@ define(
                                         tableSummary: GeneralViewModel.nls("admin.strategic.axesTable.tableSummary"),
                                         tableAria: GeneralViewModel.nls("admin.strategic.axesTable.tableAria"),
                                         columns: self.columns,
-                                        type: StrategicType.AXE,
                                         errorText: GeneralViewModel.nls("admin.strategic.axesTable.errorText"),
                                         deleteErrorText: GeneralViewModel.nls("admin.strategic.axesTable.deleteErrorText"),
                                         deleteValidator: hasNoChildren,
@@ -147,7 +175,6 @@ define(
                                         tableSummary: GeneralViewModel.nls("admin.strategic.topicsTable.tableSummary"),
                                         tableAria: GeneralViewModel.nls("admin.strategic.topicsTable.tableAria"),
                                         columns: self.columns,
-                                        type: StrategicType.TOPIC,
                                         newEnabled: false,
                                         errorText: GeneralViewModel.nls("admin.strategic.topicsTable.errorText"),
                                         deleteErrorText: GeneralViewModel.nls("admin.strategic.topicsTable.deleteErrorText"),
@@ -200,7 +227,6 @@ define(
                                         tableSummary: GeneralViewModel.nls("admin.strategic.objectivesTable.tableSummary"),
                                         tableAria: GeneralViewModel.nls("admin.strategic.objectivesTable.tableAria"),
                                         columns: self.columns,
-                                        type: StrategicType.OBJECTIVE,
                                         newEnabled: false,
                                         errorText: GeneralViewModel.nls("admin.strategic.objectivesTable.errorText"),
                                         deleteErrorText: GeneralViewModel.nls("admin.strategic.objectivesTable.deleteErrorText"),
@@ -253,7 +279,6 @@ define(
                                         tableSummary: GeneralViewModel.nls("admin.strategic.strategiesTable.tableSummary"),
                                         tableAria: GeneralViewModel.nls("admin.strategic.strategiesTable.tableAria"),
                                         columns: self.columns,
-                                        type: StrategicType.STRATEGY,
                                         newEnabled: false,
                                         errorText: GeneralViewModel.nls("admin.strategic.strategiesTable.errorText"),
                                         deleteErrorText: GeneralViewModel.nls("admin.strategic.strategiesTable.deleteErrorText"),
@@ -296,6 +321,18 @@ define(
                                     
                                     self.strategiesTable.filter(itemsToKeep);
                                 }
+                            );
+                    
+                            clickOkHandlerObservable(
+                                    function() {
+                                        $("#" + self.resetDialogId).ojDialog("close");
+
+                                        self.vision(visionItem.name);
+                                        self.axesTable.resetData();
+                                        self.topicsTable.resetData();
+                                        self.objectivesTable.resetData();
+                                        self.strategiesTable.resetData();
+                                    }
                             );
                         }
                 );

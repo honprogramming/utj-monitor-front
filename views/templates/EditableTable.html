@@ -65,7 +65,7 @@
                           }">
         </table>
     </div>
-    <div id="dialogWrapper">
+    <div id="dialog-error-container">
         <div style="display:none"
            data-bind="attr: {id: deleteErrorDialogId, title: deleteErrorDialogTitle},
                     ojComponent: {
@@ -74,7 +74,7 @@
                     }">
             <div class="oj-dialog-body" data-bind="text: deleteErrorText"></div>
             <div class="oj-dialog-footer">
-                <button data-bind="click: closeErrorDialog,
+                <button data-bind="click: closeErrorDialogHandler,
                                    ojComponent: {
                                        component: 'ojButton',
                                        label: deleteErrorDialogOkButtonLabel

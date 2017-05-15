@@ -1,5 +1,12 @@
 <div class="full-height full-width">
-    <h2 class="centered" data-bind="text: title"></h2>
+    <div class="oj-flex-bar">
+        <div class="oj-flex-bar-middle oj-sm-justify-content-center">
+            <h2 class="centered" data-bind="text: title"></h2>
+        </div>
+        <div class="oj-flex-bar-end">
+            <div data-bind="template: {name: 'FormActions', data: formActions}"></div>
+        </div>
+    </div>
     <div id="vision-content" class="full-width form-container oj-accordion-collapsible"
          data-bind="ojComponent: {
                         component: 'ojCollapsible',
@@ -22,4 +29,31 @@
     <div data-bind="template: {name: 'EditableTable', data: observableTopicsTable}"></div>
     <div data-bind="template: {name: 'EditableTable', data: observableObjectivesTable}"></div>
     <div data-bind="template: {name: 'EditableTable', data: observableStrategiesTable}"></div>
+    <div class="oj-flex oj-sm-justify-content-flex-end">
+        <div data-bind="template: {name: 'FormActions', data: formActions}"></div>
+    </div>
+    <div id="dialog-reset-container">
+        <div style="display:none"
+           data-bind="attr: {id: resetDialogId, title: resetDialogTitle},
+                    ojComponent: {
+                        component: 'ojDialog',
+                        initialVisibility: 'hide'
+                    }">
+            <div class="oj-dialog-body" data-bind="text: resetWarningText"></div>
+            <div class="oj-dialog-footer">
+                <button data-bind="click: clickOkHandler,
+                                   ojComponent: {
+                                       component: 'ojButton',
+                                       label: resetDialogOkButtonLabel
+                                   }">
+                </button>
+                <button data-bind="click: clickCancelHandler,
+                                   ojComponent: {
+                                       component: 'ojButton',
+                                       label: resetDialogCancelButtonLabel
+                                   }">
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

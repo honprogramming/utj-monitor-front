@@ -20,7 +20,7 @@ define(
                 var privateData = {
                     model: model,
                     data: [],
-                    type: null,
+                    dataSource: undefined,
                     actions: ["filter", "delete", "clone"],
                     ENABLED: 1.0,
                     DISABLED: 0.5,
@@ -55,8 +55,8 @@ define(
                 self.deleteErrorDialogTitle = self.nls("templates.editableTable.deleteErrorDialog.title");
                 self.currentRow = ko.observable();
                 
-                var dataSource = new oj.ArrayTableDataSource([]);
-                self.observableDataSource = ko.observable(dataSource);
+                self.setDataSource(new oj.ArrayTableDataSource([]), theKey);
+                self.observableDataSource = ko.observable(self.getDataSource(theKey));
                         
                 if (params) {
                     self.title = params.title ? params.title : "Title";
@@ -71,18 +71,11 @@ define(
                     self.setItemRemover(params.itemRemover);
                     self.setNewEnabled(params.newEnabled !== undefined ? params.newEnabled : true);
                     self.setActions(params.actions !== undefined ? params.actions : [], theKey);
-                    
-                    privateData.type = params.type;
                 }
                 
                 if (data) {
                     this.setData(data, theKey);
-                    dataSource = new oj.ArrayTableDataSource(
-                            this.getData(),
-                            {idAttribute: "id"}
-                    );
-            
-                    self.observableDataSource(dataSource);
+                    this.resetData();
                 }
 
                 self.getRowTemplate = function (data, context) {
@@ -149,7 +142,7 @@ define(
                             );
                 };
                 
-                self.closeErrorDialog = function() {
+                self.closeErrorDialogHandler = function() {
                     $("#" + self.deleteErrorDialogId).ojDialog("close");
                 };
             }
@@ -311,8 +304,27 @@ define(
                 }
             };
             
-            prototype.getType = function() {
-                return this.EditableTable_(theKey).type;
+            prototype.getDataSource = function(key) {
+                if (theKey === key) {
+                    return this.EditableTable_(theKey).dataSource;
+                }
+            };
+            
+            prototype.setDataSource = function(dataSource, key) {
+                if (theKey === key) {
+                    this.EditableTable_(theKey).dataSource = dataSource;
+                }
+            };
+            
+            
+            prototype.resetData = function() {
+                var dataSource = new oj.ArrayTableDataSource(
+                            this.getData(),
+                            {idAttribute: "id"}
+                );
+                
+                this.setDataSource(dataSource, theKey);
+                this.observableDataSource(dataSource);
             };
             
             prototype.getModel = function() {
