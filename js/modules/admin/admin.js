@@ -1,6 +1,6 @@
 define(
         [
-            'view-models/admin/AdminItems',
+            'modules/admin/view-model/AdminItems',
             'ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojtabs'
         ],
         function (AdminItems) {

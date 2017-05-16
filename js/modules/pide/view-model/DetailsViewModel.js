@@ -1,9 +1,10 @@
 define(
         [
-            'knockout', 'view-models/GeneralViewModel',
-            'models/pide/PlanElementCalculated',
-            'models/pide/PlanElementMeasurable',
-            'models/pide/PlanElementTypes',
+            'knockout',
+            'view-models/GeneralViewModel',
+            'modules/pide/model/PlanElementCalculated',
+            'modules/pide/model/PlanElementMeasurable',
+            'modules/pide/model/PlanElementTypes',
             'view-models/events/EventTypes',
             'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge',
             'ojs/ojcollapsible', 'ojs/ojmasonrylayout'

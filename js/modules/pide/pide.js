@@ -2,10 +2,10 @@ define(
         [
             'knockout',
             'models/data/DataProvider',
-            'view-models/pide/SunburstViewModel',
-            'models/pide/PIDEModel',
-            'models/pide/PIDEDataParser',
-            'view-models/pide/DetailsViewModel'
+            'modules/pide/view-model/SunburstViewModel',
+            'modules/pide/model/PIDEModel',
+            'modules/pide/model/PIDEDataParser',
+            'modules/pide/view-model/DetailsViewModel'
         ],
         function (ko, DataProvider, SunburstViewModel, PIDEModel,
                  PIDEDataParser, DetailsViewModel) {

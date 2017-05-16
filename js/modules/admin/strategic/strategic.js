@@ -10,13 +10,13 @@ define(
             'knockout',
             'view-models/GeneralViewModel',
             'models/data/DataProvider',
-            'models/strategic/StrategicDataParser',
-            'models/strategic/StrategicModel',
-            'models/strategic/StrategicItem',
-            'models/strategic/StrategicType',
+            'modules/admin/strategic/model/StrategicDataParser',
+            'modules/admin/strategic/model/StrategicModel',
+            'modules/admin/strategic/model/StrategicItem',
+            'modules/admin/strategic/model/StrategicType',
             'view-models/templates/EditableTable',
             'view-models/templates/FormActions',
-            'view-models/admin/AdminItems',
+            'modules/admin/view-model/AdminItems',
             'view-models/events/ActionTypes',
             'ojs/ojcore',
             'ojs/ojknockout',
@@ -334,6 +334,11 @@ define(
                                         self.strategiesTable.resetData();
                                     }
                             );
+                    
+                            self.formActions.addSaveListener = function() {
+                                self.vision(visionItem.name);
+                                
+                            };
                         }
                 );
             }

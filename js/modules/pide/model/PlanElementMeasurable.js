@@ -8,7 +8,7 @@
  * @param {Function} PlanElementCalculated The base class of a plan element.
  * @returns {Function} The PlanElementMeasurable class.
  */
-define(['models/pide/PlanElementCalculated'], 
+define(['modules/pide/model/PlanElementCalculated'], 
         function(PlanElementCalculated) {
             var theKey = {};
             

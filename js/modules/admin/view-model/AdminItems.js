@@ -8,7 +8,7 @@ define(
                     id: "strategic",
                     label: GeneralViewModel.nls("admin.strategic.label"),
                     module: {
-                        name: "strategic/strategic"
+                        name: "admin/strategic/strategic"
                     }
                 },
                 indicators: {

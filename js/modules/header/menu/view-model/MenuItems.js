@@ -8,7 +8,7 @@ define(
                     id: "pide",
                     label: GeneralViewModel.nls("pide.label"),
                     module: {
-                        name: "pide",
+                        name: "pide/pide",
                         viewName: "pide/pide"
                     }
                 },
@@ -44,7 +44,7 @@ define(
                     id: "admin",
                     label: "ADMINISTRADOR",
                     module: {
-                        name: "admin"
+                        name: "admin/admin"
                     }
                 }
             };

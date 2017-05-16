@@ -7,8 +7,8 @@
  */
 define(
         [
-            'models/strategic/StrategicItem',
-            'models/strategic/StrategicType'
+            'modules/admin/strategic/model/StrategicItem',
+            'modules/admin/strategic/model/StrategicType'
         ],
         function (StrategicItem, StrategicType) {
             var StrategicDataParser = {

@@ -11,9 +11,9 @@
 define(
         [
             'view-models/GeneralViewModel',
-            'view-models/header/MobileMenuViewModel',
-            'view-models/header/MenuViewModel',
-            'view-models/header/ToolBarViewModel'
+            'modules/header/view-model/MobileMenuViewModel',
+            'modules/header/view-model/MenuViewModel',
+            'modules/header/view-model/ToolBarViewModel'
         ],
         function (GeneralViewModel, MobileMenuViewModel, MenuViewModel, ToolBarViewModel) {
             /**

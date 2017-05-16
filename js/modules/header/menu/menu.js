@@ -10,7 +10,7 @@ define(
             'knockout',
             'view-models/GeneralViewModel',
             'view-models/events/EventTypes',
-            'view-models/menu/MenuItems',
+            'modules/header/menu/view-model/MenuItems',
             'ojs/ojcore', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton'
         ],
         function (ko, GeneralViewModel, EventTypes, MenuItems) {

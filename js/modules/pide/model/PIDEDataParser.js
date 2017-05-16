@@ -11,10 +11,10 @@
  */
 define(
         [
-            'models/pide/PlanElement',
-            'models/pide/PlanElementCalculated',
-            'models/pide/PlanElementMeasurable',
-            'models/pide/PlanElementTypes'
+            'modules/pide/model/PlanElement',
+            'modules/pide/model/PlanElementCalculated',
+            'modules/pide/model/PlanElementMeasurable',
+            'modules/pide/model/PlanElementTypes'
         ],
         function (PlanElement, PlanElementCalculated, PlanElementMeasurable, PlanElementTypes) {
             var PIDEDataParser = {

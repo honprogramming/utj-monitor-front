@@ -6,9 +6,9 @@
 
 define(
         [
-            'knockout', 'modules/menu',
+            'knockout', 'modules/header/menu/menu',
             'view-models/GeneralViewModel',
-            'view-models/menu/MenuItems'
+            'modules/header/menu/view-model/MenuItems'
         ],
         function (ko, menu, GeneralViewModel, MenuItems) {
             var firstMenuId = menu.menuItems[0]["id"];
