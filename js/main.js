@@ -23,8 +23,6 @@ requirejs.config({
         'proj4': libs + '/proj4js/proj4-src',
         'css': libs + '/require-css/css',
         'google': libs + '/google/maps/maps',
-        'models': 'modules/models',
-        'view-models': 'modules/view-models',
         'views': '../views'
     },
     // Shim configurations for modules that do not expose AMD
@@ -70,7 +68,7 @@ require(
             'ojs/ojtoolbar',
             'ojs/ojmenu',
             'ojs/ojmodule',
-            'view-models/templates/templateManager'
+            'templates/templateManager'
         ],
         /**
          * 

@@ -9,7 +9,7 @@ define(
         [
             'knockout',
             'view-models/GeneralViewModel',
-            'view-models/events/EventTypes',
+            'events/EventTypes',
             'modules/header/menu/view-model/MenuItems',
             'ojs/ojcore', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton'
         ],

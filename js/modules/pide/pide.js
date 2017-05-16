@@ -1,7 +1,7 @@
 define(
         [
             'knockout',
-            'models/data/DataProvider',
+            'data/DataProvider',
             'modules/pide/view-model/SunburstViewModel',
             'modules/pide/model/PIDEModel',
             'modules/pide/model/PIDEDataParser',

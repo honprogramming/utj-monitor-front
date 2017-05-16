@@ -1,7 +1,7 @@
 define(
         [
             'view-models/GeneralViewModel',
-            'view-models/events/EventTypes'
+            'events/EventTypes'
         ],
         function (GeneralViewModel, EventTypes) {
             function FormActions() {

@@ -5,7 +5,7 @@ define(
             'modules/pide/model/PlanElementCalculated',
             'modules/pide/model/PlanElementMeasurable',
             'modules/pide/model/PlanElementTypes',
-            'view-models/events/EventTypes',
+            'events/EventTypes',
             'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge',
             'ojs/ojcollapsible', 'ojs/ojmasonrylayout'
         ],

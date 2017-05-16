@@ -1,7 +1,7 @@
 define(
         [
             'jquery', 'knockout', 'view-models/GeneralViewModel',
-            'view-models/events/EventTypes',
+            'events/EventTypes',
             'modules/pide/model/PlanElementCalculated',
             'modules/pide/model/PlanElementMeasurable',
             'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojsunburst'

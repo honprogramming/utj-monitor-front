@@ -2,7 +2,7 @@ define(
         [
             'knockout', 'ojs/ojcore', 'jquery',
             'view-models/GeneralViewModel',
-            'view-models/events/EventTypes',
+            'events/EventTypes',
             'utils/IdGenerator',
             'ojs/ojknockout',
             'ojs/ojcollapsible', 'ojs/ojinputtext',

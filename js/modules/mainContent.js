@@ -6,7 +6,8 @@
 
 define(
         [
-            'knockout', 'modules/header/menu/menu',
+            'knockout',
+            'modules/header/menu/menu',
             'view-models/GeneralViewModel',
             'modules/header/menu/view-model/MenuItems'
         ],
