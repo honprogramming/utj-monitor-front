@@ -8,12 +8,14 @@ define(
         [
             'jquery',
             'knockout',
-            'view-models/GeneralViewModel',
             'data/DataProvider',
+            'data/RESTConfig',
+            'view-models/GeneralViewModel',
             'modules/admin/strategic/model/StrategicDataParser',
             'modules/admin/strategic/model/StrategicModel',
             'modules/admin/strategic/model/StrategicItem',
-            'modules/admin/strategic/model/StrategicType',
+            'modules/admin/strategic/model/StrategicTypes',
+            'modules/admin/strategic/model/StrategicTypesParser',
             'templates/EditableTable',
             'templates/FormActions',
             'modules/admin/view-model/AdminItems',
@@ -27,8 +29,9 @@ define(
             'ojs/ojbutton',
             'ojs/ojarraytabledatasource'
         ],
-        function ($, ko, GeneralViewModel, DataProvider,
-                StrategicDataParser, StrategicModel, StrategicItem, StrategicType,
+        function ($, ko, DataProvider, RESTConfig, GeneralViewModel,
+                StrategicDataParser, StrategicModel, StrategicItem, 
+                StrategicTypes, StrategicTypesParser,
                 EditableTable, FormActions, AdminItems, ActionTypes) {
             function StrategicViewModel() {
                 var self = this;
@@ -79,21 +82,46 @@ define(
                     $("#" + self.resetDialogId).ojDialog("close");
                 };
                 
+                var strategicTypesDataProvider =
+                        new DataProvider("data/strategic-types.json",
+//                            "http://localhost:8080/" 
+//                            + RESTConfig.admin.strategic.types.path,
+                            StrategicTypesParser);
+                
+                var typesPromise = strategicTypesDataProvider.fetchData();
+                
+                var typesSetPromise = typesPromise.then(
+                        function() {
+                            var types = strategicTypesDataProvider.getDataArray();
+                            var strategicTypesMap = StrategicTypes.getTypesMap();
+                            
+                            types.forEach(
+                                function(type) {
+                                    var strategicType = strategicTypesMap[type.name];
+                                    
+                                    if (strategicType) {
+                                        strategicType.id = type.id;
+                                    }
+                                }
+                            );
+                        }
+                );
+                
                 var strategicDataProvider =
                         new DataProvider("data/strategic-items.json",
                                 StrategicDataParser);
-
+                                        
                 var dataPromise = strategicDataProvider.fetchData();
                 self.observableAxesTable = ko.observable();
                 self.observableTopicsTable = ko.observable();
                 self.observableObjectivesTable = ko.observable();
                 self.observableStrategiesTable = ko.observable();
                 
-                dataPromise.then(
+                Promise.all([typesSetPromise, dataPromise]).then(
                         function () {
                             var strategicModel = new StrategicModel(strategicDataProvider);
-                            var axesArray = strategicModel.getItemsByType(StrategicType.AXE);
-                            var visionItem = strategicModel.getItemsByType(StrategicType.VISION)[0];
+                            var axesArray = strategicModel.getItemsByType(StrategicTypes.AXE);
+                            var visionItem = strategicModel.getItemsByType(StrategicTypes.VISION)[0];
                             
                             function hasNoChildren(itemId) {
                                 var item = strategicModel.getItemById(itemId);
@@ -106,7 +134,7 @@ define(
                             }
                             
                             function createItem(id, table) {
-                                var newItem = new StrategicItem(id, "", StrategicType.AXE);
+                                var newItem = new StrategicItem(id, "", StrategicTypes.AXE);
                                 var parentRow = table.getCurrentRow();
                                 strategicModel.addItem(parentRow.rowKey, newItem);
                                 
@@ -149,7 +177,7 @@ define(
                                             return self.vision().length > 0;
                                         },
                                         itemCreator: function(id) {
-                                            var newItem = new StrategicItem(id, "", StrategicType.AXE);
+                                            var newItem = new StrategicItem(id, "", StrategicTypes.AXE);
                                             strategicModel.addItem(visionItem.id, newItem);
                                             
                                             return newItem;
@@ -166,7 +194,7 @@ define(
                             
                             self.observableAxesTable(self.axesTable);
                             
-                            var topicsArray = strategicModel.getItemsByType(StrategicType.TOPIC);
+                            var topicsArray = strategicModel.getItemsByType(StrategicTypes.TOPIC);
                             
                             self.topicsTable = new EditableTable(topicsArray, strategicModel,
                                     {
@@ -218,7 +246,7 @@ define(
                                 }
                             );
                     
-                            var objectivesArray = strategicModel.getItemsByType(StrategicType.OBJECTIVE);
+                            var objectivesArray = strategicModel.getItemsByType(StrategicTypes.OBJECTIVE);
                             
                             self.objectivesTable = new EditableTable(objectivesArray, strategicModel,
                                     {
@@ -270,7 +298,7 @@ define(
                                 }
                             );
                     
-                            var strategiesArray = strategicModel.getItemsByType(StrategicType.STRATEGY);
+                            var strategiesArray = strategicModel.getItemsByType(StrategicTypes.STRATEGY);
                             
                             self.strategiesTable = new EditableTable(strategiesArray, strategicModel,
                                     {
@@ -336,8 +364,10 @@ define(
                             );
                     
                             self.formActions.addSaveListener = function() {
-                                self.vision(visionItem.name);
-                                
+                                var newVision = new StrategicItem(visionItem.id,
+                                        self.vision(), StrategicTypes.VISION);
+                                        
+                                $.ajax(RESTConfig.admin.strategic.items.path, newVision);
                             };
                         }
                 );

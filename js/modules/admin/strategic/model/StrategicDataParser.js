@@ -2,15 +2,15 @@
  * Parses the data in order to populate the ControlPanelModel.
  * 
  * @param {Function} StrategicItem The class representing a single strategic item.
- * @param {Function} StrategicType The Object wit all constants representing an item type.
+ * @param {Function} StrategicTypes The Object wit all constants representing an item type.
  * @returns {Object} The parser for the Strategic Model.
  */
 define(
         [
             'modules/admin/strategic/model/StrategicItem',
-            'modules/admin/strategic/model/StrategicType'
+            'modules/admin/strategic/model/StrategicTypes'
         ],
-        function (StrategicItem, StrategicType) {
+        function (StrategicItem, StrategicTypes) {
             var StrategicDataParser = {
                 /**
                  * Parses the data from JSON format into an Array of
@@ -27,55 +27,55 @@ define(
                     var visionItem = new StrategicItem(
                             visionObject["id"],
                             visionObject["name"],
-                            StrategicType.VISION
+                            StrategicTypes.VISION
                     );
 
                     strategicItems.push(visionItem);
 
-                    var axesArray = visionObject[StrategicType.getPlural(StrategicType.AXE)];
+                    var axesArray = visionObject[StrategicTypes.getPlural(StrategicTypes.AXE)];
 
                     for (var i = 0; i < axesArray.length; i++) {
                         var axeObject = axesArray[i];
                         var axeElement = new StrategicItem(
                                 axeObject["id"],
                                 axeObject["name"],
-                                StrategicType.AXE
+                                StrategicTypes.AXE
                         );
 
                         visionItem.children.push(axeElement);
                         strategicItems.push(axeElement);
 
-                        var themesArray = axeObject[StrategicType.getPlural(StrategicType.TOPIC)];
+                        var themesArray = axeObject[StrategicTypes.getPlural(StrategicTypes.TOPIC)];
                         for (var j = 0; j < themesArray.length; j++) {
                             var themeObject = themesArray[j];
                             var themeElement = new StrategicItem(
                                     themeObject["id"],
                                     themeObject["name"],
-                                    StrategicType.TOPIC
+                                    StrategicTypes.TOPIC
                             );
 
                             axeElement.children.push(themeElement);
                             strategicItems.push(themeElement);
 
-                            var objectivesArray = themeObject[StrategicType.getPlural(StrategicType.OBJECTIVE)];
+                            var objectivesArray = themeObject[StrategicTypes.getPlural(StrategicTypes.OBJECTIVE)];
                             for (var k = 0; k < objectivesArray.length; k++) {
                                 var objectiveObject = objectivesArray[k];
                                 var objectiveElement = new StrategicItem(
                                         objectiveObject["id"],
                                         objectiveObject["name"],
-                                        StrategicType.OBJECTIVE
+                                        StrategicTypes.OBJECTIVE
                                 );
 
                                 themeElement.children.push(objectiveElement);
                                 strategicItems.push(objectiveElement);
 
-                                var strategiesArray = objectiveObject[StrategicType.getPlural(StrategicType.STRATEGY)];
+                                var strategiesArray = objectiveObject[StrategicTypes.getPlural(StrategicTypes.STRATEGY)];
                                 for (var s = 0; s < strategiesArray.length; s++) {
                                     var strategyObject = strategiesArray[s];
                                     var strategyElement = new StrategicItem(
                                             strategyObject["id"],
                                             strategyObject["name"],
-                                            StrategicType.STRATEGY
+                                            StrategicTypes.STRATEGY
                                     );
 
                                     objectiveElement.children.push(strategyElement);

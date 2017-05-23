@@ -1,0 +1,47 @@
+[
+  {
+    "type": "strategicType",
+    "id": 1,
+    "name": "vision"
+  },
+  {
+    "type": "strategicType",
+    "id": 2,
+    "name": "axe"
+  },
+  {
+    "type": "strategicType",
+    "id": 3,
+    "name": "topic"
+  },
+  {
+    "type": "strategicType",
+    "id": 4,
+    "name": "objective"
+  },
+  {
+    "type": "strategicType",
+    "id": 5,
+    "name": "strategy"
+  },
+  {
+    "type": "strategicType",
+    "id": 6,
+    "name": "process"
+  },
+  {
+    "type": "strategicType",
+    "id": 7,
+    "name": "project"
+  },
+  {
+    "type": "strategicType",
+    "id": 8,
+    "name": "component"
+  },
+  {
+    "type": "strategicType",
+    "id": 9,
+    "name": "indicator"
+  }
+]
