@@ -84,14 +84,14 @@ define(
                 }
             };
 
-            prototype.getItemsByType = function (type) {
+            prototype.getItemsByType = function (strategicType) {
                 var items = this.getItems();
                 var itemKeys = Object.keys(items);
                 var itemKeys = itemKeys.filter(
                         function (key) {
                             var item = items[key];
 
-                            return item.type === type;
+                            return item.strategicType === strategicType;
                         }
                 );
 

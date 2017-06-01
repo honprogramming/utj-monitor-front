@@ -64,6 +64,11 @@ define(
                 self.resetWarningText = GeneralViewModel.nls("admin.strategic.resetDialog.warningText");
                 self.resetDialogOkButtonLabel = GeneralViewModel.nls("admin.strategic.resetDialog.okButton");
                 self.resetDialogCancelButtonLabel = GeneralViewModel.nls("admin.strategic.resetDialog.cancelButton");
+                self.saveDialogId = "strategic-save-dialog";
+                self.saveMessage = ko.observable();
+                self.saveDialogTitle = GeneralViewModel.nls("admin.strategic.saveDialog.title");
+                
+                var saveDialogClass = "";
                 
                 self.formActions.addResetListener(
                         function() {
@@ -83,9 +88,9 @@ define(
                 };
                 
                 var strategicTypesDataProvider =
-                        new DataProvider("data/strategic-types.json",
-//                            "http://localhost:8080/" 
-//                            + RESTConfig.admin.strategic.types.path,
+                        new DataProvider(
+//                        "data/strategic-types.json",
+                            RESTConfig.admin.strategic.types.path,
                             StrategicTypesParser);
                 
                 var typesPromise = strategicTypesDataProvider.fetchData();
@@ -108,7 +113,9 @@ define(
                 );
                 
                 var strategicDataProvider =
-                        new DataProvider("data/strategic-items.json",
+                        new DataProvider(
+//                        "data/strategic-items.json",
+                                RESTConfig.admin.strategic.items.path,
                                 StrategicDataParser);
                                         
                 var dataPromise = strategicDataProvider.fetchData();
@@ -161,7 +168,7 @@ define(
                                 return children;
                             }
                             
-                            self.vision(visionItem.name);
+                            self.vision(visionItem ? visionItem.name : "");
                             
                             self.axesTable = new EditableTable(axesArray, strategicModel,
                                     {
@@ -363,11 +370,51 @@ define(
                                     }
                             );
                     
-                            self.formActions.addSaveListener = function() {
-                                var newVision = new StrategicItem(visionItem.id,
-                                        self.vision(), StrategicTypes.VISION);
-                                        
-                                $.ajax(RESTConfig.admin.strategic.items.path, newVision);
+                            self.formActions.addSaveListener(function() {
+                                    var newVision = new StrategicItem(visionItem ? visionItem.id : 1,
+                                            self.vision(), StrategicTypes.VISION);
+                                    
+                                    newVision.children = strategicModel.getItemsByType(StrategicTypes.AXE);
+                                    var method = 'PUT';
+                                    
+                                    var visionPromise = $.getJSON(
+                                            RESTConfig.admin.strategic.items.path + "/" + newVision.id);
+                                    
+                                    visionPromise.then(
+                                        function(data) {
+                                            if (!data) {
+                                                method = 'POST';
+                                            }
+                                            
+                                            $.ajax(RESTConfig.admin.strategic.items.path + "/" + newVision.id, 
+                                                {
+                                                    data: JSON.stringify(newVision),
+                                                    method: method,
+                                                    dataType: 'json',
+                                                    contentType: "application/json",
+                                                    error: function(jqXHR, textStatus, errMsg) {
+                                                        self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success") + errMsg);
+                                                        saveDialogClass = "save-dialog-error";
+                                                    },
+                                                    success: function() {
+                                                        self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success"));
+                                                        saveDialogClass = "save-dialog-success";
+                                                    }
+                                                }
+                                            ).then(
+                                                function() {
+                                                    self.showDialog();
+                                                }
+                                            );
+                                        }
+                                    );
+                                }
+                            );
+                    
+                            self.showDialog = function() {
+                                var saveDialog = $("#" + self.saveDialogId);
+                                saveDialog.ojDialog("widget").addClass(saveDialogClass);
+                                saveDialog.ojDialog("open");
                             };
                         }
                 );

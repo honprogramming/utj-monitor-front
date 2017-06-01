@@ -49,6 +49,11 @@ define(
                     "label": "ADMINISTRADOR",
                     "strategic": {
                         "label": "Apartado Estratégico",
+                        "saveDialog": {
+                            "title": "Información",
+                            "success": "¡Datos guardados correctamente!",
+                            "error": "Se produjo un error al guardar los datos: "
+                        },
                         "resetDialog": {
                             "title": "¡Cuidado!",
                             "warningText": "Todos los cambios realizados se perderán.",

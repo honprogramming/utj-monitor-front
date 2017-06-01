@@ -22,69 +22,77 @@ define(
                  * and PlanElementMeasurable objects.
                  */
                 parse: function (data) {
-                    var visionObject = data["vision"];
+//                    var visionObject = data["vision"];
+                    var visionObject = data[0];
                     var strategicItems = [];
-                    var visionItem = new StrategicItem(
-                            visionObject["id"],
-                            visionObject["name"],
-                            StrategicTypes.VISION
-                    );
-
-                    strategicItems.push(visionItem);
-
-                    var axesArray = visionObject[StrategicTypes.getPlural(StrategicTypes.AXE)];
-
-                    for (var i = 0; i < axesArray.length; i++) {
-                        var axeObject = axesArray[i];
-                        var axeElement = new StrategicItem(
-                                axeObject["id"],
-                                axeObject["name"],
-                                StrategicTypes.AXE
+                    
+                    if (visionObject) {
+                        var visionItem = new StrategicItem(
+                                visionObject["id"],
+                                visionObject["name"],
+                                StrategicTypes.VISION
                         );
 
-                        visionItem.children.push(axeElement);
-                        strategicItems.push(axeElement);
+                        strategicItems.push(visionItem);
 
-                        var themesArray = axeObject[StrategicTypes.getPlural(StrategicTypes.TOPIC)];
-                        for (var j = 0; j < themesArray.length; j++) {
-                            var themeObject = themesArray[j];
-                            var themeElement = new StrategicItem(
-                                    themeObject["id"],
-                                    themeObject["name"],
-                                    StrategicTypes.TOPIC
+    //                    var axesArray = visionObject[StrategicTypes.getPlural(StrategicTypes.AXE)];
+                        var axesArray = visionObject["children"];
+
+                        for (var i = 0; i < axesArray.length; i++) {
+                            var axeObject = axesArray[i];
+                            var axeElement = new StrategicItem(
+                                    axeObject["id"],
+                                    axeObject["name"],
+                                    StrategicTypes.AXE
                             );
 
-                            axeElement.children.push(themeElement);
-                            strategicItems.push(themeElement);
+                            visionItem.children.push(axeElement);
+                            strategicItems.push(axeElement);
 
-                            var objectivesArray = themeObject[StrategicTypes.getPlural(StrategicTypes.OBJECTIVE)];
-                            for (var k = 0; k < objectivesArray.length; k++) {
-                                var objectiveObject = objectivesArray[k];
-                                var objectiveElement = new StrategicItem(
-                                        objectiveObject["id"],
-                                        objectiveObject["name"],
-                                        StrategicTypes.OBJECTIVE
+//                            var themesArray = axeObject[StrategicTypes.getPlural(StrategicTypes.TOPIC)];
+                            var themesArray = axeObject["children"];
+                            for (var j = 0; j < themesArray.length; j++) {
+                                var themeObject = themesArray[j];
+                                var themeElement = new StrategicItem(
+                                        themeObject["id"],
+                                        themeObject["name"],
+                                        StrategicTypes.TOPIC
                                 );
 
-                                themeElement.children.push(objectiveElement);
-                                strategicItems.push(objectiveElement);
+                                axeElement.children.push(themeElement);
+                                strategicItems.push(themeElement);
 
-                                var strategiesArray = objectiveObject[StrategicTypes.getPlural(StrategicTypes.STRATEGY)];
-                                for (var s = 0; s < strategiesArray.length; s++) {
-                                    var strategyObject = strategiesArray[s];
-                                    var strategyElement = new StrategicItem(
-                                            strategyObject["id"],
-                                            strategyObject["name"],
-                                            StrategicTypes.STRATEGY
+//                                var objectivesArray = themeObject[StrategicTypes.getPlural(StrategicTypes.OBJECTIVE)];
+                                var objectivesArray = themeObject["children"];
+                                for (var k = 0; k < objectivesArray.length; k++) {
+                                    var objectiveObject = objectivesArray[k];
+                                    var objectiveElement = new StrategicItem(
+                                            objectiveObject["id"],
+                                            objectiveObject["name"],
+                                            StrategicTypes.OBJECTIVE
                                     );
 
-                                    objectiveElement.children.push(strategyElement);
-                                    strategicItems.push(strategyElement);
+                                    themeElement.children.push(objectiveElement);
+                                    strategicItems.push(objectiveElement);
+
+//                                    var strategiesArray = objectiveObject[StrategicTypes.getPlural(StrategicTypes.STRATEGY)];
+                                    var strategiesArray = objectiveObject["children"];
+                                    for (var s = 0; s < strategiesArray.length; s++) {
+                                        var strategyObject = strategiesArray[s];
+                                        var strategyElement = new StrategicItem(
+                                                strategyObject["id"],
+                                                strategyObject["name"],
+                                                StrategicTypes.STRATEGY
+                                        );
+
+                                        objectiveElement.children.push(strategyElement);
+                                        strategicItems.push(strategyElement);
+                                    }
                                 }
                             }
                         }
                     }
-
+                    
                     return strategicItems;
                 }
             };

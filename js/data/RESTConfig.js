@@ -3,7 +3,7 @@ define(
             var paths = {};
 
             var restConfig = {
-                subPath: "utj-monitor-services/v1",
+                subPath: "monitor/services/v1",
 
                 admin: {
                     subPath: "/admin",

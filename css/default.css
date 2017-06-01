@@ -123,3 +123,13 @@ footer {
 .bottom-padding {
     padding-bottom: 10px;
 }
+
+.save-dialog-success {
+    border-color: green;
+    border-width: 5px;
+}
+
+.save-dialog-error {
+    border-color: red;
+    border-width: 5px;
+}

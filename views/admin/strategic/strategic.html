@@ -7,6 +7,15 @@
             <div data-bind="template: {name: 'FormActions', data: formActions}"></div>
         </div>
     </div>
+    <div style="display:none;"
+        data-bind="attr: {id: saveDialogId, title: saveDialogTitle},
+                   ojComponent:{
+                       component: 'ojDialog',
+                       initialVisibility: 'hide',
+                       modality: 'modeless'
+                   }">
+        <div class="oj-dialog-body" data-bind="text: saveMessage"></div>
+    </div>
     <div id="vision-content" class="full-width form-container oj-accordion-collapsible"
          data-bind="ojComponent: {
                         component: 'ojCollapsible',
