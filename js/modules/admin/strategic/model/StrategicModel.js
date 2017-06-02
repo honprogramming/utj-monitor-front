@@ -34,12 +34,21 @@ define(
                 var parentItem = this.getItemById(parentItemId);
 
                 if (parentItem) {
-                    var itemsMap = this.getItems();
                     parentItem.children.push(item);
-                    itemsMap[item.id] = item;
+                }
+               
+                var itemsMap = this.getItems();
+                itemsMap[item.id] = item;
+            };
+            
+            prototype.updateItemName = function(id, name) {
+                var item = this.getItemById(id);
+                
+                if (item) {
+                    item.name = name;
                 }
             };
-
+            
             prototype.getItems = function () {
                 return this.StrategicModel_(theKey).itemsMap;
             };

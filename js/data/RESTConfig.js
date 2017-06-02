@@ -3,7 +3,7 @@ define(
             var paths = {};
 
             var restConfig = {
-                subPath: "monitor/services/v1",
+                subPath: "services/v1",
 
                 admin: {
                     subPath: "/admin",

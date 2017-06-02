@@ -10,6 +10,7 @@ define(
             'knockout',
             'data/DataProvider',
             'data/RESTConfig',
+            'data/AjaxUtils',
             'view-models/GeneralViewModel',
             'modules/admin/strategic/model/StrategicDataParser',
             'modules/admin/strategic/model/StrategicModel',
@@ -29,7 +30,7 @@ define(
             'ojs/ojbutton',
             'ojs/ojarraytabledatasource'
         ],
-        function ($, ko, DataProvider, RESTConfig, GeneralViewModel,
+        function ($, ko, DataProvider, RESTConfig, AjaxUtils, GeneralViewModel,
                 StrategicDataParser, StrategicModel, StrategicItem, 
                 StrategicTypes, StrategicTypesParser,
                 EditableTable, FormActions, AdminItems, ActionTypes) {
@@ -127,8 +128,14 @@ define(
                 Promise.all([typesSetPromise, dataPromise]).then(
                         function () {
                             var strategicModel = new StrategicModel(strategicDataProvider);
-                            var axesArray = strategicModel.getItemsByType(StrategicTypes.AXE);
                             var visionItem = strategicModel.getItemsByType(StrategicTypes.VISION)[0];
+                            var axesArray = strategicModel.getItemsByType(StrategicTypes.AXE);
+                            var deletedIds = [];
+                            
+                            if (!visionItem) {
+                                visionItem = new StrategicItem(1, "", StrategicTypes.VISION);
+                                strategicModel.addItem(null, visionItem);
+                            }
                             
                             function hasNoChildren(itemId) {
                                 var item = strategicModel.getItemById(itemId);
@@ -140,10 +147,11 @@ define(
                                 return true;
                             }
                             
-                            function createItem(id, table) {
-                                var newItem = new StrategicItem(id, "", StrategicTypes.AXE);
+                            function createItem(id, table, strategicType) {
+                                var newItem = new StrategicItem(id, "", strategicType);
                                 var parentRow = table.getCurrentRow();
                                 strategicModel.addItem(parentRow.rowKey, newItem);
+                                removeDeletedIds(id);
                                 
                                 return newItem;
                             }
@@ -151,6 +159,7 @@ define(
                             function removeItem(itemId) {
                                 var item = strategicModel.getItemById(itemId);
                                 strategicModel.removeItem(item);
+                                deletedIds.push(item.id);
                             };
                             
                             function getItemsChildren(ids) {
@@ -166,6 +175,20 @@ define(
                                 }
                                 
                                 return children;
+                            }
+                            
+                            function updateEditedItem(currentRow) {
+                                strategicModel.updateItemName(currentRow.data.id, currentRow.data.name);
+                            }
+                            
+                            function removeDeletedIds(id) {
+                                if (deletedIds.length > 0) {
+                                    var index = deletedIds.indexOf(id);
+
+                                    if (index >= 0) {
+                                        deletedIds.splice(index, 1);
+                                    }
+                                }
                             }
                             
                             self.vision(visionItem ? visionItem.name : "");
@@ -186,6 +209,7 @@ define(
                                         itemCreator: function(id) {
                                             var newItem = new StrategicItem(id, "", StrategicTypes.AXE);
                                             strategicModel.addItem(visionItem.id, newItem);
+                                            removeDeletedIds(id);
                                             
                                             return newItem;
                                         },
@@ -199,6 +223,8 @@ define(
                                 }
                             );
                             
+                            self.axesTable.addEditListener(updateEditedItem);
+                    
                             self.observableAxesTable(self.axesTable);
                             
                             var topicsArray = strategicModel.getItemsByType(StrategicTypes.TOPIC);
@@ -218,7 +244,7 @@ define(
                                             return self.axesTable.currentRow();
                                         },
                                         itemCreator: function(id) {
-                                            return createItem(id, self.axesTable);
+                                            return createItem(id, self.axesTable, StrategicTypes.TOPIC);
                                         },
                                         itemRemover: removeItem
                                     }
@@ -241,6 +267,8 @@ define(
                                 }
                             );
                     
+                            self.topicsTable.addEditListener(updateEditedItem);
+                            
                             self.observableTopicsTable(self.topicsTable);
                             
                             self.axesTable.addFilterListener(
@@ -270,7 +298,7 @@ define(
                                             return self.topicsTable.currentRow();
                                         },
                                         itemCreator: function(id) {
-                                            return createItem(id, self.topicsTable);
+                                            return createItem(id, self.topicsTable, StrategicTypes.OBJECTIVE);
                                         },
                                         itemRemover: removeItem
                                     }
@@ -292,6 +320,8 @@ define(
                                     }
                                 }
                             );
+                    
+                            self.objectivesTable.addEditListener(updateEditedItem);
                     
                             self.observableObjectivesTable(self.objectivesTable);
                             
@@ -323,7 +353,7 @@ define(
                                             return self.objectivesTable.currentRow();
                                         },
                                         itemCreator: function(id) {
-                                            return createItem(id, self.objectivesTable);
+                                            return createItem(id, self.objectivesTable, StrategicTypes.STRATEGY);
                                         },
                                         itemRemover: removeItem
                                     }
@@ -345,6 +375,8 @@ define(
                                     }
                                 }
                             );
+                    
+                            self.strategiesTable.addEditListener(updateEditedItem);
                     
                             self.observableStrategiesTable(self.strategiesTable);
                             
@@ -371,37 +403,44 @@ define(
                             );
                     
                             self.formActions.addSaveListener(function() {
-                                    var newVision = new StrategicItem(visionItem ? visionItem.id : 1,
-                                            self.vision(), StrategicTypes.VISION);
+                                    visionItem.name = self.vision();
                                     
-                                    newVision.children = strategicModel.getItemsByType(StrategicTypes.AXE);
                                     var method = 'PUT';
-                                    
                                     var visionPromise = $.getJSON(
-                                            RESTConfig.admin.strategic.items.path + "/" + newVision.id);
+                                            RESTConfig.admin.strategic.items.path + "/" + visionItem.id);
                                     
                                     visionPromise.then(
                                         function(data) {
+                                            var path = RESTConfig.admin.strategic.items.path;
+                                            
                                             if (!data) {
                                                 method = 'POST';
+                                            } else {
+                                                path += "/" + visionItem.id;
                                             }
                                             
-                                            $.ajax(RESTConfig.admin.strategic.items.path + "/" + newVision.id, 
-                                                {
-                                                    data: JSON.stringify(newVision),
-                                                    method: method,
-                                                    dataType: 'json',
-                                                    contentType: "application/json",
-                                                    error: function(jqXHR, textStatus, errMsg) {
-                                                        self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success") + errMsg);
-                                                        saveDialogClass = "save-dialog-error";
-                                                    },
-                                                    success: function() {
-                                                        self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success"));
-                                                        saveDialogClass = "save-dialog-success";
-                                                    }
-                                                }
-                                            ).then(
+                                            function successFunction () {
+                                                self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success"));
+                                                saveDialogClass = "save-dialog-success";
+                                            }
+                                            
+                                            function errorFunction(jqXHR, textStatus, errMsg) {
+                                                self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success") + errMsg);
+                                                saveDialogClass = "save-dialog-error";
+                                            }
+                                                    
+                                            if (deletedIds.length > 0) {
+                                                deletedIds.forEach(
+                                                        function(id) {
+                                                            AjaxUtils.ajax(RESTConfig.admin.strategic.items.path + "/" + id, 'DELETE', null, null, errorFunction);
+                                                        }
+                                                );
+                                            }
+                                            
+                                            var savePromise = AjaxUtils.ajax(path, method, visionItem, successFunction, errorFunction);
+                                            
+                                            
+                                            savePromise.then(
                                                 function() {
                                                     self.showDialog();
                                                 }

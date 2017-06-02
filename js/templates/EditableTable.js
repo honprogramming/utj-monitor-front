@@ -94,7 +94,17 @@ define(
                         self.showNewError(true);
                     }
                 };
-
+                
+                self.editHandler = function(event, data) {
+                    var rowIdx = data.rowContext.status.rowIndex;
+                    
+                    self.getDataSource(theKey).at(rowIdx).then(
+                            function(currentRow) {
+                                self.callListeners(EventTypes.EDIT_EVENT, currentRow);
+                            }
+                    );
+                };
+                
                 self.deleteHandler = function () {
                     var currentRow = self.getCurrentRow();
                     console.debug("currentRow: %o", currentRow);
@@ -282,6 +292,10 @@ define(
             
             prototype.getNewEnabled = function() {
                 return this.state();
+            };
+            
+            prototype.addEditListener = function(listener) {
+                this.addListener(listener, EventTypes.EDIT_EVENT);
             };
             
             prototype.addFilterListener = function(listener) {
