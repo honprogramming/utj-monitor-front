@@ -90,8 +90,8 @@ define(
                 
                 var strategicTypesDataProvider =
                         new DataProvider(
-//                        "data/strategic-types.json",
-                            RESTConfig.admin.strategic.types.path,
+                        "data/strategic-types.json",
+//                            RESTConfig.admin.strategic.types.path,
                             StrategicTypesParser);
                 
                 var typesPromise = strategicTypesDataProvider.fetchData();
@@ -115,8 +115,8 @@ define(
                 
                 var strategicDataProvider =
                         new DataProvider(
-//                        "data/strategic-items.json",
-                                RESTConfig.admin.strategic.items.path,
+                        "data/strategic-items-full.json",
+//                                RESTConfig.admin.strategic.items.path,
                                 StrategicDataParser);
                                         
                 var dataPromise = strategicDataProvider.fetchData();
@@ -162,7 +162,7 @@ define(
                                 deletedIds.push(item.id);
                             };
                             
-                            function getItemsChildren(ids) {
+                            function getChildrenItems(ids) {
                                 var items = strategicModel.getItemsById(ids);
                                 var children = [];
                                 
@@ -191,6 +191,31 @@ define(
                                 }
                             }
                             
+                            function getAvailableParentItems(table) {
+                                var tableFilterKey = table.getCurrentFilterKey();
+                                var promise = new Promise(
+                                        (resolve) => {
+                                            if (tableFilterKey) {
+                                                resolve(tableFilterKey);
+                                            }
+                                
+                                            var visibleItemsPromise = table.getVisibleItemsPromise();
+                                            visibleItemsPromise.then(
+                                                function(data) {
+                                                    resolve(data.keys);
+                                                }
+                                            );
+                                        }
+                                );
+                        
+                                return promise;
+                            }
+                            
+                            function useChildrenItemsToFilterTable(ids, table) {
+                                var itemsToKeep = getChildrenItems(ids);
+                                table.filter(itemsToKeep);
+                            }
+                            
                             self.vision(visionItem ? visionItem.name : "");
                             
                             self.axesTable = new EditableTable(axesArray, strategicModel,
@@ -200,7 +225,7 @@ define(
                                         tableSummary: GeneralViewModel.nls("admin.strategic.axesTable.tableSummary"),
                                         tableAria: GeneralViewModel.nls("admin.strategic.axesTable.tableAria"),
                                         columns: self.columns,
-                                        errorText: GeneralViewModel.nls("admin.strategic.axesTable.errorText"),
+                                        newErrorText: GeneralViewModel.nls("admin.strategic.axesTable.newErrorText"),
                                         deleteErrorText: GeneralViewModel.nls("admin.strategic.axesTable.deleteErrorText"),
                                         deleteValidator: hasNoChildren,
                                         newValidator: function() {
@@ -237,7 +262,7 @@ define(
                                         tableAria: GeneralViewModel.nls("admin.strategic.topicsTable.tableAria"),
                                         columns: self.columns,
                                         newEnabled: false,
-                                        errorText: GeneralViewModel.nls("admin.strategic.topicsTable.errorText"),
+                                        newErrorText: GeneralViewModel.nls("admin.strategic.topicsTable.newErrorText"),
                                         deleteErrorText: GeneralViewModel.nls("admin.strategic.topicsTable.deleteErrorText"),
                                         deleteValidator: hasNoChildren,
                                         newValidator: function() {
@@ -273,9 +298,10 @@ define(
                             
                             self.axesTable.addFilterListener(
                                 function(ids, removeFilter) {
+                                    
                                     var itemsToKeep = removeFilter
                                             ? topicsArray
-                                            : getItemsChildren(ids);
+                                            : getChildrenItems(ids);
                                     
                                     self.topicsTable.filter(itemsToKeep);
                                 }
@@ -291,7 +317,7 @@ define(
                                         tableAria: GeneralViewModel.nls("admin.strategic.objectivesTable.tableAria"),
                                         columns: self.columns,
                                         newEnabled: false,
-                                        errorText: GeneralViewModel.nls("admin.strategic.objectivesTable.errorText"),
+                                        newErrorText: GeneralViewModel.nls("admin.strategic.objectivesTable.newErrorText"),
                                         deleteErrorText: GeneralViewModel.nls("admin.strategic.objectivesTable.deleteErrorText"),
                                         deleteValidator: hasNoChildren,
                                         newValidator: function() {
@@ -327,11 +353,18 @@ define(
                             
                             self.topicsTable.addFilterListener(
                                 function(ids, removeFilter) {
-                                    var itemsToKeep = removeFilter
-                                            ? objectivesArray
-                                            : getItemsChildren(ids);
                                     
-                                    self.objectivesTable.filter(itemsToKeep);
+                                    if (removeFilter) {
+                                        var itemsPromise = getAvailableParentItems(self.topicsTable);
+                                        
+                                        itemsPromise.then(
+                                            function(ids) {
+                                                useChildrenItemsToFilterTable(ids, self.objectivesTable);
+                                            }
+                                        );
+                                    } else {
+                                        useChildrenItemsToFilterTable(ids, self.objectivesTable);
+                                    }
                                 }
                             );
                     
@@ -345,7 +378,7 @@ define(
                                         tableAria: GeneralViewModel.nls("admin.strategic.strategiesTable.tableAria"),
                                         columns: self.columns,
                                         newEnabled: false,
-                                        errorText: GeneralViewModel.nls("admin.strategic.strategiesTable.errorText"),
+                                        newErrorText: GeneralViewModel.nls("admin.strategic.strategiesTable.newErrorText"),
                                         deleteErrorText: GeneralViewModel.nls("admin.strategic.strategiesTable.deleteErrorText"),
                                         actions: ["delete"],
                                         deleteValidator: hasNoChildren,
@@ -382,11 +415,37 @@ define(
                             
                             self.objectivesTable.addFilterListener(
                                 function(ids, removeFilter) {
-                                    var itemsToKeep = removeFilter
-                                            ? strategiesArray
-                                            : getItemsChildren(ids);
+                                    if (removeFilter) {
+                                        var itemsPromise = getAvailableParentItems(self.objectivesTable);
+                                        
+                                        itemsPromise.then(
+                                            function(ids) {
+                                                useChildrenItemsToFilterTable(ids, self.strategiesTable);
+                                            }
+                                        );
+                                    } else {
+                                        useChildrenItemsToFilterTable(ids, self.strategiesTable);
+                                    }
                                     
-                                    self.strategiesTable.filter(itemsToKeep);
+//                                    var objectivesFilterKey = self.topicsTable.getCurrentFilterKey();
+//                                    var visibleObjectivesPromise = self.objectivesTable.getVisibleItemsPromise();
+//                                    
+//                                    visibleObjectivesPromise.then(
+//                                            function(data) {
+//                                                var itemsToKeep = removeFilter
+//                                            ? (objectivesFilterKey ? 
+//                                                getChildrenItems(objectivesFilterKey) : 
+//                                                        data.keys.length > 0 ?
+//                                                        getChildrenItems(data.keys) :
+//                                                        strategiesArray
+//                                              )
+//                                            : getChildrenItems(ids);
+//                                    
+//                                                self.strategiesTable.filter(itemsToKeep);
+//                                            }
+//                                    );
+                            
+                                    
                                 }
                             );
                     

@@ -13,7 +13,6 @@ define(
             
             function EditableTable(data, model, params) {
                 var self = this;
-                var currentFilterRow = ko.observable();
                 
                 self.listeners = [];
                 
@@ -22,6 +21,7 @@ define(
                     data: [],
                     dataSource: undefined,
                     actions: ["filter", "delete", "clone"],
+                    currentFilterRow: ko.observable(),
                     ENABLED: 1.0,
                     DISABLED: 0.5,
                     newValidator: function() {return true;},
@@ -120,8 +120,8 @@ define(
                 self.filterHandler = function(event, ui) {
                     var currentRow = self.getCurrentRow();
                     
-                    var removeFilter = currentFilterRow() === currentRow.rowKey;
-                    currentFilterRow(removeFilter ? undefined : currentRow.rowKey);
+                    var removeFilter = privateData.currentFilterRow() === currentRow.rowKey;
+                    privateData.currentFilterRow(removeFilter ? undefined : currentRow.rowKey);
                     
                     self.callListeners(EventTypes.FILTER_EVENT, currentRow.rowKey, removeFilter);
                 };
@@ -129,8 +129,8 @@ define(
                 self.filterIconComputedColor = function(id) {
                     return ko.pureComputed(
                                 function() {
-                                    if (currentFilterRow()) {
-                                        return id === currentFilterRow() ? "green" : "";
+                                    if (privateData.currentFilterRow()) {
+                                        return id === privateData.currentFilterRow() ? "green" : "";
                                     }
                                 }
                             );
@@ -160,6 +160,14 @@ define(
             EditableTable.prototype = Object.create(GeneralViewModel);
             
             var prototype = EditableTable.prototype;
+            
+            prototype.getCurrentFilterKey = function() {
+                return this.EditableTable_(theKey).currentFilterRow();
+            };
+            
+            prototype.getVisibleItemsPromise = function() {
+                return this.getDataSource(theKey).fetch();
+            };
             
             prototype.displayAction = function(action) {
                 return this.getActions(theKey).includes(action);

@@ -25,37 +25,33 @@ define(
                     var strategicItems = [];
                     var strategicItemsMap = {};
                     var typesMap = StrategicTypes.getTypesMap();
-                    
-                    data.forEach(
-                            function(item) {
-                                var strategicItem = 
-                                        new StrategicItem(item.id, item.name, 
-                                            typesMap[item.strategicType.name]);
-                                strategicItems.push(strategicItem);
-                                strategicItemsMap[strategicItem.id] = strategicItem;
-                                
-                                item.children.forEach(
-                                        function(item) {
-                                            strategicItem.children.push(item.id);
-                                        }
+                    var vision = data[0];
+
+                    createStrategicItem(vision);
+
+                    function createStrategicItem(item) {
+                        var strategicItem = 
+                                new StrategicItem(
+                                    item.id,
+                                    item.name,
+                                    typesMap[item.strategicType.name]
                                 );
-                            }
-                    );
-            
-                    strategicItems.forEach(
-                            function(strategicItem) {
-                                var children = [];
-                                
-                                strategicItem.children.forEach(
-                                        function(strategicChildId) {
-                                            children.push(strategicItemsMap[strategicChildId]);
-                                        }
-                                );
-                                
-                                strategicItem.children = children;
-                            }
-                    );
+                        
+                        strategicItems.push(strategicItem);
+                        strategicItemsMap[strategicItem.id] = strategicItem;
                     
+                        if (item.children) {
+                            item.children.forEach(
+                                    function (item) {
+                                        strategicItem.children.push(createStrategicItem(item));
+                                    }
+                            );
+
+                        }
+                        
+                        return strategicItem;
+                    }
+
                     return strategicItems;
                 }
             };

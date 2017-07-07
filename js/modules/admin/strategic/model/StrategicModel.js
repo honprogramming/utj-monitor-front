@@ -17,15 +17,13 @@ define(
 
                 privateData.itemsArray = dataProvider.getDataArray();
 
-                var item;
                 var items = privateData.itemsArray.slice();
 
-                while (items.length > 0) {
-                    item = items[0];
-                    privateData.itemsMap[item.id] = items[0];
-                    items = items.concat(item.children);
-                    items.splice(0, 1);
-                }
+                items.forEach(
+                    function(item) {
+                        privateData.itemsMap[item.id] = item;
+                    }
+                );
             }
 
             var prototype = StrategicModel.prototype;

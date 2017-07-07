@@ -72,28 +72,28 @@ define(
                             "title": "Ejes",
                             "tableSummary": "Ejes Estratégicos",
                             "tableAria": "Tabla de Ejes Estratégicos",
-                            "errorText": "Debes seleccionar un eje",
+                            "newErrorText": "Debes escribir una visión",
                             "deleteErrorText": "No puedes eliminar ejes que tengan temas"
                         },
                         "topicsTable": {
                             "title": "Temas",
                             "tableSummary": "Temas Estratégicos",
                             "tableAria": "Tabla de Temas Estratégicos",
-                            "errorText": "Debes seleccionar un eje",
+                            "newErrorText": "Debes seleccionar un eje",
                             "deleteErrorText": "No puedes eliminar temas que tengan objetivos"
                         },
                         "objectivesTable": {
                             "title": "Objetivos",
                             "tableSummary": "Objetivos Estratégicos",
                             "tableAria": "Tabla de Objetivos Estratégicos",
-                            "errorText": "Debes seleccionar un tema",
+                            "newErrorText": "Debes seleccionar un tema",
                             "deleteErrorText": "No puedes eliminar objetivos que tengan estrategias"
                         },
                         "strategiesTable": {
                             "title": "Estrategias",
                             "tableSummary": "Estrategias Estratégicos",
                             "tableAria": "Tabla de Estrategias Estratégicas",
-                            "errorText": "Debes seleccionar un objetivo",
+                            "newErrorText": "Debes seleccionar un objetivo",
                             "deleteErrorText": "No puedes eliminar estrategias que tengan elementos hijos"
                         }
                     },
