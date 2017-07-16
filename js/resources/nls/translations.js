@@ -108,7 +108,8 @@ define(
                     }
                 },
                 "pide": {
-                    "label": "PIDE"
+                    "label": "PIDE",
+                    "switchButtonAriaLabel": "Cambia entre cumplimiento e indicadores"
                 },
                 "mecasut": {
                     "label": "MECASUT"
@@ -127,10 +128,10 @@ define(
                 },
                 "controlPanel": {
                     "sunburst": {
-                        "title": "Cumplimiento de metas PIDE"
+                        "title": "CUMPLIMIENTO DE METAS"
                     },
                     "details": {
-                        "title": "Detalles de cumplimiento de metas PIDE"
+                        "title": "DETALLES"
                     },
                     "vision": "Visión",
                     "axe": "Eje",

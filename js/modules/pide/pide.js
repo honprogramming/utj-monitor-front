@@ -1,57 +1,23 @@
 define(
         [
             'knockout',
-            'data/DataProvider',
-            'modules/pide/view-model/SunburstViewModel',
-            'modules/pide/model/PIDEModel',
-            'modules/pide/model/PIDEDataParser',
-            'modules/pide/view-model/DetailsViewModel'
+            'view-models/GeneralViewModel',
+            'ojs/ojbutton'
         ],
-        function (ko, DataProvider, SunburstViewModel, PIDEModel,
-                 PIDEDataParser, DetailsViewModel) {
+        function (ko, GeneralViewModel) {
             function PIDEViewModel() {
                 var self = this;
-                var controlPanelDataProvider =
-                        new DataProvider("data/pide.json",
-                                PIDEDataParser);
-
-                var dataPromise = controlPanelDataProvider.fetchData();
-                self.observableSunburst = ko.observable();
-                self.observableDetails = ko.observable();
+                self.pideModule = ko.observable("pide/pide-satisfaction");
                 
-                dataPromise.then(
-                        function () {
-                            var controlPanelModel = new PIDEModel(controlPanelDataProvider);
-                            self.sunburst = new SunburstViewModel("control_panel", 
-                                    "controlPanel.sunburst.title", controlPanelModel);
-                            self.sunburst.addClickListener(handleSunburstClick);
-                            self.details = new DetailsViewModel("controlPanel.details.title", 
-                                    controlPanelModel);
-                            self.details.addSelectionListener(handleDetailsSelection);
-                            self.observableSunburst(self.sunburst);
-                            self.observableDetails(self.details);
-                        }
-                );
-
-                /**
-                 * Callback function for click event on Details panel.
-                 * 
-                 * @param {PlanElementCalculated} planElement The object from
-                 * the model with the info for the clicked view element.
-                 */
-                function handleSunburstClick(planElement) {
-                    self.details.setSelectedItem(planElement);
-                }
-
-                /**
-                 * Callback function for click event on Sunburst graphic.
-                 * 
-                 * @param {PlanElementCalculated} planElement The object from
-                 * the model with the info for the clicked view element.
-                 */
-                function handleDetailsSelection(planElement) {
-                    self.sunburst.setSelectedItem(planElement);
-                }
+                self.switchButtonAriaLabel = GeneralViewModel.nls("pide.switchButtonAriaLabel");
+                
+                self.optionChangeHandler = function(event, ui) {
+                    var value = ui.value;
+                    
+                    if (!self.pideModule().includes(value)) {
+                        self.pideModule("pide/pide-" + value);
+                    }
+                };
             }
 
             return PIDEViewModel;

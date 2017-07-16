@@ -105,6 +105,7 @@ footer {
 }
 
 .scrolly {
+    min-height: 0px;
     overflow-y: auto;
 }
 
@@ -132,4 +133,26 @@ footer {
 .save-dialog-error {
     border-color: red;
     border-width: 5px;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.button-color {
+    background-color: #e4e8ea;
+    color: black;
+}
+
+.button-color:hover {
+    background-color: #f7f8f9;
+    color: #0572ce;
+}
+
+.tree-panel {
+    border:1px #b0b0b0 solid; 
+}
+
+.oj-tree-title {
+    color: black;
 }

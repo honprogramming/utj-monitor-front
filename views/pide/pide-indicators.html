@@ -1,0 +1,183 @@
+<div id="pide-indicators-split-container" class="full-width full-height">
+    <div class="section-title">
+        TABLERO DE INDICADORES
+    </div>
+    <hr/>
+    <div class="oj-offcanvas-outer-wrapper full-height full-width scrolly">
+        <div id="pide-indicators-selection-panel" 
+             class="full-height oj-offcanvas-start section-padding">
+            <label for="filterSearch">Selección de Indicadores</label>
+            <input id="inputSearch" placeholder="Buscar..."
+                   data-bind="  ojComponent: {
+                                    component: 'ojInputSearch',
+                                    rootAttributes: {
+                                        style:'max-width: 100%'
+                                    }
+                                }"/>
+            <div id="tree" class="full-width full-height tree-panel"
+                    data-bind=" ojComponent: {
+                                    component: 'ojTree',
+                                    selectionMode: 'multiple',
+                                    data:{data: getJson},
+                                    initExpanded: 'all',
+                                    icons: false,
+                                    optionChange: clickHandler,
+                                    types: getTypes(),
+                                    loaded: loadHandler
+                                }">
+            </div>
+        </div>
+        <div id="pide-indicators-main-container" class="full-height oj-flex">
+                <div class="oj-flex-item oj-sm-flex-initial">
+                    <button class="button-color full-height no-padding oj-button" 
+                            data-bind="click: toggleDrawer">
+                        <i class="fa" data-bind="css: arrowClass"></i>
+                    </button>
+            </div>
+            <div id="pide-indicators-graphics-panel" class="oj-flex-item section-padding">
+                <div class="full-width oj-flex oj-sm-flex-items-initial oj-sm-justify-content-space-between">
+                    <i class="fa fa-2x fa-plus oj-flex-item oj-sm-align-self-center pointer"></i>
+                    <div class="oj-flex-item">
+                        <div class="oj-flex">
+                            <div class="oj-flex-item">
+                                <div class="oj-flex oj-flex-items-pad">
+                                    <div class="oj-flex-item oj-sm-align-self-center">
+                                        <label for="from">Desde</label>
+                                    </div>
+                                    <div class="oj-flex-item">
+                                        <input id="from"
+                                                data-bind=" ojComponent: {
+                                                                component: 'ojInputDate', 
+                                                                datePicker: {
+                                                                    footerLayout: '', 
+                                                                    showOn: 'focus'
+                                                                }
+                                                          }"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="oj-flex-item">
+                                <div class="oj-flex oj-flex-items-pad">
+                                    <div class="oj-flex-item oj-sm-align-self-center">
+                                        <label for="to">Hasta</label>
+                                    </div>
+                                    <div class="oj-flex-item">
+                                        <input id="to" class="oj-flex-item" 
+                                                data-bind=" ojComponent: {
+                                                                component: 'ojInputDate', 
+                                                                datePicker: {
+                                                                    footerLayout: '', 
+                                                                    showOn: 'focus'
+                                                                }
+                                                          }"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <fieldset>
+                    <legend>
+                        Gráfica 1
+                    </legend>
+                    <div class="full-width oj-flex oj-sm-flex-items-initial oj-sm-justify-content-space-between">
+                        <div class="oj-flex-item">
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <div class="oj-flex oj-flex-items-pad">
+                                        <div class="oj-flex-item oj-sm-align-self-center">
+                                            <label for="from-graphic1">Desde</label>
+                                        </div>
+                                        <div class="oj-flex-item">
+                                            <input id="from-graphic1"
+                                                    data-bind=" ojComponent: {
+                                                                    component: 'ojInputDate', 
+                                                                    datePicker: {
+                                                                        footerLayout: '', 
+                                                                        showOn: 'focus'
+                                                                    }
+                                                              }"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <div class="oj-flex oj-flex-items-pad">
+                                        <div class="oj-flex-item oj-sm-align-self-center">
+                                            <label for="to-graphic1">Hasta</label>
+                                        </div>
+                                        <div class="oj-flex-item">
+                                            <input id="to-graphic1" class="oj-flex-item" 
+                                                    data-bind=" ojComponent: {
+                                                                    component: 'ojInputDate', 
+                                                                    datePicker: {
+                                                                        footerLayout: '', 
+                                                                        showOn: 'focus'
+                                                                    }
+                                                              }"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="oj-flex-item">
+                            <button id="menuButton"
+                                    data-bind=" ojComponent: {
+                                                    component: 'ojButton',
+                                                    menu: '#graphicMenu',
+                                                    icons: {
+                                                        start: 'fa fa-lg fa-gear'
+                                                    }
+                                                }">
+                            </button>
+                            <ul id="graphicMenu" style="display:none"
+                                    data-bind=" ojComponent: {
+                                                    component: 'ojMenu'
+                                                }">
+                                <li id="lineChart">
+                                  <a href="#"><span class="fa fa-lg fa-line-chart"></span></a>
+                                </li>
+                                <li id="barChart">
+                                  <a href="#"><span class="fa fa-lg fa-bar-chart"></span></a>
+                                </li>
+                                <li id="download">
+                                  <a href="#"><span class="fa fa-lg fa-download"></span></a>
+                                </li>
+                            </ul>
+                            <i class="fa fa-lg fa-pencil"></i>
+                            <i class="fa fa-lg fa-clone"></i>
+                            <i class="fa fa-lg fa-trash"></i>
+                        </div>
+                    </div>
+                    <div class="oj-flex oj-sm-justify-content-center">
+                        <div data-bind="ojComponent: {component: 'ojCheckboxset'}" 
+                                aria-labelledby="mainlabelid" class='oj-choice-direction-row'>
+                            <span class="oj-choice-item">
+                               <input id="progress" type="checkbox" value="progress">
+                               <label for="progress">Avances</label>
+                            </span>
+                            <span class="oj-choice-item">
+                                <input id="goals" type="checkbox" value="goals">
+                                <label for="goals">Metas</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div id="graphic1" class="full-height full-width"
+                            data-bind="ojComponent: {
+                                component: 'ojChart', 
+                                type: 'line',
+                                series: lineSeriesValue, 
+                                groups: lineGroupsValue, 
+                                animationOnDisplay: 'auto',
+                                animationOnDataChange: 'auto',
+                                hoverBehavior: 'dim',
+                                hideAndShowBehavior: 'withoutRescale',
+                                legend: {
+                                    position: 'left'
+                                }
+                            }">
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
