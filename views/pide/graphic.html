@@ -1,0 +1,103 @@
+<fieldset>
+    <legend class="left-align" data-bind="text: graphicName"></legend>
+    <div class="full-width oj-flex oj-sm-flex-items-initial oj-sm-justify-content-space-between">
+        <div class="oj-flex-item">
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                    <div class="oj-flex oj-flex-items-pad">
+                        <div class="oj-flex-item oj-sm-align-self-center">
+                            <label data-bind="attr: {for: 'from-' + graphicId}">Desde</label>
+                        </div>
+                        <div class="oj-flex-item">
+                            <input data-bind="  attr:{id: 'from-' + graphicId},
+                                                ojComponent: {
+                                                    component: 'ojInputDate', 
+                                                    datePicker: {
+                                                        footerLayout: '', 
+                                                        showOn: 'focus'
+                                                    }
+                                                }"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="oj-flex-item">
+                    <div class="oj-flex oj-flex-items-pad">
+                        <div class="oj-flex-item oj-sm-align-self-center">
+                            <label data-bind="attr: {for: 'to-' + graphicId}">Hasta</label>
+                        </div>
+                        <div class="oj-flex-item">
+                            <input class="oj-flex-item" 
+                                   data-bind="  attr:{id: 'to' + graphicId},
+                                                ojComponent: {
+                                                    component: 'ojInputDate', 
+                                                    datePicker: {
+                                                        footerLayout: '', 
+                                                        showOn: 'focus'
+                                                    }
+                                                }"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="oj-flex-item">
+            <button data-bind=" attr:{id: 'menu-button-' + graphicId},
+                                ojComponent: {
+                                    component: 'ojButton',
+                                    menu: '#' + graphicMenuId,
+                                    icons: {
+                                        start: 'fa fa-lg fa-gear'
+                                    }
+                                }">
+            </button>
+            <ul style="display:none"
+                data-bind=" attr:{id: graphicMenuId},
+                            ojComponent: {
+                                component: 'ojMenu',
+                                select: selectHandler
+                            }">
+                <li id="lineChart">
+                    <a href="#"><span class="fa fa-lg fa-line-chart"></span></a>
+                </li>
+                <li id="barChart">
+                    <a href="#"><span class="fa fa-lg fa-bar-chart"></span></a>
+                </li>
+                <li id="download">
+                    <a href="#"><span class="fa fa-lg fa-download"></span></a>
+                </li>
+            </ul>
+            <i class="fa fa-lg fa-pencil pointer"></i>
+            <i class="fa fa-lg fa-clone pointer"></i>
+            <i class="fa fa-lg fa-trash pointer" data-bind="click: trashHandler"></i>
+        </div>
+    </div>
+    <div class="oj-flex oj-sm-justify-content-center">
+        <div data-bind="ojComponent: {component: 'ojCheckboxset'}" 
+             aria-labelledby="mainlabelid" class='oj-choice-direction-row'>
+            <span class="oj-choice-item">
+                <input data-bind="attr:{id: 'progress-' + graphicId}" type="checkbox" value="progress">
+                <label data-bind="attr:{for: 'progress-' + graphicId}">Avances</label>
+            </span>
+            <span class="oj-choice-item">
+                <input data-bind="attr:{id: 'goals-' + graphicId}" type="checkbox" value="goals">
+                <label data-bind="attr:{for: 'goals-' + graphicId}">Metas</label>
+            </span>
+        </div>
+    </div>
+    <div class="full-height full-width"
+         data-bind="attr: {id: graphicId},
+                    ojComponent: {
+                        component: 'ojChart', 
+                        type: chartType,
+                        series: lineSeriesValue, 
+                        groups: lineGroupsValue, 
+                        animationOnDisplay: 'auto',
+                        animationOnDataChange: 'auto',
+                        hoverBehavior: 'dim',
+                        hideAndShowBehavior: 'withoutRescale',
+                        legend: {
+                            position: 'left'
+                        }
+                    }">
+    </div>
+</fieldset>
