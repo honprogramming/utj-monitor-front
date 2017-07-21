@@ -18,18 +18,21 @@
                                         style:'max-width: 100%'
                                     }
                                 }"/>
-                    <div id="tree" class="full-width tree-panel"
+                    <div id="tree" class="tree-panel"
                          data-bind=" ojComponent: {
-                                    component: 'ojTree',
-                                    selection: selectedNodes,        
-                                    selectionMode: 'single',
-                                    data:{data: getJson},
-                                    initExpanded: 'all',
-                                    icons: false,
-                                    optionChange: clickHandler,
-                                    types: getTypes(),
-                                    loaded: loadHandler
-                                }">
+                                        component: 'ojTree',
+                                        selection: selectedNodes,        
+                                        selectionMode: 'single',
+                                        data:{data: getJson},
+                                        initExpanded: 'all',
+                                        icons: false,
+                                        optionChange: clickHandler,
+                                        types: getTypes(),
+                                        loaded: loadHandler,
+                                        rootAttributes: {
+                                            style: 'width: 100%;'
+                                        }
+                                    }">
                     </div>
                 </div>
                 <div id="pide-indicators-spliter"

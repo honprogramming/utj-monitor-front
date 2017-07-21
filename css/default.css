@@ -157,8 +157,18 @@ footer {
     border:1px #b0b0b0 solid; 
 }
 
+.oj-tree-node {
+    text-indent: -2em;
+    padding-left: 2em;
+}
+
 .oj-tree-title {
     color: black;
+}
+
+.oj-tree-list a {
+    white-space: initial;
+    display: initial;
 }
 
 .graphic {
