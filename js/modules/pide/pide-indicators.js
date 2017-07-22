@@ -22,7 +22,10 @@ define(
                 var arrowClassStart = "fa-chevron-";
                 var left = "left";
                 var right = "right";
-
+                var selectedNodeIds = [];
+                var model = [];
+                var modelTree = {};
+                
                 self.arrowClass = ko.observable(arrowClassStart + left);
                 self.displayPanel = ko.observable(true);
                 self.selectedNodes = ko.observableArray();
@@ -59,7 +62,9 @@ define(
                                     index: self.graphics().length + 1,
                                     removal: function (index) {
                                         self.graphics.splice(findGraphicIndex(index), 1);
-                                    }
+                                    },
+                                    model: modelTree,
+                                    ids: selectedNodeIds
                                 }
                             }
                     );
@@ -80,14 +85,19 @@ define(
                                 type += "-selected";
                             }
 
-                            //  Add new node before initial node
-//                            $("#tree").ojTree("setType", node, type);
                             node.type = type;
                             
                             var targetClass = " fa-";
 
                             if (node.type.includes("selected")) {
                                 targetClass += "check-";
+                                selectedNodeIds.push(node.id);
+                            } else {
+                                var nodeIndex = selectedNodeIds.indexOf(node.id);
+                                
+                                if (nodeIndex >= 0) {
+                                    selectedNodeIds.splice(nodeIndex, 1);
+                                }
                             }
 
                             targetClass += "square-o";
@@ -96,8 +106,6 @@ define(
 
                             if (node.className.match(regExp)) {
                                 node.className = node.className.replace(regExp, targetClass);
-                            } else {
-                                node.className += targetClass;
                             }
                         }
                     }
@@ -124,13 +132,21 @@ define(
                         nodesArray.push(node);
                     }
                 };
-                var jo = [];
-
+                
                 self.getJson = function (node, fn) {
                     $.getJSON("data/pide-indicators.json").then(
                             function (data) {
-                                jo = data;
-                                fn(jo);  // pass to ojTree using supplied function
+                                model = data;
+                                fn(model);  // pass to ojTree using supplied function
+                                
+                                var itemsArray = model;
+                                
+                                while(itemsArray.length > 0) {
+                                    var element = itemsArray.shift();
+                                    itemsArray = itemsArray.concat(element.children);
+
+                                    modelTree[element.attr.id] = element;
+                                }
                             }
                     );
                 };
@@ -144,14 +160,12 @@ define(
                                 }
                             },
                             "indicator-selected": {
-                                "image": "fa fa-lg fa-square-o",
                                 "position": "left",
                                 "select": function () {
                                     return true;
                                 }
                             },
                             "indicator": {
-                                "image": "fa fa-lg fa-check-square-o",
                                 "position": "left",
                                 "select": function () {
                                     return true;

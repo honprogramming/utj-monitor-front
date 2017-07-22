@@ -14,6 +14,8 @@ define(
             function GraphicViewModel(params) {
                 var self = this;
                 var removalFunction = params.removal;
+                var model = params.model;
+                var ids = params.ids;
                 
                 self.graphicId = params.idPrefix + params.index.toString();
                 self.graphicMenuId = "graphic-menu-" + params.index.toString();
@@ -34,13 +36,34 @@ define(
                     removalFunction(params.index);
                 };
                 
-                var lineSeries = [
-                    {name: "Indicador 1.1", items: [74, 32, 40, 76]},
-                    {name: "Indicador 1.2", items: [50, 78, 26, 54]},
-                    {name: "Indicador 1.3", items: [34, 22, 70, 32]},
-                    {name: "Indicador 2.1", items: [18, 6, 64, 22]},
-                    {name: "Indicador 3.2", items: [33, 21, 63, 13]}
-                ];
+                var lineSeries = [];
+                
+                ids.forEach(
+                    function(element) {
+                        var item = model[element];
+                        
+                        var graphicElement = {
+                            name: item.title,
+                            items: []
+                        };
+                        
+                        var highestAllowed = item["values-range"].highest;
+                        var lowestAllowed = item["values-range"].lowest;
+                        
+                        for (var i = 1; i <= 4; i ++) {
+                            var value =  Math.random() * (highestAllowed - lowestAllowed) + lowestAllowed;
+                            
+                            graphicElement.items.push(value);
+                        }
+                        
+                        lineSeries.push(graphicElement);
+                    }
+                );
+//                    {name: "Indicador 1.1", items: [74, 32, 40, 76]},
+//                    {name: "Indicador 1.2", items: [50, 78, 26, 54]},
+//                    {name: "Indicador 1.3", items: [34, 22, 70, 32]},
+//                    {name: "Indicador 2.1", items: [18, 6, 64, 22]},
+//                    {name: "Indicador 3.2", items: [33, 21, 63, 13]}
 
                 var lineGroups = ["2014", "2015", "2016", "2017"];
 
