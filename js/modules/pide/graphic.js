@@ -13,6 +13,7 @@ define(
         function ($, oj, ko, GeneralViewModel) {
             function GraphicViewModel(params) {
                 var self = this;
+                var series = [];
                 var removalFunction = params.removal;
                 var model = params.model;
                 var ids = params.ids;
@@ -21,8 +22,9 @@ define(
                 self.graphicMenuId = "graphic-menu-" + params.index.toString();
                 self.graphicName = ko.observable("Grafica " + params.index);
                 self.chartType = ko.observable("line");
-                
-                self.selectHandler = function(event, ui) {
+                self.graphicOptions = ko.observableArray(["progress", "goals"]);
+                        
+                self.graphicTypeSelectHandler = function(event, ui) {
                     var id = ui.item[0].id;
                     
                     if (id.includes("bar")) {
@@ -32,43 +34,75 @@ define(
                     }
                 };
                 
-                self.trashHandler = function() {
+                self.trashClickHandler = function() {
                     removalFunction(params.index);
                 };
                 
-                var lineSeries = [];
+                self.graphicOptionsHandler = function(event, ui) {
+                    var options = ui.value;
+                    var optionsLength = options.length;
+                    var newSeries = [];
+                    
+                    switch(optionsLength) {
+                        case 1:
+                            newSeries = 
+                                    series.filter(
+                                        options.includes("progress") ?
+                                        filterProgress : filterGoals
+                                    );
+                            break;
+                        case 2:
+                            newSeries = series;
+                            break;
+                    }
+                    
+                    self.seriesValues(newSeries);
+                    
+                    function filterProgress(element) {
+                        return !element.displayInLegend;
+                    }
+                    
+                    function filterGoals(element) {
+                        return element.displayInLegend;
+                    }
+                };
                 
                 ids.forEach(
                     function(element) {
                         var item = model[element];
                         
-                        var graphicElement = {
+                        var progressElement = {
                             name: item.title,
                             items: []
+                        };
+                        
+                        var goalElement = {
+                            name: item.title,
+                            items: [],
+                            displayInLegend: "off",
+                            lineStyle: "dashed"
                         };
                         
                         var highestAllowed = item["values-range"].highest;
                         var lowestAllowed = item["values-range"].lowest;
                         
                         for (var i = 1; i <= 4; i ++) {
-                            var value =  Math.random() * (highestAllowed - lowestAllowed) + lowestAllowed;
+                            var progress =  Math.random() * (highestAllowed - lowestAllowed) + lowestAllowed;
+                            var goal =  Math.random() * (highestAllowed - lowestAllowed) + lowestAllowed;
                             
-                            graphicElement.items.push(value);
+                            progressElement.items.push(progress);
+                            goalElement.items.push(goal);
                         }
                         
-                        lineSeries.push(graphicElement);
+                        series.push(progressElement);
+                        series.push(goalElement);
                     }
                 );
-//                    {name: "Indicador 1.1", items: [74, 32, 40, 76]},
-//                    {name: "Indicador 1.2", items: [50, 78, 26, 54]},
-//                    {name: "Indicador 1.3", items: [34, 22, 70, 32]},
-//                    {name: "Indicador 2.1", items: [18, 6, 64, 22]},
-//                    {name: "Indicador 3.2", items: [33, 21, 63, 13]}
 
-                var lineGroups = ["2014", "2015", "2016", "2017"];
+                var groups = ["2014", "2015", "2016", "2017"];
 
-                self.lineSeriesValue = ko.observableArray(lineSeries);
-                self.lineGroupsValue = ko.observableArray(lineGroups);
+                self.seriesValues = ko.observableArray(series);
+                self.groupsValues = ko.observableArray(groups);
             }
 
             return GraphicViewModel;

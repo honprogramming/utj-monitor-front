@@ -54,7 +54,7 @@
                 data-bind=" attr:{id: graphicMenuId},
                             ojComponent: {
                                 component: 'ojMenu',
-                                select: selectHandler
+                                select: graphicTypeSelectHandler
                             }">
                 <li id="lineChart">
                     <a href="#"><span class="fa fa-lg fa-line-chart"></span></a>
@@ -68,18 +68,24 @@
             </ul>
             <i class="fa fa-lg fa-pencil pointer"></i>
             <i class="fa fa-lg fa-clone pointer"></i>
-            <i class="fa fa-lg fa-trash pointer" data-bind="click: trashHandler"></i>
+            <i class="fa fa-lg fa-trash pointer" data-bind="click: trashClickHandler"></i>
         </div>
     </div>
     <div class="oj-flex oj-sm-justify-content-center">
-        <div data-bind="ojComponent: {component: 'ojCheckboxset'}" 
+        <div data-bind="ojComponent: {
+                            component: 'ojCheckboxset',
+                            value: graphicOptions,
+                            optionChange: graphicOptionsHandler
+                        }" 
              aria-labelledby="mainlabelid" class='oj-choice-direction-row'>
             <span class="oj-choice-item">
-                <input data-bind="attr:{id: 'progress-' + graphicId}" type="checkbox" value="progress">
+                <input type="checkbox" value="progress"
+                        data-bind=" attr:{id: 'progress-' + graphicId}">
                 <label data-bind="attr:{for: 'progress-' + graphicId}">Avances</label>
             </span>
             <span class="oj-choice-item">
-                <input data-bind="attr:{id: 'goals-' + graphicId}" type="checkbox" value="goals">
+                <input type="checkbox" value="goals"
+                        data-bind=" attr:{id: 'goals-' + graphicId}">
                 <label data-bind="attr:{for: 'goals-' + graphicId}">Metas</label>
             </span>
         </div>
@@ -89,8 +95,8 @@
                     ojComponent: {
                         component: 'ojChart', 
                         type: chartType,
-                        series: lineSeriesValue, 
-                        groups: lineGroupsValue, 
+                        series: seriesValues, 
+                        groups: groupsValues, 
                         animationOnDisplay: 'auto',
                         animationOnDataChange: 'auto',
                         hoverBehavior: 'dim',
