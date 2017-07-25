@@ -17,6 +17,11 @@ define(
                 var removalFunction = params.removal;
                 var model = params.model;
                 var ids = params.ids;
+                var graphicType = {
+                    BAR: "bar",
+                    LINE: "line",
+                    COMBO: "combo"
+                };
                 
                 self.graphicId = params.idPrefix + params.index.toString();
                 self.graphicMenuId = "graphic-menu-" + params.index.toString();
@@ -26,12 +31,27 @@ define(
                         
                 self.graphicTypeSelectHandler = function(event, ui) {
                     var id = ui.item[0].id;
+                    var currentType;
                     
-                    if (id.includes("bar")) {
-                        self.chartType("bar");
-                    } else if (id.includes("line")) {
-                        self.chartType("line");
+                    if (id.includes(graphicType.BAR)) {
+                        self.chartType(graphicType.COMBO);
+                        currentType = graphicType.BAR;
+                    } else if (id.includes(graphicType.LINE)) {
+                        self.chartType(graphicType.LINE);
+                        currentType = graphicType.LINE;
                     }
+                    
+                    var series = self.seriesValues();
+                    
+                    var progressSeries = series.filter(filterProgress);
+                    
+                    progressSeries.forEach(
+                            function(element) {
+                                element.type = currentType;
+                            }
+                    );
+            
+                    $("#" + self.graphicId).ojChart("refresh");
                 };
                 
                 self.trashClickHandler = function() {
@@ -57,14 +77,6 @@ define(
                     }
                     
                     self.seriesValues(newSeries);
-                    
-                    function filterProgress(element) {
-                        return !element.displayInLegend;
-                    }
-                    
-                    function filterGoals(element) {
-                        return element.displayInLegend;
-                    }
                 };
                 
                 ids.forEach(
@@ -73,13 +85,15 @@ define(
                         
                         var progressElement = {
                             name: item.title,
-                            items: []
+                            items: [],
+                            type: graphicType.LINE
                         };
                         
                         var goalElement = {
                             name: item.title,
                             items: [],
                             displayInLegend: "off",
+                            type: graphicType.LINE,
                             lineStyle: "dashed"
                         };
                         
@@ -104,7 +118,15 @@ define(
                 self.seriesValues = ko.observableArray(series);
                 self.groupsValues = ko.observableArray(groups);
             }
-
+            
+            function filterProgress(element) {
+                return !element.displayInLegend;
+            }
+            
+            function filterGoals(element) {
+                return element.displayInLegend;
+            }
+                    
             return GraphicViewModel;
         }
 );

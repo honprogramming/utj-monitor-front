@@ -22,7 +22,7 @@ define(
                 var arrowClassStart = "fa-chevron-";
                 var left = "left";
                 var right = "right";
-                var selectedNodeIds = [];
+                var selectedNodes = {};
                 var model = [];
                 var modelTree = {};
                 
@@ -64,7 +64,7 @@ define(
                                         self.graphics.splice(findGraphicIndex(index), 1);
                                     },
                                     model: modelTree,
-                                    ids: selectedNodeIds
+                                    ids: Object.keys(selectedNodes)
                                 }
                             }
                     );
@@ -91,13 +91,12 @@ define(
 
                             if (node.type.includes("selected")) {
                                 targetClass += "check-";
-                                selectedNodeIds.push(node.id);
-                            } else {
-                                var nodeIndex = selectedNodeIds.indexOf(node.id);
-                                
-                                if (nodeIndex >= 0) {
-                                    selectedNodeIds.splice(nodeIndex, 1);
-                                }
+                                selectedNodes[node.id] = {
+                                    id: node.id,
+                                    "unit-type": node["unit-type"]
+                                };
+                            } else {                                
+                                delete selectedNodes[node.id];
                             }
 
                             targetClass += "square-o";
