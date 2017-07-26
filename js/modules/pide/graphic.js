@@ -1,4 +1,4 @@
-define(
+    define(
         [
             'jquery',
             'ojs/ojcore',
@@ -79,14 +79,22 @@ define(
                     self.seriesValues(newSeries);
                 };
                 
+                var yaxes = [];
+                
                 ids.forEach(
                     function(element) {
                         var item = model[element];
+                        var unitType = item["unit-type"];
+                        
+                        if (yaxes.indexOf(unitType) < 0) {
+                            yaxes.push(unitType);
+                        }
                         
                         var progressElement = {
                             name: item.title,
                             items: [],
-                            type: graphicType.LINE
+                            type: graphicType.LINE,
+                            assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                         };
                         
                         var goalElement = {
@@ -94,7 +102,8 @@ define(
                             items: [],
                             displayInLegend: "off",
                             type: graphicType.LINE,
-                            lineStyle: "dashed"
+                            lineStyle: "dashed",
+                            assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                         };
                         
                         var highestAllowed = item["values-range"].highest;

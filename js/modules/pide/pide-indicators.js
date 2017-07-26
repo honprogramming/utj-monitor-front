@@ -14,7 +14,8 @@ define(
             'ojs/ojcheckboxset',
             'ojs/ojchart',
             'ojs/ojmodule',
-            'ojs/ojmoduleanimations'
+            'ojs/ojmoduleanimations',
+            'ojs/ojpopup'
         ],
         function ($, oj, ko, GeneralViewModel) {
             function PIDEIndicatorsViewModel() {
@@ -25,7 +26,7 @@ define(
                 var selectedNodes = {};
                 var model = [];
                 var modelTree = {};
-                
+
                 self.arrowClass = ko.observable(arrowClassStart + left);
                 self.displayPanel = ko.observable(true);
                 self.selectedNodes = ko.observableArray();
@@ -38,20 +39,6 @@ define(
 
                 self.graphics = ko.observableArray();
 
-                function findGraphicIndex(target) {
-                    var value = -1;
-                    self.graphics().forEach(
-                            function (element, index) {
-                                if (element.params.index === target) {
-                                    value = index;
-                                    return;
-                                }
-                            }
-                    );
-
-                    return value;
-                }
-
                 self.addGraphicHandler = function () {
                     self.graphics.push(
                             {
@@ -61,7 +48,12 @@ define(
                                     idPrefix: "pide-graphic-",
                                     index: self.graphics().length + 1,
                                     removal: function (index) {
-                                        self.graphics.splice(findGraphicIndex(index), 1);
+                                        self.graphics.splice(
+                                                findGraphicIndex(
+                                                    self.graphics(),
+                                                    index
+                                                ), 1
+                                        );
                                     },
                                     model: modelTree,
                                     ids: Object.keys(selectedNodes)
@@ -78,6 +70,7 @@ define(
 
                         if (node && node.type) {
                             self.selectedNodes([]);
+                            var isValidOperation = true;
                             var isSelected = node.type.includes("selected");
                             var type = "indicator";
 
@@ -86,25 +79,43 @@ define(
                             }
 
                             node.type = type;
-                            
+
                             var targetClass = " fa-";
 
-                            if (node.type.includes("selected")) {
+                            if (!isSelected) {
                                 targetClass += "check-";
-                                selectedNodes[node.id] = {
-                                    id: node.id,
-                                    "unit-type": node["unit-type"]
-                                };
-                            } else {                                
+
+                                isValidOperation = validateUnitTypes(
+                                        modelTree,
+                                        Object.keys(selectedNodes),
+                                        node.id
+                                );
+                                
+                                if (isValidOperation) {
+                                    selectedNodes[node.id] = {
+                                        id: node.id,
+                                        "unit-type": node["unit-type"]
+                                    };
+                                } else {
+                                    var rect = document.getElementById(node.id).getBoundingClientRect();
+                                    var position = {of:{x:rect.left + window.pageXOffset, y:rect.top + window.pageYOffset}};
+
+                                    $("#unit-type-error-pop-up").ojPopup("open", "#" + node.id, position);
+                                    console.log("No puedes seleccionar mas de 2 unidades de medida diferente");
+                                    //open pop-up
+                                }
+                            } else {
                                 delete selectedNodes[node.id];
                             }
+                            
+                            if (isValidOperation) {
+                                targetClass += "square-o";
 
-                            targetClass += "square-o";
+                                var regExp = /fa-\S*square-o/;
 
-                            var regExp = /fa-\S*square-o/;
-
-                            if (node.className.match(regExp)) {
-                                node.className = node.className.replace(regExp, targetClass);
+                                if (node.className.match(regExp)) {
+                                    node.className = node.className.replace(regExp, targetClass);
+                                }
                             }
                         }
                     }
@@ -131,16 +142,16 @@ define(
                         nodesArray.push(node);
                     }
                 };
-                
+
                 self.getJson = function (node, fn) {
                     $.getJSON("data/pide-indicators.json").then(
                             function (data) {
                                 model = data;
                                 fn(model);  // pass to ojTree using supplied function
-                                
+
                                 var itemsArray = model;
-                                
-                                while(itemsArray.length > 0) {
+
+                                while (itemsArray.length > 0) {
                                     var element = itemsArray.shift();
                                     itemsArray = itemsArray.concat(element.children);
 
@@ -175,6 +186,43 @@ define(
                 };
             }
 
+            function findGraphicIndex(graphics, target) {
+                var value = -1;
+                graphics.forEach(
+                        function (element, index) {
+                            if (element.params.index === target) {
+                                value = index;
+                                return;
+                            }
+                        }
+                );
+
+                return value;
+            }
+
+            function validateUnitTypes(modelTree, selectedIds, newId) {
+                var unitTypes = [];
+                
+                selectedIds.forEach(
+                        function(element) {
+                            var modelElement = modelTree[element];
+                            var unitType = modelElement["unit-type"];
+                            
+                            if (unitTypes.indexOf(unitType) < 0) {
+                                unitTypes.push(unitType);
+                            }
+                        }
+                );
+        
+                if (unitTypes.length < 2) {
+                    return true;
+                } else {
+                    var newUnitType = modelTree[newId]["unit-type"];
+                    
+                    return unitTypes.indexOf(newUnitType) >= 0;
+                }
+            }
+            
             return PIDEIndicatorsViewModel;
         }
 );

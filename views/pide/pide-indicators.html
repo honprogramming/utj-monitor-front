@@ -11,6 +11,15 @@
                         class="full-height oj-flex-item oj-sm-11 scrolly"
                         data-bind="style: {display: displayPanel() ? 'inline' : 'none'}">
                     <label for="filterSearch">Selección de Indicadores</label>
+                    <div style="display:none" id="unit-type-error-pop-up"
+                            data-bind="ojComponent:{component: 'ojPopup'}">
+                        <div>
+                            <div class="error-title">!Error!</div>
+                            <div class="error-message"> 
+                                No puedes seleccionar indicadores con 3 o más unidades de medida diferentes
+                            </div>
+                        </div>
+                    </div>
                     <input id="inputSearch" placeholder="Buscar..."
                            data-bind="  ojComponent: {
                                     component: 'ojInputSearch',

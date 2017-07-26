@@ -174,3 +174,15 @@ footer {
 .graphic {
     margin: 5px;
 }
+
+.error-message {
+    color: black;
+    font-weight: bold;
+}
+
+.error-title {
+    text-align: center;
+    font-weight: bold;
+    margin: 0px;
+    color: red;
+}
