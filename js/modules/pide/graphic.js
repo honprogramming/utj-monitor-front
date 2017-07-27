@@ -94,6 +94,8 @@
                             name: item.title,
                             items: [],
                             type: graphicType.LINE,
+                            markerShape: "square",
+                            markerDisplayed: "on",
                             assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                         };
                         
@@ -102,7 +104,8 @@
                             items: [],
                             displayInLegend: "off",
                             type: graphicType.LINE,
-                            lineStyle: "dashed",
+                            lineStyle: "dotted",
+                            markerDisplayed: "on",
                             assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                         };
                         
@@ -121,7 +124,14 @@
                         series.push(goalElement);
                     }
                 );
-
+                
+                self.yAxis = ko.observable({title: GeneralViewModel.nls("graphics.unit-types." + yaxes[0])});
+                self.y2Axis = ko.observable();
+                
+                if (yaxes[1]) {
+                    self.y2Axis({title: GeneralViewModel.nls("graphics.unit-types." + yaxes[1])});
+                }
+                
                 var groups = ["2014", "2015", "2016", "2017"];
 
                 self.seriesValues = ko.observableArray(series);

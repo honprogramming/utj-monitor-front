@@ -3,48 +3,54 @@
         TABLERO DE INDICADORES
     </div>
     <hr/>
-    <div class="full-height oj-flex oj-flex-items-pad">
-        <div class="full-height oj-flex-item" 
-                data-bind="css: {'oj-sm-3': displayPanel(), 'oj-sm-0': !displayPanel()}">
-            <div class="full-height oj-flex oj-flex-items-pad">
-                <div id="pide-indicators-selection-panel"
-                        class="full-height oj-flex-item oj-sm-11 scrolly"
-                        data-bind="style: {display: displayPanel() ? 'inline' : 'none'}">
-                    <label for="filterSearch">Selección de Indicadores</label>
-                    <div style="display:none" id="unit-type-error-pop-up"
+    <div class="full-height" data-bind="css: {'oj-flex':displayPanel(), 'oj-flex-bar': !displayPanel()}">
+        <div class="full-height " 
+                data-bind="css: {'oj-flex-item oj-sm-3': displayPanel(), 'oj-flex-bar-start': !displayPanel()}">
+            <div class="full-height oj-flex-bar oj-flex-items-pad">
+                <div style="display:none" id="unit-type-error-pop-up"
                             data-bind="ojComponent:{component: 'ojPopup'}">
-                        <div>
-                            <div class="error-title">!Error!</div>
-                            <div class="error-message"> 
-                                No puedes seleccionar indicadores con 3 o más unidades de medida diferentes
+                    <div>
+                        <div class="error-title">!Error!</div>
+                        <div class="error-message"> 
+                            No puedes seleccionar indicadores con 3 o más unidades de medida diferentes
+                        </div>
+                    </div>
+                </div>
+                <div class="full-height oj-flex-bar-middle oj-flex-items-pad"
+                        data-bind="css: {'oj-sm-hide': !displayPanel()}">
+                    <div class="full-height oj-flex oj-flex-items-pad">
+                        <div id="filter-container" class="oj-flex-item oj-flex-items-pad">
+                            <label for="filterSearch" class="oj-flex-item">Selección de Indicadores</label>
+                            <input id="filterSearch" class="oj-flex-item" placeholder="Buscar..."
+                                    data-bind=" ojComponent: {
+                                                    component: 'ojInputSearch',
+                                                    rootAttributes: {
+                                                        style: 'max-width: 100%;'
+                                                    }
+                                                }"/>
+                        </div>
+                        <div id="pide-indicators-selection-panel"
+                                class="full-height oj-flex-item scrolly">
+                            <div id="tree" class="tree-panel"
+                                 data-bind="ojComponent: {
+                                                component: 'ojTree',
+                                                selection: selectedNodes,        
+                                                selectionMode: 'single',
+                                                data:{data: getJson},
+                                                initExpanded: 'all',
+                                                icons: false,
+                                                optionChange: clickHandler,
+                                                loaded: loadHandler,
+                                                rootAttributes: {
+                                                    style: 'width: 100%; margin-bottom: 30%'
+                                                }
+                                            }">
                             </div>
                         </div>
                     </div>
-                    <input id="inputSearch" placeholder="Buscar..."
-                           data-bind="  ojComponent: {
-                                    component: 'ojInputSearch',
-                                    rootAttributes: {
-                                        style:'max-width: 100%'
-                                    }
-                                }"/>
-                    <div id="tree" class="tree-panel"
-                         data-bind=" ojComponent: {
-                                        component: 'ojTree',
-                                        selection: selectedNodes,        
-                                        selectionMode: 'single',
-                                        data:{data: getJson},
-                                        initExpanded: 'all',
-                                        icons: false,
-                                        optionChange: clickHandler,
-                                        loaded: loadHandler,
-                                        rootAttributes: {
-                                            style: 'width: 100%;'
-                                        }
-                                    }">
-                    </div>
                 </div>
                 <div id="pide-indicators-spliter"
-                        class="full-height oj-sm-justify-content-flex-end oj-flex-item">
+                        class="full-height">
                     <div class="oj-flex oj-sm-flex-items-initial full-height">
                         <button class="button-color full-height no-padding oj-button" 
                                 data-bind="click: toggleDrawer">
@@ -54,68 +60,73 @@
                 </div>
             </div>
         </div>
-        <div id="pide-indicators-graphics-panel" class="full-height oj-flex-item"
-                data-bind="css:{'oj-sm-11': !displayPanel(), 'oj-sm-9': displayPanel()}">
-            <div class="oj-flex oj-sm-justify-content-space-between">
-                <i class="fa fa-2x fa-plus oj-flex-item oj-sm-align-self-center pointer"
-                   data-bind="click: addGraphicHandler">
-                </i>
-                <div class="oj-flex-item">
-                    <div class="oj-flex">
+        <div id="pide-indicators-graphics-panel" class="full-height"
+                data-bind="css:{'oj-flex-bar-middle': !displayPanel(), 'oj-flex-item oj-sm-9': displayPanel()}">
+            <div class="full-height oj-flex oj-sm-12">
+                <div class="oj-flex-item oj-flex-items-pad oj-sm-12">
+                    <div class="oj-flex oj-sm-justify-content-space-between">
+                        <i class="fa fa-2x fa-plus oj-flex-item oj-sm-align-self-center pointer"
+                           data-bind="click: addGraphicHandler">
+                        </i>
                         <div class="oj-flex-item">
-                            <div class="oj-flex oj-flex-items-pad">
-                                <div class="oj-flex-item oj-sm-align-self-center">
-                                    <label for="from">Desde</label>
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <div class="oj-flex oj-flex-items-pad">
+                                        <div class="oj-flex-item oj-sm-align-self-center">
+                                            <label for="from">Desde</label>
+                                        </div>
+                                        <div class="oj-flex-item">
+                                            <input id="from"
+                                                   data-bind="  ojComponent: {
+                                                                    component: 'ojInputDate', 
+                                                                    datePicker: {
+                                                                        footerLayout: '', 
+                                                                        showOn: 'focus'
+                                                                    }
+                                                                }"/>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="oj-flex-item">
-                                    <input id="from"
-                                           data-bind=" ojComponent: {
-                                                                component: 'ojInputDate', 
-                                                                datePicker: {
-                                                                    footerLayout: '', 
-                                                                    showOn: 'focus'
-                                                                }
-                                                          }"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="oj-flex-item">
-                            <div class="oj-flex oj-flex-items-pad">
-                                <div class="oj-flex-item oj-sm-align-self-center">
-                                    <label for="to">Hasta</label>
-                                </div>
-                                <div class="oj-flex-item">
-                                    <input id="to" class="oj-flex-item" 
-                                           data-bind=" ojComponent: {
-                                                                component: 'ojInputDate', 
-                                                                datePicker: {
-                                                                    footerLayout: '', 
-                                                                    showOn: 'focus'
-                                                                }
-                                                          }"/>
+                                    <div class="oj-flex oj-flex-items-pad">
+                                        <div class="oj-flex-item oj-sm-align-self-center">
+                                            <label for="to">Hasta</label>
+                                        </div>
+                                        <div class="oj-flex-item">
+                                            <input id="to" class="oj-flex-item" 
+                                                   data-bind=" ojComponent: {
+                                                                        component: 'ojInputDate', 
+                                                                        datePicker: {
+                                                                            footerLayout: '', 
+                                                                            showOn: 'focus'
+                                                                        }
+                                                                  }"/>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="full-width full-height oj-flex scrolly">
-                <!-- ko foreach: graphics -->
-                <div class="oj-flex-item oj-sm-12 oj-lg-12 oj-panel graphic" style="height: 50%; max-height: 95%; min-height: 45%;">
-                    <div class="oj-panel-drag-handle" 
-                         data-bind="attr: {
-                                        
-                                        'aria-labelledby': $index
-                                    }" 
-                         title="Drag to reorder" 
-                         aria-label="Drag to reorder" 
-                         tabindex="0" 
-                         role="separator">
-                        <span class="oj-panel-drag-icon"></span>
+                <div class="full-height oj-flex-item oj-sm-12">
+                    <div class="full-height oj-flex scrolly" style="padding-bottom: 8%">
+                        <!-- ko foreach: graphics -->
+                        <div class="oj-flex-item oj-panel graphic">
+                            <div class="oj-panel-drag-handle" 
+                                 data-bind="attr: {
+                                                'aria-labelledby': $index
+                                            }" 
+                                 title="Drag to reorder" 
+                                 aria-label="Drag to reorder" 
+                                 tabindex="0" 
+                                 role="separator">
+                                <span class="oj-panel-drag-icon"></span>
+                            </div>
+                            <div data-bind="ojModule: $data" class="stretch"></div>
+                        </div>
+                        <!-- /ko -->
                     </div>
-                    <div data-bind="ojModule: $data" class="full-height"></div>
                 </div>
-                <!-- /ko -->
             </div>
         </div>
     </div>

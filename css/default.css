@@ -15,7 +15,7 @@ html, body {
 
 #globalBody {
     /*if any margin is modified then header and footer may be modified too*/
-    margin: 80px 0px 60px 0px;
+    margin: 80px 0px 0px 0px;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -154,7 +154,7 @@ footer {
 }
 
 .tree-panel {
-    border:1px #b0b0b0 solid; 
+    border:1px #b0b0b0 solid;
 }
 
 .oj-tree-node {
@@ -164,6 +164,7 @@ footer {
 
 .oj-tree-title {
     color: black;
+    font-family:  -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
 }
 
 .oj-tree-list a {
@@ -172,7 +173,7 @@ footer {
 }
 
 .graphic {
-    margin: 5px;
+    padding: 0px;
 }
 
 .error-message {
@@ -185,4 +186,12 @@ footer {
     font-weight: bold;
     margin: 0px;
     color: red;
+}
+
+.strech-items {
+    align-items: stretch;
+}
+
+.strech {
+    align-self: stretch;
 }

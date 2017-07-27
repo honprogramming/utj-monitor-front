@@ -195,6 +195,13 @@ define(
                     "combobox": {
                         "placeholder": "Selecciona una opción"
                     }
+                },
+                "graphics": {
+                    "unit-types": {
+                        "percentage": "Porcentaje %",
+                        "number": "Número #",
+                        "tasa": "Tasa %"
+                    }
                 }
             }
         }
