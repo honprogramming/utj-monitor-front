@@ -60,6 +60,8 @@ define(
                                 }
                             }
                     );
+            
+                    resetSelection(selectedNodes);
                 };
 
                 self.clickHandler = function (event, ui) {
@@ -120,7 +122,7 @@ define(
                         }
                     }
                 };
-
+                
                 self.loadHandler = function (event, ui) {
                     var tree = $("#tree");
                     var root = tree[0];
@@ -185,7 +187,25 @@ define(
                     };
                 };
             }
+            
+            function resetSelection(selectedNodes) {
+                var ids = Object.keys(selectedNodes);
+                
+                ids.forEach(
+                    function(id) {
+                        var node = document.getElementById(id);
+                        
+                        var regExp = /fa-check-square-o/;
 
+                        if (node.className.match(regExp)) {
+                            node.className = node.className.replace(regExp, "fa-square-o");
+                        }
+                        
+                        delete selectedNodes[id];
+                    }
+                );
+            }
+            
             function findGraphicIndex(graphics, target) {
                 var value = -1;
                 graphics.forEach(
