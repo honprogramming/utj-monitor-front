@@ -18,18 +18,31 @@ define(
             'ojs/ojpopup'
         ],
         function ($, oj, ko, GeneralViewModel) {
+            var theKey = {};
+            
             function PIDEIndicatorsViewModel() {
                 var self = this;
                 var arrowClassStart = "fa-chevron-";
                 var left = "left";
                 var right = "right";
-                var selectedNodes = {};
                 var model = [];
                 var modelTree = {};
-
+                var currentEditingGraphic;
+                
+                var privateData = {
+                    selectedNodes: {},
+                    selectedNodesBackup: undefined
+                };
+                
+                this.PIDEIndicatorsViewModel_ = function(key) {
+                    if(theKey === key) {
+                        return privateData;
+                    }
+                };
+                
                 self.arrowClass = ko.observable(arrowClassStart + left);
                 self.displayPanel = ko.observable(true);
-                self.selectedNodes = ko.observableArray();
+                self.nodes = ko.observableArray();
 
                 self.toggleDrawer = function () {
                     self.arrowClass(arrowClassStart +
@@ -54,14 +67,41 @@ define(
                                                     index
                                                 ), 1
                                         );
+                                
+                                        currentEditingGraphic = undefined;
                                     },
+                                    startEditing: function(currentGraphic) {
+                                        self.graphics().forEach(
+                                                function(element) {
+                                                    var graphic = element.params.graphic;
+                                                    currentEditingGraphic = graphic;
+                                                    
+                                                    if (graphic !== currentGraphic) {
+                                                        graphic.editing(false);
+                                                    }
+                                                }
+                                        );
+                                
+                                        self.setSelectedNodesBackup(theKey, self.getSelectedNodes(theKey));
+                                        self.resetSelection();
+                                        self.selectNodesById(currentGraphic.getIds());
+                                    },
+                                    stopEditing: function() {
+                                        self.resetSelection();
+                                        self.selectNodesById(Object.keys(self.getSelectedNodesBackup(theKey)));
+                                        currentEditingGraphic = undefined;
+                                    },
+                                    getGraphic: function (graphicReference) {
+                                        this.graphic = graphicReference;
+                                    },
+                                    graphic: undefined,
                                     model: modelTree,
-                                    ids: Object.keys(selectedNodes)
+                                    ids: Object.keys(self.getSelectedNodes(theKey))
                                 }
                             }
                     );
             
-                    resetSelection(selectedNodes);
+                    self.resetSelection();
                 };
 
                 self.clickHandler = function (event, ui) {
@@ -71,7 +111,7 @@ define(
                         var node = ui.value[0];
 
                         if (node && node.type) {
-                            self.selectedNodes([]);
+                            self.nodes([]);
                             var isValidOperation = true;
                             var isSelected = node.type.includes("selected");
                             var type = "indicator";
@@ -89,25 +129,32 @@ define(
 
                                 isValidOperation = validateUnitTypes(
                                         modelTree,
-                                        Object.keys(selectedNodes),
+                                        Object.keys(self.getSelectedNodes(theKey)),
                                         node.id
                                 );
                                 
                                 if (isValidOperation) {
-                                    selectedNodes[node.id] = {
-                                        id: node.id,
-                                        "unit-type": node["unit-type"]
-                                    };
+                                    self.addSelectedNode(theKey, node.id,
+                                            {
+                                                id: node.id,
+                                                "unit-type": node["unit-type"]
+                                            }
+                                    );
+                            
+                                    if (currentEditingGraphic) {
+                                        currentEditingGraphic.addIndicator(node.id);
+                                    }
                                 } else {
                                     var rect = document.getElementById(node.id).getBoundingClientRect();
                                     var position = {of:{x:rect.left + window.pageXOffset, y:rect.top + window.pageYOffset}};
 
                                     $("#unit-type-error-pop-up").ojPopup("open", "#" + node.id, position);
-                                    console.log("No puedes seleccionar mas de 2 unidades de medida diferente");
-                                    //open pop-up
                                 }
                             } else {
-                                delete selectedNodes[node.id];
+                                self.removeSelectedNode(theKey, node.id);
+                                if (currentEditingGraphic) {
+                                    currentEditingGraphic.removeIndicator(node.id);
+                                }
                             }
                             
                             if (isValidOperation) {
@@ -167,28 +214,65 @@ define(
                     return {
                         "types": {
                             "default": {
-                                "select": function (node) {
-                                    return false;
-                                }
+                                "select": function () { return false; }
                             },
                             "indicator-selected": {
                                 "position": "left",
-                                "select": function () {
-                                    return true;
-                                }
+                                "select": function () { return true; }
                             },
                             "indicator": {
                                 "position": "left",
-                                "select": function () {
-                                    return true;
-                                }
+                                "select": function () { return true; }
                             }
                         }
                     };
                 };
             }
             
-            function resetSelection(selectedNodes) {
+            var prototype = PIDEIndicatorsViewModel.prototype;
+            
+            prototype.addSelectedNode = function(key, id, node) {
+                if (theKey === key) {
+                    var selectedNodes = this.getSelectedNodes(key);
+                    
+                    selectedNodes[id] = node;
+                }
+            };
+            
+            prototype.removeSelectedNode = function(key, id) {
+                if (theKey === key) {
+                    var selectedNodes = this.getSelectedNodes(key);
+                    
+                    delete selectedNodes[id];
+                }
+            };
+            
+            prototype.setSelectedNodes = function(key, selectedNodes) {
+                if (theKey === key) {
+                    this.PIDEIndicatorsViewModel_(key).selectedNodes = selectedNodes;
+                }
+            };
+            
+            prototype.getSelectedNodes = function(key) {
+                if (theKey === key) {
+                    return this.PIDEIndicatorsViewModel_(key).selectedNodes;
+                }
+            };
+            
+            prototype.setSelectedNodesBackup = function(key, selectedNodesBackup) {
+                if (theKey === key) {
+                    this.PIDEIndicatorsViewModel_(key).selectedNodesBackup = selectedNodesBackup;
+                }
+            };
+            
+            prototype.getSelectedNodesBackup = function(key) {
+                if (theKey === key) {
+                    return this.PIDEIndicatorsViewModel_(key).selectedNodesBackup;
+                }
+            };
+            
+            prototype.resetSelection = function() {
+                var selectedNodes = this.getSelectedNodes(theKey);
                 var ids = Object.keys(selectedNodes);
                 
                 ids.forEach(
@@ -200,11 +284,32 @@ define(
                         if (node.className.match(regExp)) {
                             node.className = node.className.replace(regExp, "fa-square-o");
                         }
-                        
-                        delete selectedNodes[id];
                     }
                 );
-            }
+        
+                this.setSelectedNodes(theKey, {});
+            };
+            
+            prototype.selectNodesById = function (ids) {
+                var selectedNodes = this.getSelectedNodes(theKey);
+                
+                ids.forEach(
+                    function(id) {
+                        var node = document.getElementById(id);
+                        
+                        var regExp = /fa-square-o/;
+
+                        if (node.className.match(regExp)) {
+                            node.className = node.className.replace(regExp, "fa-check-square-o");
+                        }
+                        
+                        selectedNodes[id] = {
+                            id: node.id,
+                            "unit-type": node["unit-type"]
+                        };
+                    }
+                );
+            };
             
             function findGraphicIndex(graphics, target) {
                 var value = -1;

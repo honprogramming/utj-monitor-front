@@ -1,5 +1,17 @@
-<fieldset class="strech">
-    <legend class="left-align" data-bind="text: graphicName"></legend>
+<fieldset class="strech" data-bind="css: {'edit-on': editing}">
+    <legend class="left-align">
+        <span data-bind="css: {'display-none': displayGraphicNameInputText}">
+            <label class="pointer" data-bind="text: graphicName, click: graphicNameLabelClickHandler"></label>
+        </span>
+        <span data-bind=" css: {'display-none': !displayGraphicNameInputText()}">
+            <input type="text"
+                    data-bind=" ojComponent: {
+                                    component: 'ojInputText', 
+                                    value: graphicName,
+                                    optionChange: graphicNameClickHandler
+                                }"/>
+        </span>
+    </legend>
     <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-space-between oj-sm-12">
         <div class="oj-flex-item">
             <div class="oj-flex">
@@ -66,7 +78,12 @@
                     <a href="#"><span class="fa fa-lg fa-download"></span></a>
                 </li>
             </ul>
-            <i class="fa fa-lg fa-pencil pointer"></i>
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-pencil fa-stack-1x  pointer"
+                   data-bind="click: startEditHandler"></i>
+                <i class="fa fa-ban fa-stack-2x fa-rotate-90 pointer lightred"
+                   data-bind="visible: editing, click: stopEditHandler"></i>
+            </span>
             <i class="fa fa-lg fa-clone pointer"></i>
             <i class="fa fa-lg fa-trash pointer" data-bind="click: trashClickHandler"></i>
         </div>

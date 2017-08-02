@@ -153,10 +153,6 @@ footer {
     color: #0572ce;
 }
 
-.tree-panel {
-    border:1px #b0b0b0 solid;
-}
-
 .oj-tree-node {
     text-indent: -2em;
     padding-left: 2em;
@@ -194,4 +190,25 @@ footer {
 
 .strech {
     align-self: stretch;
+}
+
+.lightred {
+    color: rgb(255, 128, 128);
+}
+
+.edit-on {
+    border-width: 3px;
+    animation-name: border-blink;
+    animation-duration: 1s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+}
+
+@keyframes border-blink {
+    from {border-color: lightgreen}
+    to {border-color: white}
+}
+
+.display-none {
+    display: none;
 }

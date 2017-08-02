@@ -31,16 +31,17 @@
                         </div>
                         <div id="pide-indicators-selection-panel"
                                 class="full-height oj-flex-item scrolly">
-                            <div id="tree" class="tree-panel"
+                            <div id="tree"
                                  data-bind="ojComponent: {
                                                 component: 'ojTree',
-                                                selection: selectedNodes,        
+                                                selection: nodes,        
                                                 selectionMode: 'single',
                                                 data:{data: getJson},
                                                 initExpanded: 'all',
                                                 icons: false,
                                                 optionChange: clickHandler,
                                                 loaded: loadHandler,
+                                                types: getTypes(),
                                                 rootAttributes: {
                                                     style: 'width: 100%; margin-bottom: 30%'
                                                 }
@@ -65,9 +66,11 @@
             <div class="full-height oj-flex oj-sm-12">
                 <div class="oj-flex-item oj-flex-items-pad oj-sm-12">
                     <div class="oj-flex oj-sm-justify-content-space-between">
-                        <i class="fa fa-2x fa-plus oj-flex-item oj-sm-align-self-center pointer"
-                           data-bind="click: addGraphicHandler">
-                        </i>
+                        <div class="oj-flex-item oj-sm-align-self-center">
+                            <i class="fa fa-2x fa-plus pointer"
+                               data-bind="click: addGraphicHandler">
+                            </i>
+                        </div>
                         <div class="oj-flex-item">
                             <div class="oj-flex">
                                 <div class="oj-flex-item">
