@@ -24,6 +24,7 @@
                 
                 var privateData = {
                     series: [],
+                    groups: ["2014", "2015", "2016", "2017"],
                     yaxes: [],
                     model: params.model,
                     ids: params.ids,
@@ -43,6 +44,10 @@
                 self.graphicOptions = ko.observableArray(["progress", "goals"]);
                 self.editing = ko.observable(false);
                 self.displayGraphicNameInputText = ko.observable(false);
+                self.yAxis = ko.observable();
+                self.y2Axis = ko.observable();
+                self.seriesValues = ko.observableArray([]);
+                self.groupsValues = ko.observableArray([]);
                 
                 self.graphicNameClickHandler = function(event, ui) {
                     if (ui.option === "value") {
@@ -103,20 +108,10 @@
                     }
                 };
                 
-                self.yAxis = ko.observable();
-                self.y2Axis = ko.observable();
-                
                 ids.forEach(self.createSerie, self);
-                
-                var groups = ["2014", "2015", "2016", "2017"];
-                
-                self.refreshAxes();
-                
-                self.seriesValues = ko.observableArray([]);
-                self.groupsValues = ko.observableArray(groups);
-                
+                self.groupsValues(self.getGroups());
                 self.refreshSeries();
-                
+                self.refreshAxes();
                 getGraphic.call(params, self);
             }
             
@@ -169,14 +164,22 @@
             
             prototype.refreshSeries = function(seriesValues) {
                 this.seriesValues(seriesValues ? seriesValues : this.getSeries());
+                
+                if (this.seriesValues().length > 0) {
+                    this.groupsValues(this.getGroups());
+                }
             };
             
             prototype.refreshAxes = function() {
-                this.yAxis({title: GeneralViewModel.nls("graphics.unit-types." + this.getYaxes()[0])});
-                this.y2Axis(null);
+                var yAxes = this.getYAxes();
                 
-                if (this.getYaxes()[1]) {
-                    this.y2Axis({title: GeneralViewModel.nls("graphics.unit-types." + this.getYaxes()[1])});
+                if (yAxes.length > 0) {
+                    this.yAxis({title: GeneralViewModel.nls("graphics.unit-types." + yAxes[0])});
+                    this.y2Axis({});
+
+                    if (yAxes.length > 1) {
+                        this.y2Axis({title: GeneralViewModel.nls("graphics.unit-types." + yAxes[1])});
+                    }
                 }
             };
             
@@ -208,7 +211,17 @@
                 }
             };
             
-            prototype.getYaxes = function() {
+            prototype.getGroups = function() {
+                return this.GraphicViewModel_(theKey).groups;
+            };
+            
+            prototype.setGroups = function(key, groups) {
+                if (theKey === key) {
+                    return this.GraphicViewModel_(theKey).groups = groups;
+                }
+            };
+            
+            prototype.getYAxes = function() {
                 return this.GraphicViewModel_(theKey).yaxes;
             };
             
@@ -241,7 +254,7 @@
             prototype.createSerie = function(id) {
                 var model = this.getModel();
                 var series = this.getSeries();
-                var yaxes = this.getYaxes();
+                var yaxes = this.getYAxes();
                 var item = model[id];
                 var unitType = item["unit-type"];
                 var displayLegends = this.graphicOptions().indexOf("progress") < 0;
