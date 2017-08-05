@@ -22,12 +22,14 @@
                         <div id="filter-container" class="oj-flex-item oj-flex-items-pad">
                             <label for="filterSearch" class="oj-flex-item">Selección de Indicadores</label>
                             <input id="filterSearch" class="oj-flex-item" placeholder="Buscar..."
-                                    data-bind=" ojComponent: {
-                                                    component: 'ojInputSearch',
+                                    data-bind=" event: {keyup: handleKeyUp},
+                                                textInput: searchValue,
+                                                ojComponent: {
+                                                    component: 'ojInputText',
                                                     rootAttributes: {
                                                         style: 'max-width: 100%;'
                                                     }
-                                                }"/>
+                                                }">
                         </div>
                         <div id="pide-indicators-selection-panel"
                                 class="full-height oj-flex-item scrolly">

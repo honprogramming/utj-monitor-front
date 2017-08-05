@@ -43,15 +43,66 @@ define(
                 self.arrowClass = ko.observable(arrowClassStart + left);
                 self.displayPanel = ko.observable(true);
                 self.nodes = ko.observableArray();
+                self.graphics = ko.observableArray();
+                self.searchValue = ko.observable();
+                
+                self.handleKeyUp = function(event, ui) {
+                    var value = self.searchValue();
+                    
+                    if (value.length >= 0) {
+                        model.forEach(
+                            function(node) {
+                                recursiveDisplay(value.toLowerCase(), node);
+                            }
+                        );
+                    }
+                };
+                
+                function recursiveDisplay(targetText, node) {
+                    var display = false;
+                    var htmlNode = document.getElementById(node.attr.id);
+                    var displayStyle = isLeaf(node) ? "block" : "";
+                    
+                    if (targetText.length === 0) {
+                        display = true;
+                    } else {
+                        var title = node.title.toLowerCase();
+                        var includesText = title.includes(targetText);
+                        
+                        display = includesText;
+                    }
+                        
+                    if (!isLeaf(node)) {
+                        var children = node.children;
 
+                        if (display) {
+                            targetText = "";
+                        }
+
+                        var displayables = children.map(
+                            function(element) {
+                                return recursiveDisplay(targetText, element);
+                            }
+                        );
+
+                        display = display || displayables.includes(true);
+                    }
+                    
+                    htmlNode.style.display = display ? displayStyle : "none";
+                    
+                    return display;
+                    
+                    function isLeaf(node) {
+                        return node.attr.type && node.attr.type.includes("indicator");
+                    }
+                }
+                
                 self.toggleDrawer = function () {
                     self.arrowClass(arrowClassStart +
                             (self.arrowClass().includes(left) ? right : left));
                     self.displayPanel(!self.displayPanel());
                 };
-
-                self.graphics = ko.observableArray();
-
+                
                 self.addGraphicHandler = function () {
                     self.graphics.push(
                             {
@@ -191,14 +242,14 @@ define(
                         nodesArray.push(node);
                     }
                 };
-
+                
                 self.getJson = function (node, fn) {
                     $.getJSON("data/pide-indicators.json").then(
                             function (data) {
                                 model = data;
                                 fn(model);  // pass to ojTree using supplied function
 
-                                var itemsArray = model;
+                                var itemsArray = model.slice(0);
 
                                 while (itemsArray.length > 0) {
                                     var element = itemsArray.shift();
