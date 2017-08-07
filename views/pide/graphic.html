@@ -84,8 +84,12 @@
                 <i class="fa fa-ban fa-stack-2x fa-rotate-90 pointer lightred"
                    data-bind="visible: editing, click: stopEditHandler"></i>
             </span>
-            <i class="fa fa-lg fa-clone pointer"></i>
-            <i class="fa fa-lg fa-trash pointer" data-bind="click: trashClickHandler"></i>
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-clone fa-stack-1x pointer"></i>
+            </span>
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-trash fa-stack-1x pointer" data-bind="click: trashClickHandler"></i>
+            </span>
         </div>
     </div>
     <div class="oj-flex oj-sm-justify-content-center">
