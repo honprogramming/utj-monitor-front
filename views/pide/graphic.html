@@ -27,7 +27,10 @@
                                                     datePicker: {
                                                         footerLayout: '', 
                                                         showOn: 'focus'
-                                                    }
+                                                    },
+                                                    min: minDate,
+                                                    max: maxDate,
+                                                    value: fromDateValue
                                                 }"/>
                         </div>
                     </div>
@@ -45,7 +48,10 @@
                                                     datePicker: {
                                                         footerLayout: '', 
                                                         showOn: 'focus'
-                                                    }
+                                                    },
+                                                    min: minDate,
+                                                    max: maxDate,
+                                                    value: toDateValue
                                                 }"/>
                         </div>
                     </div>
@@ -111,28 +117,36 @@
             </span>
         </div>
     </div>
-    <div class="full-height full-width"
-         data-bind="attr: {id: graphicId},
-                    ojComponent: {
-                        component: 'ojChart', 
-                        type: chartType,
-                        series: seriesValues, 
-                        groups: groupsValues, 
-                        animationOnDisplay: 'auto',
-                        animationOnDataChange: 'auto',
-                        hoverBehavior: 'dim',
-                        hideAndShowBehavior: 'withoutRescale',
-                        yAxis: yAxis,
-                        y2Axis: y2Axis,
-                        legend: {
-                            position: 'bottom',
-                            titleHAlign: 'center'
-                        },
-                        valueFormats: {
-                            series: {tooltipLabel: 'Indicador:'}, 
-                            group: {tooltipLabel: 'Año:'}, 
-                            y: {tooltipLabel: 'Valor:'}
-                        }
-                    }">
+    <div class="oj-flex-bar">
+        <div class="full-height oj-flex-bar-middle"
+             data-bind="attr: {id: graphicId},
+                        ojComponent: {
+                            component: 'ojChart', 
+                            type: chartType,
+                            series: seriesValues, 
+                            groups: groupsValues, 
+                            animationOnDisplay: 'auto',
+                            animationOnDataChange: 'auto',
+                            hoverBehavior: 'dim',
+                            hideAndShowBehavior: 'withoutRescale',
+                            yAxis: yAxis,
+                            y2Axis: y2Axis,
+                            legend: {
+                                position: 'bottom',
+                                titleHAlign: 'center'
+                            },
+                            valueFormats: {
+                                series: {tooltipLabel: 'Indicador:'}, 
+                                group: {tooltipLabel: 'Año:'}, 
+                                y: {tooltipLabel: 'Valor:'}
+                            },
+                            zoomAndScroll: zoom
+                        }">
+        </div>
+        <div class="oj-flex-bar-end">
+            <i class="fa fa-lg oj-sm-align-self-center pointer"
+                data-bind="click: zoomClickHandler, css: zoomIconClass">
+            </i>
+        </div>
     </div>
 </fieldset>

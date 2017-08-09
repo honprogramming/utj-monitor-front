@@ -198,9 +198,9 @@ define(
                 },
                 "graphics": {
                     "unit-types": {
-                        "percentage": "Porcentaje %",
-                        "number": "Número #",
-                        "tasa": "Tasa %"
+                        "percentage": "Porcentaje",
+                        "number": "Número",
+                        "tasa": "Tasa"
                     }
                 }
             }

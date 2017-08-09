@@ -25,20 +25,17 @@ define(['ojs/ojcore', 'ojs/ojvalidation'],
             var dateTimeOptions = {formatType: 'datetime', pattern: 'MMM d, y, h:mm a'};
             var dateOptions = {formatType: 'datetime', pattern: 'dd/MM/yy'};
             var decimalOptions = {style: 'decimal', decimalFormat: 'short'};
-
-//    var percentOptions = {style: 'percent', maximumFractionDigits: 2};
+            var percentOptions = {style: 'percent'};
 //    var percentOneFractionDigitOptions = {style: 'percent', maximumFractionDigits: 1};
-//    var decimalOneFractionDigitOptions = {style: 'decimal', maximumFractionDigits: 1, useGrouping: true};
 //    var integerOptions = {style: 'decimal', maximumFractionDigits: 0, useGrouping: true};
 
             var GeneralViewModel = {
                 converters: {
                     dateTime: dateTimeConverterFactory.createConverter(dateTimeOptions),
                     date: dateTimeConverterFactory.createConverter(dateOptions),
-                    decimal: numberConverterFactory.createConverter(decimalOptions)
-//            percent: numberConverterFactory.createConverter(percentOptions),
+                    decimal: numberConverterFactory.createConverter(decimalOptions),
+                    percent: numberConverterFactory.createConverter(percentOptions)
 //            percent_1: numberConverterFactory.createConverter(percentOneFractionDigitOptions),
-//            decimal_1: numberConverterFactory.createConverter(decimalOneFractionDigitOptions),
 //            integer: numberConverterFactory.createConverter(integerOptions)
                 },
                 listeners: [],

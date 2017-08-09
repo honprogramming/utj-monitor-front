@@ -24,7 +24,7 @@
                 
                 var privateData = {
                     series: [],
-                    groups: ["2014", "2015", "2016", "2017"],
+                    groups: [2014, 2015, 2016, 2017],
                     yaxes: [],
                     model: params.model,
                     ids: params.ids,
@@ -48,6 +48,17 @@
                 self.y2Axis = ko.observable();
                 self.seriesValues = ko.observableArray([]);
                 self.groupsValues = ko.observableArray([]);
+                self.zoom = ko.observable("off");
+                self.zoomIconClass = ko.observable("fa-search-plus");
+                self.minDate = oj.IntlConverterUtils.dateToLocalIso(new Date(2010, 0, 01));
+                self.maxDate = oj.IntlConverterUtils.dateToLocalIso(new Date());
+                self.fromDateValue = oj.IntlConverterUtils.dateToLocalIso(new Date(2014, 0, 01));
+                self.toDateValue = oj.IntlConverterUtils.dateToLocalIso(new Date());
+                
+                self.zoomClickHandler = function() {
+                    self.zoomIconClass(self.zoom() === "live" ? "fa-search-plus" : "fa-search-minus");
+                    self.zoom(self.zoom() === "live" ? "off" : "live");
+                };
                 
                 self.graphicNameClickHandler = function(event, ui) {
                     if (ui.option === "value") {
@@ -124,6 +135,18 @@
                 COMBO: "combo"
             };
             
+            prototype.convertersMap = {
+                percentage: GeneralViewModel.converters.percent,
+                number: GeneralViewModel.converters.decimal,
+                rate: GeneralViewModel.converters.percent
+            };
+                
+            prototype.getConverterByUnitType = function(key, unitType) {
+                if (theKey === key) {
+                    return this.convertersMap[unitType];
+                }
+            };
+            
             prototype.filterSeriesByOptions = function(key, options) {
                 if (theKey === key) {
                     var optionsLength = options.length;
@@ -174,11 +197,28 @@
                 var yAxes = this.getYAxes();
                 
                 if (yAxes.length > 0) {
-                    this.yAxis({title: GeneralViewModel.nls("graphics.unit-types." + yAxes[0])});
+                    this.yAxis(
+                            {
+                                title: GeneralViewModel.nls("graphics.unit-types." + yAxes[0]),
+                                tickLabel: {
+                                    converter: this.getConverterByUnitType(theKey, yAxes[0]),
+                                    scaling: "none"
+                                }
+                            }
+                    );
+                    
                     this.y2Axis({});
 
                     if (yAxes.length > 1) {
-                        this.y2Axis({title: GeneralViewModel.nls("graphics.unit-types." + yAxes[1])});
+                        this.y2Axis(
+                                {
+                                    title: GeneralViewModel.nls("graphics.unit-types." + yAxes[1]),
+                                    tickLabel: {
+                                        converter: this.getConverterByUnitType(theKey, yAxes[1]),
+                                        scaling: "none"
+                                    }
+                                }
+                        );
                     }
                 }
             };

@@ -40,7 +40,7 @@
                         "unit-type": "percentage",
                         "values-range": {
                             "lowest": 0,
-                            "highest": 100
+                            "highest": 1
                         }
                     },
                     {
@@ -52,7 +52,7 @@
                         "unit-type": "percentage",
                         "values-range": {
                             "lowest": 0,
-                            "highest": 100
+                            "highest": 1
                         }
                     },
                     {
@@ -88,7 +88,7 @@
                         "unit-type": "percentage",
                         "values-range": {
                             "lowest": 0,
-                            "highest": 100
+                            "highest": 1
                         }
                     },
                     {
@@ -100,7 +100,7 @@
                         "unit-type": "percentage",
                         "values-range": {
                             "lowest": 0,
-                            "highest": 100
+                            "highest": 1
                         }
                     },
                     {
@@ -399,7 +399,7 @@
                         "unit-type": "rate",
                         "values-range": {
                             "lowest": 0,
-                            "highest": 100
+                            "highest": 1
                         }
                     },
                     {
@@ -411,7 +411,7 @@
                         "unit-type": "rate",
                         "values-range": {
                             "lowest": 0,
-                            "highest": 100
+                            "highest": 1
                         }
                     }
                 ]
@@ -443,7 +443,7 @@
                         "unit-type": "rate",
                         "values-range": {
                             "lowest": 0,
-                            "highest": 100
+                            "highest": 1
                         }
                     },
                     {
@@ -455,7 +455,7 @@
                         "unit-type": "rate",
                         "values-range": {
                             "lowest": 0,
-                            "highest": 100
+                            "highest": 1
                         }
                     },
                     {
@@ -467,7 +467,7 @@
                         "unit-type": "percentage",
                         "values-range": {
                             "lowest": 0,
-                            "highest": 50
+                            "highest": 0.5
                         }
                     }
                 ]
