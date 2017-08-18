@@ -98,6 +98,7 @@ define(
                 }
                 
                 self.toggleDrawer = function () {
+                    $("#indicators-tree-container").toggle({queue: false, duration: 1000});
                     self.arrowClass(arrowClassStart +
                             (self.arrowClass().includes(left) ? right : left));
                     self.displayPanel(!self.displayPanel());

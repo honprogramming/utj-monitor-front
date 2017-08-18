@@ -24,6 +24,8 @@ define(['ojs/ojcore', 'ojs/ojvalidation'],
             var dateTimeConverterFactory = oj.Validation.converterFactory("datetime");
             var dateTimeOptions = {formatType: 'datetime', pattern: 'MMM d, y, h:mm a'};
             var dateOptions = {formatType: 'datetime', pattern: 'dd/MM/yy'};
+            var monthOptions = {formatType: 'datetime', pattern: 'MMM y'};
+            var yearOptions = {formatType: 'datetime', pattern: 'y'};
             var decimalOptions = {style: 'decimal', decimalFormat: 'short'};
             var percentOptions = {style: 'percent'};
 //    var percentOneFractionDigitOptions = {style: 'percent', maximumFractionDigits: 1};
@@ -33,6 +35,8 @@ define(['ojs/ojcore', 'ojs/ojvalidation'],
                 converters: {
                     dateTime: dateTimeConverterFactory.createConverter(dateTimeOptions),
                     date: dateTimeConverterFactory.createConverter(dateOptions),
+                    year: dateTimeConverterFactory.createConverter(yearOptions),
+                    month: dateTimeConverterFactory.createConverter(monthOptions),
                     decimal: numberConverterFactory.createConverter(decimalOptions),
                     percent: numberConverterFactory.createConverter(percentOptions)
 //            percent_1: numberConverterFactory.createConverter(percentOneFractionDigitOptions),

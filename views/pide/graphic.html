@@ -121,25 +121,27 @@
         <div class="full-height oj-flex-bar-middle"
              data-bind="attr: {id: graphicId},
                         ojComponent: {
-                            component: 'ojChart', 
-                            type: chartType,
-                            series: seriesValues, 
-                            groups: groupsValues, 
                             animationOnDisplay: 'auto',
                             animationOnDataChange: 'auto',
-                            hoverBehavior: 'dim',
+                            component: 'ojChart',
+                            groups: groupsValues,
                             hideAndShowBehavior: 'withoutRescale',
-                            yAxis: yAxis,
-                            y2Axis: y2Axis,
+                            hoverBehavior: 'dim',
                             legend: {
                                 position: 'bottom',
                                 titleHAlign: 'center'
                             },
+                            series: seriesValues,
+                            timeAxisType: 'mixedFrequency',
+                            type: chartType,
                             valueFormats: {
                                 series: {tooltipLabel: 'Indicador:'}, 
-                                group: {tooltipLabel: 'Año:'}, 
+                                group: {tooltipLabel: 'Fecha:'}, 
                                 y: {tooltipLabel: 'Valor:'}
                             },
+                            xAxis: xAxis,
+                            yAxis: yAxis,
+                            y2Axis: y2Axis,
                             zoomAndScroll: zoom
                         }">
         </div>

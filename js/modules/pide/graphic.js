@@ -24,11 +24,13 @@
                 
                 var privateData = {
                     series: [],
+                    monthlySeries: [],
+                    yearlySeries: [],
                     groups: [2014, 2015, 2016, 2017],
                     yaxes: [],
                     model: params.model,
                     ids: params.ids,
-                    graphicType: self.graphicType.LINE
+                    graphicType: self.graphicType.BAR
                 };
                 
                 this.GraphicViewModel_ = function(key) {
@@ -52,12 +54,20 @@
                 self.zoomIconClass = ko.observable("fa-search-plus");
                 self.minDate = oj.IntlConverterUtils.dateToLocalIso(new Date(2010, 0, 01));
                 self.maxDate = oj.IntlConverterUtils.dateToLocalIso(new Date());
-                self.fromDateValue = oj.IntlConverterUtils.dateToLocalIso(new Date(2014, 0, 01));
-                self.toDateValue = oj.IntlConverterUtils.dateToLocalIso(new Date());
+                self.fromDateValue = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date(2014, 0, 01)));
+                self.toDateValue = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
+                self.xAxis = ko.observable(this.xAxisFormats["yearly"]);
                 
                 self.zoomClickHandler = function() {
-                    self.zoomIconClass(self.zoom() === "live" ? "fa-search-plus" : "fa-search-minus");
-                    self.zoom(self.zoom() === "live" ? "off" : "live");
+                    var mode = self.zoom() === "live" ? "yearly" : "monthly";
+                    
+                    self.zoom(mode === "yearly" ? "off" : "live");
+                    self.zoomIconClass(mode === "yearly" ? "fa-search-plus" : "fa-search-minus");
+                    self.setXAxisFormat(theKey, mode);
+                    
+                    var newSeries = mode === "yearly" ? this.getYearlySeries() : this.getMonthlySeries();
+                    self.setSeries(theKey, newSeries);
+                    self.seriesValues(this.getSeries());
                 };
                 
                 self.graphicNameClickHandler = function(event, ui) {
@@ -140,7 +150,13 @@
                 number: GeneralViewModel.converters.decimal,
                 rate: GeneralViewModel.converters.percent
             };
-                
+            
+            prototype.xAxisFormats = {
+//                monthly: {tickLabel: {converter: GeneralViewModel.converters.month}},
+                monthly: {tickLabel: {}},
+                yearly: {tickLabel: {converter: GeneralViewModel.converters.year}}
+            };
+            
             prototype.getConverterByUnitType = function(key, unitType) {
                 if (theKey === key) {
                     return this.convertersMap[unitType];
@@ -186,7 +202,17 @@
             };
             
             prototype.refreshSeries = function(seriesValues) {
-                this.seriesValues(seriesValues ? seriesValues : this.getSeries());
+                if (!seriesValues) {
+                    this.setSeries(theKey,
+                        this.xAxis() === this.xAxisFormats.yearly 
+                        ? this.getYearlySeries()
+                        : this.getMonthlySeries()
+                    );
+                    
+                    seriesValues = this.getSeries();
+                }
+                
+                this.seriesValues(seriesValues);
                 
                 if (this.seriesValues().length > 0) {
                     this.groupsValues(this.getGroups());
@@ -245,6 +271,14 @@
                 return this.GraphicViewModel_(theKey).series;
             };
             
+            prototype.getMonthlySeries = function() {
+                return this.GraphicViewModel_(theKey).monthlySeries;
+            };
+            
+            prototype.getYearlySeries = function() {
+                return this.GraphicViewModel_(theKey).yearlySeries;
+            };
+            
             prototype.setSeries = function(key, series) {
                 if (theKey === key) {
                     return this.GraphicViewModel_(theKey).series = series;
@@ -291,9 +325,20 @@
                 this.refreshAxes();
             };
             
+            prototype.setXAxisFormat = function(key, format) {
+                if (theKey === key) {
+                    var newFormat = this.xAxisFormats[format];
+                    
+                    if (newFormat) {
+                        this.xAxis(newFormat);
+                    }
+                }
+            };
+            
             prototype.createSerie = function(id) {
                 var model = this.getModel();
-                var series = this.getSeries();
+                var yearlySeries = this.getYearlySeries();
+                var monthlySeries = this.getMonthlySeries();
                 var yaxes = this.getYAxes();
                 var item = model[id];
                 var unitType = item["unit-type"];
@@ -303,7 +348,7 @@
                     yaxes.push(unitType);
                 }
 
-                var progressElement = {
+                var monthlyProgressElement = {
                     id: item.attr.id,
                     name: item.title,
                     items: [],
@@ -313,7 +358,7 @@
                     assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                 };
 
-                var goalElement = {
+                var monthlyGoalElement = {
                     id: item.attr.id,
                     name: item.title,
                     items: [],
@@ -324,19 +369,147 @@
                     assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                 };
 
+                var yearlyProgressElement = {
+                    id: item.attr.id,
+                    name: item.title,
+                    items: [],
+                    type: this.getGraphicType(),
+                    markerShape: "square",
+                    markerDisplayed: "on",
+                    assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
+                };
+
+                var yearlyGoalElement = {
+                    id: item.attr.id,
+                    name: item.title,
+                    items: [],
+                    displayInLegend: displayLegends ? "on" : "off",
+                    type: this.graphicType.LINE,
+                    lineStyle: "dotted",
+                    markerDisplayed: "on",
+                    assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
+                };
+                
                 var highestAllowed = item["values-range"].highest;
                 var lowestAllowed = item["values-range"].lowest;
+                
+                var startDate = oj.IntlConverterUtils.isoToDate(this.fromDateValue());
+                var endDate = oj.IntlConverterUtils.isoToDate(this.toDateValue());
+                
+                if (endDate > startDate) {
+                    var startYear = startDate.getFullYear();
+                    var endYear = endDate.getFullYear();
+                    var currentYear = startYear;
+                    var tempDate = new Date(startDate.getTime());
 
-                for (var i = 1; i <= 4; i ++) {
-                    var progress =  Math.random() * (highestAllowed - lowestAllowed) + lowestAllowed;
-                    var goal =  Math.random() * (highestAllowed - lowestAllowed) + lowestAllowed;
+                    do {
+                        var monthsNumber = currentYear === endYear
+                                ? endDate.getMonth() - tempDate.getMonth()
+                                : endYear > currentYear
+                                ? 12 - startDate.getMonth()
+                                : 1;
+                        
+                        var randomGoalsNumber = Math.round(Math.random() * Math.floor(monthsNumber / 4)) + 1;
+                        var goals = [];
+                        
+                        for (var i = 0; i < randomGoalsNumber; i ++) {
+                            goals[i] = Math.random() * ((highestAllowed - lowestAllowed) / randomGoalsNumber);
+                            
+                            if (i > 0) {
+                                goals[i] += goals[i - 1];
+                            }
+                            
+                            if (goals[i] > highestAllowed) {
+                                goals[i] = highestAllowed;
+                            }
+                        }
+                        
+                        if (randomGoalsNumber < monthsNumber) {
+                            var currentMonth = 1;
+                            var newGoals = [];
+                            var currentGoal = 0;
+                            var delta = monthsNumber - randomGoalsNumber;
+                            
+                            for (var i = 0; i < goals.length; i ++) {
+                                var month = Math.floor(Math.random() * delta) + currentMonth;
+                                
+                                if (month === currentMonth) {
+                                    newGoals.push(goals[i]);
+                                    currentGoal = goals[i];
+                                } else {
+                                    var goalDelta = (goals[i] - currentGoal) / (month - currentMonth);
+                                    
+                                    while(currentMonth < month) {
+                                        newGoals.push(currentGoal + goalDelta);
+                                        currentGoal += goalDelta;
+                                        currentMonth ++;
+                                    }
+                                }
+                                
+                                delta = (monthsNumber - currentMonth ++) - (randomGoalsNumber - (i + 1));
+                            }
+                            
+                            var delta = monthsNumber - newGoals.length;
+                            
+                            if (delta > 0) {
+                                var lastGoal = newGoals[newGoals.length - 1];
+                                var beforeLastGoal = newGoals[newGoals.length - 1] ? newGoals[newGoals.length - 1] : 0;
+                                var deltaValue = (lastGoal - beforeLastGoal) / delta;
+                                
+                                for (var i = delta; i >= 1; i --) {
+                                    newGoals.splice(newGoals.length - 1, 0, lastGoal - (deltaValue * i));
+                                }
+                            }
+                            
+                            goals = newGoals;
+                        }
+                        
+                        for (var i = 0, month = tempDate.getMonth(); i < goals.length; i ++, month ++) {
+                            var isoDate = oj.IntlConverterUtils.dateToLocalIso(new Date(tempDate.getFullYear(), month, 15));
+                            monthlyGoalElement.items.push({x: isoDate, y: goals[i]});
+                        }
+                        
+                        var yearlyGoalItem = monthlyGoalElement.items[monthlyGoalElement.items.length - 1];
+                        yearlyGoalElement.items.push({x: oj.IntlConverterUtils.dateToLocalIso(new Date(currentYear, 0, 1)), y: yearlyGoalItem.y});
+                        
+                        var progress = 0;
+                        var randomDaysInMilliseconds;
 
-                    progressElement.items.push(progress);
-                    goalElement.items.push(goal);
+                        do {
+                            randomDaysInMilliseconds = Math.ceil(Math.random() * 31);
+                            randomDaysInMilliseconds *= 24 * 60 * 60 * 1000;
+
+                            var newTime = tempDate.getTime() + randomDaysInMilliseconds;
+                            var newDate = new Date(newTime);
+                            var newTimeMonth = newDate.getMonth();
+                            
+                            if (newTime < endDate.getTime() && newTimeMonth > tempDate.getMonth()) {
+                                progress +=  Math.random() * (highestAllowed - lowestAllowed) / monthsNumber;
+                                
+                                if (progress > highestAllowed) {
+                                    progress = highestAllowed;
+                                }
+                                
+                                var isoDate = oj.IntlConverterUtils.dateToLocalIso(newDate);
+
+                                monthlyProgressElement.items.push({x: isoDate, y: progress});
+                            }
+                            
+                            tempDate.setTime(newTime);
+                        } while (tempDate.getFullYear() === currentYear);
+                        
+                        var yearlyProgressItem = monthlyProgressElement.items[monthlyProgressElement.items.length - 1];
+                        yearlyProgressElement.items.push({x: oj.IntlConverterUtils.dateToLocalIso(new Date(currentYear, 0, 1)), y: yearlyProgressItem.y});
+                        
+                        tempDate = new Date(++ currentYear, 0, 1);
+                    } while(currentYear <= endYear);
+                    
+                    monthlySeries.push(monthlyProgressElement);
+                    monthlySeries.push(monthlyGoalElement);
+                    
+                    yearlySeries.push(yearlyGoalElement);
+                    yearlySeries.push(yearlyProgressElement);
                 }
-
-                series.push(progressElement);
-                series.push(goalElement);
             };
             
             function filterProgress(element) {
