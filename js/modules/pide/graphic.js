@@ -57,6 +57,7 @@
                 self.fromDateValue = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date(2014, 0, 01)));
                 self.toDateValue = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
                 self.xAxis = ko.observable(this.xAxisFormats["yearly"]);
+                self.xAxisType = ko.observable();
                 
                 self.zoomClickHandler = function() {
                     var mode = self.zoom() === "live" ? "yearly" : "monthly";
@@ -68,6 +69,7 @@
                     var newSeries = mode === "yearly" ? this.getYearlySeries() : this.getMonthlySeries();
                     self.setSeries(theKey, newSeries);
                     self.seriesValues(this.getSeries());
+                    self.xAxisType(mode === "yearly" ? "auto" : "mixedFrequency");
                 };
                 
                 self.graphicNameClickHandler = function(event, ui) {
@@ -152,7 +154,6 @@
             };
             
             prototype.xAxisFormats = {
-//                monthly: {tickLabel: {converter: GeneralViewModel.converters.month}},
                 monthly: {tickLabel: {}},
                 yearly: {tickLabel: {converter: GeneralViewModel.converters.year}}
             };
