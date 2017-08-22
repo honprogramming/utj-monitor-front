@@ -19,14 +19,13 @@
                 var startEditingFunction = params.startEditing;
                 var stopEditingFunction = params.stopEditing;
                 var getGraphic = params.getGraphic;
-                var ids = params.ids;
                 var index = params.index;
                 
                 var privateData = {
                     series: [],
                     monthlySeries: [],
                     yearlySeries: [],
-                    groups: [2014, 2015, 2016, 2017],
+                    groups: [],
                     yaxes: [],
                     model: params.model,
                     ids: params.ids,
@@ -58,6 +57,36 @@
                 self.toDateValue = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
                 self.xAxis = ko.observable(this.xAxisFormats["yearly"]);
                 self.xAxisType = ko.observable();
+                
+                self.fromValidator = {
+                    validate: function(value) {
+                        if(value > self.toDateValue()) {
+                            throw new Error('La fecha debe ser menor o igual a la del campo \'Hasta\'');
+                        }
+                        
+                        return true;
+                    }
+                };
+                
+                self.toValidator = {
+                    validate: function(value) {
+                        if(value < self.fromDateValue()) {
+                            throw new Error('La fecha debe ser igual o mayor a la del campo \'Desde\'');
+                        }
+                        
+                        return true;
+                    }
+                };
+                
+                self.dateSelectionHandler = function(event, ui) {
+                    if (ui.option === "value") {
+                        var target = $("#" + event.target.id);
+                        
+                        if (target.ojInputDate("isValid")) {
+                            self.refreshSeriesByDate.call(self, theKey);
+                        }
+                    }
+                };
                 
                 self.zoomClickHandler = function() {
                     var mode = self.zoom() === "live" ? "yearly" : "monthly";
@@ -131,10 +160,6 @@
                     }
                 };
                 
-                ids.forEach(self.createSerie, self);
-                self.groupsValues(self.getGroups());
-                self.refreshSeries();
-                self.refreshAxes();
                 getGraphic.call(params, self);
             }
             
@@ -164,6 +189,20 @@
                 }
             };
             
+            prototype.refreshSeriesByDate = function(key) {
+                if (theKey === key) {
+                    if (this.toDateValue() && this.fromDateValue()) {
+                        this.setSeries(theKey, []);
+                        this.setGroups(theKey, []);
+                        this.setMonthlySeries(theKey, []);
+                        this.setYearlySeries(theKey, []);
+                        this.getIds(theKey).forEach(this.createSerie, this);
+                        this.refreshSeries();
+                        this.refreshAxes();
+                    }
+                }
+            };
+                    
             prototype.filterSeriesByOptions = function(key, options) {
                 if (theKey === key) {
                     var optionsLength = options.length;
@@ -216,7 +255,7 @@
                 this.seriesValues(seriesValues);
                 
                 if (this.seriesValues().length > 0) {
-                    this.groupsValues(this.getGroups());
+                    this.groupsValues(this.getGroups(theKey));
                 }
             };
             
@@ -260,8 +299,31 @@
                 }
             };
             
-            prototype.getIds = function() {
-                return this.GraphicViewModel_(theKey).ids;
+            prototype.getIds = function(key) {
+                if (theKey === key) {
+                    return this.GraphicViewModel_(theKey).ids;
+                }
+            };
+            
+            prototype.setIds = function(key, ids) {
+                if (theKey === key) {
+                    this.GraphicViewModel_(theKey).ids = ids;
+                }
+            };
+            
+            prototype.addId = function(key, id) {
+                if (theKey === key) {
+                    this.getIds(key).push(id);
+                }
+            };
+            
+            prototype.removeId = function(key, id) {
+                if (theKey === key) {
+                    var ids = this.getIds(key);
+                    var index = ids.indexOf(id);
+                    
+                    ids.slice(1, index);
+                }
             };
             
             prototype.getModel = function() {
@@ -276,23 +338,45 @@
                 return this.GraphicViewModel_(theKey).monthlySeries;
             };
             
+            prototype.setMonthlySeries = function(key, monthlySeries) {
+                if (theKey === key) {
+                    this.GraphicViewModel_(theKey).monthlySeries = monthlySeries;
+                }
+            };
+            
             prototype.getYearlySeries = function() {
                 return this.GraphicViewModel_(theKey).yearlySeries;
             };
             
-            prototype.setSeries = function(key, series) {
+            prototype.setYearlySeries = function(key, yearlySeries) {
                 if (theKey === key) {
-                    return this.GraphicViewModel_(theKey).series = series;
+                    this.GraphicViewModel_(theKey).yearlySeries = yearlySeries;
                 }
             };
             
-            prototype.getGroups = function() {
-                return this.GraphicViewModel_(theKey).groups;
+            prototype.setSeries = function(key, series) {
+                if (theKey === key) {
+                    this.GraphicViewModel_(theKey).series = series;
+                }
+            };
+            
+            prototype.getGroups = function(key) {
+                if (theKey === key) {
+                    return this.GraphicViewModel_(theKey).groups;
+                }
             };
             
             prototype.setGroups = function(key, groups) {
                 if (theKey === key) {
-                    return this.GraphicViewModel_(theKey).groups = groups;
+                    this.GraphicViewModel_(theKey).groups = groups;
+                }
+            };
+            
+            prototype.addGroup = function(key, group) {
+                if (theKey === key) {
+                    if (!this.getGroups(key).includes(group)) {
+                        this.GraphicViewModel_(theKey).groups.push(group);
+                    }
                 }
             };
             
@@ -302,6 +386,7 @@
             
             prototype.addIndicator = function(id) {
                 this.createSerie(id);
+                this.addId(theKey, id);
                 this.refreshAxes();
                 var seriesValues = this.filterSeriesByOptions(theKey, this.graphicOptions());
                 this.refreshSeries(seriesValues);
@@ -322,6 +407,8 @@
                         return serie.id === id;
                     }
                 );
+        
+                this.removeId(theKey, id);
         
                 this.refreshAxes();
             };
@@ -502,6 +589,7 @@
                         var yearlyProgressItem = monthlyProgressElement.items[monthlyProgressElement.items.length - 1];
                         yearlyProgressElement.items.push({x: oj.IntlConverterUtils.dateToLocalIso(new Date(currentYear, 0, 1)), y: yearlyProgressItem.y});
                         
+                        this.addGroup(theKey, currentYear);
                         tempDate = new Date(++ currentYear, 0, 1);
                     } while(currentYear <= endYear);
                     

@@ -28,8 +28,13 @@
                                                         footerLayout: '', 
                                                         showOn: 'focus'
                                                     },
-                                                    min: minDate,
+                                                    displayOptions: {validatorHint: 'none'},
                                                     max: maxDate,
+                                                    min: minDate,
+                                                    optionChange: dateSelectionHandler,
+                                                    required: true,
+                                                    title: 'Ingrese una fecha menor o igual a la del campo \'Hasta\'',
+                                                    validators: [fromValidator],
                                                     value: fromDateValue
                                                 }"/>
                         </div>
@@ -42,15 +47,20 @@
                         </div>
                         <div class="oj-flex-item">
                             <input class="oj-flex-item" 
-                                   data-bind="  attr:{id: 'to' + graphicId},
+                                   data-bind="  attr:{id: 'to-' + graphicId},
                                                 ojComponent: {
                                                     component: 'ojInputDate', 
                                                     datePicker: {
                                                         footerLayout: '', 
                                                         showOn: 'focus'
                                                     },
-                                                    min: minDate,
+                                                    displayOptions: {validatorHint: 'none'},
                                                     max: maxDate,
+                                                    min: minDate,
+                                                    optionChange: dateSelectionHandler,
+                                                    required: true,
+                                                    title: 'Ingrese una fecha igual o mayor a la del campo \'Desde\'',
+                                                    validators: [toValidator],
                                                     value: toDateValue
                                                 }"/>
                         </div>
