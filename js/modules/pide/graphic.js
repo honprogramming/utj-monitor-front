@@ -38,6 +38,7 @@
                     }
                 };
                 
+                self.dateConverter = GeneralViewModel.converters.date;
                 self.graphicId = params.idPrefix + index.toString();
                 self.graphicMenuId = "graphic-menu-" + index.toString();
                 self.graphicName = ko.observable("Grafica " + index);
@@ -53,6 +54,10 @@
                 self.zoomIconClass = ko.observable("fa-search-plus");
                 self.minDate = oj.IntlConverterUtils.dateToLocalIso(new Date(2010, 0, 01));
                 self.maxDate = oj.IntlConverterUtils.dateToLocalIso(new Date());
+                self.rangeOverflowSummary = "La fecha es mayor a la máxima permitida";
+                self.rangeOverflowDetail = "La fecha debe ser menor o igual a " + self.dateConverter.format(self.maxDate);
+                self.rangeUnderflowSummary = "La fecha es menor a la mínima permitida";
+                self.rangeUnderflowDetail = "La fecha debe ser mayor o igual a " + self.dateConverter.format(self.minDate);
                 self.fromDateValue = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date(2014, 0, 01)));
                 self.toDateValue = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
                 self.xAxis = ko.observable(this.xAxisFormats["yearly"]);

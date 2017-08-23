@@ -41,10 +41,50 @@ define(
                 };
                 
                 self.arrowClass = ko.observable(arrowClassStart + left);
+                self.dateConverter = GeneralViewModel.converters.date;
                 self.displayPanel = ko.observable(true);
-                self.nodes = ko.observableArray();
+                self.fromDateValue = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date(2014, 0, 01)));
                 self.graphics = ko.observableArray();
+                self.id = "pide";
+                self.minDate = oj.IntlConverterUtils.dateToLocalIso(new Date(2010, 0, 01));
+                self.maxDate = oj.IntlConverterUtils.dateToLocalIso(new Date());
+                self.nodes = ko.observableArray();
+                self.rangeOverflowSummary = "La fecha es mayor a la máxima permitida";
+                self.rangeOverflowDetail = "La fecha debe ser menor o igual a " + self.dateConverter.format(self.maxDate);
+                self.rangeUnderflowSummary = "La fecha es menor a la mínima permitida";
+                self.rangeUnderflowDetail = "La fecha debe ser mayor o igual a " + self.dateConverter.format(self.minDate);
                 self.searchValue = ko.observable();
+                self.toDateValue = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
+                
+                self.dateSelectionHandler = function(event, ui) {
+                    if (ui.option === "value") {
+                        var target = $("#" + event.target.id);
+                        
+                        if (target.ojInputDate("isValid")) {
+//                            self.refreshSeriesByDate.call(self, theKey);
+                        }
+                    }
+                };
+                
+                self.fromValidator = {
+                    validate: function(value) {
+                        if(value > self.toDateValue()) {
+                            throw new Error('La fecha debe ser menor o igual a la del campo \'Hasta\'');
+                        }
+                        
+                        return true;
+                    }
+                };
+                
+                self.toValidator = {
+                    validate: function(value) {
+                        if(value < self.fromDateValue()) {
+                            throw new Error('La fecha debe ser igual o mayor a la del campo \'Desde\'');
+                        }
+                        
+                        return true;
+                    }
+                };
                 
                 self.handleKeyUp = function(event, ui) {
                     var value = self.searchValue();

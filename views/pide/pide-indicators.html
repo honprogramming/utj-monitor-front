@@ -78,16 +78,36 @@
                                 <div class="oj-flex-item">
                                     <div class="oj-flex oj-flex-items-pad">
                                         <div class="oj-flex-item oj-sm-align-self-center">
-                                            <label for="from">Desde</label>
+                                            <label data-bind="attr: {for: 'from-' + id}">Desde</label>
                                         </div>
                                         <div class="oj-flex-item">
-                                            <input id="from"
-                                                   data-bind="  ojComponent: {
-                                                                    component: 'ojInputDate', 
+                                            <input data-bind="  attr: {id: 'from-' + id},
+                                                                ojComponent: {
+                                                                    component: 'ojInputDate',
+                                                                    converter: dateConverter,
                                                                     datePicker: {
                                                                         footerLayout: '', 
                                                                         showOn: 'focus'
-                                                                    }
+                                                                    },
+                                                                    displayOptions: {validatorHint: 'none'},
+                                                                    max: maxDate,
+                                                                    min: minDate,
+                                                                    optionChange: dateSelectionHandler,
+                                                                    required: true,
+                                                                    translations: {
+                                                                        'dateTimeRange': {
+                                                                            messageSummary: {
+                                                                                rangeOverflow: rangeOverflowSummary,
+                                                                                rangeUnderflow: rangeUnderflowSummary
+                                                                            }, 
+                                                                            messageDetail: {
+                                                                                rangeOverflow: rangeOverflowDetail,
+                                                                                rangeUnderflow: rangeUnderflowDetail
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    validators: [fromValidator],
+                                                                    value: fromDateValue
                                                                 }"/>
                                         </div>
                                     </div>
@@ -95,17 +115,37 @@
                                 <div class="oj-flex-item">
                                     <div class="oj-flex oj-flex-items-pad">
                                         <div class="oj-flex-item oj-sm-align-self-center">
-                                            <label for="to">Hasta</label>
+                                            <label data-bind="attr: {for: 'to-' + id}">Hasta</label>
                                         </div>
                                         <div class="oj-flex-item">
-                                            <input id="to" class="oj-flex-item" 
-                                                   data-bind=" ojComponent: {
-                                                                        component: 'ojInputDate', 
-                                                                        datePicker: {
-                                                                            footerLayout: '', 
-                                                                            showOn: 'focus'
+                                            <input data-bind="  attr: {id: 'to-' + id},
+                                                                ojComponent: {
+                                                                    component: 'ojInputDate',
+                                                                    converter: dateConverter,
+                                                                    datePicker: {
+                                                                        footerLayout: '', 
+                                                                        showOn: 'focus'
+                                                                    },
+                                                                    displayOptions: {validatorHint: 'none'},
+                                                                    max: maxDate,
+                                                                    min: minDate,
+                                                                    optionChange: dateSelectionHandler,
+                                                                    required: true,
+                                                                    translations: {
+                                                                        'dateTimeRange': {
+                                                                            messageSummary: {
+                                                                                rangeOverflow: rangeOverflowSummary,
+                                                                                rangeUnderflow: rangeUnderflowSummary
+                                                                            }, 
+                                                                            messageDetail: {
+                                                                                rangeOverflow: rangeOverflowDetail,
+                                                                                rangeUnderflow: rangeUnderflowDetail
+                                                                            }
                                                                         }
-                                                                  }"/>
+                                                                    },
+                                                                    validators: [toValidator],
+                                                                    value: toDateValue
+                                                                }"/>
                                         </div>
                                     </div>
                                 </div>

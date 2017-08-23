@@ -23,7 +23,8 @@
                         <div class="oj-flex-item">
                             <input data-bind="  attr:{id: 'from-' + graphicId},
                                                 ojComponent: {
-                                                    component: 'ojInputDate', 
+                                                    component: 'ojInputDate',
+                                                    converter: dateConverter,
                                                     datePicker: {
                                                         footerLayout: '', 
                                                         showOn: 'focus'
@@ -33,6 +34,18 @@
                                                     min: minDate,
                                                     optionChange: dateSelectionHandler,
                                                     required: true,
+                                                    translations: {
+                                                        'dateTimeRange': {
+                                                            messageSummary: {
+                                                                rangeOverflow: rangeOverflowSummary,
+                                                                rangeUnderflow: rangeUnderflowSummary
+                                                            }, 
+                                                            messageDetail: {
+                                                                rangeOverflow: rangeOverflowDetail,
+                                                                rangeUnderflow: rangeUnderflowDetail
+                                                            }
+                                                        }
+                                                    },
                                                     validators: [fromValidator],
                                                     value: fromDateValue
                                                 }"/>
@@ -48,7 +61,8 @@
                             <input class="oj-flex-item" 
                                    data-bind="  attr:{id: 'to-' + graphicId},
                                                 ojComponent: {
-                                                    component: 'ojInputDate', 
+                                                    component: 'ojInputDate',
+                                                    converter: dateConverter,
                                                     datePicker: {
                                                         footerLayout: '', 
                                                         showOn: 'focus'
@@ -58,6 +72,18 @@
                                                     min: minDate,
                                                     optionChange: dateSelectionHandler,
                                                     required: true,
+                                                    translations: {
+                                                        'dateTimeRange': {
+                                                            messageSummary: {
+                                                                rangeOverflow: rangeOverflowSummary,
+                                                                rangeUnderflow: rangeUnderflowSummary
+                                                            }, 
+                                                            messageDetail: {
+                                                                rangeOverflow: rangeOverflowDetail,
+                                                                rangeUnderflow: rangeUnderflowDetail
+                                                            }
+                                                        }
+                                                    },
                                                     validators: [toValidator],
                                                     value: toDateValue
                                                 }"/>
