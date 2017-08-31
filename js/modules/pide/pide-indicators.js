@@ -61,7 +61,25 @@ define(
                         var target = $("#" + event.target.id);
                         
                         if (target.ojInputDate("isValid")) {
-//                            self.refreshSeriesByDate.call(self, theKey);
+                            var graphics = self.graphics().map(
+                                function(graphicVM) {
+                                    return graphicVM.params.graphic;
+                                }
+                            );
+                            
+                            graphics.forEach(
+                                function(graphic) {
+                                    if (self.fromDateValue() !== graphic.fromDateValue()) {
+                                        graphic.fromDateValue(self.fromDateValue());
+                                    }
+                                    
+                                    if (self.toDateValue() !== graphic.toDateValue()) {
+                                        graphic.toDateValue(self.toDateValue());
+                                    }
+                                    
+                                    graphic.refreshSeriesByDate();
+                                }
+                            );
                         }
                     }
                 };
@@ -152,6 +170,8 @@ define(
                                 params: {
                                     idPrefix: "pide-graphic-",
                                     index: self.graphics().length + 1,
+                                    startDate: self.fromDateValue(),
+                                    endDate: self.toDateValue(),
                                     removal: function (index) {
                                         self.graphics.splice(
                                                 findGraphicIndex(

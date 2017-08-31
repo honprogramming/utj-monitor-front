@@ -58,8 +58,8 @@
                 self.rangeOverflowDetail = "La fecha debe ser menor o igual a " + self.dateConverter.format(self.maxDate);
                 self.rangeUnderflowSummary = "La fecha es menor a la mínima permitida";
                 self.rangeUnderflowDetail = "La fecha debe ser mayor o igual a " + self.dateConverter.format(self.minDate);
-                self.fromDateValue = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date(2014, 0, 01)));
-                self.toDateValue = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
+                self.fromDateValue = ko.observable(params.startDate);
+                self.toDateValue = ko.observable(params.endDate);
                 self.xAxis = ko.observable(this.xAxisFormats["yearly"]);
                 self.xAxisType = ko.observable();
                 
@@ -88,7 +88,7 @@
                         var target = $("#" + event.target.id);
                         
                         if (target.ojInputDate("isValid")) {
-                            self.refreshSeriesByDate.call(self, theKey);
+                            self.refreshSeriesByDate.call(self);
                         }
                     }
                 };
@@ -166,6 +166,7 @@
                 };
                 
                 getGraphic.call(params, self);
+                self.refreshSeriesByDate();
             }
             
             GraphicViewModel.prototype = Object.create(GeneralViewModel);
@@ -194,17 +195,15 @@
                 }
             };
             
-            prototype.refreshSeriesByDate = function(key) {
-                if (theKey === key) {
-                    if (this.toDateValue() && this.fromDateValue()) {
-                        this.setSeries(theKey, []);
-                        this.setGroups(theKey, []);
-                        this.setMonthlySeries(theKey, []);
-                        this.setYearlySeries(theKey, []);
-                        this.getIds(theKey).forEach(this.createSerie, this);
-                        this.refreshSeries();
-                        this.refreshAxes();
-                    }
+            prototype.refreshSeriesByDate = function() {
+                if (this.toDateValue() && this.fromDateValue()) {
+                    this.setSeries(theKey, []);
+                    this.setGroups(theKey, []);
+                    this.setMonthlySeries(theKey, []);
+                    this.setYearlySeries(theKey, []);
+                    this.getIds(theKey).forEach(this.createSerie, this);
+                    this.refreshSeries();
+                    this.refreshAxes();
                 }
             };
                     
