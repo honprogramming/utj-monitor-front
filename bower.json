@@ -6,7 +6,7 @@
     ".jshintrc"
   ],
   "dependencies": {
-    "oraclejet": "3.2.0",
+    "oraclejet": "3.0.0",
     "font-awesome": "Font-Awesome#4.7.0"
   },
   "devDependencies": {
