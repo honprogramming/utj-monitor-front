@@ -5,7 +5,7 @@ Prerequisitos:</br>
 Instalar Nodejs: https://nodejs.org/en/</br>
 
 Clonar el repositorio:
-git clone https://github.com/honprogramming/utj-monitor</br>
+git clone https://github.com/honprogramming/utj-monitor-ui</br>
 
 Una vez clonado, dentro del directorio del repositorio correr los siguientes comandos:</br>
 npm install -g bower</br>
