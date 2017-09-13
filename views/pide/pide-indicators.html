@@ -1,12 +1,12 @@
-<div id="pide-indicators-split-container" class="full-width full-height">
+<div id="pide-indicators-split-container" class="container column">
     <div class="section-title">
         TABLERO DE INDICADORES
     </div>
     <hr/>
-    <div class="full-height" data-bind="css: {'oj-flex':displayPanel(), 'oj-flex-bar': !displayPanel()}">
-        <div class="full-height " 
-                data-bind="css: {'oj-flex-item oj-sm-3': displayPanel(), 'oj-flex-bar-start': !displayPanel()}">
-            <div class="full-height oj-flex-bar oj-flex-items-pad">
+    <div class="container" data-bind="css: {'oj-flex':displayPanel()}">
+        <div 
+                data-bind="css: {'container oj-flex-item oj-sm-3': displayPanel()}">
+            <div class="container oj-flex-items-pad">
                 <div style="display:none" id="unit-type-error-pop-up"
                             data-bind="ojComponent:{component: 'ojPopup'}">
                     <div>
@@ -16,24 +16,27 @@
                         </div>
                     </div>
                 </div>
-                <div id="indicators-tree-container" class="full-height oj-flex-bar-middle oj-flex-items-pad"
-                        >
-                    <div class="full-height oj-flex oj-flex-items-pad">
-                        <div id="filter-container" class="oj-flex-item oj-flex-items-pad">
-                            <label for="filterSearch" class="oj-flex-item">Selección de Indicadores</label>
-                            <input id="filterSearch" class="oj-flex-item" placeholder="Buscar..."
-                                    data-bind=" event: {keyup: handleKeyUp},
-                                                textInput: searchValue,
-                                                ojComponent: {
-                                                    component: 'ojInputText',
-                                                    rootAttributes: {
-                                                        style: 'max-width: 100%;'
-                                                    }
-                                                }">
+                <div id="indicators-tree-container" class="container">
+                    <div class="container column">
+                        <div id="filter-container" class="oj-flex oj-flex-items-pad">
+                            <div class="oj-flex-item">
+                                <label for="filterSearch">Selección de Indicadores</label>
+                            </div>
+                            <div class="oj-flex-item">
+                                <input id="filterSearch" placeholder="Buscar..."
+                                        data-bind=" event: {keyup: handleKeyUp},
+                                                    textInput: searchValue,
+                                                    ojComponent: {
+                                                        component: 'ojInputText',
+                                                        rootAttributes: {
+                                                            style: 'max-width: 100%;'
+                                                        }
+                                                    }">
+                            </div>
                         </div>
                         <div id="pide-indicators-selection-panel"
-                                class="full-height oj-flex-item scrolly">
-                            <div id="tree"
+                                class="container scrolly">
+                            <div id="tree" class="container"
                                  data-bind="ojComponent: {
                                                 component: 'ojTree',
                                                 selection: nodes,        
@@ -43,10 +46,7 @@
                                                 icons: false,
                                                 optionChange: clickHandler,
                                                 loaded: loadHandler,
-                                                types: getTypes(),
-                                                rootAttributes: {
-                                                    style: 'width: 100%; margin-bottom: 30%'
-                                                }
+                                                types: getTypes()
                                             }">
                             </div>
                         </div>
@@ -63,17 +63,18 @@
                 </div>
             </div>
         </div>
-        <div id="pide-indicators-graphics-panel" class="full-height"
-                data-bind="css:{'oj-flex-bar-middle': !displayPanel(), 'oj-flex-item oj-sm-9': displayPanel()}">
-            <div class="full-height oj-flex oj-sm-12">
-                <div class="oj-flex-item oj-flex-items-pad oj-sm-12">
-                    <div class="oj-flex oj-sm-justify-content-space-between">
-                        <div class="oj-flex-item oj-sm-align-self-center">
+        <div id="pide-indicators-graphics-panel" class="container"
+                data-bind="css:{'oj-flex-item oj-sm-9': displayPanel()}">
+            <div class="container column">
+                <div class="oj-flex full-width">
+                    <div class="oj-flex-item oj-flex-items-pad">
+                        <div class="oj-flex oj-sm-justify-content-space-between">
+                            <div class="oj-flex-item oj-sm-align-self-center">
                             <i class="fa fa-2x fa-plus pointer"
                                data-bind="click: addGraphicHandler">
                             </i>
                         </div>
-                        <div class="oj-flex-item">
+                            <div class="oj-flex-item">
                             <div class="oj-flex">
                                 <div class="oj-flex-item">
                                     <div class="oj-flex oj-flex-items-pad">
@@ -151,13 +152,14 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
                     </div>
                 </div>
-                <div class="full-height oj-flex-item oj-sm-12">
-                    <div class="full-height oj-flex scrolly" style="padding-bottom: 8%">
+                <div class="container">
+                    <div class="container oj-flex oj-flex-items-pad scrolly">
                         <!-- ko foreach: graphics -->
-                        <div class="oj-flex-item oj-panel graphic">
-                            <div class="oj-panel-drag-handle" 
+                        <!--<div class="container oj-flex-item oj-panel graphic">-->
+<!--                            <div class="oj-panel-drag-handle" 
                                  data-bind="attr: {
                                                 'aria-labelledby': $index
                                             }" 
@@ -166,9 +168,10 @@
                                  tabindex="0" 
                                  role="separator">
                                 <span class="oj-panel-drag-icon"></span>
-                            </div>
-                            <div data-bind="ojModule: $data" class="stretch"></div>
-                        </div>
+                            </div>-->
+                            <div data-bind="ojModule: $data,
+                                            css: $parent.getComputedCssClass($index)"></div>
+                        <!--</div>-->
                         <!-- /ko -->
                     </div>
                 </div>

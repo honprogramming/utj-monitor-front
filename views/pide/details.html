@@ -1,6 +1,4 @@
 <!-- ko if: $data -->
-<div data-bind="text: title" class="section-title"></div>
-<hr/>
 <div id="panel-details-container" class="oj-flex oj-sm-flex-direction-column">
     <div class="oj-flex-item" 
          data-bind="visible: currentParents().length > 0,
@@ -28,16 +26,16 @@
                          style="padding-right: 5px; max-height:20px;"
                          data-bind="attr:{id: id},
                                 ojComponent: {
+                                        animationDuration: '1s',
+                                        animationOnDisplay: 'auto',
                                         component: 'ojStatusMeterGauge', 
                                         min: min, 
                                         max: max, 
-                                        thresholds: thresholdValues,
-                                        value: value,
-                                        referenceLines: referenceLines,
-                                        title: title,
                                         plotArea: {rendered: 'on'},
-                                        animationOnDisplay: 'auto',
-                                        animationDuration: '1s'
+                                        referenceLines: referenceLines,
+                                        thresholds: thresholdValues,
+                                        title: title,
+                                        value: value
                                 }" 
                          style="">
                     </div>
@@ -54,7 +52,7 @@
                 <div class="demo-tile-front">
                     <div class="oj-flex-item">
                         <div class="component-title pointer"  
-                                data-bind="text: $data.type + ' ' + $data.text,
+                             data-bind="text: $data.type + ' ' + $data.text,
                                     click: $parent.clickHandler.bind($data.clickHandlerValue)">
                         </div>
                     </div>
@@ -145,12 +143,12 @@
                                 </div>
                                 <!-- /ko -->
                                 <div class="oj-flex oj-sm-flex-direction-column">
-                                <!-- ko if: childrenType -->
+                                    <!-- ko if: childrenType -->
                                     <div class="oj-flex-item title left-align" data-bind="text: childrenType"></div>
                                     <!-- ko foreach: {data: $data.children, as: 'child'} -->
-                                        <div class="oj-flex-item left-align" data-bind="text: child.getName()"></div>
+                                    <div class="oj-flex-item left-align" data-bind="text: child.getName()"></div>
                                     <!-- /ko -->
-                                <!-- /ko -->
+                                    <!-- /ko -->
                                 </div>
                             </div>
                         </div>
@@ -164,7 +162,7 @@
          data-bind="visible: currentChildren().length > 0,
             ojComponent: {
                 component: 'ojCollapsible', 
-                expanded: false,
+                expanded: true,
                 optionChange: collapseChildrenHandler
          }">
         <div>

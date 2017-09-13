@@ -343,6 +343,29 @@ define(
             
             var prototype = PIDEIndicatorsViewModel.prototype;
             
+            prototype.getComputedCssClass = function(index) {
+                return ko.pureComputed(
+                            function() {
+                                var graphicsLength =this.graphics().length;
+                                var cssClass;
+                                
+                                if (graphicsLength === 1) {
+                                    cssClass = "container";
+                                } else {
+                                    cssClass = "half-height ";
+                                    
+                                    cssClass += graphicsLength > 2
+                                            && (graphicsLength % 2 === 0
+                                            || index() + 1 < graphicsLength)
+                                            ? "half-width"
+                                            : "full-width";
+                                }
+                                
+                                return cssClass;
+                            }, this
+                       );
+            };
+            
             prototype.addSelectedNode = function(key, id, node) {
                 if (theKey === key) {
                     var selectedNodes = this.getSelectedNodes(key);
