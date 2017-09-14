@@ -5,44 +5,17 @@
     Description:
         This is where any of your application specific styles should be included
 */
+*, *:before, *:after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
 
 html, body {
-    min-height: 100%;
+    height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
-}
-
-#globalBody {
-    /*if any margin is modified then header and footer may be modified too*/
-    margin: 80px 0px 0px 0px;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
-header {
-    /*this margin will depend on globalBody margins*/
-    margin-top: -80px;
-    height: 80px;
-    width: 100%;
-    position: fixed;
-}
-
-#mainContainer {
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-footer {
-    /*this margin will depend on globalBody margins*/
-    margin-bottom: -60px;
-    height: 60px;
-    width: 100%;
-    bottom: 0;
-    position: fixed;
 }
 
 .app-title {
@@ -68,20 +41,39 @@ footer {
     font-weight: bold;
 }
 
-.full-max-width {
-    max-width: 100%;
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    align-content: stretch;
+}
+
+.container.column {
+    flex-direction: column;
+}
+
+.item-stretch {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 100%;
 }
 
 .full-width {
-    min-width: 95%;
-    max-width: 100%;
     width: 100%;
 }
 
+.half-width {
+    width: 50%;
+}
+
 .full-height {
-    min-height: 95%;
-    max-height: 99%;
-    height: 99%;
+    height: 100%;
+}
+
+.half-height {
+    height: 50%;
 }
 
 .left-align {
@@ -182,14 +174,6 @@ footer {
     font-weight: bold;
     margin: 0px;
     color: red;
-}
-
-.strech-items {
-    align-items: stretch;
-}
-
-.strech {
-    align-self: stretch;
 }
 
 .lightred {

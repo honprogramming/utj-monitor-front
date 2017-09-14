@@ -13,7 +13,7 @@ define(
                 PlanElementTypes, EventTypes) {
             var theKey = {};
 
-            function DetailsViewModel(title, controlPanelModel) {
+            function DetailsViewModel(controlPanelModel) {
                 var self = this;
                 this.listeners = [];
 
@@ -29,7 +29,6 @@ define(
                     }
                 };
 
-                this.title = this.nls(title);
                 this.selectedPlanElement = ko.observable();
                 this.currentParents = ko.observableArray();
                 this.currentChildren = ko.observableArray();

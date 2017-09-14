@@ -23,12 +23,11 @@
         <script data-main="js/main" src="libs/requirejs/require.js"></script>
         
     </head>
-    <body class="appheader-offcanvas-pushwrapper">
-
+    <body>
         <!-- The globalBody section is initially hidden so that content is not partially displayed before content is 
           ** loaded into the dynamic sections.  You will see a jQuery .show() method call at the bottom of the main.js 
           ** file which is what finally displays the page content. -->
-        <div id="globalBody" style="display: none;">
+        <div id="globalBody" style="display: none;" class="container column">
             <!-- 
             ** This off-canvas section is used when the browser is resized to a 
             ** medium or smaller media query size. It moves the App Navigation into a drawer.
@@ -36,7 +35,7 @@
             ** changed to use off-canvas template.
             -->
             <!-- off-canvas content -->
-            <div id="appDrawer" 
+<!--            <div id="appDrawer" 
                  class="oj-offcanvas-start oj-panel appheader-offscreencontent full-height">
                 <div id='appHeaderOffCanvasInnerDiv'
                      data-bind="ojModule: {
@@ -44,34 +43,20 @@
                                     viewName: 'header/appHeaderOffCanvasTemplate'
                             }">
                 </div>
-            </div>
+            </div>-->
 
             <!-- Header section which contains the Global Branding, Global Navigation, 
             ** and Application Navigation code. Template is located in /templates/header.tmpl.html 
             -->
             <header id="headerWrapper" role="banner" data-bind="ojModule: {name: 'header/header'}"></header>
-
+            
             <!-- This is where your main page content will be loaded -->
-            <div id="mainContainer" role="main" class="full-height">
-                <div id="mainContentContainer" class="full-height" data-bind="ojModule: {name: 'mainContent'}"></div>
-                <!--<div id="mainContent" class="full-height" data-bind="ojModule: {name: 'projects'}"></div>-->
-                <!--<div id="mainContent" class="full-height" data-bind="ojModule: {name: 'home'}"></div>-->
-<!--                <div id="mainContent" class="oj-flex-item full-height"
-                        data-bind="ojModule: {
-                            name: 'pide',
-                            viewName: 'pide/pide'
-                    }">
-                </div>-->
-<!--                <div id="mainContent" class="oj-flex-item oj-sm-12 full-height" 
-                        data-bind="ojModule: {
-                            name: 'forms/profile', 
-                            viewName: 'forms/profile'
-                        }">
-                </div>
+            <div id="mainContainer" role="main" class="container">
+                <div id="mainContentContainer" class="container" data-bind="ojModule: {name: 'mainContent'}"></div>
             </div>
-            <footer id="footerWrapper" role="footer"
+<!--            <footer id="footerWrapper" role="footer"
                     data-bind="ojModule: {name: 'footer'}">
-            </footer>
+            </footer>-->
         </div>
     </body>
 </html>

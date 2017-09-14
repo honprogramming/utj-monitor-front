@@ -1,5 +1,5 @@
-<fieldset class="strech" data-bind="css: {'edit-on': editing}">
-    <legend class="left-align">
+<fieldset class="container column" data-bind="css: {'edit-on': editing}">
+    <legend class="item-stretch left-align">
         <span data-bind="css: {'display-none': displayGraphicNameInputText}">
             <label class="pointer" data-bind="text: graphicName, click: graphicNameLabelClickHandler"></label>
         </span>
@@ -12,87 +12,89 @@
                                 }"/>
         </span>
     </legend>
-    <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-space-between oj-sm-12">
-        <div class="oj-flex-item">
-            <div class="oj-flex">
-                <div class="oj-flex-item">
-                    <div class="oj-flex oj-flex-items-pad">
-                        <div class="oj-flex-item oj-sm-align-self-center">
-                            <label data-bind="attr: {for: 'from-' + graphicId}">Desde</label>
-                        </div>
-                        <div class="oj-flex-item">
-                            <input data-bind="  attr:{id: 'from-' + graphicId},
-                                                ojComponent: {
-                                                    component: 'ojInputDate',
-                                                    converter: dateConverter,
-                                                    datePicker: {
-                                                        footerLayout: '', 
-                                                        showOn: 'focus'
-                                                    },
-                                                    displayOptions: {validatorHint: 'none'},
-                                                    max: maxDate,
-                                                    min: minDate,
-                                                    optionChange: dateSelectionHandler,
-                                                    required: true,
-                                                    translations: {
-                                                        'dateTimeRange': {
-                                                            messageSummary: {
-                                                                rangeOverflow: rangeOverflowSummary,
-                                                                rangeUnderflow: rangeUnderflowSummary
-                                                            }, 
-                                                            messageDetail: {
-                                                                rangeOverflow: rangeOverflowDetail,
-                                                                rangeUnderflow: rangeUnderflowDetail
+    <div class="container column">
+        <div>
+            <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-space-between oj-sm-12">
+            <div class="oj-flex-item">
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <div class="oj-flex oj-flex-items-pad">
+                            <div class="oj-flex-item oj-sm-align-self-center">
+                                <label data-bind="attr: {for: 'from-' + graphicId}">Desde</label>
+                            </div>
+                            <div class="oj-flex-item">
+                                <input data-bind="  attr:{id: 'from-' + graphicId},
+                                                    ojComponent: {
+                                                        component: 'ojInputDate',
+                                                        converter: dateConverter,
+                                                        datePicker: {
+                                                            footerLayout: '', 
+                                                            showOn: 'focus'
+                                                        },
+                                                        displayOptions: {validatorHint: 'none'},
+                                                        max: maxDate,
+                                                        min: minDate,
+                                                        optionChange: dateSelectionHandler,
+                                                        required: true,
+                                                        translations: {
+                                                            'dateTimeRange': {
+                                                                messageSummary: {
+                                                                    rangeOverflow: rangeOverflowSummary,
+                                                                    rangeUnderflow: rangeUnderflowSummary
+                                                                }, 
+                                                                messageDetail: {
+                                                                    rangeOverflow: rangeOverflowDetail,
+                                                                    rangeUnderflow: rangeUnderflowDetail
+                                                                }
                                                             }
-                                                        }
-                                                    },
-                                                    validators: [fromValidator],
-                                                    value: fromDateValue
-                                                }"/>
+                                                        },
+                                                        validators: [fromValidator],
+                                                        value: fromDateValue
+                                                    }"/>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="oj-flex-item">
-                    <div class="oj-flex oj-flex-items-pad">
-                        <div class="oj-flex-item oj-sm-align-self-center">
-                            <label data-bind="attr: {for: 'to-' + graphicId}">Hasta</label>
-                        </div>
-                        <div class="oj-flex-item">
-                            <input class="oj-flex-item" 
-                                   data-bind="  attr:{id: 'to-' + graphicId},
-                                                ojComponent: {
-                                                    component: 'ojInputDate',
-                                                    converter: dateConverter,
-                                                    datePicker: {
-                                                        footerLayout: '', 
-                                                        showOn: 'focus'
-                                                    },
-                                                    displayOptions: {validatorHint: 'none'},
-                                                    max: maxDate,
-                                                    min: minDate,
-                                                    optionChange: dateSelectionHandler,
-                                                    required: true,
-                                                    translations: {
-                                                        'dateTimeRange': {
-                                                            messageSummary: {
-                                                                rangeOverflow: rangeOverflowSummary,
-                                                                rangeUnderflow: rangeUnderflowSummary
-                                                            }, 
-                                                            messageDetail: {
-                                                                rangeOverflow: rangeOverflowDetail,
-                                                                rangeUnderflow: rangeUnderflowDetail
+                    <div class="oj-flex-item">
+                        <div class="oj-flex oj-flex-items-pad">
+                            <div class="oj-flex-item oj-sm-align-self-center">
+                                <label data-bind="attr: {for: 'to-' + graphicId}">Hasta</label>
+                            </div>
+                            <div class="oj-flex-item">
+                                <input class="oj-flex-item" 
+                                       data-bind="  attr:{id: 'to-' + graphicId},
+                                                    ojComponent: {
+                                                        component: 'ojInputDate',
+                                                        converter: dateConverter,
+                                                        datePicker: {
+                                                            footerLayout: '', 
+                                                            showOn: 'focus'
+                                                        },
+                                                        displayOptions: {validatorHint: 'none'},
+                                                        max: maxDate,
+                                                        min: minDate,
+                                                        optionChange: dateSelectionHandler,
+                                                        required: true,
+                                                        translations: {
+                                                            'dateTimeRange': {
+                                                                messageSummary: {
+                                                                    rangeOverflow: rangeOverflowSummary,
+                                                                    rangeUnderflow: rangeUnderflowSummary
+                                                                }, 
+                                                                messageDetail: {
+                                                                    rangeOverflow: rangeOverflowDetail,
+                                                                    rangeUnderflow: rangeUnderflowDetail
+                                                                }
                                                             }
-                                                        }
-                                                    },
-                                                    validators: [toValidator],
-                                                    value: toDateValue
-                                                }"/>
+                                                        },
+                                                        validators: [toValidator],
+                                                        value: toDateValue
+                                                    }"/>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="oj-flex-item">
+            <div class="oj-flex-item">
             <button data-bind=" attr:{id: 'menu-button-' + graphicId},
                                 ojComponent: {
                                     component: 'ojButton',
@@ -131,28 +133,31 @@
                 <i class="fa fa-trash fa-stack-1x pointer" data-bind="click: trashClickHandler"></i>
             </span>
         </div>
-    </div>
-    <div class="oj-flex oj-sm-justify-content-center">
-        <div data-bind="ojComponent: {
-                            component: 'ojCheckboxset',
-                            value: graphicOptions,
-                            optionChange: graphicOptionsHandler
-                        }" 
-             aria-labelledby="mainlabelid" class='oj-choice-direction-row'>
-            <span class="oj-choice-item">
-                <input type="checkbox" value="progress"
-                        data-bind=" attr:{id: 'progress-' + graphicId}">
-                <label data-bind="attr:{for: 'progress-' + graphicId}">Avances</label>
-            </span>
-            <span class="oj-choice-item">
-                <input type="checkbox" value="goals"
-                        data-bind=" attr:{id: 'goals-' + graphicId}">
-                <label data-bind="attr:{for: 'goals-' + graphicId}">Metas</label>
-            </span>
         </div>
-    </div>
-    <div class="oj-flex-bar">
-        <div class="full-height oj-flex-bar-middle"
+        </div>
+        <div>
+            <div class="oj-flex oj-sm-justify-content-center">
+                <div data-bind="ojComponent: {
+                                    component: 'ojCheckboxset',
+                                    value: graphicOptions,
+                                    optionChange: graphicOptionsHandler
+                                }" 
+                     aria-labelledby="mainlabelid" class='oj-choice-direction-row'>
+                    <span class="oj-choice-item">
+                        <input type="checkbox" value="progress"
+                                data-bind=" attr:{id: 'progress-' + graphicId}">
+                        <label data-bind="attr:{for: 'progress-' + graphicId}">Avances</label>
+                    </span>
+                    <span class="oj-choice-item">
+                        <input type="checkbox" value="goals"
+                                data-bind=" attr:{id: 'goals-' + graphicId}">
+                        <label data-bind="attr:{for: 'goals-' + graphicId}">Metas</label>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="container oj-flex-bar">
+            <div class="container oj-flex-bar-middle"
              data-bind="attr: {id: graphicId},
                         ojComponent: {
                             animationOnDisplay: 'auto',
@@ -179,10 +184,11 @@
                             zoomAndScroll: zoom
                         }">
         </div>
-        <div class="oj-flex-bar-end">
-            <i class="fa fa-lg oj-sm-align-self-center pointer"
-                data-bind="click: zoomClickHandler, css: zoomIconClass">
-            </i>
+            <div class="oj-flex-bar-end">
+                <i class="fa fa-lg oj-sm-align-self-center pointer"
+                    data-bind="click: zoomClickHandler, css: zoomIconClass">
+                </i>
+            </div>
         </div>
     </div>
 </fieldset>
