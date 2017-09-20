@@ -15,16 +15,16 @@
     <div class="container column">
         <div>
             <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-space-between oj-sm-12">
-            <div class="oj-flex-item">
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <div class="oj-flex oj-flex-items-pad">
-                            <div class="oj-flex-item oj-sm-align-self-center">
+                <div class="oj-flex-item">
+                    <div class="oj-flex">
+                        <div class="oj-flex-item">
+                            <div class="oj-flex oj-flex-items-pad">
+                                <div class="oj-flex-item oj-sm-align-self-center">
                                 <label data-bind="attr: {for: 'from-' + graphicId}">Desde</label>
                             </div>
                             <div class="oj-flex-item">
-                                <input data-bind="  attr:{id: 'from-' + graphicId},
-                                                    ojComponent: {
+                                    <input data-bind="  attr:{id: 'from-' + graphicId},
+                                                        ojComponent: {
                                                         component: 'ojInputDate',
                                                         converter: dateConverter,
                                                         datePicker: {
@@ -36,6 +36,9 @@
                                                         min: minDate,
                                                         optionChange: dateSelectionHandler,
                                                         required: true,
+                                                        rootAttributes: {
+                                                            style: 'min-width: 7em; max-width: 7em;'
+                                                        },
                                                         translations: {
                                                             'dateTimeRange': {
                                                                 messageSummary: {
@@ -53,87 +56,133 @@
                                                     }"/>
                             </div>
                         </div>
-                    </div>
-                    <div class="oj-flex-item">
-                        <div class="oj-flex oj-flex-items-pad">
-                            <div class="oj-flex-item oj-sm-align-self-center">
-                                <label data-bind="attr: {for: 'to-' + graphicId}">Hasta</label>
-                            </div>
-                            <div class="oj-flex-item">
-                                <input class="oj-flex-item" 
-                                       data-bind="  attr:{id: 'to-' + graphicId},
-                                                    ojComponent: {
-                                                        component: 'ojInputDate',
-                                                        converter: dateConverter,
-                                                        datePicker: {
-                                                            footerLayout: '', 
-                                                            showOn: 'focus'
-                                                        },
-                                                        displayOptions: {validatorHint: 'none'},
-                                                        max: maxDate,
-                                                        min: minDate,
-                                                        optionChange: dateSelectionHandler,
-                                                        required: true,
-                                                        translations: {
-                                                            'dateTimeRange': {
-                                                                messageSummary: {
-                                                                    rangeOverflow: rangeOverflowSummary,
-                                                                    rangeUnderflow: rangeUnderflowSummary
-                                                                }, 
-                                                                messageDetail: {
-                                                                    rangeOverflow: rangeOverflowDetail,
-                                                                    rangeUnderflow: rangeUnderflowDetail
+                        </div>
+                        <div class="oj-flex-item">
+                            <div class="oj-flex oj-flex-items-pad">
+                                <div class="oj-flex-item oj-sm-align-self-center">
+                                    <label data-bind="attr: {for: 'to-' + graphicId}">Hasta</label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <input class="oj-flex-item" 
+                                           data-bind="  attr:{id: 'to-' + graphicId},
+                                                        ojComponent: {
+                                                            component: 'ojInputDate',
+                                                            converter: dateConverter,
+                                                            datePicker: {
+                                                                footerLayout: '', 
+                                                                showOn: 'focus'
+                                                            },
+                                                            displayOptions: {validatorHint: 'none'},
+                                                            max: maxDate,
+                                                            min: minDate,
+                                                            optionChange: dateSelectionHandler,
+                                                            required: true,
+                                                            rootAttributes: {
+                                                                style: 'min-width: 7em; max-width: 7em;'
+                                                            },
+                                                            translations: {
+                                                                'dateTimeRange': {
+                                                                    messageSummary: {
+                                                                        rangeOverflow: rangeOverflowSummary,
+                                                                        rangeUnderflow: rangeUnderflowSummary
+                                                                    }, 
+                                                                    messageDetail: {
+                                                                        rangeOverflow: rangeOverflowDetail,
+                                                                        rangeUnderflow: rangeUnderflowDetail
+                                                                    }
                                                                 }
-                                                            }
-                                                        },
-                                                        validators: [toValidator],
-                                                        value: toDateValue
-                                                    }"/>
+                                                            },
+                                                            validators: [toValidator],
+                                                            value: toDateValue
+                                                        }"/>
+                                </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
+                <div class="oj-flex-item">
+                    <div    data-bind=" attr: {id: graphicId + '-graphic-set'},
+                                        ojComponent: {
+                                            component: 'ojButtonset',
+                                            optionChange: graphicTypeSelectHandler,
+                                            checked: chartType
+                                        }"
+                            aria-label="Selecciona el tipo de gráfica">
+                            <label data-bind="attr: {for: graphicId + '-barChart'}"></label>                               
+                            <input type="radio" name="graphic-type" 
+                                    data-bind=" value: 'combo', attr: {id: graphicId + '-barChart'}, 
+                                                ojComponent: {
+                                                    component: 'ojButton',
+                                                    display: 'icons',
+                                                    icons: {
+                                                        start: 'fa fa-lg fa-bar-chart'
+                                                    }
+                                                }"/>
+                            <label data-bind="attr: {for: graphicId + '-lineChart'}"></label>                               
+                            <input type="radio" name="graphic-type" 
+                                    data-bind=" value: 'line', attr: {id: graphicId +'-lineChart'}, 
+                                                ojComponent: {
+                                                    component: 'ojButton',
+                                                    display: 'icons',
+                                                    icons: {
+                                                        start: 'fa fa-lg fa-line-chart'
+                                                    }
+                                                }"/>
+                    </div>
+                </div>
+                <div class="oj-flex-item">
+                    <button data-bind=" attr:{id: 'menu-button-' + graphicId},
+                                        ojComponent: {
+                                            component: 'ojButton',
+                                            display: 'icons',
+                                            menu: '#' + graphicMenuId,
+                                            icons: {
+                                                start: 'fa fa-lg fa-cog'
+                                            }
+                                            
+                                        }">
+                    </button>
+                    <ul style="display:none"
+                        data-bind=" attr:{id: graphicMenuId},
+                                    ojComponent: {
+                                        component: 'ojMenu'
+                                    }">
+                        <li data-bind="attr: {id: graphicMenuId + '-edit'}">
+                            <a href="#" class="pointer">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-pencil fa-stack-1x"
+                                       data-bind="click: startEditHandler"></i>
+                                    <i class="fa fa-ban fa-stack-2x fa-rotate-90 lightred"
+                                       data-bind="visible: editing, click: stopEditHandler"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li data-bind="attr: {id: graphicMenuId + '-clone'}">
+                            <a href="#" class="pointer">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-clone fa-stack-1x"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li data-bind="attr: {id: graphicMenuId + '-delete'}">
+                            <a href="#" class="pointer">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-trash fa-stack-1x" data-bind="click: trashClickHandler"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li data-bind="attr: {id: graphicMenuId + '-download'}">
+                            <a href="#" class="pointer">
+                                <span class="fa fa-stack fa-lg">
+                                    <i class="fa fa-download fa-stack-1x"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
             </div>
-            <div class="oj-flex-item">
-            <button data-bind=" attr:{id: 'menu-button-' + graphicId},
-                                ojComponent: {
-                                    component: 'ojButton',
-                                    menu: '#' + graphicMenuId,
-                                    icons: {
-                                        start: 'fa fa-lg fa-gear'
-                                    }
-                                }">
-            </button>
-            <ul style="display:none"
-                data-bind=" attr:{id: graphicMenuId},
-                            ojComponent: {
-                                component: 'ojMenu',
-                                select: graphicTypeSelectHandler
-                            }">
-                <li id="lineChart">
-                    <a href="#"><span class="fa fa-lg fa-line-chart"></span></a>
-                </li>
-                <li id="barChart">
-                    <a href="#"><span class="fa fa-lg fa-bar-chart"></span></a>
-                </li>
-                <li id="download">
-                    <a href="#"><span class="fa fa-lg fa-download"></span></a>
-                </li>
-            </ul>
-            <span class="fa-stack fa-lg">
-                <i class="fa fa-pencil fa-stack-1x  pointer"
-                   data-bind="click: startEditHandler"></i>
-                <i class="fa fa-ban fa-stack-2x fa-rotate-90 pointer lightred"
-                   data-bind="visible: editing, click: stopEditHandler"></i>
-            </span>
-            <span class="fa-stack fa-lg">
-                <i class="fa fa-clone fa-stack-1x pointer"></i>
-            </span>
-            <span class="fa-stack fa-lg">
-                <i class="fa fa-trash fa-stack-1x pointer" data-bind="click: trashClickHandler"></i>
-            </span>
-        </div>
-        </div>
         </div>
         <div>
             <div class="oj-flex oj-sm-justify-content-center">

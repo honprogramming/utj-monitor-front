@@ -183,10 +183,11 @@ define(
                                         currentEditingGraphic = undefined;
                                     },
                                     startEditing: function(currentGraphic) {
+                                        currentEditingGraphic = currentGraphic;
+                                        
                                         self.graphics().forEach(
                                                 function(element) {
                                                     var graphic = element.params.graphic;
-                                                    currentEditingGraphic = graphic;
                                                     
                                                     if (graphic !== currentGraphic) {
                                                         graphic.editing(false);

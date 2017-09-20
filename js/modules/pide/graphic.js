@@ -42,7 +42,7 @@
                 self.graphicId = params.idPrefix + index.toString();
                 self.graphicMenuId = "graphic-menu-" + index.toString();
                 self.graphicName = ko.observable("Grafica " + index);
-                self.chartType = ko.observable("line");
+                self.chartType = ko.observable("combo");
                 self.graphicOptions = ko.observableArray(["progress", "goals"]);
                 self.editing = ko.observable(false);
                 self.displayGraphicNameInputText = ko.observable(false);
@@ -127,27 +127,29 @@
                 };
                 
                 self.graphicTypeSelectHandler = function(event, ui) {
-                    var id = ui.item[0].id;
+                    var value = ui.value;
                     
-                    if (id.includes(self.graphicType.BAR)) {
-                        self.chartType(self.graphicType.COMBO);
-                        self.setGraphicType(theKey, self.graphicType.BAR);
-                    } else if (id.includes(self.graphicType.LINE)) {
-                        self.chartType(self.graphicType.LINE);
-                        self.setGraphicType(theKey, self.graphicType.LINE);
+                    if (ui.option === "checked") {
+                        if (value.includes(self.graphicType.COMBO)) {
+                            self.chartType(self.graphicType.COMBO);
+                            self.setGraphicType(theKey, self.graphicType.BAR);
+                        } else if (value.includes(self.graphicType.LINE)) {
+                            self.chartType(self.graphicType.LINE);
+                            self.setGraphicType(theKey, self.graphicType.LINE);
+                        }
+
+                        var series = self.seriesValues();
+
+                        var progressSeries = series.filter(filterProgress);
+
+                        progressSeries.forEach(
+                                function(element) {
+                                    element.type = self.getGraphicType();
+                                }
+                        );
+
+                        $("#" + self.graphicId).ojChart("refresh");
                     }
-                    
-                    var series = self.seriesValues();
-                    
-                    var progressSeries = series.filter(filterProgress);
-                    
-                    progressSeries.forEach(
-                            function(element) {
-                                element.type = self.getGraphicType();
-                            }
-                    );
-            
-                    $("#" + self.graphicId).ojChart("refresh");
                 };
                 
                 self.trashClickHandler = function() {
@@ -160,7 +162,15 @@
                         var newSeries = [];
 
                         newSeries = self.filterSeriesByOptions(theKey, options);
+                        
+                        var progressSeries = newSeries.filter(filterProgress);
 
+                        progressSeries.forEach(
+                                function(element) {
+                                    element.type = self.getGraphicType();
+                                }
+                        );
+                
                         self.seriesValues(newSeries);
                     }
                 };
@@ -303,10 +313,8 @@
                 }
             };
             
-            prototype.getIds = function(key) {
-                if (theKey === key) {
-                    return this.GraphicViewModel_(theKey).ids;
-                }
+            prototype.getIds = function() {
+                return this.GraphicViewModel_(theKey).ids;
             };
             
             prototype.setIds = function(key, ids) {
