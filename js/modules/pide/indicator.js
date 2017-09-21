@@ -7,7 +7,13 @@ define([
     'jquery', 
     'ojs/ojknockout',
     'ojs/ojinputtext', 
-    'ojs/ojchart'
+    'ojs/ojchart',
+    'ojs/ojtabs',
+    'ojs/ojcollapsible',
+    'ojs/ojtable',
+    'ojs/ojdialog',
+    'ojs/ojbutton',
+    'ojs/ojarraytabledatasource'
 ], function (oj, ko) {
     
     /**
