@@ -15,6 +15,7 @@
             
             function GraphicViewModel(params) {
                 var self = this;
+                var cloneFunction = params.clone;
                 var removalFunction = params.removal;
                 var startEditingFunction = params.startEditing;
                 var stopEditingFunction = params.stopEditing;
@@ -62,6 +63,10 @@
                 self.toDateValue = ko.observable(params.endDate);
                 self.xAxis = ko.observable(this.xAxisFormats["yearly"]);
                 self.xAxisType = ko.observable();
+                
+                self.cloneClickHandler = function() {
+                    cloneFunction(index);
+                };
                 
                 self.fromValidator = {
                     validate: function(value) {
@@ -211,7 +216,7 @@
                     this.setGroups(theKey, []);
                     this.setMonthlySeries(theKey, []);
                     this.setYearlySeries(theKey, []);
-                    this.getIds(theKey).forEach(this.createSerie, this);
+                    this.getIds().forEach(this.createSerie, this);
                     this.refreshSeries();
                     this.refreshAxes();
                 }
@@ -325,16 +330,16 @@
             
             prototype.addId = function(key, id) {
                 if (theKey === key) {
-                    this.getIds(key).push(id);
+                    this.getIds().push(id);
                 }
             };
             
             prototype.removeId = function(key, id) {
                 if (theKey === key) {
-                    var ids = this.getIds(key);
+                    var ids = this.getIds();
                     var index = ids.indexOf(id);
                     
-                    ids.slice(1, index);
+                    ids.splice(index, 1);
                 }
             };
             

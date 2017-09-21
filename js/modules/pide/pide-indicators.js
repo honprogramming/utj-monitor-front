@@ -31,7 +31,8 @@ define(
                 
                 var privateData = {
                     selectedNodes: {},
-                    selectedNodesBackup: undefined
+                    selectedNodesBackup: undefined,
+                    selectingNode: false
                 };
                 
                 this.PIDEIndicatorsViewModel_ = function(key) {
@@ -172,6 +173,24 @@ define(
                                     index: self.graphics().length + 1,
                                     startDate: self.fromDateValue(),
                                     endDate: self.toDateValue(),
+                                    clone: function(index) {
+                                        var graphicIndex = findGraphicIndex(
+                                            self.graphics(),
+                                            index
+                                        );
+                                
+                                        var graphicInitData = self.graphics()[graphicIndex];
+                                        var graphicClone = Object.assign({}, graphicInitData);
+                                        graphicClone["params"] = Object.assign({}, graphicInitData.params);
+                                        var graphicCloneParams = graphicClone["params"];
+                                        
+                                        graphicCloneParams["index"] = self.graphics().length + 1;
+                                        graphicCloneParams["ids"] = graphicInitData.params.graphic.getIds().slice();
+                                        graphicCloneParams["startDate"] = self.fromDateValue();
+                                        graphicCloneParams["endDate"] = self.toDateValue();
+                                        
+                                        self.graphics.push(graphicClone);
+                                    },
                                     removal: function (index) {
                                         self.graphics.splice(
                                                 findGraphicIndex(
@@ -183,6 +202,10 @@ define(
                                         currentEditingGraphic = undefined;
                                     },
                                     startEditing: function(currentGraphic) {
+                                        if (!currentEditingGraphic) {
+                                            self.setSelectedNodesBackup(theKey, self.getSelectedNodes(theKey));
+                                        }
+                                        
                                         currentEditingGraphic = currentGraphic;
                                         
                                         self.graphics().forEach(
@@ -195,13 +218,15 @@ define(
                                                 }
                                         );
                                 
-                                        self.setSelectedNodesBackup(theKey, self.getSelectedNodes(theKey));
                                         self.resetSelection();
                                         self.selectNodesById(currentGraphic.getIds());
                                     },
                                     stopEditing: function() {
                                         self.resetSelection();
-                                        self.selectNodesById(Object.keys(self.getSelectedNodesBackup(theKey)));
+                                        if (self.getSelectedNodesBackup(theKey)) {
+                                            self.selectNodesById(Object.keys(self.getSelectedNodesBackup(theKey)));
+                                        }
+                                        
                                         currentEditingGraphic = undefined;
                                     },
                                     getGraphic: function (graphicReference) {
@@ -222,6 +247,13 @@ define(
 
                     if (option === "selection") {
                         var node = ui.value[0];
+                        
+                        if (self.getSelectingNode()) {
+                            self.setSelectingNode(false);
+                            return;
+                        }
+                        
+                        self.setSelectingNode(true);
 
                         if (node && node.type) {
                             self.nodes([]);
@@ -264,7 +296,7 @@ define(
                                     $("#unit-type-error-pop-up").ojPopup("open", "#" + node.id, position);
                                 }
                             } else {
-                                self.removeSelectedNode(theKey, node.id);
+                                self.removeSelectedNode(theKey, node);
                                 if (currentEditingGraphic) {
                                     currentEditingGraphic.removeIndicator(node.id);
                                 }
@@ -344,6 +376,16 @@ define(
             
             var prototype = PIDEIndicatorsViewModel.prototype;
             
+            prototype.setSelectingNode = function(key, selectingNode) {
+                if (theKey === key) {
+                    this.PIDEIndicatorsViewModel_(key).selectingNode = selectingNode;
+                }
+            };
+            
+            prototype.getSelectingNode = function() {
+                return this.PIDEIndicatorsViewModel_(theKey).selectingNode;
+            };
+            
             prototype.getComputedCssClass = function(index) {
                 return ko.pureComputed(
                             function() {
@@ -375,11 +417,12 @@ define(
                 }
             };
             
-            prototype.removeSelectedNode = function(key, id) {
+            prototype.removeSelectedNode = function(key, node) {
                 if (theKey === key) {
                     var selectedNodes = this.getSelectedNodes(key);
                     
-                    delete selectedNodes[id];
+                    delete selectedNodes[node.id];
+                    node.type = "indicator";
                 }
             };
             
@@ -416,7 +459,9 @@ define(
                         var node = document.getElementById(id);
                         
                         var regExp = /fa-check-square-o/;
-
+                        
+                        node.type = "indicator";
+                        
                         if (node.className.match(regExp)) {
                             node.className = node.className.replace(regExp, "fa-square-o");
                         }
@@ -434,7 +479,9 @@ define(
                         var node = document.getElementById(id);
                         
                         var regExp = /fa-square-o/;
-
+                        
+                        node.type = "indicator-selected";
+                        
                         if (node.className.match(regExp)) {
                             node.className = node.className.replace(regExp, "fa-check-square-o");
                         }
