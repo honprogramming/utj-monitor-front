@@ -37,17 +37,45 @@
                         <div id="pide-indicators-selection-panel"
                                 class="container scrolly">
                             <div id="tree" class="container"
+                                 contextmenu="tree-context-menu"
                                  data-bind="ojComponent: {
                                                 component: 'ojTree',
+                                                data:{data: getJson},
+                                                hover: hoverHandler,
+                                                icons: false,
+                                                initExpanded: 'all',
+                                                loaded: loadHandler,
+                                                optionChange: clickHandler,
                                                 selection: nodes,        
                                                 selectionMode: 'single',
-                                                data:{data: getJson},
-                                                initExpanded: 'all',
-                                                icons: false,
-                                                optionChange: clickHandler,
-                                                loaded: loadHandler,
                                                 types: getTypes()
                                             }">
+                            </div>
+                            <ul id="tree-context-menu"
+                                style="display:none" aria-label="Edit"
+                                data-bind=" ojComponent: {
+                                                beforeOpen: validateNodeTypeHandler,
+                                                component: 'ojMenu', 
+                                                select: menuSelectHandler
+                                            }">
+                                <li id="indicator-card-menu-item"><a href="#">Ver Ficha</a></li>
+                            </ul>
+                            <div id="tree-menu-dialog-wrapper">
+                                <div style="display:none" id="tree-menu-dialog" 
+                                        data-bind=" ojComponent:{
+                                                        component: 'ojDialog', 
+                                                        initialVisibility: 'hide',
+                                                        modality: 'modeless',
+                                                        rootAttributes: {
+                                                            style: 'width: 95vw; height: 95vh;'
+                                                        }
+                                                    }">
+                                    <div class="oj-dialog-header centered">
+                                        Indicador
+                                    </div>
+                                    <div class="oj-dialog-body">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -70,8 +98,9 @@
                     <div class="oj-flex-item oj-flex-items-pad">
                         <div class="oj-flex oj-sm-justify-content-space-between">
                             <div class="oj-flex-item oj-sm-align-self-center">
-                            <i class="fa fa-2x fa-plus pointer"
-                               data-bind="click: addGraphicHandler">
+                            <i class="fa fa-2x fa-plus"
+                               data-bind="  click: addGraphicHandler,
+                                            css: {pointer: !editing(), gray: editing()}">
                             </i>
                         </div>
                             <div class="oj-flex-item">

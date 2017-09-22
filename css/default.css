@@ -180,6 +180,10 @@ html, body {
     color: rgb(255, 128, 128);
 }
 
+.gray {
+    color: gray;
+}
+
 .edit-on {
     border-width: 3px;
     animation-name: border-blink;

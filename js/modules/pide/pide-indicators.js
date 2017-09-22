@@ -32,7 +32,8 @@ define(
                 var privateData = {
                     selectedNodes: {},
                     selectedNodesBackup: undefined,
-                    selectingNode: false
+                    selectingNode: false,
+                    hoverNode: undefined
                 };
                 
                 this.PIDEIndicatorsViewModel_ = function(key) {
@@ -44,6 +45,7 @@ define(
                 self.arrowClass = ko.observable(arrowClassStart + left);
                 self.dateConverter = GeneralViewModel.converters.date;
                 self.displayPanel = ko.observable(true);
+                self.editing = ko.observable(false);
                 self.fromDateValue = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date(2014, 0, 01)));
                 self.graphics = ko.observableArray();
                 self.id = "pide";
@@ -117,6 +119,22 @@ define(
                     }
                 };
                 
+                self.hoverHandler = function(event, ui) {
+                    self.setHoverNode(theKey, ui.item[0]);
+                };
+                
+                self.menuSelectHandler = function(event, ui) {
+                    $("#tree-menu-dialog").ojDialog("open");
+                };
+                
+                self.validateNodeTypeHandler = function(event, ui) {
+                    var hoverNode = self.getHoverNode();
+                    
+                    if (hoverNode.type !== "indicator") {
+                        event.preventDefault();
+                    }
+                };
+                
                 function recursiveDisplay(targetText, node) {
                     var display = false;
                     var htmlNode = document.getElementById(node.attr.id);
@@ -164,82 +182,86 @@ define(
                 };
                 
                 self.addGraphicHandler = function () {
-                    self.graphics.push(
-                            {
-                                name: "pide/graphic",
-                                animation: oj.ModuleAnimations["coverStart"],
-                                params: {
-                                    idPrefix: "pide-graphic-",
-                                    index: self.graphics().length + 1,
-                                    startDate: self.fromDateValue(),
-                                    endDate: self.toDateValue(),
-                                    clone: function(index) {
-                                        var graphicIndex = findGraphicIndex(
-                                            self.graphics(),
-                                            index
-                                        );
-                                
-                                        var graphicInitData = self.graphics()[graphicIndex];
-                                        var graphicClone = Object.assign({}, graphicInitData);
-                                        graphicClone["params"] = Object.assign({}, graphicInitData.params);
-                                        var graphicCloneParams = graphicClone["params"];
-                                        
-                                        graphicCloneParams["index"] = self.graphics().length + 1;
-                                        graphicCloneParams["ids"] = graphicInitData.params.graphic.getIds().slice();
-                                        graphicCloneParams["startDate"] = self.fromDateValue();
-                                        graphicCloneParams["endDate"] = self.toDateValue();
-                                        
-                                        self.graphics.push(graphicClone);
-                                    },
-                                    removal: function (index) {
-                                        self.graphics.splice(
-                                                findGraphicIndex(
-                                                    self.graphics(),
-                                                    index
-                                                ), 1
-                                        );
-                                
-                                        currentEditingGraphic = undefined;
-                                    },
-                                    startEditing: function(currentGraphic) {
-                                        if (!currentEditingGraphic) {
-                                            self.setSelectedNodesBackup(theKey, self.getSelectedNodes(theKey));
-                                        }
-                                        
-                                        currentEditingGraphic = currentGraphic;
-                                        
-                                        self.graphics().forEach(
-                                                function(element) {
-                                                    var graphic = element.params.graphic;
-                                                    
-                                                    if (graphic !== currentGraphic) {
-                                                        graphic.editing(false);
+                    if (!self.editing()) {
+                        self.graphics.push(
+                                {
+                                    name: "pide/graphic",
+                                    animation: oj.ModuleAnimations["coverStart"],
+                                    params: {
+                                        idPrefix: "pide-graphic-",
+                                        index: self.graphics().length + 1,
+                                        startDate: self.fromDateValue(),
+                                        endDate: self.toDateValue(),
+                                        clone: function(index) {
+                                            var graphicIndex = findGraphicIndex(
+                                                self.graphics(),
+                                                index
+                                            );
+
+                                            var graphicInitData = self.graphics()[graphicIndex];
+                                            var graphicClone = Object.assign({}, graphicInitData);
+                                            graphicClone["params"] = Object.assign({}, graphicInitData.params);
+                                            var graphicCloneParams = graphicClone["params"];
+
+                                            graphicCloneParams["index"] = self.graphics().length + 1;
+                                            graphicCloneParams["ids"] = graphicInitData.params.graphic.getIds().slice();
+                                            graphicCloneParams["startDate"] = self.fromDateValue();
+                                            graphicCloneParams["endDate"] = self.toDateValue();
+
+                                            self.graphics.push(graphicClone);
+                                        },
+                                        removal: function (index) {
+                                            self.graphics.splice(
+                                                    findGraphicIndex(
+                                                        self.graphics(),
+                                                        index
+                                                    ), 1
+                                            );
+
+                                            currentEditingGraphic = undefined;
+                                        },
+                                        startEditing: function(currentGraphic) {
+                                            if (!currentEditingGraphic) {
+                                                self.setSelectedNodesBackup(theKey, self.getSelectedNodes(theKey));
+                                            }
+
+                                            currentEditingGraphic = currentGraphic;
+
+                                            self.graphics().forEach(
+                                                    function(element) {
+                                                        var graphic = element.params.graphic;
+
+                                                        if (graphic !== currentGraphic) {
+                                                            graphic.editing(false);
+                                                        }
                                                     }
-                                                }
-                                        );
-                                
-                                        self.resetSelection();
-                                        self.selectNodesById(currentGraphic.getIds());
-                                    },
-                                    stopEditing: function() {
-                                        self.resetSelection();
-                                        if (self.getSelectedNodesBackup(theKey)) {
-                                            self.selectNodesById(Object.keys(self.getSelectedNodesBackup(theKey)));
-                                        }
-                                        
-                                        currentEditingGraphic = undefined;
-                                    },
-                                    getGraphic: function (graphicReference) {
-                                        this.graphic = graphicReference;
-                                    },
-                                    graphic: undefined,
-                                    model: modelTree,
-                                    ids: Object.keys(self.getSelectedNodes(theKey))
+                                            );
+
+                                            self.resetSelection();
+                                            self.selectNodesById(currentGraphic.getIds());
+                                            self.editing(true);
+                                        },
+                                        stopEditing: function() {
+                                            self.resetSelection();
+                                            if (self.getSelectedNodesBackup(theKey)) {
+                                                self.selectNodesById(Object.keys(self.getSelectedNodesBackup(theKey)));
+                                            }
+
+                                            currentEditingGraphic = undefined;
+                                            self.editing(false);
+                                        },
+                                        getGraphic: function (graphicReference) {
+                                            this.graphic = graphicReference;
+                                        },
+                                        graphic: undefined,
+                                        model: modelTree,
+                                        ids: Object.keys(self.getSelectedNodes(theKey))
+                                    }
                                 }
-                            }
-                    );
+                        );
             
-                    self.resetSelection();
+                        self.resetSelection();
+                    }
                 };
 
                 self.clickHandler = function (event, ui) {
@@ -384,6 +406,16 @@ define(
             
             prototype.getSelectingNode = function() {
                 return this.PIDEIndicatorsViewModel_(theKey).selectingNode;
+            };
+            
+            prototype.setHoverNode = function(key, hoverNode) {
+                if (theKey === key) {
+                    this.PIDEIndicatorsViewModel_(key).hoverNode = hoverNode;
+                }
+            };
+            
+            prototype.getHoverNode = function() {
+                return this.PIDEIndicatorsViewModel_(theKey).hoverNode;
             };
             
             prototype.getComputedCssClass = function(index) {
