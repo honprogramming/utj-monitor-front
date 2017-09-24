@@ -1,0 +1,175 @@
+[
+    {
+        "title": "Eficacia",
+        "attr": {
+            "id": "class1"
+        },
+        "children": [
+            {
+                "title": "Alumnos de nuevo ingreso con Exani II",
+                "attr": {
+                    "id": "indicador1.1",
+                    "type": "indicator"
+                },
+                "unit-type": "number",
+                "values-range": {
+                    "lowest": 0,
+                    "highest": 500
+                }
+            },
+            {
+                "title": "Reprobación definitiva por cuatrimestre",
+                "attr": {
+                    "id": "indicador1.2",
+                    "type": "indicator"
+                },
+                "unit-type": "percentage",
+                "values-range": {
+                    "lowest": 0,
+                    "highest": 1
+                }
+            },
+            {
+                "title": "Deserción cuatrimestral",
+                "attr": {
+                    "id": "indicador1.3",
+                    "type": "indicator"
+                },
+                "unit-type": "percentage",
+                "values-range": {
+                    "lowest": 0,
+                    "highest": 1
+                }
+            }
+            
+        ]
+    },
+    {
+        "title": "Eficiencia",
+        "attr": {
+            "id": "class2"
+        },
+        "children": [
+            {
+                "title": "Costo por alumno",
+                "attr": {
+                    "id": "indicador2.1",
+                    "type": "indicator"
+                },
+                "unit-type": "currency",
+                "values-range": {
+                    "lowest": 1500,
+                    "highest": 6000
+                }
+            },
+            {
+                "title": "Utilización de espacios",
+                "attr": {
+                    "id": "indicador2.2",
+                    "type": "indicator"
+                },
+                "unit-type": "percentage",
+                "values-range": {
+                    "lowest": 0.5,
+                    "highest": 1
+                }
+            }
+        ]        
+    },
+    {
+        "title": "Pertinencia",
+        "attr": {
+            "id": "class3"
+        },
+        "children": [
+            {
+                "title": "Programas educativos con evaluación diagnóstica",
+                "attr": {
+                    "id": "indicador3.1",
+                    "type": "indicator"
+                },
+                "unit-type": "number",
+                "values-range": {
+                    "lowest": 0,
+                    "highest": 17
+                }
+            },
+            {
+                "title": "Programas educativos acreditados",
+                "attr": {
+                    "id": "indicador3.2",
+                    "type": "indicator"
+                },
+                "unit-type": "percentage",
+                "values-range": {
+                    "lowest": 0,
+                    "highest": 0.17
+                }
+            }
+        ]        
+    },
+    {
+        "title": "Vinculación",
+        "attr": {
+            "id": "class4"
+        },
+        "children": [
+            {
+                "title": "Total de organismos vinculados",
+                "attr": {
+                    "id": "indicador4.1",
+                    "type": "indicator"
+                },
+                "unit-type": "number",
+                "values-range": {
+                    "lowest": 0,
+                    "highest": 17
+                }
+            },
+            {
+                "title": "Ingresos propios captados",
+                "attr": {
+                    "id": "indicador4.2",
+                    "type": "indicator"
+                },
+                "unit-type": "currency",
+                "values-range": {
+                    "lowest": 0,
+                    "highest": 17
+                }
+            }
+        ]        
+    },
+    {
+        "title": "Equidad",
+        "attr": {
+            "id": "class5"
+        },
+        "children": [
+            {
+                "title": "Cobertura",
+                "attr": {
+                    "id": "indicador5.1",
+                    "type": "indicator"
+                },
+                "unit-type": "percentage",
+                "values-range": {
+                    "lowest": 0.25,
+                    "highest": 1
+                }
+            },
+            {
+                "title": "Alumno atendido",
+                "attr": {
+                    "id": "indicador5.2",
+                    "type": "indicator"
+                },
+                "unit-type": "number",
+                "values-range": {
+                    "lowest": 25,
+                    "highest": 100
+                }
+            }
+        ]        
+    } 
+]

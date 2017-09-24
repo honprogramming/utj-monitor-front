@@ -16,7 +16,8 @@ define(
                     id: "mecasut",
                     label: GeneralViewModel.nls("mecasut.label"),
                     module: {
-                        viewName: "empty"
+                        name: "mecasut/mecasut",
+                        viewName: "mecasut/mecasut"
                     }
                 },
                 pe: {
