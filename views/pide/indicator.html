@@ -1,0 +1,265 @@
+<div class="full-height full-width">
+    
+        <!-- Encabezado de página -->
+        <div class="section-title">Ficha de indicador PIDE</div>
+        <hr/>
+    
+        <!-- Contenido de la página -->
+        <div class="oj-web-applayout-content oj-panel">
+            <!-- Información general -->
+            <div class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
+                component: 'ojCollapsible',
+                expandArea: 'disclosureIcon',
+                expanded: true
+            }">
+                <!-- Encabezado de sección -->
+                <h4 id="strategic-vision" data-bind="text: generalInfo"></h4>
+    
+                <!-- Contenido del colapsable -->
+                <div class="oj-form-layout">
+                    <fieldset>
+                        <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline oj-form-cols-labels-inline oj-form-cols-max2">
+    
+                            <!-- Nombre del indicador -->
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <label for="nombreIndicador">
+                                        <b>Nombre del indicador</b>
+                                    </label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <input id="nombreIndicador" data-bind="ojComponent: {
+                                        component: 'ojInputText',
+                                        value: nombreIndicador
+                                    }" readonly>
+                                </div>
+                            </div>
+    
+                            <!-- Clave -->
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <label for="clave">
+                                        <b>Clave</b>
+                                    </label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <input id="clave" data-bind="ojComponent: {
+                                        component: 'ojInputText',
+                                        value: clave
+                                    }" readonly>
+                                </div>
+                            </div>
+    
+                            <!-- Eje -->
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <label for="eje">
+                                        <b>Eje</b>
+                                    </label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <input id="eje" data-bind="ojComponent: {
+                                        component: 'ojInputText', 
+                                        value: eje
+                                    }" readonly>
+                                </div>
+                            </div>
+    
+                            <!-- Tema -->
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <label for="tema">
+                                        <b>Tema</b>
+                                    </label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <input id="tema" data-bind="ojComponent: {
+                                        component: 'ojInputText',
+                                        value: tema
+                                    }" readonly>
+                                </div>
+                            </div>
+    
+                            <!-- Objetivo -->
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <label for="objetivo">
+                                        <b>Objetivo</b>
+                                    </label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <input id="objetivo" data-bind="ojComponent: {
+                                        component: 'ojInputText',
+                                        value: objetivo
+                                    }" readonly>
+                                </div>
+                            </div>
+    
+                            <!-- Área responsable -->
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <label for="areaResponsable">
+                                        <b>Área responsable</b>
+                                    </label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <input id="areaResponsable" data-bind="ojComponent: {
+                                        component: 'ojInputText',  
+                                        value: areaResponsable
+                                    }" readonly>
+                                </div>
+                            </div>
+    
+                            <!-- Persona responsable -->
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <label for="personaResponsable">
+                                        <b>Persona responsable</b>
+                                    </label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <input id="personaResponsable" data-bind="ojComponent: {
+                                        component: 'ojInputText', 
+                                        value: personaResponsable
+                                    }" readonly>
+                                </div>
+                            </div>
+    
+                            <!-- Teléfono -->
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <label for="telefono">
+                                        <b>Teléfono</b>
+                                    </label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <input id="telefono" data-bind="ojComponent: {
+                                        component: 'ojInputText',
+                                        value: telefono
+                                    }" readonly>
+                                </div>
+                            </div>
+    
+                            <!-- Extensión -->
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <label for="extension">
+                                        <b>Extensión</b>
+                                    </label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <input id="extension" data-bind="ojComponent: {
+                                        component: 'ojInputText',
+                                        value: extension
+                                    }" readonly>
+                                </div>
+                            </div>
+    
+                            <!-- Descripción -->
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <label for="descripcion">
+                                        <b>Descripción</b>
+                                    </label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <input id="descripcion" data-bind="ojComponent: {
+                                        component: 'ojInputText',
+                                        value: descripcion
+                                    }" readonly>
+                                </div>
+                            </div>
+    
+                            <!-- Unidad de medida -->
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <label for="unidadMedida">
+                                        <b>Unidad de medida</b>
+                                    </label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <input id="unidadMedida" data-bind="ojComponent: {
+                                        component: 'ojInputText', 
+                                        value: unidadMedida
+                                    }" readonly>
+                                </div>
+                            </div>
+    
+                            <!-- Fuente -->
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <label for="fuente">
+                                        <b>Fuente</b>
+                                    </label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <input id="fuente" data-bind="ojComponent: {
+                                        component: 'ojInputText',
+                                        value: fuente
+                                    }" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+    
+            <!-- Avances y metas -->
+            <div class="full-width form-container oj-accordion-collapsible" data-bind="ojComponent: {
+                component: 'ojCollapsible',
+                expandArea: 'disclosureIcon',
+                expanded: true
+            }">
+                <!-- Encabezado de sección -->
+                <h4 id="strategic-vision" data-bind="text: progressGoals"></h4>
+    
+                <!-- Contenido del colapsable -->
+                <div class="oj-collapsible-content">
+                    <div id='chart-container'>
+                        <div data-bind="ojModule: metas.chart" style="height: 350px"></div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Alineación POA -->
+            <div class="full-width form-container oj-accordion-collapsible" data-bind="ojComponent: {
+                component: 'ojCollapsible',
+                expandArea: 'disclosureIcon',
+                expanded: true
+            }">
+                <!-- Encabezado de sección -->
+                <h4 id="strategic-vision" data-bind="text: alignmentPOA"></h4>
+    
+                <!-- Contenido del colapsable -->
+                <div class="oj-collapsible-content">
+                    <fieldset>
+                        <div class="oj-flex">
+    
+                            <div id='sunburst-container' class="oj-flex-item oj-sm-justify-content-center">
+                                <div data-bind="ojComponent: {
+                                    component: 'ojSunburst', 
+                                    animationOnDisplay: 'auto',
+                                    animationOnDataChange: 'auto',
+                                    animationDuration: '2s',
+                                    nodeDefaults: {labelDisplay: 'rotated'},
+                                    nodes: alineacion.nodeValues
+                                }" style="max-width: 350px; width: 100%; height: 350px; padding-left: 100px;">
+                                </div>
+                            </div>
+    
+                            <div id='legend-container' class="oj-flex-item oj-sm-align-self-center">
+                                <div data-bind="ojComponent: {
+                                    component: 'ojLegend',
+                                    orientation: 'vertical',
+                                    textStyle: 'font-size:14px;',
+                                    sections: alineacion.legendSections
+                                    }" style="width: 100%; height: 100%; margin: auto;">
+                                </div>
+                            </div>
+                        </div>
+    
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>

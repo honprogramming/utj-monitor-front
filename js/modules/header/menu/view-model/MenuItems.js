@@ -47,6 +47,13 @@ define(
                     module: {
                         name: "admin/admin"
                     }
+                },
+                ficha: {
+                    id: "ficha",
+                    label: "FICHA",
+                    module: {
+                        name: "pide/indicator"
+                    }
                 }
             };
 
