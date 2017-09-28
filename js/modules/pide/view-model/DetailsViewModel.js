@@ -7,7 +7,8 @@ define(
             'modules/pide/model/PlanElementTypes',
             'events/EventTypes',
             'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge',
-            'ojs/ojcollapsible', 'ojs/ojmasonrylayout'
+            'ojs/ojcollapsible', 'ojs/ojmasonrylayout', 'ojs/ojbutton',
+            'ojs/ojmodule'
         ],
         function (ko, GeneralViewModel, PlanElementCalculated, PlanElementMeasurable,
                 PlanElementTypes, EventTypes) {
@@ -280,6 +281,14 @@ define(
 //                        tooltipRenderer: toolTipStatusMeter
                     }
                 };
+
+                if (typeof statusMeterElement.responsibles !== "undefined") {
+                    statusMeterElement.responsibles.forEach(function (responsible) {
+                        responsible.email = "responsable@correo.com";
+                        responsible.phone = "3333-3333";
+                        responsible.ext = "1234";
+                    });
+                }
 
                 return statusMeterElement;
 
