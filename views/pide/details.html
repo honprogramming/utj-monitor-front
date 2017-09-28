@@ -1,20 +1,18 @@
 <!-- ko if: $data -->
 <div id="panel-details-container" class="oj-flex oj-sm-flex-direction-column">
-    <div class="oj-flex-item" 
-         data-bind="visible: currentParents().length > 0,
-            ojComponent: {
-                component: 'ojCollapsible', 
-                expanded: false,
-                optionChange: collapseParentsHandler
-         }">
+    <div class="oj-flex-item" data-bind="visible: currentParents().length > 0, 
+        ojComponent: {
+            component: 'ojCollapsible', 
+            expanded: false, 
+            optionChange: collapseParentsHandler
+        }">
         <div>
             <label data-bind="text: collapsibleParentsPanelTitle"></label>
         </div>
         <div class="oj-flex oj-sm-flex-direction-column">
             <!-- ko foreach: currentParents -->
             <div class="oj-flex-item" style="margin:10px 0px 10px 0px;">
-                <div class="oj-flex oj-sm-flex-direction-column"
-                     data-bind="click: $parent.clickHandler.bind($data.clickHandlerValue)">
+                <div class="oj-flex oj-sm-flex-direction-column" data-bind="click: $parent.clickHandler.bind($data.clickHandlerValue)">
                     <div class="oj-flex-item">
                         <div class="section-title" data-bind="text: $data.type"></div>
                     </div>
@@ -22,22 +20,19 @@
                         <div data-bind="text: $data.text" class="pointer"></div>
                     </div>
                     <!-- ko with: $data.values -->
-                    <div class="oj-flex-item oj-sm-12" 
-                         style="padding-right: 5px; max-height:20px;"
-                         data-bind="attr:{id: id},
-                                ojComponent: {
-                                        animationDuration: '1s',
-                                        animationOnDisplay: 'auto',
-                                        component: 'ojStatusMeterGauge', 
-                                        min: min, 
-                                        max: max, 
-                                        plotArea: {rendered: 'on'},
-                                        referenceLines: referenceLines,
-                                        thresholds: thresholdValues,
-                                        title: title,
-                                        value: value
-                                }" 
-                         style="">
+                    <div class="oj-flex-item oj-sm-12" style="padding-right: 5px; max-height:20px;" data-bind="attr: {id: id},
+                        ojComponent: {
+                            animationDuration: '1s',
+                            animationOnDisplay: 'auto',
+                            component: 'ojStatusMeterGauge', 
+                            min: min, 
+                            max: max, 
+                            plotArea: {rendered: 'on'},
+                            referenceLines: referenceLines,
+                            thresholds: thresholdValues,
+                            title: title,
+                            value: value
+                        }">
                     </div>
                     <!-- /ko -->
                 </div>
@@ -45,40 +40,41 @@
             <!-- /ko -->
         </div>
     </div>
+
     <div data-bind="ojComponent: {component: 'ojMasonryLayout'}">
         <!-- ko with: selectedPlanElement -->
         <div class="oj-flex-item demo-tile" style="margin:10px 0px 10px 0px">
             <div class="demo-tile-content">
                 <div class="demo-tile-front">
                     <div class="oj-flex-item">
-                        <div class="component-title pointer"  
-                             data-bind="text: $data.type + ' ' + $data.text,
-                                    click: $parent.clickHandler.bind($data.clickHandlerValue)">
+                        <div class="component-title pointer" data-bind="
+                            text: $data.type + ' ' + $data.text,
+                            click: $parent.clickHandler.bind($data.clickHandlerValue)">
                         </div>
                     </div>
                     <div class="oj-flex-item oj-sm-12">
                         <div class="oj-sm-12 oj-flex" data-bind="click: $parent.clickHandler.bind($data.clickHandlerValue)">
                             <!-- ko with: $data.values -->
                             <div class="oj-sm-11" data-bind="ojComponent: {
-                                        component: 'ojStatusMeterGauge', 
-                                        min: min, 
-                                        max: max, 
-                                        thresholds: thresholdValues,
-                                        value: value, 
-                                        orientation: 'circular',
-                                        metricLabel: {
-                                            rendered: 'on',
-                                            textType: 'percent'
-                                        },
-                                        startAngle:180,
-                                        angleExtent: 180,
-                                        plotArea: {rendered: 'on'},
-                                        animationOnDisplay: 'auto',
-                                        animationDuration: '1s'
-                                    }" 
-                                 style="align:center;margin-top:5px;margin-bottom:5px;height:150px;">
+                                component: 'ojStatusMeterGauge', 
+                                min: min, 
+                                max: max, 
+                                thresholds: thresholdValues,
+                                value: value, 
+                                orientation: 'circular',
+                                metricLabel: {
+                                    rendered: 'on',
+                                    textType: 'percent'
+                                },
+                                startAngle:180,
+                                angleExtent: 180,
+                                plotArea: {rendered: 'on'},
+                                animationOnDisplay: 'auto',
+                                animationDuration: '1s'
+                            }" style="align: center; margin-top: 5px; margin-bottom: 5px; height: 150px;">
                             </div>
                             <!-- /ko -->
+
                             <!-- ko if: doesItFlip -->
                             <div class="oj-sm-1 oj-sm-align-self-center">
                                 <button data-bind="
@@ -92,10 +88,7 @@
                                         display: 'icons', 
                                         icons: {start:  'oj-fwk-icon-caret-end oj-component-icon'}
                                     }, 
-                                    click: $parent.flipHandler"
-                                        title="Flip forward"
-                                        class="demo-front-flip-icon"
-                                        >
+                                    click: $parent.flipHandler" title="Flip forward" class="demo-front-flip-icon">
                                 </button>
                             </div>
                             <!-- /ko -->
@@ -107,40 +100,45 @@
                         <div class="oj-flex-item oj-sm-1 oj-sm-align-self-center">
                             <button data-bind="
                                     attr: {
-                                        id:  'button-flip-id2', 
+                                        id: 'button-flip-id2', 
                                         'aria-label': 'flip to show back'
                                     }, 
                                     ojComponent: {
                                         component: 'ojButton',
                                         chroming: 'half',
                                         display: 'icons', 
-                                        icons: {start:  'oj-fwk-icon-caret-start oj-component-icon'}
+                                        icons: {start: 'oj-fwk-icon-caret-start oj-component-icon'}
                                     }, 
-                                    click: $parent.flipHandler"
-                                    title="Flip back"
-                                    class="demo-back-flip-icon"
-                                    >
+                                    click: $parent.flipHandler" title="Flip back" class="demo-back-flip-icon" onclick="activate">
                             </button>
                         </div>
                         <div class="oj-flex-item oj-sm-11">
                             <div class="oj-flex oj-flex-items-pad oj-sm-flex-direction-column">
-                                <div class="oj-flex-item component-title left-align bottom-padding"
-                                     data-bind="text: $data.type + ' ' + $data.text + ' - ' + $data.values.value + '%'">
+                                <div class="oj-flex-item component-title left-align bottom-padding" 
+                                    data-bind="text: $data.type + ' ' + $data.text + ' - ' + $data.values.value + '%'">
                                 </div>
                                 <!-- ko foreach: {data: $data.responsibles, as: 'responsible'} -->
                                 <div class="oj-flex-item bottom-padding">
                                     <div class="oj-flex">
                                         <div class="oj-flex-item oj-sm-2">
-                                            <img data-bind="attr: {src: 'css/images/avatar_24px_2x.png'}"/>
+                                            <img data-bind="attr: {src: 'css/images/avatar_24px_2x.png'}" />
                                         </div>
                                         <div class="oj-flex-item oj-sm-10">
                                             <div class="oj-flex oj-sm-flex-direction-column">
                                                 <div class="oj-flex-item left-align" data-bind="text: responsible.person"></div>
-                                                <div class="oj-flex-item oj-text-xs oj-text-secondary-color left-align" data-bind="text: responsible.area"></div>
+                                                <div class="oj-flex-item oj-text-xs oj-text-secondary-color left-align" 
+                                                    data-bind="text: responsible.area"></div>
+                                                <div class="oj-flex-item oj-text-xs oj-text-secondary-color left-align" 
+                                                    data-bind="text: responsible.email"></div>
+                                                <div class="oj-flex-item oj-text-xs oj-text-secondary-color left-align">
+                                                    <b>Tel: </b><span data-bind="text: responsible.phone"></span> 
+                                                    <b>Ext: </b><span data-bind="text: responsible.ext"></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <oj-button>Ver ficha</oj-button>
                                 <!-- /ko -->
                                 <div class="oj-flex oj-sm-flex-direction-column">
                                     <!-- ko if: childrenType -->
@@ -158,12 +156,11 @@
         </div>
         <!-- /ko -->
     </div>
-    <div class="oj-flex-item" 
-         data-bind="visible: currentChildren().length > 0,
-            ojComponent: {
-                component: 'ojCollapsible', 
-                expanded: true,
-                optionChange: collapseChildrenHandler
+    <div class="oj-flex-item" data-bind="visible: currentChildren().length > 0,
+        ojComponent: {
+            component: 'ojCollapsible', 
+            expanded: true,
+            optionChange: collapseChildrenHandler
          }">
         <div>
             <label data-bind="text: collapsibleChildrenPanelTitle"></label>
@@ -172,35 +169,33 @@
             <div class="oj-flex-item oj-sm-12 centered section-title" data-bind="text: childrenType"></div>
             <!-- ko foreach: currentChildren -->
             <div class="oj-flex-item oj-sm-6" style="margin:10px 0px 10px 0px">
-                <div class="oj-flex oj-sm-flex-direction-column" 
-                     data-bind="click: $parent.clickHandler.bind($data.clickHandlerValue)">
-                    <!-- ko with: $data.values -->  
-                    <div class="oj-flex-item oj-sm-12" data-bind="ojComponent: {
-                                        component: 'ojStatusMeterGauge', 
-                                        min: min, 
-                                        max: max, 
-                                        thresholds: thresholdValues,
-                                        value: value, 
-                                        orientation: 'circular',
-                                        metricLabel: {
-                                            rendered: 'on',
-                                            textType: 'percent'
-                                        },
-                                        plotArea: {rendered: 'on'},
-                                        animationOnDisplay: 'auto',
-                                        animationDuration: '1s'
-                                    }" 
-                         style="align:center;height: 150px;">
+                <div class="oj-flex oj-sm-flex-direction-column" data-bind="click: $parent.clickHandler.bind($data.clickHandlerValue)">
+                    <!-- ko with: $data.values -->
+                    <div class="oj-flex-item oj-sm-12" 
+                        data-bind="ojComponent: {
+                            component: 'ojStatusMeterGauge', 
+                            min: min, 
+                            max: max, 
+                            thresholds: thresholdValues,
+                            value: value, 
+                            orientation: 'circular',
+                            metricLabel: {
+                                rendered: 'on',
+                                textType: 'percent'
+                            },
+                            plotArea: {rendered: 'on'},
+                            animationOnDisplay: 'auto',
+                            animationDuration: '1s'
+                        }" style="align: center; height: 150px;">
                     </div>
                     <!-- /ko -->
-                    <div class="oj-flex-item oj-sm-12 pointer" 
-                         style="margin-top: 5px;text-align: center;"
-                         data-bind="text: $data.text">
+                    <div class="oj-flex-item oj-sm-12 pointer" style="margin-top: 5px;text-align: center;" data-bind="text: $data.text">
                     </div>
                 </div>
             </div>
             <!-- /ko -->
         </div>
     </div>
+    <div data-bind="ojModule: {name: 'pide/chart', viewName:'pide/chart'}"></div>
 </div>
 <!-- /ko -->
