@@ -27,6 +27,8 @@
                     clonable: params.clone != null,
                     editable: params.startEditing != null,
                     removable: params.removal != null,
+                    colorHandler: new oj.ColorAttributeGroupHandler(),
+                    markerHandler: new oj.ShapeAttributeGroupHandler(),
                     series: [],
                     monthlySeries: [],
                     yearlySeries: [],
@@ -70,6 +72,20 @@
                 self.xAxis = ko.observable(this.xAxisFormats["yearly"]);
                 self.xAxisType = ko.observable();
                 self.legendSections = ko.observableArray([{items: []}]);
+                self.legendSectionsPIDE = ko.observable(
+                        {
+                            position: 'bottom',
+                            titleHAlign: 'center',
+                            sections: [
+                                {
+                                    items: []
+                                }
+                            ],
+                            seriesSection: {
+                                items: []
+                            }
+                        }
+                );
                 
                 self.cloneClickHandler = function() {
                     cloneFunction(index);
@@ -197,8 +213,8 @@
                 };
                 
                 getGraphic.call(params, self);
-                self.refreshSeriesByDate();
                 self.refreshLegendsPE();
+                self.refreshSeriesByDate();
             }
             
             GraphicViewModel.prototype = Object.create(GeneralViewModel);
@@ -239,24 +255,50 @@
                 }
             };
             
+            prototype.getColorHandler = function(key) {
+                if (theKey === key) {
+                    return this.GraphicViewModel_(theKey).colorHandler;
+                }
+            };
+            
+            prototype.getMarkerHandler = function(key) {
+                if (theKey === key) {
+                    return this.GraphicViewModel_(theKey).markerHandler;
+                }
+            };
+            
             prototype.refreshLegendsPE = function() {
                 var idsPE = this.getIds(true);
                 var modelPE = this.getModel(true);
                 var legendItems = [];
+                var colorHandler = this.getColorHandler(theKey);
                 
-                idsPE.forEach(
-                    function(id) {
-                        var pe = modelPE[id];
-                        legendItems.push(
+                if (idsPE.length > 0) {
+                    idsPE.forEach(
+                        function(id) {
+                            var pe = modelPE[id];
+                            legendItems.push(
                                 {
                                     text: pe.title,
-                                    markerShape: 'circle'
+                                    markerShape: 'square',
+                                    color: colorHandler.getValue(pe.attr.id)
                                 }
-                        );
-                    }
-                );
+                            );
+                        }
+                    );
+                } else {
+                    this.setIds(theKey, ['Todos'], true);
+                    
+                    legendItems.push(
+                        {
+                            text: 'Todos',
+                            markerShape: 'square',
+                            color: colorHandler.getValue('Todos')
+                        }
+                    );
+                }
         
-                this.legendSections([{items: legendItems}]);
+                this.legendSections([{title: 'Programas Educativos', titleStyle: 'color: black;font-weight:bold;', items: legendItems}]);
             };
             
             prototype.refreshSeriesByDate = function() {
@@ -265,7 +307,19 @@
                     this.setGroups(theKey, []);
                     this.setMonthlySeries(theKey, []);
                     this.setYearlySeries(theKey, []);
-                    this.getIds().forEach(this.createSerie, this);
+                    
+                    this.getIds(true).forEach(
+                            function(idPE) {
+                                this.getIds().forEach(
+                                        function(id) {
+                                            this.createSerie(id, idPE);
+                                        },
+                                        this
+                                );
+                            },
+                            this
+                    );
+            
                     this.refreshSeries();
                     this.refreshAxes();
                 }
@@ -503,7 +557,7 @@
                 }
             };
             
-            prototype.createSerie = function(id) {
+            prototype.createSerie = function(id, idPE) {
                 var model = this.getModel();
                 var yearlySeries = this.getYearlySeries();
                 var monthlySeries = this.getMonthlySeries();
@@ -511,49 +565,58 @@
                 var item = model[id];
                 var unitType = item["unit-type"];
                 var displayLegends = this.graphicOptions().indexOf("progress") < 0;
+                var colorHandler = this.getColorHandler(theKey);
+                var markerHandler = this.getMarkerHandler(theKey);
+                var name = item.title + '(' + idPE + ')';
                 
                 if (yaxes.indexOf(unitType) < 0) {
                     yaxes.push(unitType);
                 }
 
                 var monthlyProgressElement = {
-                    id: item.attr.id,
-                    name: item.title,
+                    id: idPE + item.attr.id,
+                    name: name,
+                    color: colorHandler.getValue(idPE),
                     items: [],
                     type: this.getGraphicType(),
-                    markerShape: "square",
+                    markerShape: markerHandler.getValue(name),
                     markerDisplayed: "on",
                     assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                 };
 
                 var monthlyGoalElement = {
-                    id: item.attr.id,
-                    name: item.title,
+                    id: idPE + item.attr.id,
+                    name: name,
+                    color: colorHandler.getValue(idPE),
                     items: [],
                     displayInLegend: displayLegends ? "on" : "off",
                     type: this.graphicType.LINE,
                     lineStyle: "dotted",
+                    markerShape: markerHandler.getValue(name),
                     markerDisplayed: "on",
                     assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                 };
 
                 var yearlyProgressElement = {
-                    id: item.attr.id,
-                    name: item.title,
+                    id: idPE + item.attr.id,
+                    name: name,
+                    color: colorHandler.getValue(idPE),
                     items: [],
                     type: this.getGraphicType(),
-                    markerShape: "square",
+                    markerShape: markerHandler.getValue(name),
                     markerDisplayed: "on",
                     assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                 };
 
                 var yearlyGoalElement = {
-                    id: item.attr.id,
-                    name: item.title,
+                    id: idPE + item.attr.id,
+                    name: name,
+                    color: colorHandler.getValue(idPE),
                     items: [],
                     displayInLegend: displayLegends ? "on" : "off",
                     type: this.graphicType.LINE,
                     lineStyle: "dotted",
+                    markerShape: markerHandler.getValue(name),
                     markerDisplayed: "on",
                     assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                 };

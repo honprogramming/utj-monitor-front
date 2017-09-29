@@ -198,6 +198,27 @@
                 </div>
             </div>
         </div>
+        <div>
+            <div class="oj-flex oj-sm-justify-content-center">
+                <div data-bind="ojComponent: {
+                                    component: 'ojCheckboxset',
+                                    value: graphicOptions,
+                                    optionChange: graphicOptionsHandler
+                                }" 
+                     aria-labelledby="mainlabelid" class='oj-choice-direction-row'>
+                    <span class="oj-choice-item">
+                        <input type="checkbox" value="progress"
+                                data-bind=" attr:{id: 'progress-' + graphicId}">
+                        <label data-bind="attr:{for: 'progress-' + graphicId}">Avances</label>
+                    </span>
+                    <span class="oj-choice-item">
+                        <input type="checkbox" value="goals"
+                                data-bind=" attr:{id: 'goals-' + graphicId}">
+                        <label data-bind="attr:{for: 'goals-' + graphicId}">Metas</label>
+                    </span>
+                </div>
+            </div>
+        </div>
         <div class="container oj-flex-bar">
             <div class="oj-flex-bar-start ">
                 <div data-bind=" ojComponent: {
@@ -218,10 +239,7 @@
                             groups: groupsValues,
                             hideAndShowBehavior: 'withoutRescale',
                             hoverBehavior: 'dim',
-                            legend: {
-                                position: 'bottom',
-                                titleHAlign: 'center'
-                            },
+                            legend: legendSectionsPIDE,
                             series: seriesValues,
                             timeAxisType: xAxisType,
                             type: chartType,
