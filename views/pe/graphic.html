@@ -198,30 +198,19 @@
                 </div>
             </div>
         </div>
-        <div>
-            <div class="oj-flex oj-sm-justify-content-center">
-                <div data-bind="ojComponent: {
-                                    component: 'ojCheckboxset',
-                                    value: graphicOptions,
-                                    optionChange: graphicOptionsHandler
-                                }" 
-                     aria-labelledby="mainlabelid" class='oj-choice-direction-row'>
-                    <span class="oj-choice-item">
-                        <input type="checkbox" value="progress"
-                                data-bind=" attr:{id: 'progress-' + graphicId}">
-                        <label data-bind="attr:{for: 'progress-' + graphicId}">Avances</label>
-                    </span>
-                    <span class="oj-choice-item">
-                        <input type="checkbox" value="goals"
-                                data-bind=" attr:{id: 'goals-' + graphicId}">
-                        <label data-bind="attr:{for: 'goals-' + graphicId}">Metas</label>
-                    </span>
+        <div class="container oj-flex-bar">
+            <div class="oj-flex-bar-start ">
+                <div data-bind=" ojComponent: {
+                                    component: 'ojLegend',
+                                    halign: 'center',
+                                    orientation: 'vertical',
+                                    sections: legendSections,
+                                    valign: 'middle'        
+                                }">
                 </div>
             </div>
-        </div>
-        <div class="container oj-flex-bar">
             <div class="container oj-flex-bar-middle"
-             data-bind="attr: {id: graphicId},
+                    data-bind="attr: {id: graphicId},
                         ojComponent: {
                             animationOnDisplay: 'auto',
                             animationOnDataChange: 'auto',

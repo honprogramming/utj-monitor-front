@@ -1,0 +1,234 @@
+<div id="pe-indicators-split-container" class="container column">
+    <div class="section-title">
+        Tablero de indicadores
+    </div>
+    <hr/>
+    <div class="container" data-bind="css: {'oj-flex':displayPanel()}">
+        <div 
+                data-bind="css: {'container oj-flex-item oj-sm-3': displayPanel()}">
+            <div class="container oj-flex-items-pad">
+                <div style="display:none" id="unit-type-error-pop-up"
+                            data-bind="ojComponent:{component: 'ojPopup'}">
+                    <div>
+                        <div class="error-title">!Error!</div>
+                        <div class="error-message"> 
+                            No puedes seleccionar indicadores con 3 o más unidades de medida diferentes
+                        </div>
+                    </div>
+                </div>
+                <div id="indicators-tree-container" class="container">
+                    <div class="container column">
+                        <div id="filter-container" class="oj-flex oj-flex-items-pad">
+                            <div class="oj-flex-item">
+                                <label for="filterSearch">Selección de Indicadores</label>
+                            </div>
+                            <div class="oj-flex-item">
+                                <input id="filterSearch" placeholder="Buscar..."
+                                        data-bind=" event: {keyup: handleKeyUp},
+                                                    textInput: searchValue,
+                                                    ojComponent: {
+                                                        component: 'ojInputText',
+                                                        rootAttributes: {
+                                                            style: 'max-width: 100%;'
+                                                        }
+                                                    }">
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="centered"><b>PIDE</b></h5>
+                            <hr/>
+                        </div>
+                        <div id="pide-indicators-selection-panel"
+                                class="half-height scrolly">
+                            <div id="tree" class="half-height"
+                                 contextmenu="tree-context-menu"
+                                 data-bind="ojComponent: {
+                                                component: 'ojTree',
+                                                data:{data: getJson},
+                                                hover: hoverHandler,
+                                                icons: false,
+                                                initExpanded: 'all',
+                                                loaded: loadHandler,
+                                                optionChange: clickHandler,
+                                                selection: nodes,        
+                                                selectionMode: 'single',
+                                                types: getTypes()
+                                            }">
+                            </div>
+                            <ul id="tree-context-menu"
+                                style="display:none" aria-label="Edit"
+                                data-bind=" ojComponent: {
+                                                beforeOpen: validateNodeTypeHandler,
+                                                component: 'ojMenu', 
+                                                select: menuSelectHandler
+                                            }">
+                                <li id="indicator-card-menu-item"><a href="#">Ver Ficha</a></li>
+                            </ul>
+                            <div id="tree-menu-dialog-wrapper">
+                                <div style="display:none" id="tree-menu-dialog" 
+                                        data-bind=" ojComponent:{
+                                                        component: 'ojDialog', 
+                                                        initialVisibility: 'hide',
+                                                        modality: 'modeless',
+                                                        rootAttributes: {
+                                                            style: 'width: 95vw; height: 95vh;'
+                                                        }
+                                                    }">
+                                    
+                                    <div class="oj-dialog-body">
+                                        <div data-bind="ojModule: cardModule">                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 class="centered"><b>PE</b></h5>
+                            <hr/>
+                        </div>
+                        <div id="pe-indicators-selection-panel"
+                                class="scrolly">
+                            <div id="treePE" class="container"
+                                data-bind=" ojComponent: {
+                                               component: 'ojTree',
+                                               data:{data: getJsonPE},
+                                               icons: false,
+                                               initExpanded: 'all',
+                                               loaded: loadHandlerPE,
+                                               optionChange: clickHandlerPE,
+                                               selection: nodesPE,
+                                               selectionMode: 'single',
+                                               types: getTypes()
+                                            }">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="pe-indicators-spliter"
+                        class="full-height">
+                    <div class="oj-flex oj-sm-flex-items-initial full-height">
+                        <button class="button-color full-height no-padding oj-button" 
+                                data-bind="click: toggleDrawer">
+                            <i class="fa" data-bind="css: arrowClass"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pe-indicators-graphics-panel" class="container"
+                data-bind="css:{'oj-flex-item oj-sm-9': displayPanel()}">
+            <div class="container column">
+                <div class="oj-flex full-width">
+                    <div class="oj-flex-item oj-flex-items-pad">
+                        <div class="oj-flex oj-sm-justify-content-space-between">
+                            <div class="oj-flex-item oj-sm-align-self-center">
+                            <i class="fa fa-2x fa-plus"
+                               data-bind="  click: addGraphicHandler,
+                                            css: {pointer: !editing(), gray: editing()}">
+                            </i>
+                        </div>
+                            <div class="oj-flex-item">
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <div class="oj-flex oj-flex-items-pad">
+                                        <div class="oj-flex-item oj-sm-align-self-center">
+                                            <label data-bind="attr: {for: 'from-' + id}">Desde</label>
+                                        </div>
+                                        <div class="oj-flex-item">
+                                            <input data-bind="  attr: {id: 'from-' + id},
+                                                                ojComponent: {
+                                                                    component: 'ojInputDate',
+                                                                    converter: dateConverter,
+                                                                    datePicker: {
+                                                                        footerLayout: '', 
+                                                                        showOn: 'focus'
+                                                                    },
+                                                                    displayOptions: {validatorHint: 'none'},
+                                                                    max: maxDate,
+                                                                    min: minDate,
+                                                                    optionChange: dateSelectionHandler,
+                                                                    required: true,
+                                                                    translations: {
+                                                                        'dateTimeRange': {
+                                                                            messageSummary: {
+                                                                                rangeOverflow: rangeOverflowSummary,
+                                                                                rangeUnderflow: rangeUnderflowSummary
+                                                                            }, 
+                                                                            messageDetail: {
+                                                                                rangeOverflow: rangeOverflowDetail,
+                                                                                rangeUnderflow: rangeUnderflowDetail
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    validators: [fromValidator],
+                                                                    value: fromDateValue
+                                                                }"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <div class="oj-flex oj-flex-items-pad">
+                                        <div class="oj-flex-item oj-sm-align-self-center">
+                                            <label data-bind="attr: {for: 'to-' + id}">Hasta</label>
+                                        </div>
+                                        <div class="oj-flex-item">
+                                            <input data-bind="  attr: {id: 'to-' + id},
+                                                                ojComponent: {
+                                                                    component: 'ojInputDate',
+                                                                    converter: dateConverter,
+                                                                    datePicker: {
+                                                                        footerLayout: '', 
+                                                                        showOn: 'focus'
+                                                                    },
+                                                                    displayOptions: {validatorHint: 'none'},
+                                                                    max: maxDate,
+                                                                    min: minDate,
+                                                                    optionChange: dateSelectionHandler,
+                                                                    required: true,
+                                                                    translations: {
+                                                                        'dateTimeRange': {
+                                                                            messageSummary: {
+                                                                                rangeOverflow: rangeOverflowSummary,
+                                                                                rangeUnderflow: rangeUnderflowSummary
+                                                                            }, 
+                                                                            messageDetail: {
+                                                                                rangeOverflow: rangeOverflowDetail,
+                                                                                rangeUnderflow: rangeUnderflowDetail
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    validators: [toValidator],
+                                                                    value: toDateValue
+                                                                }"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="container oj-flex oj-flex-items-pad scrolly">
+                        <!-- ko foreach: graphics -->
+                        <!--<div class="container oj-flex-item oj-panel graphic">-->
+<!--                            <div class="oj-panel-drag-handle" 
+                                 data-bind="attr: {
+                                                'aria-labelledby': $index
+                                            }" 
+                                 title="Drag to reorder" 
+                                 aria-label="Drag to reorder" 
+                                 tabindex="0" 
+                                 role="separator">
+                                <span class="oj-panel-drag-icon"></span>
+                            </div>-->
+                            <div data-bind="ojModule: $data,
+                                            css: $parent.getComputedCssClass($index)"></div>
+                        <!--</div>-->
+                        <!-- /ko -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

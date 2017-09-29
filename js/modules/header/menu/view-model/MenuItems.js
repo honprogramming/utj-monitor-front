@@ -24,7 +24,8 @@ define(
                     id: "pe",
                     label: GeneralViewModel.nls("pe.label"),
                     module: {
-                        viewName: "empty"
+                        name: "pe/pe",
+                        viewName: "pe/pe"
                     }
                 }/*,
                 poa: {
