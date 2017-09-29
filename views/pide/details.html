@@ -36,8 +36,7 @@
                                         thresholds: thresholdValues,
                                         title: title,
                                         value: value
-                                }" 
-                         style="">
+                                }">
                     </div>
                     <!-- /ko -->
                 </div>
@@ -130,10 +129,10 @@
                                 <!-- ko foreach: {data: $data.responsibles, as: 'responsible'} -->
                                 <div class="oj-flex-item bottom-padding">
                                     <div class="oj-flex">
-                                        <div class="oj-flex-item oj-sm-2">
+                                        <div class="oj-flex-item oj-sm-align-self-center">
                                             <img data-bind="attr: {src: 'css/images/avatar_24px_2x.png'}"/>
                                         </div>
-                                        <div class="oj-flex-item oj-sm-10">
+                                        <div class="oj-flex-item">
                                             <div class="oj-flex oj-sm-flex-direction-column">
                                                 <div class="oj-flex-item left-align" data-bind="text: responsible.person"></div>
                                                 <div class="oj-flex-item oj-text-xs oj-text-secondary-color left-align" 
@@ -148,17 +147,44 @@
                                         </div>
                                     </div>
                                 </div>
-                                <oj-button>Ver ficha</oj-button>
+                                <!-- /ko -->
+                                <!-- ko if: $parent.isIndicator($data.type) -->
+                                    <div class="oj-flex-item oj-sm-12">
+                                        <div class="oj-sm-12" data-bind="ojModule: $parent.chart"></div>
+                                    </div>
+                                    <div class="oj-flex-item">
+                                        <div id="tree-menu-dialog-wrapper">
+                                            <div style="display:none" id="details-dialog" 
+                                                    data-bind=" ojComponent:{
+                                                                    component: 'ojDialog', 
+                                                                    initialVisibility: 'hide',
+                                                                    modality: 'modeless',
+                                                                    rootAttributes: {
+                                                                        style: 'width: 95vw; height: 95vh;'
+                                                                    }
+                                                                }">
+
+                                                <div class="oj-dialog-body">
+                                                    <div data-bind="ojModule: $parent.cardModule">                            
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <i class="fa fa-file-text-o fa-2x pointer"
+                                           title="Ver Ficha"
+                                           data-bind="click: $parent.cardClickHandler"
+                                           >
+                                        </i>
+                                    </div>
                                 <!-- /ko -->
                                 <div class="oj-flex oj-sm-flex-direction-column">
-                                    <!-- ko if: childrenType -->
-                                    <div class="oj-flex-item title left-align" data-bind="text: childrenType"></div>
-                                    <!-- ko foreach: {data: $data.children, as: 'child'} -->
-                                    <div class="oj-flex-item left-align" data-bind="text: child.getName()"></div>
-                                    <!-- /ko -->
-                                    <!-- /ko -->
+                                    <!-- ko if: childrenType --> 
+                                        <div class="oj-flex-item title left-align" data-bind="text: childrenType"></div>
+                                        <!-- ko foreach: {data: $data.children, as: 'child'} --> 
+                                            <div class="oj-flex-item left-align" data-bind="text: child.getName()"></div>
+                                        <!--/ko--> 
+                                    <!--/ko--> 
                                 </div>
-                                <div data-bind="ojModule: {name: 'pide/chart', viewName:'pide/chart'}"></div>
                             </div>
                         </div>
                     </div>

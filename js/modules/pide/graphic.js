@@ -23,6 +23,9 @@
                 var index = params.index;
                 
                 var privateData = {
+                    clonable: params.clone != null,
+                    editable: params.startEditing != null,
+                    removable: params.removal != null,
                     series: [],
                     monthlySeries: [],
                     yearlySeries: [],
@@ -42,7 +45,7 @@
                 self.dateConverter = GeneralViewModel.converters.date;
                 self.graphicId = params.idPrefix + index.toString();
                 self.graphicMenuId = "graphic-menu-" + index.toString();
-                self.graphicName = ko.observable("Grafica " + index);
+                self.graphicName = ko.observable(params.graphicName || "Grafica " + index);
                 self.chartType = ko.observable("combo");
                 self.graphicOptions = ko.observableArray(["progress", "goals"]);
                 self.editing = ko.observable(false);
@@ -107,7 +110,16 @@
                     
                     var newSeries = mode === "yearly" ? this.getYearlySeries() : this.getMonthlySeries();
                     self.setSeries(theKey, newSeries);
-                    self.seriesValues(this.getSeries());
+                    
+                    var progressSeries = self.getSeries().filter(filterProgress);
+
+                    progressSeries.forEach(
+                        function(element) {
+                            element.type = self.getGraphicType();
+                        }
+                    );
+            
+                    self.seriesValues(self.filterSeriesByOptions(theKey, self.graphicOptions()));
                     self.xAxisType(mode === "yearly" ? "auto" : "mixedFrequency");
                 };
                 
@@ -186,6 +198,18 @@
             
             GraphicViewModel.prototype = Object.create(GeneralViewModel);
             var prototype = GraphicViewModel.prototype;
+            
+            prototype.isClonable = function() {
+                return this.GraphicViewModel_(theKey).clonable;
+            };
+            
+            prototype.isEditable = function() {
+                return this.GraphicViewModel_(theKey).editable;
+            };
+            
+            prototype.isRemovable = function() {
+                return this.GraphicViewModel_(theKey).removable;
+            };
             
             prototype.graphicType = {
                 BAR: "bar",

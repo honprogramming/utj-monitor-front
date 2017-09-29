@@ -26,7 +26,7 @@ define(
                     module: {
                         viewName: "empty"
                     }
-                },
+                }/*,
                 poa: {
                     id: "poa",
                     label: GeneralViewModel.nls("poa.label"),
@@ -47,14 +47,7 @@ define(
                     module: {
                         name: "admin/admin"
                     }
-                },
-                ficha: {
-                    id: "ficha",
-                    label: "FICHA",
-                    module: {
-                        name: "pide/indicator"
-                    }
-                }
+                }*/
             };
 
             return items;

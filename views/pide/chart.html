@@ -1,16 +1,12 @@
-<div id="chart-container">
-    <div id="comboChart" data-bind="ojComponent: {
-            component: 'ojChart', 
-            type: 'combo', 
-            selectionMode: 'multiple', 
-            series: comboSeriesValue, 
-            groups: comboGroupsValue, 
+<div id="comboChart" class="container"
+        data-bind="ojComponent: {
             animationDuration: '1s',
             animationOnDisplay: 'auto',
             animationOnDataChange: 'auto',
-            orientation: orientationValue,
-            stack: stackValue,
-            hoverBehavior: 'dim'
-    }" style="max-width:500px; width:80%; height:350px;">
-    </div>
+            component: 'ojChart', 
+            groups: comboGroupsValue,
+            selectionMode: 'multiple', 
+            series: comboSeriesValue, 
+            type: 'combo'
+        }">
 </div>

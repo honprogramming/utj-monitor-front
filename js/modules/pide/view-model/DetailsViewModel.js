@@ -1,16 +1,16 @@
 define(
-        [
+        [   
+            'jquery',
             'knockout',
             'view-models/GeneralViewModel',
             'modules/pide/model/PlanElementCalculated',
             'modules/pide/model/PlanElementMeasurable',
             'modules/pide/model/PlanElementTypes',
             'events/EventTypes',
-            'jquery', 'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge',
-            'ojs/ojcollapsible', 'ojs/ojmasonrylayout', 'ojs/ojbutton',
-            'ojs/ojmodule'
+            'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge', 'ojs/ojcollapsible', 
+            'ojs/ojmasonrylayout', 'ojs/ojbutton', 'ojs/ojmodule'
         ],
-        function (ko, GeneralViewModel, PlanElementCalculated, PlanElementMeasurable,
+        function ($, ko, GeneralViewModel, PlanElementCalculated, PlanElementMeasurable,
                 PlanElementTypes, EventTypes) {
             var theKey = {};
 
@@ -21,7 +21,8 @@ define(
                 var privateData = {
                     controlPanelModel: controlPanelModel,
                     statusMeterPlanElementsMap: {},
-                    collapsiblePanelTitles: ["Ver mas", "Ocultar"]
+                    collapsiblePanelTitles: ["Ver mas", "Ocultar"],
+                    cardModel: undefined
                 };
 
                 this.DetailsViewModel_ = function (key) {
@@ -36,6 +37,7 @@ define(
                 this.childrenType = ko.observable();
                 this.collapsibleParentsPanelTitle = ko.observable(privateData.collapsiblePanelTitles[0]);
                 this.collapsibleChildrenPanelTitle = ko.observable(privateData.collapsiblePanelTitles[0]);
+                self.cardModule = ko.observable({viewName: 'empty'});
 
                 this.collapseParentsHandler = function (event, ui) {
                     if (ui["option"] === "expanded") {
@@ -82,7 +84,7 @@ define(
                         tileFront.removeClass("demo-hidden");
                         tileFront.addClass("demo-flipped");
                     }
-
+                    
                     //Flip the tile itself.
                     tile.addClass(bForward ?
                             "demo-flip-forward" :
@@ -130,12 +132,64 @@ define(
                     //tile had focus, so now restore focus to the flip button on
                     //the side of the tile that is now showing.
                     button[0].focus();
+                    self.chart({name: 'pide/chart'});
                 };
+                
+                self.chart = ko.observable({viewName: 'empty'});
+                self.cardClickHandler = function() {
+                    var element = self.selectedPlanElement();
+                    var cardModel = self.getCardModel();
+                    
+                    self.cardModule(
+                            {
+                                name: 'pide/indicator', 
+                                params: {
+                                    model: cardModel,
+                                    id: 'indicador' + element.text.substring(0, 5),
+                                    graphicName: cardModel['indicador' + element.text.substring(0, 5)]["title"]
+                                }
+                            }
+                    );
+            
+                    $("#details-dialog").ojDialog("open");
+                };
+                
+                $.getJSON("data/pide-indicators.json").then(
+                        function (data) {
+                            var model = data;
+                            var itemsArray = model.slice(0);
+                            var newModel = {};
+                            
+                            while (itemsArray.length > 0) {
+                                var element = itemsArray.shift();
+                                
+                                if (element.children) {
+                                    itemsArray = itemsArray.concat(element.children);
+                                }
+
+                                newModel[element.attr.id] = element;
+                            }
+                            
+                            self.setCardModel(newModel);
+                        }
+                );
             }
 
             DetailsViewModel.prototype = Object.create(GeneralViewModel);
             var prototype = DetailsViewModel.prototype;
-
+            
+            prototype.getCardModel = function() {
+                return this.DetailsViewModel_(theKey).cardModel;
+            };
+            
+            prototype.setCardModel = function(cardModel) {
+                this.DetailsViewModel_(theKey).cardModel = cardModel;
+            };
+            
+            prototype.isIndicator = function(type) {
+                return type.match(/indica.*/i);
+            };
+            
             prototype.addSelectionListener = function (listener) {
                 this.addListener(listener, EventTypes.SELECTION_EVENT);
             };

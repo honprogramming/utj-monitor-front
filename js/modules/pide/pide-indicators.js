@@ -43,6 +43,7 @@ define(
                 };
                 
                 self.arrowClass = ko.observable(arrowClassStart + left);
+                self.cardModule = ko.observable({viewName: 'empty'});
                 self.dateConverter = GeneralViewModel.converters.date;
                 self.displayPanel = ko.observable(true);
                 self.editing = ko.observable(false);
@@ -120,17 +121,32 @@ define(
                 };
                 
                 self.hoverHandler = function(event, ui) {
-                    self.setHoverNode(theKey, ui.item[0]);
+                    var hoverNode = ui.item[0];
+                    
+                    if (hoverNode.type.includes("indicator")) {
+                        self.setHoverNode(theKey, hoverNode);
+                    }
                 };
                 
                 self.menuSelectHandler = function(event, ui) {
+                    self.cardModule(
+                            {
+                                name: 'pide/indicator', 
+                                params: {
+                                    model: modelTree,
+                                    id: self.getHoverNode().id,
+                                    graphicName: modelTree[self.getHoverNode().id]["title"]
+                                }
+                            }
+                    );
+            
                     $("#tree-menu-dialog").ojDialog("open");
                 };
                 
                 self.validateNodeTypeHandler = function(event, ui) {
                     var hoverNode = self.getHoverNode();
                     
-                    if (hoverNode.type !== "indicator") {
+                    if (!hoverNode.type.includes("indicator")) {
                         event.preventDefault();
                     }
                 };
@@ -369,7 +385,10 @@ define(
 
                                 while (itemsArray.length > 0) {
                                     var element = itemsArray.shift();
-                                    itemsArray = itemsArray.concat(element.children);
+                                    
+                                    if (element.children) {
+                                        itemsArray = itemsArray.concat(element.children);
+                                    }
 
                                     modelTree[element.attr.id] = element;
                                 }

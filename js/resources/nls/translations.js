@@ -1,7 +1,7 @@
 define(
         {
             root: {
-                "appTitle": "UTJ Monitor",
+                "appTitle": "Tableros UTJ",
                 "header": {},
                 "home": {
                     "description": "Es una heramienta didáctica para realizar todo tipo de planes como planes de desarrollo, \n\
@@ -128,10 +128,10 @@ define(
                 },
                 "controlPanel": {
                     "sunburst": {
-                        "title": "CUMPLIMIENTO DE METAS"
+                        "title": "Cumplimiento de metas"
                     },
                     "details": {
-                        "title": "DETALLES"
+                        "title": "Detalles"
                     },
                     "vision": "Visión",
                     "axe": "Eje",
@@ -200,7 +200,7 @@ define(
                     "unit-types": {
                         "percentage": "Porcentaje",
                         "number": "Número",
-                        "tasa": "Tasa"
+                        "rate": "Tasa"
                     }
                 }
             }

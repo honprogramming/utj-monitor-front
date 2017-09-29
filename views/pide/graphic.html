@@ -110,8 +110,12 @@
                                         }"
                             aria-label="Selecciona el tipo de gráfica">
                             <label data-bind="attr: {for: graphicId + '-barChart'}"></label>                               
-                            <input type="radio" name="graphic-type" 
-                                    data-bind=" value: 'combo', attr: {id: graphicId + '-barChart'}, 
+                            <input type="radio" 
+                                    data-bind=" value: 'combo',
+                                                attr: {
+                                                    id: graphicId + '-barChart',
+                                                    name: graphicId + '-graphic-type'
+                                                }, 
                                                 ojComponent: {
                                                     component: 'ojButton',
                                                     display: 'icons',
@@ -120,8 +124,12 @@
                                                     }
                                                 }"/>
                             <label data-bind="attr: {for: graphicId + '-lineChart'}"></label>                               
-                            <input type="radio" name="graphic-type" 
-                                    data-bind=" value: 'line', attr: {id: graphicId +'-lineChart'}, 
+                            <input type="radio" 
+                                    data-bind=" value: 'line',
+                                                attr: {
+                                                    id: graphicId +'-lineChart',
+                                                    name: graphicId + '-graphic-type'
+                                                }, 
                                                 ojComponent: {
                                                     component: 'ojButton',
                                                     display: 'icons',
@@ -148,6 +156,7 @@
                                     ojComponent: {
                                         component: 'ojMenu'
                                     }">
+                        <!-- ko if: isEditable() -->
                         <li data-bind="attr: {id: graphicMenuId + '-edit'}">
                             <a href="#" class="pointer">
                                 <span class="fa-stack fa-lg">
@@ -158,6 +167,8 @@
                                 </span>
                             </a>
                         </li>
+                        <!-- /ko -->
+                        <!-- ko if: isClonable() -->
                         <li data-bind="attr: {id: graphicMenuId + '-clone'}">
                             <a href="#" class="pointer">
                                 <span class="fa-stack fa-lg">
@@ -165,6 +176,8 @@
                                 </span>
                             </a>
                         </li>
+                        <!-- /ko -->
+                        <!-- ko if: isRemovable() -->
                         <li data-bind="attr: {id: graphicMenuId + '-delete'}">
                             <a href="#" class="pointer">
                                 <span class="fa-stack fa-lg">
@@ -172,6 +185,7 @@
                                 </span>
                             </a>
                         </li>
+                        <!-- /ko -->
                         <li data-bind="attr: {id: graphicMenuId + '-download'}">
                             <a href="#" class="pointer">
                                 <span class="fa fa-stack fa-lg">

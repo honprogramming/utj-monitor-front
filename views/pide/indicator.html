@@ -1,3 +1,4 @@
+<!-- ko if: $data -->
 <div class="full-height full-width">
     
         <!-- Encabezado de página -->
@@ -30,7 +31,10 @@
                                 <div class="oj-flex-item">
                                     <input id="nombreIndicador" data-bind="ojComponent: {
                                         component: 'ojInputText',
-                                        value: nombreIndicador
+                                        value: nombreIndicador,
+                                        rootAttributes: {
+                                            style: 'max-height: 100%;max-width: 100%;'
+                                        }
                                     }" readonly>
                                 </div>
                             </div>
@@ -263,3 +267,4 @@
             </div>
         </div>
     </div>
+<!-- /ko -->
