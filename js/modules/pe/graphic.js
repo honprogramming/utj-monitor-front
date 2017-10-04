@@ -52,7 +52,7 @@
                 self.graphicMenuId = "graphic-menu-" + index.toString();
                 self.graphicName = ko.observable(params.graphicName || "Grafica " + index);
                 self.chartType = ko.observable("combo");
-                self.graphicOptions = ko.observableArray(["progress", "goals"]);
+                self.graphicOptions = ko.observableArray([this.elementType.PROGRESS, this.elementType.GOAL]);
                 self.editing = ko.observable(false);
                 self.displayGraphicNameInputText = ko.observable(false);
                 self.yAxis = ko.observable();
@@ -72,20 +72,6 @@
                 self.xAxis = ko.observable(this.xAxisFormats["yearly"]);
                 self.xAxisType = ko.observable();
                 self.legendSections = ko.observableArray([{items: []}]);
-                self.legendSectionsPIDE = ko.observable(
-                        {
-                            position: 'bottom',
-                            titleHAlign: 'center',
-                            sections: [
-                                {
-                                    items: []
-                                }
-                            ],
-                            seriesSection: {
-                                items: []
-                            }
-                        }
-                );
                 
                 self.cloneClickHandler = function() {
                     cloneFunction(index);
@@ -238,6 +224,11 @@
                 COMBO: "combo"
             };
             
+            prototype.elementType = {
+                GOAL: "goal",
+                PROGRESS: "progress"
+            };
+            
             prototype.convertersMap = {
                 percentage: GeneralViewModel.converters.percent,
                 number: GeneralViewModel.converters.decimal,
@@ -338,12 +329,12 @@
                     if (optionsLength === 1) {
                         newSeries = 
                             this.getSeries().filter(
-                                options.includes("progress") ?
+                                options.includes(this.elementType.PROGRESS) ?
                                 filterProgress : filterGoals
                         );
                     }            
 
-                    var displayLegends = options.indexOf("progress") < 0;
+                    var displayLegends = options.indexOf(this.elementType.GOAL) < 0;
                     this.setGoalsLegendsEnabled(key, displayLegends, newSeries);
                     
                     return newSeries;
@@ -355,10 +346,10 @@
 
                     series.forEach(
                         function(serie) {
-                            if (serie.displayInLegend) {
+                            if (serie.elementType === this.elementType.PROGRESS) {
                                 serie.displayInLegend = enable ? "on" : "off";
                             }
-                        }
+                        }, this
                     );
                 }
             };
@@ -375,7 +366,7 @@
                 }
                 
                 this.seriesValues(seriesValues);
-                
+
                 if (this.seriesValues().length > 0) {
                     this.groupsValues(this.getGroups(theKey));
                 }
@@ -564,59 +555,67 @@
                 var yaxes = this.getYAxes();
                 var item = model[id];
                 var unitType = item["unit-type"];
-                var displayLegends = this.graphicOptions().indexOf("progress") < 0;
+                var displayLegends = this.graphicOptions().indexOf(this.elementType.GOAL) < 0;
                 var colorHandler = this.getColorHandler(theKey);
                 var markerHandler = this.getMarkerHandler(theKey);
                 var name = item.title + '(' + idPE + ')';
+                var newId = idPE + item.attr.id;
+                var markerShape = markerHandler.getValue(name);
                 
                 if (yaxes.indexOf(unitType) < 0) {
                     yaxes.push(unitType);
                 }
 
                 var monthlyProgressElement = {
-                    id: idPE + item.attr.id,
+                    id: newId,
+                    elementType: this.elementType.PROGRESS,
                     name: name,
                     color: colorHandler.getValue(idPE),
                     items: [],
+                    displayInLegend: displayLegends ? "on" : "off",
                     type: this.getGraphicType(),
-                    markerShape: markerHandler.getValue(name),
+                    markerShape: markerShape,
                     markerDisplayed: "on",
                     assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                 };
 
                 var monthlyGoalElement = {
-                    id: idPE + item.attr.id,
+                    id: newId,
+                    elementType: this.elementType.GOAL,
                     name: name,
                     color: colorHandler.getValue(idPE),
                     items: [],
-                    displayInLegend: displayLegends ? "on" : "off",
+                    displayInLegend: "on",
                     type: this.graphicType.LINE,
                     lineStyle: "dotted",
-                    markerShape: markerHandler.getValue(name),
+                    markerShape: markerShape,
                     markerDisplayed: "on",
                     assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                 };
 
                 var yearlyProgressElement = {
-                    id: idPE + item.attr.id,
+                    id: newId,
+                    elementType: this.elementType.PROGRESS,
                     name: name,
                     color: colorHandler.getValue(idPE),
                     items: [],
+                    displayInLegend: displayLegends ? "on" : "off",
                     type: this.getGraphicType(),
-                    markerShape: markerHandler.getValue(name),
+                    markerShape: markerShape,
                     markerDisplayed: "on",
                     assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                 };
 
                 var yearlyGoalElement = {
-                    id: idPE + item.attr.id,
+                    id: newId,
+                    elementType: this.elementType.GOAL,
                     name: name,
                     color: colorHandler.getValue(idPE),
                     items: [],
-                    displayInLegend: displayLegends ? "on" : "off",
+                    displayInLegend: "on",
                     type: this.graphicType.LINE,
                     lineStyle: "dotted",
-                    markerShape: markerHandler.getValue(name),
+                    markerShape: markerShape,
                     markerDisplayed: "on",
                     assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                 };
@@ -745,11 +744,11 @@
             };
             
             function filterProgress(element) {
-                return !element.displayInLegend;
+                return element.elementType === prototype.elementType.PROGRESS;
             }
             
             function filterGoals(element) {
-                return element.displayInLegend;
+                return element.elementType === prototype.elementType.GOAL;
             }
                     
             return GraphicViewModel;

@@ -212,15 +212,15 @@
                         <label data-bind="attr:{for: 'progress-' + graphicId}">Avances</label>
                     </span>
                     <span class="oj-choice-item">
-                        <input type="checkbox" value="goals"
-                                data-bind=" attr:{id: 'goals-' + graphicId}">
-                        <label data-bind="attr:{for: 'goals-' + graphicId}">Metas</label>
+                        <input type="checkbox" value="goal"
+                                data-bind=" attr:{id: 'goal-' + graphicId}">
+                        <label data-bind="attr:{for: 'goal-' + graphicId}">Metas</label>
                     </span>
                 </div>
             </div>
         </div>
-        <div class="container oj-flex-bar">
-            <div class="oj-flex-bar-start ">
+        <div class="container">
+            <div class="oj-sm-align-self-center">
                 <div data-bind=" ojComponent: {
                                     component: 'ojLegend',
                                     halign: 'center',
@@ -230,31 +230,38 @@
                                 }">
                 </div>
             </div>
-            <div class="container oj-flex-bar-middle"
-                    data-bind="attr: {id: graphicId},
-                        ojComponent: {
-                            animationOnDisplay: 'auto',
-                            animationOnDataChange: 'auto',
-                            component: 'ojChart',
-                            groups: groupsValues,
-                            hideAndShowBehavior: 'withoutRescale',
-                            hoverBehavior: 'dim',
-                            legend: legendSectionsPIDE,
-                            series: seriesValues,
-                            timeAxisType: xAxisType,
-                            type: chartType,
-                            valueFormats: {
-                                series: {tooltipLabel: 'Indicador:'}, 
-                                group: {tooltipLabel: 'Fecha:'}, 
-                                y: {tooltipLabel: 'Valor:'}
-                            },
-                            xAxis: xAxis,
-                            yAxis: yAxis,
-                            y2Axis: y2Axis,
-                            zoomAndScroll: zoom
-                        }">
+            <div class="container">
+                <div class="container column">
+                    <div class="container"
+                        data-bind="attr: {id: graphicId},
+                            ojComponent: {
+                                animationOnDisplay: 'auto',
+                                animationOnDataChange: 'auto',
+                                component: 'ojChart',
+                                groups: groupsValues,
+                                hideAndShowBehavior: 'withoutRescale',
+                                hoverBehavior: 'dim',
+                                legend: {
+                                    position: 'bottom',
+                                    titleHAlign: 'center'
+                                },
+                                series: seriesValues,
+                                timeAxisType: xAxisType,
+                                type: chartType,
+                                valueFormats: {
+                                    series: {tooltipLabel: 'Indicador:'}, 
+                                    group: {tooltipLabel: 'Fecha:'}, 
+                                    y: {tooltipLabel: 'Valor:'}
+                                },
+                                xAxis: xAxis,
+                                yAxis: yAxis,
+                                y2Axis: y2Axis,
+                                zoomAndScroll: zoom
+                            }">
+                    </div>
+                </div>
             </div>
-            <div class="oj-flex-bar-end">
+            <div class="oj-sm-align-self-center">
                 <i class="fa fa-lg oj-sm-align-self-center pointer"
                     data-bind="click: zoomClickHandler, css: zoomIconClass">
                 </i>
