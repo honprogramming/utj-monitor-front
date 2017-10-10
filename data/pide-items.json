@@ -1,0 +1,788 @@
+[
+    {
+        "type": {
+            "name": "vision",
+            "id": 1
+        },
+        "children": [
+            {
+                "id": "1",
+                "name": "1 Calidad Educativa",
+                "type": {
+                    "name": "axe",
+                    "id": 2
+                },
+                "children": [
+                    {
+                        "id": "1.1",
+                        "name": "Atención de recomendaciones para acreditación de Programas Educativos",
+                        "type": {
+                            "name": "topic",
+                            "id": 3
+                        },
+                        "children": [
+                            {
+                                "id": "1.1",
+                                "name": "1.1 Acreditar los programas educativos",
+                                "type": {
+                                    "name": "objective",
+                                    "id": 4
+                                },
+                                "children": [
+                                    {
+                                        "id": "1.1.1",
+                                        "name": "1.1.1 Número de programas educativos acreditados ante COPAES",
+                                        "status": "Activo",
+                                        "type": {
+                                            "name": "indicator",
+                                            "id": 9
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        
+                        "id": "1.1",
+                        "name": "Atención de recomendaciones para acreditación de Programas Educativos",
+                        "type": {
+                            "name": "topic",
+                            "id": 3
+                        },
+                        "children": [
+                            {
+                                "id": "1.1",
+                                "name": "1.1 Acreditar los programas educativos",
+                                "type": {
+                                    "name": "objective",
+                                    "id": 4
+                                },
+                                "children": [
+                                    {
+                                        "id": "1.1.1",
+                                        "name": "1.1.1 Número de programas educativos acreditados ante COPAES",
+                                        "status": "Activo",
+                                        "type": {
+                                            "name": "indicator",
+                                            "id": 9
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+
+            }
+        ]
+    },
+
+
+    {
+        "id": "1.2.1",
+        "name": "1.2.1 Tasa de reprobación de los estudiantes de TSU (anual)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.2.2",
+        "name": "1.2.2 Tasa de reprobación de los estudiantes de ingeniería (anual)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.2.3",
+        "name": "1.2.3 Promedio global de calificaciones de alumnos de TSU",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.2.4",
+        "name": "1.2.4 Promedio global de calificaciones de alumnos de ingenierías",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.2.5",
+        "name": "1.2.5 Tasa de deserción de estudiantes de TSU (anual)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.2.6",
+        "name": "1.2.6 Tasa de deserción de estudiantes de ingeniería (anual)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.2.7",
+        "name": "1.2.7 Número de estudiantes que abandonaron sus estudios (anual)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.3.1",
+        "name": "1.3.1 Número de programas educativos con espacios óptimos para realizar actividades docentes",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.3.2",
+        "name": "1.3.2 Número de espacios adecuados para las actividades culturales, deportivas y artísticas",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.3.3",
+        "name": "1.3.3 Número de grupos por PE",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.3.4",
+        "name": "1.3.4 Promedio de materias impartidas por profesor",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.3.5",
+        "name": "1.3.5 Número de estudiantes por grupo",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.4.1",
+        "name": "1.4.1 Número de alumnos por computadora en funcionamiento",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.4.2",
+        "name": "1.4.2 Relación de computadoras en estado óptimo por PTC",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.4.3",
+        "name": "1.4.3 Número de edificios con espacios que cuentan con equipo de cómputo para profesores de asignatura",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.4.4",
+        "name": "1.4.4 Número de asignaturas que utilizan herramientas de TIC especializadas por PE",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.5.1",
+        "name": "1.5.1 Promedio de usuarios que utilizan los servicios de biblioteca (consulta de acervo general mensual)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.5.2",
+        "name": "1.5.2 Incremento del acervo bibliográfico (volúmenes)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.5.3",
+        "name": "1.5.3 Número de profesores capacitados en el uso de herramientas de la biblioteca",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "1.5.4",
+        "name": "1.5.4 Número de alumnos capacitados en el uso de herramientas de la biblioteca (anual)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.1.1",
+        "name": "2.1.1 Número de talleres deportivos y culturales",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.1.2",
+        "name": "2.1.2 Número de eventos deportivos, artísticos o culturales (internos y externos)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.1.3",
+        "name": "2.1.3 Número de ciclos de difusión hacia la comunidad universitaria para promover acciones de fomento deportivo o cultura (publicaciones en vitrinas y redes sociales)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.1.4",
+        "name": "2.1.4 Número de ciclos de conferencias implementados",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.1.5",
+        "name": "2.1.5 Número de estudiantes que participan en actividades culturales, artísticas y deportivas (anual)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.1.6",
+        "name": "2.1.6 Número de procesos de selección deportivos y culturales",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.2.1",
+        "name": "2.2.1 Tasa de egreso y titulación por cohorte generacional en TSU",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.2.2",
+        "name": "2.2.2 Tasa de egreso y titulación por cohorte generacional en ingenierías",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.3.1",
+        "name": "2.3.1 Número de alumnos de primer ingreso que aprobaron cursos propedéuticos (anual)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.3.2",
+        "name": "2.3.2 Tasa de retención de estudiantes de primero a segundo año de TSU (anual)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.3.3",
+        "name": "2.3.3 Tasa de retención de estudiantes de primero a segundo año de ingeniería (anual)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.3.4",
+        "name": "2.3.4 Porcentaje de estudiantes con beca total o parcial en la UTJ",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.4.1",
+        "name": "2.4.1 Número de alumnos identificados en situación de riesgo académico",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.4.2",
+        "name": "2.4.2 Número de alumnos identificados en situación de riesgo emocional",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.4.3",
+        "name": "2.4.3 Número de estudiantes de TSU tutorados canalizados a asesorías psicológicas",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.4.4",
+        "name": "2.4.4 Número de estudiantes de ingenierías tutorados canalizados a asesorías psicológicas",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.4.5",
+        "name": "2.4.5 Total de alumnos de TSU enviados a asesorías académicas",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "2.4.6",
+        "name": "2.4.6 Total de alumnos de ingenierías enviados a asesorías académicas",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.1.1",
+        "name": "3.1.1 Número de mecanismos de seguimiento y evaluación implementados (POA, acreditaciones, PIDE)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.1.2",
+        "name": "3.1.2 Porcentaje de cumplimiento de metas derivadas de los instrumentos de planeación",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.2.1",
+        "name": "3.2.1 Número de personas que recibieron por lo menos una capacitación que laboran en áreas administrativas",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.2.2",
+        "name": "3.2.2 Número de proyectos o herramientas de colaboración implementadas",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.2.3",
+        "name": "3.2.3 Número de desviaciones detectadas en las auditorías internas del Sistema de Gestión de Calidad",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.3.1",
+        "name": "3.3.1 Número de eventos (cursos, talleres, conferencias, etc.) en equidad de género",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.3.2",
+        "name": "3.3.2 Personal administrativo y docente capacitados en equidad de género",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.3.3",
+        "name": "3.3.3 Alumnos capacitados en equidad de género",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.3.4",
+        "name": "3.3.4 Número de incidencias relacionadas con equidad de género reportadas",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.4.1",
+        "name": "3.4.1 Número de estudiantes provenientes de grupos vulnerables por PE",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.5.1",
+        "name": "3.5.1 Porcentaje de recursos provenientes de ingresos propios",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.5.2",
+        "name": "3.5.2 Porcentaje de recursos obtenidos por medio de programas federales",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.5.3",
+        "name": "3.5.3 Porcentaje de recursos del fondo ordinario",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.6.1",
+        "name": "3.6.1 Número de procesos sustantivos certificados en calidad",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.6.2",
+        "name": "3.6.2 Número de procesos de apoyo certificados en calidad",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.6.3",
+        "name": "3.6.3 Número de acciones de mejora identificadas en la aplicación del SGC",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.6.4",
+        "name": "3.6.4 Número de acciones de mejora atendidas en la aplicación del SGC",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.7.1",
+        "name": "3.7.1 Número de procesos sustantivos certificados en la norma ambiental",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.7.2",
+        "name": "3.7.2 Número de acciones de mejora identificadas en la aplicación del SGA",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.7.3",
+        "name": "3.7.3 Número de acciones de mejora atendidas en la aplicación del SGA",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.8.1",
+        "name": "3.8.1 Número de sesiones ordinarias y extraordinarias del Consejo Directivo",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.8.2",
+        "name": "3.8.2 Normas y reglamentos actualizados",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "3.8.3",
+        "name": "3.8.3 Número de incidencias reportadas relacionadas con la aplicación de la norma",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.1.1",
+        "name": "4.1.1 Índice de satisfacción de los PE por parte de empleadores",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.1.2",
+        "name": "4.1.2 Índice de satisfacción de los PE por parte de egresados",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.1.3",
+        "name": "4.1.3 Porcentaje de egresados que contestan las encuestas",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.1.4",
+        "name": "4.1.4 Número de encuestas aplicadas a empleadores",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.1.5",
+        "name": "4.1.5 Número de acciones derivadas de las reuniones de retroalimentación",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.2.1",
+        "name": "4.2.1 Número de  comisiones integradas de vinculación y pertinencia con las divisiones de carrera",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.2.2",
+        "name": "4.2.2 Número de reuniones de las comisiones de vinculación y pertinencia con las divisiones de carrera",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.2.3",
+        "name": "4.2.3 Número de programas de educación continua realizados en el sector empresarial",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.3.1",
+        "name": "4.3.1 Satisfacción de los estudiantes con respecto a su PE (septiembre-diciembre)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.3.2",
+        "name": "4.3.2 Número de alumnos de nuevo ingreso por PE (septiembre-diciembre)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.3.3",
+        "name": "4.3.3 Número de acuerdos con Instituciones de Educación Media Superior para oferta educativa",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.3.4",
+        "name": "4.3.4 Número de visitas guiadas hacia UTJ y en sitio con Instituciones de Educación Media Superior",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.3.5",
+        "name": "4.3.5 Número de eventos de difusión en redes sociales",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.4.1",
+        "name": "4.4.1 Número de sesiones informativas, congresos y ciclos de conferencias",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.4.2",
+        "name": "4.4.2 Catálogo anual de servicios actualizado",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.4.3",
+        "name": "4.4.3 Número de empresas a la cuales se entrega el catálogo de servicios",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.4.4",
+        "name": "4.4.4 Número de responsables institucionales que participen en las redes de colaboración fijadas por ANUIES",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.4.5",
+        "name": "4.4.5 Número de cátedras con personalidades prominentes de cámaras y empresas",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.4.6",
+        "name": "4.4.6 Número de ferias del empleo realizadas en UTJ",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.4.7",
+        "name": "4.4.7 Proporción de estudiantes colocados de manera pertinente con su formación profesional y académica en las estadías con las empresas",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.5.1",
+        "name": "4.5.1 Número de espacio físicos adecuados que respondan a necesidades de incubación",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.5.2",
+        "name": "4.5.2 Número de empresas incubadas asesoradas técnica y financieramente",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.6.1",
+        "name": "4.6.1 Número de empresas ubicadas con problemas",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.6.2",
+        "name": "4.6.2 Número de proyectos presentados a concurso por recursos financieros",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.7.1",
+        "name": "4.7.1 Número de convenios generales de colaboración celebrados con diversos sectores",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.7.2",
+        "name": "4.7.2 Número de contratos de prestación de servicios profesionales",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.7.3",
+        "name": "4.7.3 Número de contratos de incubación y alojamiento físico de la empresa",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.7.4",
+        "name": "4.7.4 Número de donaciones",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.8.1",
+        "name": "4.8.1 Número de talleres de emprendimiento",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "4.8.3",
+        "name": "4.8.3 Número de talleres de trabajo en equipos de alto desempeño",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "5.1.1",
+        "name": "5.1.1 Número de PTC con reconocimiento PRODEP",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "5.1.2",
+        "name": "5.1.2 Número de PTC con posgrado",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "5.1.3",
+        "name": "5.1.3 Número de PTC en el SNI",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "5.1.4",
+        "name": "5.1.4 Número de cuerpos académicos consolidados",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "5.1.5",
+        "name": "5.1.5 Número de cuerpos académicos en consolidación",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "5.1.6",
+        "name": "5.1.6 Número de cuerpos académicos en formación",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "5.2.1",
+        "name": "5.2.1 Número de profesores que reciben cursos de capacitación y actualización docente",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "5.2.2",
+        "name": "5.2.2 Número de profesores que participan en actividades o proyectos con el sector empresarial",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "5.3.1",
+        "name": "5.3.1 Número de laboratorios equipados para realizar investigación, desarrollo tecnológico e innovación",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "5.3.2",
+        "name": "5.3.2 Número de profesores que participan en laboratorios de investigación, desarrollo tecnológico e innovación",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "5.4.1",
+        "name": "5.4.1 Número de proyectos de investigación, desarrollo tecnológico e innovación de profesores de la UTJ",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "5.4.2",
+        "name": "5.4.2 Número de PTC que realizan labores de investigación, desarrollo tecnológico e innovación",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "5.4.3",
+        "name": "5.4.3 Número de alumnos que realizan labores de investigación, desarrollo tecnológico e innovación",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "5.4.4",
+        "name": "5.4.4 Número de artículos arbitrados o indexados publicados",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "5.4.5",
+        "name": "5.4.5 Número de libros y/o capítulos de libro publicados",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "6.1.1",
+        "name": "6.1.1 Número de profesores con certificación en la enseñanza de idiomas",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "6.1.2",
+        "name": "6.1.2 Número de alumnos con certificación en idiomas",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "6.1.3",
+        "name": "6.1.3 Número de egresados de TSU que alcanzan el nivel B1 del marco común de referencia europeo (MCRE)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "6.1.4",
+        "name": "6.1.4 Número de egresados Ingeniería que alcanzan el nivel B1 del marco común de referencia europeo (MCRE)",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "6.2.1",
+        "name": "6.2.1 Número de alumnos de intercambio que cursan ciclos lectivos en IES extranjeras",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "6.2.2",
+        "name": "6.2.2 Número de alumnos de intercambio que cursan ciclos lectivos en UTJ provenientes de IES extranjeras",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "6.2.3",
+        "name": "6.2.3 Número de profesores de intercambio que cursan estudios o imparten cátedra en UTJ provenientes de IES extranjeras",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "6.2.4",
+        "name": "6.2.4 Número de profesores de intercambio que cursan estudios o imparten cátedra en IES extranjeras",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "6.3.1",
+        "name": "6.3.1 Número de redes académicas en las que colabora personal de la UTJ",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "6.3.2",
+        "name": "6.3.2 Número de participantes en redes de cooperación académica",
+        "status": "Activo",
+        "type": "indicator"
+    },
+    {
+        "id": "6.3.3",
+        "name": "6.3.3 Número de profesores que forman parte de programas y proyectos de cooperación académica",
+        "status": "Activo",
+        "type": "indicator"
+    }
+]
