@@ -27,7 +27,7 @@ define(
                         name: "pe/pe",
                         viewName: "pe/pe"
                     }
-                }/*,
+                },/*,
                 poa: {
                     id: "poa",
                     label: GeneralViewModel.nls("poa.label"),
@@ -42,13 +42,14 @@ define(
                         viewName: "empty"
                     }
                 },
+                */
                 admin: {
                     id: "admin",
                     label: "ADMINISTRADOR",
                     module: {
                         name: "admin/admin"
                     }
-                }*/
+                }
             };
 
             return items;
