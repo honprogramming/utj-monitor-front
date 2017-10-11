@@ -101,7 +101,37 @@ define(
                         "label": "Indicadores estratégicos"
                     },
                     "pe": {
-                        "label": "Programas Educativos"
+                        "label": "Programas Educativos",
+                        "saveDialog": {
+                            "title": "Información",
+                            "success": "¡Datos guardados correctamente!",
+                            "error": "Se produjo un error al guardar los datos: "
+                        },
+                        "resetDialog": {
+                            "title": "¡Cuidado!",
+                            "warningText": "Todos los cambios realizados se perderán.",
+                            "okButton": "Aceptar",
+                            "cancelButton": "Cancelar"
+                        },
+                        "tableHeaders": {
+                            "nameColumn": "Nombre",
+                            "nameShortColumn": "Nombre corto",
+                            "actionsColumn": "Acciones"
+                        },
+                        "tiposPeTable": {
+                            "title": "Tipos de PE",
+                            "tableSummary": "Tipos Programas Educativos",
+                            "tableAria": "Tabla de tipos de Programas Educativos",
+                            "newErrorText": "",
+                            "deleteErrorText": "No puedes eliminar tipos de PE que tengan programas educativos"
+                        },
+                        "peTable": {
+                            "title": "Programas Educativos",
+                            "tableSummary": "Programas Educativos",
+                            "tableAria": "Tabla de Programas Educativos",
+                            "newErrorText": "Debes seleccionar un tipo de programa educativo",
+                            "deleteErrorText": ""
+                        }
                     },
                     "poa": {
                         "label": "Ficha POA"

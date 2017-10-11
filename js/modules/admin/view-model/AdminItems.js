@@ -22,7 +22,7 @@ define(
                     id: "pe",
                     label: GeneralViewModel.nls("admin.pe.label"),
                     module: {
-                        viewName: "empty"
+                        name: "admin/pe/pe"
                     }
                 },
                 poa: {
