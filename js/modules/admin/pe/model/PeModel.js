@@ -6,6 +6,7 @@ define(
                 var privateData = {
                     dataProvider: dataProvider,
                     itemsArray: undefined,
+                    types: [],
                     itemsMap: {}
                 };
 
@@ -27,7 +28,15 @@ define(
             }
 
             var prototype = PeModel.prototype;
-
+            
+            prototype.setTypes = function(types) {
+                this.PeModel_(theKey).types = types;
+            };
+            
+            prototype.getTypes = function() {
+                return this.PeModel_(theKey).types;
+            };
+            
             prototype.addItem = function (parentItemId, item) {
                 var parentItem = this.getItemById(parentItemId);
 

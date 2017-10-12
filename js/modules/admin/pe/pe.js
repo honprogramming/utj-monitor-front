@@ -134,23 +134,6 @@ define(
                 
                 var typesPromise = peTypesDataProvider.fetchData();
                 
-                var typesSetPromise = typesPromise.then(
-                        function() {
-                            var types = peTypesDataProvider.getDataArray();
-                            var peTypesMap = PeTypes.getTypesMap();
-                            
-                            types.forEach(
-                                function(type) {
-                                    var peType = peTypesMap[type.name];
-                                    
-                                    if (peType) {
-                                        peType.id = type.id;
-                                    }
-                                }
-                            );
-                        }
-                );
-                
                 var peDataProvider =
                         new DataProvider(
                         "data/pe-items-full.json",
@@ -161,11 +144,13 @@ define(
                 self.observableTiposPeTable = ko.observable();
                 self.observablePeTable = ko.observable();
                 
-                Promise.all([typesSetPromise, dataPromise]).then(
+                Promise.all([typesPromise, dataPromise]).then(
                         function () {
                             var peModel = new PeModel(peDataProvider);
+                            peModel.setTypes(peTypesDataProvider.getDataArray());
+                            
                             var peItem = peModel.getItemsByType(PeTypes.PE)[0];
-                            var tipoArray = peModel.getItemsByType(PeTypes.TIPO);
+                            var typesArray = peModel.getTypes();
                             var deletedIds = [];
                             
                             if (!peItem) {
@@ -254,7 +239,7 @@ define(
                             
                             self.vision(peItem ? peItem.name : "");
                             
-                            self.tiposPeTable = new EditableTable(tipoArray, peModel,
+                            self.tiposPeTable = new EditableTable(typesArray, peModel,
                                     {
                                         id: "tiposPe-table",
                                         title: GeneralViewModel.nls("admin.pe.tiposPeTable.title"),
