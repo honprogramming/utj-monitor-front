@@ -2,11 +2,11 @@
   {
    "type": "peType",
    "id": 1,
-   "name": "TSU"
+   "name": "Técnico Superior Universitario (TSU)"
   },
   {
    "type": "peType",
    "id": 2,
-   "name": "Ingeniería"
+   "name": "Ingeniería (ING)"
   }
 ]

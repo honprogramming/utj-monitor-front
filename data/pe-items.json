@@ -1,81 +1,34 @@
 [
     {
-        "id": "pe",
-        "name": "Programas Educativos",
-        "peType": {
-            "id": 0,
-            "name": "pe"
-        },
-        "children": ["tsu", "ing"]
-    },
-    {
-        "id": "tsu",
-        "name": "Técnico Superior Universitario (TSU)",
-        "peType": {
-            "id": 1,
-            "name": "tipo"
-        },
-        "children": ["adm", "neg", "mec"]
-    },
-    {
         "id": "adm",
         "name": "Administración",
         "peType": {
-            "id": 2,
-            "name": "carrera"
-        },
-        "unit-type": "percentage",
-        "values-range": {
-            "lowest": 0,
-            "highest": 1
+            "id": 1,
+            "name": "Técnico Superior Universitario (TSU)"
         }
     },
     {
         "id": "neg",
         "name": "Desarrollo de Negocios",
         "peType": {
-            "id": 2,
-            "name": "carrera"
-        },
-        "unit-type": "percentage",
-        "values-range": {
-            "lowest": 0,
-            "highest": 1
+            "id": 1,
+            "name": "Técnico Superior Universitario (TSU)"
         }
     },
     {
         "id": "mec",
         "name": "Mecatrónica",
         "peType": {
-            "id": 2,
-            "name": "carrera"
-        },
-        "unit-type": "percentage",
-        "values-range": {
-            "lowest": 0,
-            "highest": 1
-        }
-    },
-    {
-        "id": "ing",
-        "name": "Ingeniería (ING)",
-        "peType": {
             "id": 1,
-            "name": "tipo"
-        },
-        "children": ["poi", "die", "mct"]
+            "name": "Técnico Superior Universitario (TSU)"
+        }
     },
     {
         "id": "poi",
         "name": "Procesos y Operaciones Industriales",
         "peType": {
             "id": 2,
-            "name": "carrera"
-        },
-        "unit-type": "percentage",
-        "values-range": {
-            "lowest": 0,
-            "highest": 1
+            "name": "Ingeniería (ING)"
         }
     },
     {
@@ -83,12 +36,7 @@
         "name": "Desarrollo e innovación empresarial",
         "peType": {
             "id": 2,
-            "name": "carrera"
-        },
-        "unit-type": "percentage",
-        "values-range": {
-            "lowest": 0,
-            "highest": 1
+            "name": "Ingeniería (ING)"
         }
     },
     {
@@ -96,12 +44,7 @@
         "name": "Mecatrónica",
         "peType": {
             "id": 2,
-            "name": "carrera"
-        },
-        "unit-type": "percentage",
-        "values-range": {
-            "lowest": 0,
-            "highest": 1
+            "name": "Ingeniería (ING)"
         }
     }
 ]

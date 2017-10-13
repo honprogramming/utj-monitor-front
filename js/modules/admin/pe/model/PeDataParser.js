@@ -8,9 +8,8 @@
 define(
         [
             'modules/admin/pe/model/PeItem',
-            'modules/admin/pe/model/PeTypes'
         ],
-        function (PeItem, PeTypes) {
+        function (PeItem) {
             var PeDataParser = {
                 /**
                  * Parses the data from JSON format into an Array of
@@ -24,7 +23,6 @@ define(
                 parse: function (data) {
                     var peItems = [];
                     var peItemsMap = {};
-                    var typesMap = PeTypes.getTypesMap();
                     var vision = data[0];
 
                     createPeItem(vision);
@@ -34,7 +32,6 @@ define(
                                 new PeItem(
                                     item.id,
                                     item.name,
-                                    typesMap[item.peType.name]
                                 );
                         
                         peItems.push(peItem);
