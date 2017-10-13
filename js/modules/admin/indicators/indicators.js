@@ -58,17 +58,17 @@ define([
         self.columns = [
             {
                 headerText: GeneralViewModel.nls("admin.indicators.table.headers.name"),
-                headerStyle: 'min-width: 50%; max-width: 50em; width: 90%',
+                headerStyle: 'min-width: 50%; max-width: 50em; width: 85%',
                 headerClassName: 'oj-helper-text-align-start',
-                style: 'min-width: 50%; max-width: 50em; width: 90%;',
+                style: 'min-width: 50%; max-width: 50em; width: 85%;',
                 className: 'oj-helper-text-align-start',
                 sortProperty: 'name'
             },
             {
                 headerText: GeneralViewModel.nls("admin.indicators.table.headers.actions"),
-                headerStyle: 'min-width: 2em; max-width: 5em; width: 10%',
+                headerStyle: 'min-width: 2em; max-width: 5em; width: 15%',
                 headerClassName: 'oj-helper-text-align-start',
-                style: 'min-width: 2em; max-width: 5em; width: 10%; text-align:center;',
+                style: 'min-width: 2em; max-width: 5em; width: 15%; text-align:center;',
                 sortable: 'disabled'
             }
         ];
@@ -244,7 +244,7 @@ define([
                 newErrorText: GeneralViewModel.nls("admin.indicators.table.pide.newErrorText"),
                 deleteErrorText: GeneralViewModel.nls("admin.indicators.table.pide.deleteErrorText"),
                 deleteValidator: hasNoChildren,
-                actions: ["filter", "delete", "clone", "read", "edit", "drop"],
+                actions: ["delete", "clone", "read", "edit"],
                 newValidator: function () {
                     return true;//self.vision().length > 0;
                 },
