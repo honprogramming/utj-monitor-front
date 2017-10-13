@@ -17,6 +17,16 @@
                 <td data-bind="text: name">
                 </td>
                 <td>
+                    <!-- ko if: $parent.displayAction('clone') -->
+                    <i class="fa fa-clone fa-border fa-lg pointer"></i>
+                    <!-- /ko -->
+                    <!-- ko if: $parent.displayAction('read') -->
+                    <i class="fa fa-eye fa-border fa-lg pointer"></i>
+                    <!-- /ko -->
+                    <!-- ko if: $parent.displayAction('edit') -->
+                    <i class="fa fa-pencil fa-border fa-lg pointer"></i>
+                    <!-- /ko -->
+    
                     <!-- ko if: $parent.displayAction('filter') -->
                     <i class="fa fa-filter fa-border fa-lg pointer"
                         data-bind="click: $parent.filterHandler, style: {color: $parent.filterIconComputedColor(id)}"></i>

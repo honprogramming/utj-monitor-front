@@ -98,7 +98,68 @@ define(
                         }
                     },
                     "indicators": {
-                        "label": "Indicadores estratégicos"
+                        "label": "Indicadores estratégicos",
+                        "dialogs": {
+                            "save": {
+                                "title": "Información",
+                                "success": "¡Datos guardados correctamente!",
+                                "error": "Se produjo un error al guardar los datos: "
+                            },
+                            "reset": {
+                                "title": "¡Cuidado!",
+                                "warningText": "Todos los cambios realizados se perderán.",
+                                "okButton": "Aceptar",
+                                "cancelButton": "Cancelar"
+                            }
+                        },
+                        "filters": {
+                            "general": {
+                                "title": "Filtro General",
+                                "type": "Tipo",
+                                "status": "Status",
+                                "periodicity": "Periodicidad"
+                            },
+                            "pide": {
+                                "title": "Filtro PIDE",
+                                "axis": "Ejes",
+                                "topic": "Temas",
+                                "objective": "Objetivos"
+                            },
+                            "responsible": {
+                                "title": "Filtro Responsable",
+                                "secretary": "Secretaría",
+                                "area": "Área",
+                                "name": "Nombre"
+                            }
+                        },
+                        "table": {
+                            "headers": {
+                                "status": "Status",
+                                "name": "Indicador",
+                                "actions": "Acciones"
+                            },
+                            "pide": {
+                                "title": "Indicadores PIDE",
+                                "tableSummary": "Indicadores Estratégicos",
+                                "tableAria": "Tabla de Indicadores Estratégicos",
+                                "newErrorText": "Debes seleccionar un indicador",
+                                "deleteErrorText": "No puedes eliminar indicadores que tengan objetivos"
+                            },
+                            "mecasut": {
+                                "title": "MECASUT",
+                                "tableSummary": "Indicadores Estratégicos",
+                                "tableAria": "Tabla de Indicadores Estratégicos",
+                                "newErrorText": "Debes seleccionar un indicador",
+                                "deleteErrorText": "No puedes eliminar indicadores que tengan objetivos"
+                            },
+                            "pe": {
+                                "title": "PE",
+                                "tableSummary": "Indicadores Estratégicos",
+                                "tableAria": "Tabla de Indicadores Estratégicos",
+                                "newErrorText": "Debes seleccionar un indicador",
+                                "deleteErrorText": "No puedes eliminar indicadores que tengan objetivos"
+                            }
+                        }
                     },
                     "pe": {
                         "label": "Programas Educativos"

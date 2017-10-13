@@ -20,7 +20,7 @@ define(
                     model: model,
                     data: [],
                     dataSource: undefined,
-                    actions: ["filter", "delete", "clone"],
+                    actions: ["filter", "delete", "clone", "read", "edit"],
                     currentFilterRow: ko.observable(),
                     ENABLED: 1.0,
                     DISABLED: 0.5,
