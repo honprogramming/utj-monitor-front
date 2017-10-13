@@ -120,7 +120,7 @@ define(
                         new DataProvider(
                         "data/pe-items.json",
 //                            RESTConfig.admin.pe.types.path,
-                            PeTypesParser);
+                            PeDataParser);
                                         
                 var pePromise = peDataProvider.fetchData();
                 
@@ -205,7 +205,7 @@ define(
                             
                             peModel.setTypes(peDataProvider.getDataArray());
                             
-                            var peArray = peModel.getTypes();
+                            var peArray = peModel.getItemsArray();
                             
                             self.peTable = new EditableTable(peArray, peModel,
                                     {

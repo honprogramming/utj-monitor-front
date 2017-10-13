@@ -1,6 +1,7 @@
 [
     {
         "id": "adm",
+        "shortName": "ADM",
         "name": "Administración",
         "peType": {
             "id": 1,
@@ -9,6 +10,7 @@
     },
     {
         "id": "neg",
+        "shortName": "NEG",
         "name": "Desarrollo de Negocios",
         "peType": {
             "id": 1,
@@ -17,6 +19,7 @@
     },
     {
         "id": "mec",
+        "shortName": "MEC",
         "name": "Mecatrónica",
         "peType": {
             "id": 1,
@@ -25,6 +28,7 @@
     },
     {
         "id": "poi",
+        "shortName": "PYOI",
         "name": "Procesos y Operaciones Industriales",
         "peType": {
             "id": 2,
@@ -33,6 +37,7 @@
     },
     {
         "id": "die",
+        "shortName": "DIE",
         "name": "Desarrollo e innovación empresarial",
         "peType": {
             "id": 2,
@@ -41,6 +46,7 @@
     },
     {
         "id": "mct",
+        "shortName": "MECA",
         "name": "Mecatrónica",
         "peType": {
             "id": 2,

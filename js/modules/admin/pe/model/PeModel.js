@@ -59,6 +59,10 @@ define(
             prototype.getItems = function () {
                 return this.PeModel_(theKey).itemsMap;
             };
+            
+            prototype.getItemsArray = function () {
+                return this.PeModel_(theKey).itemsArray;
+            };
 
             prototype.getItemById = function (itemId) {
                 return this.getItems()[itemId];

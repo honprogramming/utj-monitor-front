@@ -22,30 +22,21 @@ define(
                  */
                 parse: function (data) {
                     var peItems = [];
-                    var peItemsMap = {};
-                    var vision = data[0];
-
-                    createPeItem(vision);
-
+                    
+                    for (var i = 0; i < data.length; i ++) {
+                        createPeItem(data[i]);
+                    }
+                    
                     function createPeItem(item) {
                         var peItem = 
                                 new PeItem(
                                     item.id,
                                     item.name,
+                                    item.shortName
                                 );
                         
                         peItems.push(peItem);
-                        peItemsMap[peItem.id] = peItem;
                     
-                        if (item.children) {
-                            item.children.forEach(
-                                    function (item) {
-                                        peItem.children.push(createPeItem(item));
-                                    }
-                            );
-
-                        }
-                        
                         return peItem;
                     }
 
