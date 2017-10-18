@@ -3,21 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/*define ( [
-    "jquery",
-    "knockout",
-    "ojs/ojcore"
-], function ($, ko, oj) {
-    
-    function PEViewModel() {
-        var self = this;
-        
-    };
-    
-    return new PEViewModel();
-    
-});*/
-
 define(['jquery', 'knockout', 'modules/admin/view-model/AdminItems', 'view-models/GeneralViewModel', 'ojs/ojknockout', 'ojs/ojselectcombobox', 'view-models/GeneralViewModel'],
 function($, ko, AdminItems, GeneralViewModel)
 {   
@@ -61,9 +46,11 @@ function($, ko, AdminItems, GeneralViewModel)
             //Status
             self.status1 = GeneralViewModel.nls("admin.poa.statusPoa.option1");
             self.status2 = GeneralViewModel.nls("admin.poa.statusPoa.option2");
+            self.status3 = GeneralViewModel.nls("admin.poa.statusPoa.option3");
             self.statusOptions = ko.observableArray([
                 {value: self.status1, label: self.status1}, 
-                {value: self.status2, label: self.status2}
+                {value: self.status2, label: self.status2},
+                {value: self.status3, label: self.status3}
             ]);
             self.statusValue = ko.observable(self.status1);
             

@@ -165,7 +165,27 @@ define(
                         "label": "Programas Educativos"
                     },
                     "poa": {
-                        "label": "Ficha POA"
+                        "label": "Ficha POA",
+                        "typesPoa": {
+                                "option1": "Proceso 1",
+                                "option2": "Proceso 2",
+                                "option3": "Proceso 3"
+                        },
+                        "periodicityPoa": {
+                                "option1": "Anual",
+                                "option2": "Semestral",
+                                "option3": "Cuatrimestral"
+                        },
+                        "yearPoa": {
+                                "option1": "2017",
+                                "option2": "2016",
+                                "option3": "2015"
+                        },
+                        "statusPoa": {
+                                "option1": "Normal",
+                                "option2": "Inactivo",
+                                "option3": "Incompleto e inactivo "
+                        }
                     }
                 },
                 "pide": {
