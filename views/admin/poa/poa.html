@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div class="full-height full-width">
+    <div class="oj-flex-bar-middle oj-sm-justify-content-center">
+        <h2 class="centered" data-bind="text: title"></h2>
+    </div>
+    
+    <div class="oj-flex">
+      <div class="oj-flex-item">
+          <label for='si-sense-types'>Tipo</label>
+          
+          <select id='si-sense-types' data-bind="ojComponent: {
+              component: 'ojSelect',
+              options: processOptions,
+              required: true,
+              rootAttributes: {
+                style: 'max-height: 100%; max-width: 90%;'
+              },
+              value: processValue
+          }"></select>
+          
+        </div> 
+        
+        <div class="oj-flex-item">
+            <label for='si-sense-periodicity'>Periodicidad</label>
+          
+          <select id='si-sense-periodicity' data-bind="ojComponent: {
+              component: 'ojSelect',
+              options: periodicityOptions,
+              required: true,
+              rootAttributes: {
+                style: 'max-height: 100%; max-width: 90%;'
+              },
+              value: periodicityValue
+          }"></select>
+            
+      </div>
+    </div>
+    
+    <div class="oj-flex">
+      <div class="oj-flex-item">
+          
+          <label for='si-sense-year'>Año</label>
+          
+          <select id='si-sense-year' data-bind="ojComponent: {
+              component: 'ojSelect',
+              options: yearOptions,
+              required: true,
+              rootAttributes: {
+                style: 'max-height: 100%; max-width: 95%;'
+              },
+              value: yearValue
+          }"></select>
+          
+      </div>
+    </div>
+    
+    <div class="oj-flex">
+      <div class="oj-flex-item">
+          
+          <label for='si-sense-status'>Año</label>
+          
+          <select id='si-sense-status' data-bind="ojComponent: {
+              component: 'ojSelect',
+              options: statusOptions,
+              required: true,
+              rootAttributes: {
+                style: 'max-height: 100%; max-width: 95%;'
+              },
+              value: statusValue
+          }"></select>
+          
+      </div>
+    </div>
+</div>
+
