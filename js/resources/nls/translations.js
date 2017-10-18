@@ -134,7 +134,33 @@ define(
                         }
                     },
                     "poa": {
-                        "label": "Ficha POA"
+                        "label": "Ficha POA",
+                        "typesPoa": {
+                            "option1": "Proceso 1",
+                            "option2": "Proceso 2",
+                            "option3": "Proceso 3"
+                        },
+                        "periodicityPoa": {
+                            "option1": "Anual",
+                            "option2": "Mensual",
+                            "option3": "Semanal"
+                        },
+                        "yearPoa": {
+                            "option1": "2017",
+                            "option2": "2016",
+                            "option3": "2015"
+                        },
+                        "statusPoa": {
+                            "option1": "Inactivo",
+                            "option2": "Incompleto e Inactivo"
+                        },
+                        "pideFiltro": {
+                            "title": "Filtro PIDE",
+                            "tableSummary": "Programas Educativos",
+                            "tableAria": "Tabla de Programas Educativos",
+                            "newErrorText": "Debes seleccionar un tipo de programa educativo",
+                            "deleteErrorText": ""
+                        }
                     }
                 },
                 "pide": {

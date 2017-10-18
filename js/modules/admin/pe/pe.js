@@ -35,24 +35,6 @@ define(
                 var self = this;
                 self.title = AdminItems["pe"]["label"];
       
-                self.columns = [
-                    {
-                        headerText: GeneralViewModel.nls("admin.pe.tableHeaders.nameColumn"),
-                        headerStyle: 'min-width: 50%; max-width: 50em; width: 90%',
-                        headerClassName: 'oj-helper-text-align-start',
-                        style: 'min-width: 50%; max-width: 50em; width: 90%;',
-                        className: 'oj-helper-text-align-start',
-                        sortProperty: 'name'
-                    },
-                    {
-                        headerText: GeneralViewModel.nls("admin.pe.tableHeaders.actionsColumn"),
-                        headerStyle: 'min-width: 2em; max-width: 5em; width: 10%',
-                        headerClassName: 'oj-helper-text-align-start',
-                        style: 'min-width: 2em; max-width: 5em; width: 10%; text-align:center;',
-                        sortable: 'disabled'
-                    }
-                ];
-                
                 self.columnsPe = [
                     {
                         headerText: GeneralViewModel.nls("admin.pe.tableHeaders.nameColumn"),
@@ -202,9 +184,7 @@ define(
                             self.tiposPeTable.addEditListener(updateEditedItem);
                     
                             self.observableTiposPeTable(self.tiposPeTable);
-                            
-                            peModel.setTypes(peDataProvider.getDataArray());
-                            
+                           
                             var peArray = peModel.getItemsArray();
                             
                             self.peTable = new EditableTable(peArray, peModel,
