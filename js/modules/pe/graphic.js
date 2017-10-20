@@ -72,6 +72,8 @@
                 self.xAxis = ko.observable(this.xAxisFormats["yearly"]);
                 self.xAxisType = ko.observable();
                 self.legendSections = ko.observableArray([{items: []}]);
+                self.hiddenCategories = ko.observableArray();
+                self.highlightedCategories = ko.observableArray();
                 
                 self.cloneClickHandler = function() {
                     cloneFunction(index);
@@ -259,6 +261,7 @@
             };
             
             prototype.refreshLegendsPE = function() {
+                var self = this;
                 var idsPE = this.getIds(true);
                 var modelPE = this.getModel(true);
                 var legendItems = [];
@@ -270,21 +273,22 @@
                             var pe = modelPE[id];
                             legendItems.push(
                                 {
-                                    text: pe.title,
+                                    categories: [id],
+                                    color: colorHandler.getValue(pe.attr.id),
                                     markerShape: 'square',
-                                    color: colorHandler.getValue(pe.attr.id)
+                                    text: pe.title
                                 }
                             );
                         }
                     );
                 } else {
-                    this.setIds(theKey, ['Todos'], true);
+                    this.setIds(theKey, ['todos'], true);
                     
                     legendItems.push(
                         {
                             text: 'Todos',
                             markerShape: 'square',
-                            color: colorHandler.getValue('Todos')
+                            color: colorHandler.getValue('todos')
                         }
                     );
                 }
@@ -299,22 +303,39 @@
                     this.setMonthlySeries(theKey, []);
                     this.setYearlySeries(theKey, []);
                     
-                    this.getIds(true).forEach(
-                            function(idPE) {
-                                this.getIds().forEach(
-                                        function(id) {
-                                            this.createSerie(id, idPE);
-                                        },
-                                        this
-                                );
-                            },
-                            this
-                    );
-            
+                    this.createSeries();
                     this.refreshSeries();
                     this.refreshAxes();
                 }
             };
+            
+            prototype.createSeries = function() {
+                this.getIds()
+                        .forEach(
+                            id => {
+                                this.createSerieByPIDE(id);
+                            }
+                        );
+            };
+            
+            prototype.createSeriesByPE = function(idPE) {
+                this.getIds().forEach(
+                        function(id) {
+                            this.createSerie(id, idPE);
+                        },
+                        this
+                );
+            };
+            
+            prototype.createSerieByPIDE = function(id) {
+                this.getIds(true).forEach(
+                        function(idPE) {
+                            this.createSerie(id, idPE);
+                        },
+                        this
+                );
+            };
+            
                     
             prototype.filterSeriesByOptions = function(key, options) {
                 if (theKey === key) {
@@ -356,12 +377,7 @@
             
             prototype.refreshSeries = function(seriesValues) {
                 if (!seriesValues) {
-                    this.setSeries(theKey,
-                        this.xAxis() === this.xAxisFormats.yearly 
-                        ? this.getYearlySeries()
-                        : this.getMonthlySeries()
-                    );
-                    
+                    this.setSeries(theKey, this.getCurrentSeries(theKey));
                     seriesValues = this.getSeries();
                 }
                 
@@ -369,6 +385,14 @@
 
                 if (this.seriesValues().length > 0) {
                     this.groupsValues(this.getGroups(theKey));
+                }
+            };
+            
+            prototype.getCurrentSeries = function(key) {
+                if (theKey === key) {
+                        return this.xAxis() === this.xAxisFormats.yearly 
+                        ? this.getYearlySeries()
+                        : this.getMonthlySeries();
                 }
             };
             
@@ -434,7 +458,13 @@
             
             prototype.addId = function(key, id, isPE) {
                 if (theKey === key) {
-                    this.getIds(isPE).push(id);
+                    let ids = this.getIds(isPE);
+                    
+                    if (isPE && ids.length === 1 && ids.includes('todos')) {
+                        this.removeId(key, id, isPE);
+                    }
+                    
+                    ids.push(id);
                 }
             };
             
@@ -509,33 +539,66 @@
                 return this.GraphicViewModel_(theKey).yaxes;
             };
             
-            prototype.addIndicator = function(id) {
-                this.createSerie(id);
-                this.addId(theKey, id);
+            prototype.addIndicator = function(id, isPE) {
+                if (isPE) {
+                    this.removeYearlyAndMonthlySeries(theKey, 'todos', isPE);
+                    this.createSeriesByPE(id);
+                } else {
+                    this.createSerieByPIDE(id);
+                }
+                
+                this.addId(theKey, id, isPE);
                 this.refreshAxes();
                 var seriesValues = this.filterSeriesByOptions(theKey, this.graphicOptions());
                 this.refreshSeries(seriesValues);
+                
+                if (isPE) {
+                    this.refreshLegendsPE();
+                }
             };
             
-            prototype.removeIndicator = function(id) {
-                var series = this.getSeries();
-                series = series.filter(
-                    function(serie) {
-                        return serie.id !== id;
-                    }
-                );
-        
-                this.setSeries(series);
+            prototype.removeIndicator = function(id, isPE) {
+                this.removeYearlyAndMonthlySeries(theKey, id, isPE);
                 
-                this.seriesValues.remove(
-                    function(serie) {
-                        return serie.id === id;
-                    }
-                );
-        
-                this.removeId(theKey, id);
-        
+                let series = this.getSeries();
+                this.setSeries(series);
+
+                this.removeId(theKey, id, isPE);
                 this.refreshAxes();
+                
+                if (isPE) {
+                    this.refreshLegendsPE();
+                    
+                    if (series.length === 0) {
+                        this.createSeriesByPE('todos'); //all
+                        this.refreshAxes();
+                        var seriesValues = this.filterSeriesByOptions(theKey, this.graphicOptions());
+                        this.refreshSeries(seriesValues);
+                    }
+                }
+            };
+            
+            prototype.removeYearlyAndMonthlySeries = function(key, id, isPE) {
+                if (theKey === key) {
+                    let pideFilter = (serie) => {
+                        return !serie.id.endsWith(id);
+                    };
+
+                    let peFilter = (serie) => {
+                        return !serie.id.startsWith(id);
+                    };
+                
+                    let filter = isPE ? peFilter : pideFilter;
+                    this.setYearlySeries(key, this.getYearlySeries().filter(filter));
+                    this.setMonthlySeries(key, this.getMonthlySeries().filter(filter));
+                    this.setSeries(key, this.getCurrentSeries(key));
+                    
+                    this.seriesValues.remove(
+                        function(serie) {
+                            return !filter(serie);
+                        }
+                    );
+                }
             };
             
             prototype.setXAxisFormat = function(key, format) {
@@ -561,6 +624,8 @@
                 var name = item.title + '(' + idPE + ')';
                 var newId = idPE + item.attr.id;
                 var markerShape = markerHandler.getValue(name);
+                var color = colorHandler.getValue(idPE);
+                var categories = [name, idPE];
                 
                 if (yaxes.indexOf(unitType) < 0) {
                     yaxes.push(unitType);
@@ -570,7 +635,8 @@
                     id: newId,
                     elementType: this.elementType.PROGRESS,
                     name: name,
-                    color: colorHandler.getValue(idPE),
+                    categories: categories,
+                    color: color,
                     items: [],
                     displayInLegend: displayLegends ? "on" : "off",
                     type: this.getGraphicType(),
@@ -583,7 +649,8 @@
                     id: newId,
                     elementType: this.elementType.GOAL,
                     name: name,
-                    color: colorHandler.getValue(idPE),
+                    categories: categories,
+                    color: color,
                     items: [],
                     displayInLegend: "on",
                     type: this.graphicType.LINE,
@@ -597,7 +664,8 @@
                     id: newId,
                     elementType: this.elementType.PROGRESS,
                     name: name,
-                    color: colorHandler.getValue(idPE),
+                    categories: categories,
+                    color: color,
                     items: [],
                     displayInLegend: displayLegends ? "on" : "off",
                     type: this.getGraphicType(),
@@ -610,7 +678,8 @@
                     id: newId,
                     elementType: this.elementType.GOAL,
                     name: name,
-                    color: colorHandler.getValue(idPE),
+                    categories: categories,
+                    color: color,
                     items: [],
                     displayInLegend: "on",
                     type: this.graphicType.LINE,
@@ -735,8 +804,8 @@
                         tempDate = new Date(++ currentYear, 0, 1);
                     } while(currentYear <= endYear);
                     
-                    monthlySeries.push(monthlyProgressElement);
                     monthlySeries.push(monthlyGoalElement);
+                    monthlySeries.push(monthlyProgressElement);
                     
                     yearlySeries.push(yearlyGoalElement);
                     yearlySeries.push(yearlyProgressElement);

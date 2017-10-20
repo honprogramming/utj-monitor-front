@@ -224,9 +224,13 @@
                 <div data-bind=" ojComponent: {
                                     component: 'ojLegend',
                                     halign: 'center',
+                                    hideAndShowBehavior: 'on',
+                                    hiddenCategories: hiddenCategories,
+                                    highlightedCategories: highlightedCategories,
+                                    hoverBehavior: 'dim',
                                     orientation: 'vertical',
                                     sections: legendSections,
-                                    valign: 'middle'        
+                                    valign: 'middle'
                                 }">
                 </div>
             </div>
@@ -240,6 +244,8 @@
                                 component: 'ojChart',
                                 groups: groupsValues,
                                 hideAndShowBehavior: 'withoutRescale',
+                                hiddenCategories: hiddenCategories,
+                                highlightedCategories: highlightedCategories,
                                 hoverBehavior: 'dim',
                                 legend: {
                                     position: 'bottom',
