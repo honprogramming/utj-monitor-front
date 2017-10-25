@@ -197,29 +197,85 @@ define(
                     "poa": {
                         "label": "Ficha POA",
                         "typesPoa": {
-                            "option1": "Proceso 1",
-                            "option2": "Proceso 2",
-                            "option3": "Proceso 3"
+                                "option1": "Proceso 1",
+                                "option2": "Proceso 2",
+                                "option3": "Proceso 3"
                         },
                         "periodicityPoa": {
-                            "option1": "Anual",
-                            "option2": "Mensual",
-                            "option3": "Semanal"
+                                "option1": "Anual",
+                                "option2": "Semestral",
+                                "option3": "Cuatrimestral"
                         },
                         "yearPoa": {
-                            "option1": "2017",
-                            "option2": "2016",
-                            "option3": "2015"
+                                "option1": "2017",
+                                "option2": "2016",
+                                "option3": "2015"
                         },
                         "statusPoa": {
-                            "option1": "Inactivo",
-                            "option2": "Incompleto e Inactivo"
+                                "option1": "Normal",
+                                "option2": "Inactivo",
+                                "option3": "Incompleto e inactivo "
                         },
-                        "pideFiltro": {
-                            "title": "Filtro PIDE",
-                            "tableSummary": "Programas Educativos",
-                            "tableAria": "Tabla de Programas Educativos",
-                            "newErrorText": "Debes seleccionar un tipo de programa educativo",
+                        "filtros": {
+                            "filtroPide": {
+                                "title": "Filtro PIDE",
+                                "axes": "Ejes",
+                                "thmes": "Temas",
+                                "objectives": "Objetivos",
+                                "indicator": "Indicador",
+                                "axesPide": {
+                                    "option1": "Eje 1",
+                                    "option2": "Eje 2",
+                                    "option3": "Eje 3"
+                                },
+                                "thmesPide": {
+                                        "option1": "Tema 1",
+                                        "option2": "Tema 2",
+                                        "option3": "Tema 3"
+                                },
+                                "objectivesPide": {
+                                        "option1": "Objetivo 1",
+                                        "option2": "Objetivo 2",
+                                        "option3": "Objetivo 3"
+                                },
+                                "indicatorPide": {
+                                        "option1": "Indicador 1",
+                                        "option2": "Indicador 2",
+                                        "option3": "Indicador 3"
+                                }
+                            },
+                            "filtroResponsable": {
+                                "title": "Filtro Responsable",
+                                "secretary": "Secretaría",
+                                "direccion": "Dirección",
+                                "responsable": "Responsable",
+                                "secretaryResp": {
+                                    "option1": "Rectoría",
+                                    "option2": "Administrativa",
+                                    "option3": "Vinculación"
+                                },
+                                "direccionResp": {
+                                    "option1": "Dirección 1",
+                                    "option2": "Dirección 2",
+                                    "option3": "Dirección 3"
+                                },
+                                "responsableResp": {
+                                    "option1": "Responsable 1",
+                                    "option2": "Responsable 2",
+                                    "option3": "Responsable 3"
+                                }
+                            }
+                        },
+                        "tablePoa": {
+                            "headers": {
+                                "status": "Status",
+                                "name": "Nombre",
+                                "actions": "Acciones"
+                            },
+                            "title": "Tipos de POA",
+                            "tableSummary": "",
+                            "tableAria": "",
+                            "newErrorText": "",
                             "deleteErrorText": ""
                         }
                     }

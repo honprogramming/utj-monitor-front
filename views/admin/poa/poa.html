@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div class="full-height full-width">
+    <div class="oj-flex-bar-middle oj-sm-justify-content-center">
+        <h2 class="centered" data-bind="text: title"></h2>
+    </div>
+    
+    <div style="padding-left: 2.5%; margin-bottom: 1%">
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+              <label for='poa-sense-types'>Tipo</label>
+
+              <select id='poa-sense-types' data-bind="ojComponent: {
+                  component: 'ojSelect',
+                  options: processOptions,
+                  required: false,
+                  rootAttributes: {
+                    style: 'max-height: 100%; max-width: 95%;'
+                  },
+                  value: processValue
+              }"></select>
+
+            </div> 
+
+            <div class="oj-flex-item">
+                <label for='poa-sense-periodicity'>Periodicidad</label>
+
+              <select id='poa-sense-periodicity' data-bind="ojComponent: {
+                  component: 'ojSelect',
+                  options: periodicityOptions,
+                  required: false,
+                  rootAttributes: {
+                    style: 'max-height: 100%; max-width: 95%;'
+                  },
+                  value: periodicityValue
+              }"></select>
+
+          </div>
+        </div>
+
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+
+              <label for='poa-sense-year'>Año</label>
+
+              <select id='poa-sense-year' data-bind="ojComponent: {
+                  component: 'ojSelect',
+                  options: yearOptions,
+                  required: false,
+                  rootAttributes: {
+                    style: 'max-height: 100%; max-width: 97.5%;'
+                  },
+                  value: yearValue
+              }"></select>
+
+          </div>
+        </div>
+
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+
+              <label for='poa-sense-status'>Status</label>
+
+              <select id='poa-sense-status' data-bind="ojComponent: {
+                  component: 'ojSelect',
+                  options: statusOptions,
+                  required: false,
+                  rootAttributes: {
+                    style: 'max-height: 100%; max-width: 97.5%;'
+                  },
+                  value: statusValue
+              }"></select>
+
+          </div>
+        </div>
+    </div>
+    
+    <!-- FILTRO PIDE -->
+    <div id="filterPide-collapsible" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
+            component: 'ojCollapsible',
+            expandArea: 'disclosureIcon',
+            expanded: true
+        }">
+ 
+        <h4 id="pide-filter-poa" data-bind="text: filtroPide"></h4>
+        
+        <div class="oj-form-layout collapsible-content">
+            <!--Ejes-->
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                   
+                    <label for='poa-sense-axes'data-bind="text: axesLabel"></label>
+
+                    <select id='poa-sense-axes' data-bind="ojComponent: {
+                        component: 'ojSelect',
+                        options: axesOptions,
+                        required: false,
+                        rootAttributes: {
+                          style: 'max-height: 100%; max-width: 100%;'
+                        },
+                        value: axesValue
+                    }"></select>
+
+                </div>
+            </div>
+            <!--Temas-->
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+
+                    <label for='poa-sense-thmes'data-bind="text: thmesLabel"></label>
+
+                    <select id='poa-sense-thmes' data-bind="ojComponent: {
+                        component: 'ojSelect',
+                        options: thmesOptions,
+                        required: false,
+                        rootAttributes: {
+                          style: 'max-height: 100%; max-width: 100%;'
+                        },
+                        value: thmesValue
+                    }"></select>
+
+                </div>
+            </div>
+            <!--Objetivos-->
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+
+                    <label for='poa-sense-objectives'data-bind="text: objectivesLabel"></label>
+
+                    <select id='poa-sense-objectives' data-bind="ojComponent: {
+                        component: 'ojSelect',
+                        options: objectivesOptions,
+                        required: false,
+                        rootAttributes: {
+                          style: 'max-height: 100%; max-width: 100%;'
+                        },
+                        value: objectivesValue
+                    }"></select>
+
+                </div>
+            </div>
+            <!--Indicadores-->
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+
+                    <label for='poa-sense-indicator'data-bind="text: indicatorLabel"></label>
+
+                    <select id='poa-sense-indicator' data-bind="ojComponent: {
+                        component: 'ojSelect',
+                        options: indicatorOptions,
+                        required: false,
+                        rootAttributes: {
+                          style: 'max-height: 100%; max-width: 100%;'
+                        },
+                        value: indicatorValue
+                    }"></select>
+
+                </div>
+            </div>
+            
+        </div>     
+    </div>
+    
+    <!-- FILTRO RESPONSABLE -->
+    <div id="resposable-filter-poa" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
+            component: 'ojCollapsible',
+            expandArea: 'disclosureIcon',
+            expanded: true
+        }">
+     
+        <h4 id="responsable-filter" data-bind="text: filtroResponsable"></h4>
+        
+        <div class="oj-form-layout collapsible-content">
+            <!--Secretaría-->
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+
+                    <label for='poa-sense-secretary'data-bind="text: secretaryLabel"></label>
+
+                    <select id='poa-sense-secretary' data-bind="ojComponent: {
+                        component: 'ojSelect',
+                        options: secretaryOptions,
+                        required: true,
+                        rootAttributes: {
+                          style: 'max-height: 100%; max-width: 100%;'
+                        },
+                        value: secretaryValue
+                    }"></select>
+
+                </div>
+            </div>
+            <!--Dirección-->
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+
+                    <label for='poa-sense-direccion'data-bind="text: direccionLabel"></label>
+
+                    <select id='poa-sense-direccion' data-bind="ojComponent: {
+                        component: 'ojSelect',
+                        options: direccionOptions,
+                        required: true,
+                        rootAttributes: {
+                          style: 'max-height: 100%; max-width: 100%;'
+                        },
+                        value: direccionValue
+                    }"></select>
+
+                </div>
+            </div>
+            <!--Responsable-->
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+
+                    <label for='poa-sense-responsable'data-bind="text: responsableLabel"></label>
+
+                    <select id='poa-sense-responsable' data-bind="ojComponent: {
+                        component: 'ojSelect',
+                        options: responsableOptions,
+                        required: true,
+                        rootAttributes: {
+                          style: 'max-height: 100%; max-width: 100%;'
+                        },
+                        value: responsableValue
+                    }"></select>
+
+                </div>
+            </div>
+            
+        </div>     
+    </div>
+    
+    <div style="padding-right: .4%; margin-top: 1%">
+        <!-- Buscador-->
+        <div class="right-align">
+            <input id="filter" data-bind="ojComponent: {
+                component: 'ojInputSearch',
+                placeholder: 'Escribe el nombre de un proceso o proyecto'
+            }" />
+
+        </div>
+        <!-- Tabla POA -->
+        <div data-bind="template: {name: 'EditableTable', data: observablePoaTable}"></div>
+    </div>
+
+</div>
+
