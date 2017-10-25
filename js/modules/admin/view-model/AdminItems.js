@@ -15,7 +15,7 @@ define(
                     id: "indicators",
                     label: GeneralViewModel.nls("admin.indicators.label"),
                     module: {
-                        viewName: "empty"
+                        name: "admin/indicators/indicators"
                     }
                 },
                 pe: {

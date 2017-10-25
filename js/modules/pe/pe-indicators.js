@@ -245,6 +245,7 @@ define(
                                         startEditing: function(currentGraphic) {
                                             if (!currentEditingGraphic) {
                                                 self.setSelectedNodesBackup(theKey, self.getSelectedNodes(theKey));
+                                                self.setSelectedNodesBackup(theKey, self.getSelectedNodes(theKey, true), true);
                                             }
 
                                             currentEditingGraphic = currentGraphic;
@@ -260,13 +261,21 @@ define(
                                             );
 
                                             self.resetSelection();
+                                            self.resetSelection(true);
                                             self.selectNodesById(currentGraphic.getIds());
+                                            self.selectNodesById(currentGraphic.getIds(true), true);
                                             self.editing(true);
                                         },
                                         stopEditing: function() {
                                             self.resetSelection();
+                                            self.resetSelection(true);
+                                            
                                             if (self.getSelectedNodesBackup(theKey)) {
                                                 self.selectNodesById(Object.keys(self.getSelectedNodesBackup(theKey)));
+                                            }
+                                            
+                                            if (self.getSelectedNodesBackup(theKey, true)) {
+                                                self.selectNodesById(Object.keys(self.getSelectedNodesBackup(theKey, true), true));
                                             }
 
                                             currentEditingGraphic = undefined;
@@ -285,6 +294,7 @@ define(
                         );
             
                         self.resetSelection();
+                        self.resetSelection(true);
                     }
                 };
 
@@ -399,13 +409,13 @@ define(
                                 );
 
                                 if (currentEditingGraphic) {
-                                    currentEditingGraphic.addIndicator(node.id);
+                                    currentEditingGraphic.addIndicator(node.id, true);
                                 }
 //                                    $("#unit-type-error-pop-up").ojPopup("open", "#" + node.id, position);
                             } else {
                                 self.removeSelectedNode(theKey, node, true);
                                 if (currentEditingGraphic) {
-                                    currentEditingGraphic.removeIndicator(node.id);
+                                    currentEditingGraphic.removeIndicator(node.id, true);
                                 }
                             }
                             
@@ -663,18 +673,20 @@ define(
                     function(id) {
                         var node = document.getElementById(id);
                         
-                        var regExp = /fa-square-o/;
-                        
-                        node.type = "indicator-selected";
-                        
-                        if (node.className.match(regExp)) {
-                            node.className = node.className.replace(regExp, "fa-check-square-o");
+                        if (node) {
+                            var regExp = /fa-square-o/;
+
+                            node.type = "indicator-selected";
+
+                            if (node.className.match(regExp)) {
+                                node.className = node.className.replace(regExp, "fa-check-square-o");
+                            }
+
+                            selectedNodes[id] = {
+                                id: node.id,
+                                "unit-type": node["unit-type"]
+                            };
                         }
-                        
-                        selectedNodes[id] = {
-                            id: node.id,
-                            "unit-type": node["unit-type"]
-                        };
                     }
                 );
             };
