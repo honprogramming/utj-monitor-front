@@ -162,10 +162,66 @@ define(
                         }
                     },
                     "pe": {
-                        "label": "Programas Educativos"
+                        "label": "Programas Educativos",
+                        "saveDialog": {
+                            "title": "Información",
+                            "success": "¡Datos guardados correctamente!",
+                            "error": "Se produjo un error al guardar los datos: "
+                        },
+                        "resetDialog": {
+                            "title": "¡Cuidado!",
+                            "warningText": "Todos los cambios realizados se perderán.",
+                            "okButton": "Aceptar",
+                            "cancelButton": "Cancelar"
+                        },
+                        "tableHeaders": {
+                            "nameColumn": "Nombre",
+                            "nameShortColumn": "Nombre corto",
+                            "actionsColumn": "Acciones"
+                        },
+                        "tiposPeTable": {
+                            "title": "Tipos de PE",
+                            "tableSummary": "Tipos Programas Educativos",
+                            "tableAria": "Tabla de tipos de Programas Educativos",
+                            "newErrorText": "",
+                            "deleteErrorText": "No puedes eliminar tipos de PE que tengan programas educativos"
+                        },
+                        "peTable": {
+                            "title": "Programas Educativos",
+                            "tableSummary": "Programas Educativos",
+                            "tableAria": "Tabla de Programas Educativos",
+                            "newErrorText": "Debes seleccionar un tipo de programa educativo",
+                            "deleteErrorText": ""
+                        }
                     },
                     "poa": {
-                        "label": "Ficha POA"
+                        "label": "Ficha POA",
+                        "typesPoa": {
+                            "option1": "Proceso 1",
+                            "option2": "Proceso 2",
+                            "option3": "Proceso 3"
+                        },
+                        "periodicityPoa": {
+                            "option1": "Anual",
+                            "option2": "Mensual",
+                            "option3": "Semanal"
+                        },
+                        "yearPoa": {
+                            "option1": "2017",
+                            "option2": "2016",
+                            "option3": "2015"
+                        },
+                        "statusPoa": {
+                            "option1": "Inactivo",
+                            "option2": "Incompleto e Inactivo"
+                        },
+                        "pideFiltro": {
+                            "title": "Filtro PIDE",
+                            "tableSummary": "Programas Educativos",
+                            "tableAria": "Tabla de Programas Educativos",
+                            "newErrorText": "Debes seleccionar un tipo de programa educativo",
+                            "deleteErrorText": ""
+                        }
                     }
                 },
                 "pide": {

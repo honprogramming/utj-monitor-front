@@ -16,6 +16,10 @@
             <tr data-bind="style: {'background-color': $parent.rowComputedColor(id, $data)}">
                 <td data-bind="text: name">
                 </td>
+                <!-- ko if: $data.shortName !== undefined -->
+                <td data-bind="text: shortName">
+                </td>
+                <!-- /ko -->
                 <td>
                     <!-- ko if: $parent.displayAction('clone') -->
                     <i class="fa fa-clone fa-border fa-lg pointer"></i>

@@ -22,14 +22,14 @@ define(
                     id: "pe",
                     label: GeneralViewModel.nls("admin.pe.label"),
                     module: {
-                        viewName: "empty"
+                        name: "admin/pe/pe"
                     }
                 },
                 poa: {
                     id: "poa",
                     label: GeneralViewModel.nls("admin.poa.label"),
                     module: {
-                        viewName: "empty"
+                        name: "admin/poa/poa"
                     }
                 }
             };
