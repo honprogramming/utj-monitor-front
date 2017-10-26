@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div class="full-height full-width">
+    <div class="oj-flex-bar-middle oj-sm-justify-content-center">
+            <h2 class="centered" data-bind="text: title"></h2>
+    </div>
+
+    <div class="oj-flex-bar">
+        <div class="oj-flex-bar-end">
+            <div data-bind="template: {name: 'FormActions', data: formActions}"></div>
+        </div>
+    </div>
+    
+    <div style="padding-left: 1%; margin-bottom: 1%">
+    <!-- OPCIONES -->
+            <div class="oj-flex-item oj-sm-justify-content-center">
+                <div class="oj-choice-direction-row">
+              
+                    <label id="typeGroup" data-bind="text: typeLabel"></label>
+
+                    <div id="radioset" aria-labelledby='typeGroup' data-bind="ojComponent: {
+                        component: 'ojRadioset', 
+                        required: true, 
+                        value: typeValue
+                    }">
+                        <!-- PROCESO -->
+                        <span class="oj-choice-item">
+                            <input type="radio" id="poa-proceso-radio" name="poa-type-radio" data-bind="value: proceso">
+                            <label for="poa-proceso-radio" data-bind="text: proceso"></label>
+                        </span>
+
+                        <!-- PROYECTO -->
+                        <span class="oj-choice-item">
+                            <input type="radio" id="poa-proyecto-radio" name="poa-type-radio" data-bind="value: proyecto">
+                            <label for="poa-proyecto-radio" data-bind="text: proyecto"></label>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+    </div>
+    
+    <div id="sectionGeneral-collapsible" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
+            component: 'ojCollapsible',
+            expandArea: 'disclosureIcon',
+            expanded: true
+    }">
+ 
+        <h4 id="section-general-poa" data-bind="text: titleGeneral"></h4>
+        
+        <div class="oj-form-layout collapsible-content">
+        
+            <!-- ALCANCE -->
+            <div class="oj-flex-item oj-sm-justify-content-center">
+                <div class="oj-choice-direction-row">
+              
+                    <label id="scopeGroup" data-bind="text: scopeLabel"></label>
+
+                    <div id="radioset" aria-labelledby='scopeGroup' data-bind="ojComponent: {
+                        component: 'ojRadioset', 
+                        required: false, 
+                        value: scopeValue
+                    }">
+                        <!-- ANUAL -->
+                        <span class="oj-choice-item">
+                            <input type="radio" id="scope-anual-radio" name="poa-scope-radio" data-bind="value: anual">
+                            <label for="scope-anual-radio" data-bind="text: anual"></label>
+                        </span>
+
+                        <!-- MULTIANUAL -->
+                        <span class="oj-choice-item">
+                            <input type="radio" id="scope-multiAnual-radio" name="poa-scope-radio" data-bind="value: multiAnual">
+                            <label for="scope-multiAnual-radio" data-bind="text: multiAnual"></label>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+            
+            <!-- DENOMINACIÓN DEL PROCESO -->
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                  
+                    <label for="name-field" data-bind="text: nameLabel"></label>
+
+                    <input id='name-field' data-bind="ojComponent: {
+                        component: 'ojInputText',
+                        placeholder: namePlaceHolder,
+                        required: true,
+                        rootAttributes: {
+                            style: 'max-height: 100%; max-width: 100%;'
+                        },
+                        value: nameValue
+                    }">
+                </div>
+            </div>
+            
+            <!-- OBJETIVO DEL PROCESO -->
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                  
+                    <label for="objective-field" data-bind="text: objectiveLabel"></label>
+
+                    <input id='objective-field' data-bind="ojComponent: {
+                        component: 'ojInputText',
+                        placeholder: objectivePlaceHolder,
+                        required: true,
+                        rootAttributes: {
+                            style: 'height: ; max-width: 100%;'
+                        },
+                        value: objectiveValue
+                    }">
+                </div>
+            </div>
+             
+            <!-- CLASE -->
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                   
+                    <label for='select-class'data-bind="text: classLabel"></label>
+
+                    <select id='select-class' data-bind="ojComponent: {
+                        component: 'ojSelect',
+                        options: classOptions,
+                        required: true,
+                        rootAttributes: {
+                          style: 'max-height: 100%; max-width: 100%;'
+                        },
+                        value: classValue
+                    }"></select>
+
+                </div>
+            </div>
+            
+            <!-- PROBLEMÁTICA -->
+            <div class="oj-flex">
+                <div class="oj-flex-item">
+                  
+                    <label for="problematic-field" data-bind="text: problematicLabel"></label>
+
+                    <input id='problematic-field' data-bind="ojComponent: {
+                        component: 'ojInputText',
+                        placeholder: problematicPlaceHolder,
+                        required: true,
+                        rootAttributes: {
+                            style: 'height: ; max-width: 100%;'
+                        },
+                        value: problematicValue
+                    }">
+                </div>
+            </div>
+               
+        </div>     
+    </div>
+    
+</div>

@@ -196,6 +196,7 @@ define(
                     },
                     "poa": {
                         "label": "Ficha POA",
+                        "label1": "Agregar Ficha de POA",
                         "typesPoa": {
                                 "option1": "Proceso 1",
                                 "option2": "Proceso 2",
@@ -277,6 +278,38 @@ define(
                             "tableAria": "",
                             "newErrorText": "",
                             "deleteErrorText": ""
+                        },
+                        "edit": {
+                            "main": {
+                                "label": "Tipo",
+                                "proceso": "Proceso",
+                                "proyecto": "Proyecto"
+                            },
+                            "general": {
+                                "title": "General",
+                                "scope": {
+                                    "label": "Alcance",
+                                    "anual": "Anual",
+                                    "multiAnual": "Multianual"
+                                },
+                                "name": {
+                                    "label": "Denominación del proceso",
+                                    "placeHolder": "Nombre"
+                                },
+                                "objective": {
+                                    "label": "Objetivo",
+                                    "placeHolder": "Objetivo del proceso"
+                                },
+                                "class": {
+                                    "label": "Clase",
+                                    "option1": "Programa educativo",
+                                    "option2": "Proceso de gestión"
+                                },
+                                "problematic": {
+                                    "label": "Problemática que atiende e impacto",
+                                    "placeHolder": "Descripción de la problemática e impacto"
+                                }
+                            }
                         }
                     }
                 },
