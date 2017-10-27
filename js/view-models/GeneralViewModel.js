@@ -28,6 +28,7 @@ define(['ojs/ojcore', 'ojs/ojvalidation'],
             var yearOptions = {formatType: 'datetime', pattern: 'y'};
             var decimalOptions = {style: 'decimal', decimalFormat: 'short'};
             var percentOptions = {style: 'percent'};
+            var yearDecimalOptions = {style: 'decimal', useGrouping: false};
 //    var percentOneFractionDigitOptions = {style: 'percent', maximumFractionDigits: 1};
 //    var integerOptions = {style: 'decimal', maximumFractionDigits: 0, useGrouping: true};
 
@@ -38,7 +39,8 @@ define(['ojs/ojcore', 'ojs/ojvalidation'],
                     year: dateTimeConverterFactory.createConverter(yearOptions),
                     month: dateTimeConverterFactory.createConverter(monthOptions),
                     decimal: numberConverterFactory.createConverter(decimalOptions),
-                    percent: numberConverterFactory.createConverter(percentOptions)
+                    percent: numberConverterFactory.createConverter(percentOptions),
+                    yearDecimal: numberConverterFactory.createConverter(yearDecimalOptions)
 //            percent_1: numberConverterFactory.createConverter(percentOneFractionDigitOptions),
 //            integer: numberConverterFactory.createConverter(integerOptions)
                 },

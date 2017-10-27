@@ -12,6 +12,10 @@ and open the template in the editor.
     <div class="oj-flex-bar">
         <div class="oj-flex-bar-end">
             <div data-bind="template: {name: 'FormActions', data: formActions}"></div>
+            <i class="fa fa-eraser fa-lg fa-border" aria-hidden="true"></i>
+            <a class="btn btn-default" href="#">
+                <i class="fa fa-table fa-lg fa-border" aria-hidden="true"></i>
+            </a>
         </div>
     </div>
     
@@ -55,7 +59,7 @@ and open the template in the editor.
         <div class="oj-form-layout collapsible-content">
         
             <!-- ALCANCE -->
-            <div class="oj-flex-item oj-sm-justify-content-center">
+            <div class="oj-flex-item oj-sm-justify-content-center" style="margin-bottom: 1%">
                 <div class="oj-choice-direction-row">
               
                     <label id="scopeGroup" data-bind="text: scopeLabel"></label>
@@ -82,7 +86,7 @@ and open the template in the editor.
             </div>
             
             <!-- DENOMINACIÓN DEL PROCESO -->
-            <div class="oj-flex">
+            <div class="oj-flex" style="margin-bottom: 1%">
                 <div class="oj-flex-item">
                   
                     <label for="name-field" data-bind="text: nameLabel"></label>
@@ -100,25 +104,25 @@ and open the template in the editor.
             </div>
             
             <!-- OBJETIVO DEL PROCESO -->
-            <div class="oj-flex">
+            <div class="oj-flex" style="margin-bottom: 1%">
                 <div class="oj-flex-item">
                   
                     <label for="objective-field" data-bind="text: objectiveLabel"></label>
 
-                    <input id='objective-field' data-bind="ojComponent: {
-                        component: 'ojInputText',
+                    <textarea id='objective-field' data-bind="ojComponent: {
+                        component: 'ojTextArea',
                         placeholder: objectivePlaceHolder,
                         required: true,
                         rootAttributes: {
-                            style: 'height: ; max-width: 100%;'
+                            style: 'height: 100% ; max-width: 100%;'
                         },
                         value: objectiveValue
-                    }">
+                    }"></textarea>
                 </div>
             </div>
              
             <!-- CLASE -->
-            <div class="oj-flex">
+            <div class="oj-flex" style="margin-bottom: 1%">
                 <div class="oj-flex-item">
                    
                     <label for='select-class'data-bind="text: classLabel"></label>
@@ -137,23 +141,176 @@ and open the template in the editor.
             </div>
             
             <!-- PROBLEMÁTICA -->
-            <div class="oj-flex">
+            <div class="oj-flex" style="margin-bottom: 1%">
                 <div class="oj-flex-item">
                   
                     <label for="problematic-field" data-bind="text: problematicLabel"></label>
 
-                    <input id='problematic-field' data-bind="ojComponent: {
-                        component: 'ojInputText',
+                    <textarea id='problematic-field' data-bind="ojComponent: {
+                        component: 'ojTextArea',
                         placeholder: problematicPlaceHolder,
-                        required: true,
+                        required: false,
                         rootAttributes: {
-                            style: 'height: ; max-width: 100%;'
+                            style: 'height: 100% ; max-width: 100%;'
                         },
                         value: problematicValue
-                    }">
+                    }"></textarea>
                 </div>
             </div>
-               
+            
+            <div class="oj-flex oj-flex-bar oj-flex-items-pad" style="margin-top: 2%">                  
+                <!-- AÑO -->
+                <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-bar" style="align-items: baseline">
+
+                    <label for="año-field" data-bind="text: yearLabel"></label>
+                    
+                    <input id='año-fiel'  class="centered" data-bind="ojComponent: {
+                        component: 'ojInputNumber',
+                        converter: yearConverter,
+                        max: 3000,
+                        min: 1900,
+                        step: 1,
+                        required: false,
+                        rootAttributes: {
+                            style: 'height: 100% ; max-width: 45%; margin-left: 3%;'
+                        },
+                        value: yearValue
+                    }">
+                            
+                </div>
+                
+                <!-- INICIO -->
+                <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-bar" style="align-items: baseline">
+                 
+                    <label for="start-field" data-bind="text: startLabel"></label>
+                    
+                    <input id='start-field' data-bind="ojComponent: {
+                        component: 'ojInputDate',
+                        converter: startConverter,
+                        required: false,
+                        rootAttributes: {
+                            style: 'height: 100% ; max-width: 65%; margin-left: 3%;'
+                        },
+                        value: startValue
+                    }">
+                    
+                </div>
+                
+                <!-- TERMINO -->
+                <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-bar" style="align-items: baseline">
+                 
+                    <label for="finished-field" data-bind="text: finishedLabel"></label>
+                    
+                    <input id='finished-field' data-bind="ojComponent: {
+                        component: 'ojInputDate',
+                        converter: finishedConverter,
+                        required: false,
+                        rootAttributes: {
+                            style: 'height: 100% ; max-width: 65%; margin-left: 3%;'
+                        },
+                        value: finishedValue
+                    }">
+                    
+                </div>
+                
+            </div>
+            
+            <!-- CALIFICACIÓN -->
+            <fieldset  style="margin-top: 2%">
+                
+                <legend>
+                    
+                    <label data-bind="text: qualificationLabel"></label>
+                    <span class="oj-label-required-icon"></span>
+                    
+                </legend> 
+                <!-- ROJO -->
+                <div class="oj-flex">                  
+                    <div class="oj-flex-item">
+
+                        <label for="red-field" class="oj-label" data-bind="text: redLabel"></label>
+
+                        <input id='red-fiel' class="right-align" data-bind="ojComponent: {
+                            component: 'ojInputNumber',
+                            converter: qualificationConverter,
+                            max: 1,
+                            min: 0,
+                            step: .05,
+                            required: true,
+                            rootAttributes: {
+                                style: 'height: 100% ; max-width: 200%;'
+                            },
+                            value: redValue
+                        }">
+
+                    </div>      
+                </div>         
+                <!-- NARANJA -->
+                <div class="oj-flex">                  
+                    <div class="oj-flex-item">
+
+                        <label for="orange-field" class="oj-label" data-bind="text: orangeLabel"></label>
+
+                        <input id='orange-fiel' class="right-align" data-bind="ojComponent: {
+                            component: 'ojInputNumber',
+                            converter: qualificationConverter,
+                            max: 1,
+                            min: 0,
+                            step: .05,
+                            required: true,
+                            rootAttributes: {
+                                style: 'height: 100% ; max-width: 100%;'
+                            },
+                            value: orangeValue
+                        }">
+
+                    </div>      
+                </div>
+                <!-- AMARILLO -->
+                <div class="oj-flex">                  
+                    <div class="oj-flex-item">
+
+                        <label for="yellow-field" class="oj-label" data-bind="text: yellowLabel"></label>
+
+                        <input id='yellow-fiel' class="right-align" data-bind="ojComponent: {
+                            component: 'ojInputNumber',
+                            converter: qualificationConverter,
+                            max: 1,
+                            min: 0,
+                            step: .05,
+                            required: true,
+                            rootAttributes: {
+                                style: 'height: 100% ; max-width: 100%;'
+                            },
+                            value: yellowValue
+                        }">
+
+                    </div>      
+                </div>
+                <!-- VERDE -->
+                <div class="oj-flex">                  
+                    <div class="oj-flex-item">
+
+                        <label for="green-field" class="oj-label" data-bind="text: greenLabel"></label>
+
+                        <input id='green-fiel' class="right-align" data-bind="ojComponent: {
+                            component: 'ojInputNumber',
+                            converter: qualificationConverter,
+                            max: 1,
+                            min: 0,
+                            step: .05,
+                            required: true,
+                            rootAttributes: {
+                                style: 'height: 100% ; max-width: 100%;'
+                            },
+                            value: greenValue
+                        }">
+
+                    </div>      
+                </div>
+
+            </fieldset>
+              
         </div>     
     </div>
     

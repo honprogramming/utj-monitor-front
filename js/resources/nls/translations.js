@@ -308,6 +308,22 @@ define(
                                 "problematic": {
                                     "label": "Problemática que atiende e impacto",
                                     "placeHolder": "Descripción de la problemática e impacto"
+                                },
+                                "año": {
+                                    "label": "Año"
+                                },
+                                "inicio": {
+                                    "label": "Inicio"
+                                },
+                                "termino": {
+                                    "label": "Término"
+                                },
+                                "qualification": {
+                                    "label": "Calificación",
+                                    "red": "Rojo",
+                                    "orange": "Naranja",
+                                    "yellow": "Amarillo",
+                                    "green": "Verde"
                                 }
                             }
                         }

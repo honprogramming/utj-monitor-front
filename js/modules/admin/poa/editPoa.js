@@ -24,7 +24,9 @@ define([
     'ojs/ojselectcombobox',
     'promise',
     'ojs/ojtable',
-    'ojs/ojradioset'
+    'ojs/ojradioset',
+    'ojs/ojinputnumber',
+    'ojs/ojdatetimepicker'
 ],
 function($, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvider, EditableTable, FormActions)
 {   
@@ -77,7 +79,7 @@ function($, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvi
             self.objectiveValue = ko.observable("");
             
             //CLASE
-            self.classLabel = GeneralViewModel.nls("admin.poa.edit.general.class.label")
+            self.classLabel = GeneralViewModel.nls("admin.poa.edit.general.class.label");
             self.class1 = GeneralViewModel.nls("admin.poa.edit.general.class.option1");
             self.class2 = GeneralViewModel.nls("admin.poa.edit.general.class.option2");
             self.classOptions = ko.observableArray([
@@ -91,7 +93,34 @@ function($, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvi
             self.problematicPlaceHolder = GeneralViewModel.nls("admin.poa.edit.general.problematic.placeHolder");
             self.problematicValue = ko.observable("");
             
-        }
+            //AÑO
+            self.yearLabel = GeneralViewModel.nls("admin.poa.edit.general.año.label");
+            self.yearConverter = GeneralViewModel.converters.yearDecimal;
+            self.yearValue = ko.observable(2017);
+            
+            //INICIO
+            self.startLabel = GeneralViewModel.nls("admin.poa.edit.general.inicio.label");
+            self.startConverter = GeneralViewModel.converters.date;
+            self.startValue = ko.observable("");
+            
+            //TERMINO
+            self.finishedLabel = GeneralViewModel.nls("admin.poa.edit.general.termino.label");
+            self.finishedConverter = GeneralViewModel.converters.date;
+            self.finishedValue = ko.observable("");
+            
+            //CALIFICACIÓN
+            self.qualificationLabel = GeneralViewModel.nls("admin.poa.edit.general.qualification.label");
+            self.qualificationConverter = GeneralViewModel.converters.percent;
+            self.redLabel = GeneralViewModel.nls("admin.poa.edit.general.qualification.red");
+            self.redValue = ko.observable(0.35);
+            self.orangeLabel = GeneralViewModel.nls("admin.poa.edit.general.qualification.orange");
+            self.orangeValue = ko.observable(0.60);
+            self.yellowLabel = GeneralViewModel.nls("admin.poa.edit.general.qualification.yellow");
+            self.yellowValue = ko.observable(0.80);
+            self.greenLabel = GeneralViewModel.nls("admin.poa.edit.general.qualification.green");
+            self.greenValue = ko.observable(0.100);
+            
+        }   
         
     return new PoaEditViewModel();
  
