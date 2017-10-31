@@ -31,7 +31,15 @@ define(
                     module: {
                         name: "admin/poa/poa"
                     }
+                },
+                editPoa: {
+                    id: "editPoa",
+                    label: GeneralViewModel.nls("admin.poa.label1"),
+                    module: {
+                        name: "admin/poa/editPoa"
+                    }
                 }
+                
             };
             
             return adminItems;

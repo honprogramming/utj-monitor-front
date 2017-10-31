@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 define([
-    'ojs/ojcore',
     'jquery', 
     'knockout', 
     'modules/admin/view-model/AdminItems',
@@ -26,7 +25,7 @@ define([
     'promise',
     'ojs/ojtable'
 ],
-function(oj, $, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvider, EditableTable, FormActions)
+function($, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvider, EditableTable, FormActions)
 {   
         function PoaViewModel() {
 	    var self = this;
@@ -201,6 +200,7 @@ function(oj, $, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataP
 
             // Click ok handler
             var clickOkHandlerObservable = ko.observable();
+            
             self.clickOkHandler = function () {
                 var handler = clickOkHandlerObservable();
                 handler();
@@ -210,18 +210,10 @@ function(oj, $, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataP
             self.clickCancelHandler = function () {
                 $("#" + self.resetDialogId).ojDialog("close");
             };
-
-            var poaTypesDataProvider =
-                        new DataProvider(
-                        "data/strategic-types.json",
-//                            RESTConfig.admin.pe.types.path,
-                            PoaDataParser);
-                
-                var typesPromise = poaTypesDataProvider.fetchData();
                 
                 var poaDataProvider =
                         new DataProvider(
-                        "data/strategic-items-full.json",
+                        "data/poa-types.json",
 //                            RESTConfig.admin.pe.types.path,
                             PoaDataParser);
                                         
@@ -229,10 +221,10 @@ function(oj, $, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataP
                 
                 self.observablePoaTable = ko.observable();
                 
-                Promise.all([typesPromise, poaPromise]).then(
+                Promise.all([poaPromise]).then(
                         function () {
                             var poaModel = new PoaModel(poaDataProvider);
-                            poaModel.setTypes(poaTypesDataProvider.getDataArray());
+                            poaModel.setTypes(poaDataProvider.getDataArray());
                             
                             var poaArray = poaModel.getTypes();
 
