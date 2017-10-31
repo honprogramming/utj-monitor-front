@@ -325,6 +325,43 @@ define(
                                     "yellow": "Amarillo",
                                     "green": "Verde"
                                 }
+                            },
+                            "alineacion": {
+                                "title": "Alineación",
+                                "alineacionPide": {
+                                    "label": "Alineación PIDE",
+                                    "axes": {
+                                        "label": "Ejes",
+                                        "option1": "Eje 1",
+                                        "option2": "Eje 2"
+                                    },
+                                    "themes": {
+                                        "label": "Temas",
+                                        "option1": "Tema 1",
+                                        "option2": "Tema 2"
+                                    },
+                                    "objectives": {
+                                        "label": "Objetivos",
+                                        "option1": "Objetivo 1",
+                                        "option2": "Objetivo 2"
+                                    },
+                                    "indicators": {
+                                        "label": "Selecciona el nombre del indicador",
+                                        "option1": "Indicador 1",
+                                        "option2": "Indicador 2"
+                                    }
+                                },
+                                "tableAlignedIndicators": {
+                                    "headers": {
+                                        "name": "Nombre",
+                                        "actions": "Acciones"
+                                    },
+                                    "title": "Indicadores Alineados",
+                                    "tableSummary": "",
+                                    "tableAria": "",
+                                    "newErrorText": "",
+                                    "deleteErrorText": ""
+                                }
                             }
                         }
                     }

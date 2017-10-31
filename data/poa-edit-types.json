@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "type": "indicator",
+        "name": "Indicador 1"
+    },
+    {
+        "id": 2,
+        "type": "copy",
+        "name": "Copia de indicador 1"
+    },
+    {
+        "id": 3,
+        "type": "indicator",
+        "name": "Indicador 2"
+    }
+]
