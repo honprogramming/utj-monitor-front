@@ -80,8 +80,8 @@ function($, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvi
             
             //CLASE
             self.classLabel = GeneralViewModel.nls("admin.poa.edit.general.class.label");
-            self.class1 = GeneralViewModel.nls("admin.poa.edit.general.class.option1");
-            self.class2 = GeneralViewModel.nls("admin.poa.edit.general.class.option2");
+            self.class1 = "Programa educativo";
+            self.class2 = "Proceso de gestión";
             self.classOptions = ko.observableArray([
                 {value: self.class1, label: self.class1}, 
                 {value: self.class2, label: self.class2}
@@ -125,9 +125,9 @@ function($, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvi
             self.alignmentLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.label");
             
             //EJES
-            self.axesLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.axes.label");
-            self.axes1 = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.axes.option1");
-            self.axes2 = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.axes.option2");
+            self.axesLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.axes");
+            self.axes1 = "Eje 1";
+            self.axes2 = "Eje 2";
             self.axesOptions = ko.observableArray([
                 {value: self.axes1, label: self.axes1}, 
                 {value: self.axes2, label: self.axes2}
@@ -135,9 +135,9 @@ function($, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvi
             self.axesValue = ko.observable(self.axes1);
             
             //TEMAS
-            self.themesLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.themes.label");
-            self.themes1 = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.themes.option1");
-            self.themes2 = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.themes.option2");
+            self.themesLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.themes");
+            self.themes1 = "Tema 1";
+            self.themes2 = "Tema 2";
             self.themesOptions = ko.observableArray([
                 {value: self.themes1, label: self.themes1}, 
                 {value: self.themes2, label: self.themes2}
@@ -145,9 +145,9 @@ function($, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvi
             self.themesValue = ko.observable(self.themes1);
             
             //OBJETIVOS
-            self.objectivesLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.objectives.label");
-            self.objectives1 = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.objectives.option1");
-            self.objectives2 = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.objectives.option2");
+            self.objectivesLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.objectives");
+            self.objectives1 = "Objetivo 1";
+            self.objectives2 = "Objetivo 2";
             self.objectivesOptions = ko.observableArray([
                 {value: self.objectives1, label: self.objectives1}, 
                 {value: self.objectives2, label: self.objectives2}
@@ -155,9 +155,9 @@ function($, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvi
             self.objectivesValue = ko.observable(self.objectives1);
             
             //INDICADORES
-            self.indicatorsLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.indicators.label");
-            self.indicators1 = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.indicators.option1");
-            self.indicators2 = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.indicators.option2");
+            self.indicatorsLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.indicators");
+            self.indicators1 = "Indicador 1";
+            self.indicators2 = "Indicador 2";
             self.indicatorsOptions = ko.observableArray([
                 {value: self.indicators1, label: self.indicators1}, 
                 {value: self.indicators2, label: self.indicators2}
