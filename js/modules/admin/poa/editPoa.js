@@ -80,8 +80,8 @@ function($, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvi
             
             //CLASE
             self.classLabel = GeneralViewModel.nls("admin.poa.edit.general.class.label");
-            self.class1 = GeneralViewModel.nls("admin.poa.edit.general.class.option1");
-            self.class2 = GeneralViewModel.nls("admin.poa.edit.general.class.option2");
+            self.class1 = "Programa educativo";
+            self.class2 = "Proceso de gestión";
             self.classOptions = ko.observableArray([
                 {value: self.class1, label: self.class1}, 
                 {value: self.class2, label: self.class2}
@@ -119,6 +119,143 @@ function($, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvi
             self.yellowValue = ko.observable(0.80);
             self.greenLabel = GeneralViewModel.nls("admin.poa.edit.general.qualification.green");
             self.greenValue = ko.observable(0.100);
+            
+            //SECCIÓN ALINEACIÓN
+            self.alignmentTitle = GeneralViewModel.nls("admin.poa.edit.alineacion.title");
+            self.alignmentLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.label");
+            
+            //EJES
+            self.axesLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.axes");
+            self.axes1 = "Eje 1";
+            self.axes2 = "Eje 2";
+            self.axesOptions = ko.observableArray([
+                {value: self.axes1, label: self.axes1}, 
+                {value: self.axes2, label: self.axes2}
+            ]);
+            self.axesValue = ko.observable(self.axes1);
+            
+            //TEMAS
+            self.themesLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.themes");
+            self.themes1 = "Tema 1";
+            self.themes2 = "Tema 2";
+            self.themesOptions = ko.observableArray([
+                {value: self.themes1, label: self.themes1}, 
+                {value: self.themes2, label: self.themes2}
+            ]);
+            self.themesValue = ko.observable(self.themes1);
+            
+            //OBJETIVOS
+            self.objectivesLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.objectives");
+            self.objectives1 = "Objetivo 1";
+            self.objectives2 = "Objetivo 2";
+            self.objectivesOptions = ko.observableArray([
+                {value: self.objectives1, label: self.objectives1}, 
+                {value: self.objectives2, label: self.objectives2}
+            ]);
+            self.objectivesValue = ko.observable(self.objectives1);
+            
+            //INDICADORES
+            self.indicatorsLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.indicators");
+            self.indicators1 = "Indicador 1";
+            self.indicators2 = "Indicador 2";
+            self.indicatorsOptions = ko.observableArray([
+                {value: self.indicators1, label: self.indicators1}, 
+                {value: self.indicators2, label: self.indicators2}
+            ]);
+            self.indicatorsValue = ko.observable(self.indicators1);
+                        
+            // TABLA INDICADORES ALINEADOS
+            self.columns = [
+                {
+                    headerText: GeneralViewModel.nls("admin.poa.edit.alineacion.tableAlignedIndicators.headers.name"),
+                    headerStyle: 'min-width: 50%; max-width: 50em; width: 85%',
+                    headerClassName: 'oj-helper-text-align-start',
+                    style: 'min-width: 50%; max-width: 50em; width: 85%;',
+                    className: 'oj-helper-text-align-start',
+                    sortProperty: 'name'
+                },
+                {
+                    headerText: GeneralViewModel.nls("admin.poa.edit.alineacion.tableAlignedIndicators.headers.actions"),
+                    headerStyle: 'min-width: 2em; max-width: 5em; width: 15%',
+                    headerClassName: 'oj-helper-text-align-start',
+                    style: 'min-width: 2em; max-width: 5em; width: 15%; text-align:center;',
+                    sortable: 'disabled'
+                }
+            ];
+
+            // Form actions
+            self.formActions = new FormActions();
+
+            // Reset listener
+            self.formActions.addResetListener(function () {
+                $("#" + self.resetDialogId).ojDialog("open");
+            });
+
+            // Click ok handler
+            var clickOkHandlerObservable = ko.observable();
+            
+            self.clickOkHandler = function () {
+                var handler = clickOkHandlerObservable();
+                handler();
+            };
+
+            // Click cancer handler
+            self.clickCancelHandler = function () {
+                $("#" + self.resetDialogId).ojDialog("close");
+            };
+                
+                var alignedIndicatorsDataProvider =
+                        new DataProvider(
+                        "data/poa-edit-types.json",
+//                            RESTConfig.admin.pe.types.path,
+                            PoaDataParser);
+                                        
+                var alignedIndicatorsPromise = alignedIndicatorsDataProvider.fetchData();
+                
+                self.observableAlignedIndicatorsTable = ko.observable();
+                
+                Promise.all([alignedIndicatorsPromise]).then(
+                        function () {
+                            var alignedIndicatorsModel = new PoaModel(alignedIndicatorsDataProvider);
+                            alignedIndicatorsModel.setTypes(alignedIndicatorsDataProvider.getDataArray());
+                            
+                            var alignedIndicatorsArray = alignedIndicatorsModel.getTypes();
+
+                    function updateEditedItem(currentRow) {
+                        alignedIndicatorsModel.updateItemName(currentRow.data.id, currentRow.data.name);
+                    }
+
+                    self.alignedIndicatorsTable = new EditableTable(alignedIndicatorsArray, alignedIndicatorsModel, {
+                        id: "alignedIndicators-table",
+                        title: GeneralViewModel.nls("admin.poa.edit.alineacion.tableAlignedIndicators.title"),
+                        tableSummary: GeneralViewModel.nls("admin.poa.edit.alineacion.tableAlignedIndicators.tableSummary"),
+                        tableAria: GeneralViewModel.nls("admin.poa.edit.alineacion.tableAlignedIndicators.tableAria"),
+                        columns: self.columns,
+                        newErrorText: GeneralViewModel.nls("aadmin.poa.edit.alineacion.tableAlignedIndicators.newErrorText"),
+                        deleteErrorText: GeneralViewModel.nls("admin.poa.edit.alineacion.tableAlignedIndicators.deleteErrorText"),
+                        actions: ["delete", "clone", "edit"]
+                    
+                    });
+
+                    self.enableAlignedIndicatorsNew = ko.computed(function () {
+                        self.alignedIndicatorsTable.setNewEnabled(true);
+                    });
+
+                    self.alignedIndicatorsTable.addEditListener(updateEditedItem);
+
+                    self.observableAlignedIndicatorsTable(self.alignedIndicatorsTable);
+
+                    clickOkHandlerObservable(function () {
+                        $("#" + self.resetDialogId).ojDialog("close");
+
+                        self.alignedIndicatorsTable.resetData();
+                    });
+
+                    // Add save listener
+                    self.formActions.addSaveListener(function () {
+    
+                });
+            });
             
         }   
         

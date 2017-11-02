@@ -314,4 +314,114 @@ and open the template in the editor.
         </div>     
     </div>
     
+    <!-- SECCIÓN ALINEACIÓN -->
+    <div id="sectionAlignment-collapsible" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
+        component: 'ojCollapsible',
+        expandArea: 'disclosureIcon',
+        expanded: true
+    }">
+ 
+        <h4 id="section-alignment-poa" data-bind="text: alignmentTitle"></h4>
+        
+        <div class="oj-form-layout collapsible-content">
+            
+            <i class="fa fa-plus fa-lg pointer icon-padding"
+                
+               data-bind=""data-bind="attr: {title: newHint}, style: {opacity: state}, click: newClickHandler">
+
+            </i>
+            
+            <fieldset>
+
+                <legend>
+
+                    <label data-bind="text: alignmentLabel"></label>
+                    <span class="oj-label-required-icon"></span>
+                                            
+                </legend>
+                
+                <!-- EJES -->
+                <div class="oj-flex" style="margin-bottom: 1%">
+                    <div class="oj-flex-item">
+
+                        <label for='select-axes-alignment'data-bind="text: axesLabel"></label>
+
+                        <select id='select-axes-alignment' data-bind="ojComponent: {
+                            component: 'ojSelect',
+                            options: axesOptions,
+                            required: false,
+                            rootAttributes: {
+                              style: 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: axesValue
+                        }"></select>
+
+                    </div>
+                </div>
+
+                <!-- TEMAS -->
+                <div class="oj-flex" style="margin-bottom: 1%">
+                    <div class="oj-flex-item">
+
+                        <label for='select-themes'data-bind="text: themesLabel"></label>
+
+                        <select id='select-themes' data-bind="ojComponent: {
+                            component: 'ojSelect',
+                            options: themesOptions,
+                            required: false,
+                            rootAttributes: {
+                              style: 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: themesValue
+                        }"></select>
+
+                    </div>
+                </div>
+
+                <!-- OBJETIVOS -->
+                <div class="oj-flex" style="margin-bottom: 1%">
+                    <div class="oj-flex-item">
+
+                        <label for='select-objectives'data-bind="text: objectivesLabel"></label>
+
+                        <select id='select-objectives' data-bind="ojComponent: {
+                            component: 'ojSelect',
+                            options: objectivesOptions,
+                            required: false,
+                            rootAttributes: {
+                              style: 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: objectivesValue
+                        }"></select>
+
+                    </div>
+                </div>
+
+                <!-- OBJETIVOS -->
+                <div class="oj-flex" style="margin-bottom: 1%">
+                    <div class="oj-flex-item">
+
+                        <label for='select-indicators'data-bind="text: indicatorsLabel"></label>
+
+                        <select id='select-indicators' data-bind="ojComponent: {
+                            component: 'ojSelect',
+                            options: indicatorsOptions,
+                            required: false,
+                            rootAttributes: {
+                              style: 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: indicatorsValue
+                        }"></select>
+
+                    </div>
+                </div>
+                
+            </fieldset>
+            
+             <!-- TABLA INDICADORES ALINEADOS -->
+            <div data-bind="template: {name: 'EditableTable', data: observableAlignedIndicatorsTable}"></div>
+            
+        </div>
+    </div>
+    
 </div>

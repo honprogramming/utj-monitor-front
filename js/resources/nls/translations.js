@@ -301,9 +301,7 @@ define(
                                     "placeHolder": "Objetivo del proceso"
                                 },
                                 "class": {
-                                    "label": "Clase",
-                                    "option1": "Programa educativo",
-                                    "option2": "Proceso de gestión"
+                                    "label": "Clase"
                                 },
                                 "problematic": {
                                     "label": "Problemática que atiende e impacto",
@@ -324,6 +322,27 @@ define(
                                     "orange": "Naranja",
                                     "yellow": "Amarillo",
                                     "green": "Verde"
+                                }
+                            },
+                            "alineacion": {
+                                "title": "Alineación",
+                                "alineacionPide": {
+                                    "label": "Alineación PIDE",
+                                    "axes": "Ejes",
+                                    "themes": "Temas",
+                                    "objectives": "Objetivos",
+                                    "indicators": "Selecciona el nombre del indicador"
+                                },
+                                "tableAlignedIndicators": {
+                                    "headers": {
+                                        "name": "Nombre",
+                                        "actions": "Acciones"
+                                    },
+                                    "title": "Indicadores Alineados",
+                                    "tableSummary": "",
+                                    "tableAria": "",
+                                    "newErrorText": "",
+                                    "deleteErrorText": ""
                                 }
                             }
                         }
