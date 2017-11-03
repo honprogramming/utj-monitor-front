@@ -257,6 +257,71 @@ function($, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvi
                 });
             });
             
+            //SECCIÓN RESPONSABLE
+            self.responsableTitle = GeneralViewModel.nls("admin.poa.edit.responsable.title");
+            
+            //SECRETARÍA
+            self.secretaryLabel = GeneralViewModel.nls("admin.poa.edit.responsable.secretary");
+            self.rectory = "Rectoria";
+            self.administrative = "Administrativa";
+            self.vinculacion = "Vinculación";
+            self.secretaryOptions = ko.observableArray([
+                {value: self.rectory, label: self.rectory}, 
+                {value: self.administrative, label: self.administrative},
+                {value: self.vinculacion, label : self.vinculacion}
+            ]);
+            self.secretaryValue = ko.observable(self.rectory);
+            
+            //DIRECCIÓN
+            self.directionLabel = GeneralViewModel.nls("admin.poa.edit.responsable.direction");
+            self.direction1 = "Dirección 1";
+            self.direction2 = "Dirección 2";
+            self.directionOptions = ko.observableArray([
+                {value: self.direction1, label: self.direction1}, 
+                {value: self.direction2, label: self.direction2}
+            ]);
+            self.directionValue = ko.observable(self.direction1);
+            
+            //JEFE DE DEPARTAMENTO
+            self.bossLabel = GeneralViewModel.nls("admin.poa.edit.responsable.boss");
+            self.boss1 = "Jefe de departamento";
+            self.bossOptions = ko.observableArray([
+                {value: self.boss1, label: self.boss1}
+            ]);
+            self.bossValue = ko.observable(self.boss1);
+            
+            //RESPONSABLE
+            self.responsableLabel = GeneralViewModel.nls("admin.poa.edit.responsable.responsable");
+            self.responsable1 = "Persona responsable de la información";
+            self.responsableOptions = ko.observableArray([
+                {value: self.responsable1, label: self.responsable1}
+            ]);
+            self.responsableValue = ko.observable(self.responsable1);
+            
+            //CARGO DEL RESPONSABLE
+            self.positionLabel = GeneralViewModel.nls("admin.poa.edit.responsable.position.label");
+            self.positionPlaceHolder = GeneralViewModel.nls("admin.poa.edit.responsable.position.placeHolder");
+            self.positionValue = ko.observable("");
+            
+            //CORREO DEL RESPONSABLE
+            self.emailLabel = GeneralViewModel.nls("admin.poa.edit.responsable.email.label");
+            self.emailPlaceHolder = GeneralViewModel.nls("admin.poa.edit.responsable.email.placeHolder");
+            self.emailValue = ko.observable("");
+            
+            //TELÉFONO DEL RESPONSABLE
+            self.telLabel = GeneralViewModel.nls("admin.poa.edit.responsable.tel.label");
+            self.telPlaceHolder = GeneralViewModel.nls("admin.poa.edit.responsable.tel.placeHolder");
+            self.telValue = ko.observable("");
+            
+            //EXTENSIÓN DEL RESPONSABLE
+            self.extensionLabel = GeneralViewModel.nls("admin.poa.edit.responsable.extension.label");
+            self.extensionPlaceHolder = GeneralViewModel.nls("admin.poa.edit.responsable.extension.placeHolder");
+            self.extensionValue = ko.observable("");
+            
+            //OBSERVACIONES
+            self.observationsLabel = GeneralViewModel.nls("admin.poa.edit.responsable.observations");
+            self.observationsValue = ko.observable("");
+            
         }   
         
     return new PoaEditViewModel();

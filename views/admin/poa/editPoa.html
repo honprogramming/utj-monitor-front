@@ -424,4 +424,187 @@ and open the template in the editor.
         </div>
     </div>
     
+    <!-- SECCIÓN RESPONSABLE -->
+    <div id="sectionResponsable-collapsible" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
+        component: 'ojCollapsible',
+        expandArea: 'disclosureIcon',
+        expanded: true
+    }">
+ 
+        <h4 id="section-responsable-poa" data-bind="text: responsableTitle"></h4>
+        
+        <div class="oj-form-layout collapsible-content">
+            
+            <!-- SECRETARÍA -->
+            <div class="oj-flex" style="margin-bottom: 1%">
+                <div class="oj-flex-item">
+
+                    <label for='select-secretary'data-bind="text: secretaryLabel"></label>
+
+                    <select id='select-axes' data-bind="ojComponent: {
+                        component: 'ojSelect',
+                        options: secretaryOptions,
+                        required: true,
+                        rootAttributes: {
+                            style: 'max-height: 100%; max-width: 100%;'
+                        },
+                            value: secretaryValue
+                        }"></select>
+
+                </div>
+            </div>
+            
+            <!-- DIRECCIÓN -->
+            <div class="oj-flex" style="margin-bottom: 1%">
+                <div class="oj-flex-item">
+
+                    <label for='select-direction'data-bind="text: directionLabel"></label>
+
+                    <select id='select-axes' data-bind="ojComponent: {
+                        component: 'ojSelect',
+                        options: directionOptions,
+                        required: true,
+                        rootAttributes: {
+                            style: 'max-height: 100%; max-width: 100%;'
+                        },
+                            value: directionValue
+                        }"></select>
+
+                </div>
+            </div>
+            
+            <!-- JEFE DE DEPARTAMENTO -->
+            <div class="oj-flex" style="margin-bottom: 1%">
+                <div class="oj-flex-item">
+
+                    <label for='select-boss'data-bind="text: bossLabel"></label>
+
+                    <select id='select-boss' data-bind="ojComponent: {
+                        component: 'ojSelect',
+                        options: bossOptions,
+                        required: true,
+                        rootAttributes: {
+                            style: 'max-height: 100%; max-width: 100%;'
+                        },
+                            value: bossValue
+                        }"></select>
+
+                </div>
+            </div>
+            
+            <!-- RESPONSABLE -->
+            <div class="oj-flex" style="margin-bottom: 1%">
+                <div class="oj-flex-item">
+
+                    <label for='select-responsable'data-bind="text: responsableLabel"></label>
+
+                    <select id='select-responsable' data-bind="ojComponent: {
+                        component: 'ojSelect',
+                        options: responsableOptions,
+                        required: true,
+                        rootAttributes: {
+                            style: 'max-height: 100%; max-width: 100%;'
+                        },
+                            value: responsableValue
+                        }"></select>
+
+                </div>
+            </div>
+            
+            <!-- CARGO DEL RESPONSABLE -->
+            <div class="oj-flex" style="margin-bottom: 1%">
+                <div class="oj-flex-item">
+                  
+                    <label for="position-field" data-bind="text: positionLabel"></label>
+
+                    <input id='position-field' data-bind="ojComponent: {
+                        component: 'ojInputText',
+                        placeholder: positionPlaceHolder,
+                        disabled: true,
+                        required: false,
+                        rootAttributes: {
+                            style: 'max-height: 100%; max-width: 100%;'
+                        },
+                        value: positionValue
+                    }">
+                </div>
+            </div>
+            
+            <!-- CORREO ELECTRONICO -->
+            <div class="oj-flex" style="margin-bottom: 1%">
+                <div class="oj-flex-item">
+                  
+                    <label for="email-field" data-bind="text: emailLabel"></label>
+
+                    <input id='email-field' data-bind="ojComponent: {
+                        component: 'ojInputText',
+                        placeholder: emailPlaceHolder,
+                        disabled: true,
+                        required: false,
+                        rootAttributes: {
+                            style: 'max-height: 100%; max-width: 100%;'
+                        },
+                        value: emailValue
+                    }">
+                </div>
+            </div>
+            
+            <!-- TELÉFONO -->
+            <div class="oj-flex" style="margin-bottom: 1%">
+                <div class="oj-flex-item">
+                  
+                    <label for="tel-field" data-bind="text: telLabel"></label>
+
+                    <input id='tel-field' data-bind="ojComponent: {
+                        component: 'ojInputText',
+                        placeholder: telPlaceHolder,
+                        disabled: true,
+                        required: false,
+                        rootAttributes: {
+                            style: 'max-height: 100%; max-width: 100%;'
+                        },
+                        value: telValue
+                    }">
+                </div>
+            </div>
+            
+            <!-- EXTENSIÓN -->
+            <div class="oj-flex" style="margin-bottom: 1%">
+                <div class="oj-flex-item">
+                  
+                    <label for="extension-field" data-bind="text: extensionLabel"></label>
+
+                    <input id='extension-field' data-bind="ojComponent: {
+                        component: 'ojInputText',
+                        placeholder: extensionPlaceHolder,
+                        disabled: true,
+                        required: false,
+                        rootAttributes: {
+                            style: 'max-height: 100%; max-width: 100%;'
+                        },
+                        value: extensionValue
+                    }">
+                </div>
+            </div>
+            
+            <!-- OBSERVACIONES -->
+            <div class="oj-flex" style="margin-bottom: 1%">
+                <div class="oj-flex-item">
+                  
+                    <label for="observations-field" data-bind="text: observationsLabel"></label>
+
+                    <textarea id='objective-field' data-bind="ojComponent: {
+                        component: 'ojTextArea',
+                        required: false,
+                        rootAttributes: {
+                            style: 'height: 100% ; max-width: 100%;'
+                        },
+                        value: observationsValue
+                    }"></textarea>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    
 </div>
