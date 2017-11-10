@@ -344,6 +344,30 @@ define(
                                     "newErrorText": "",
                                     "deleteErrorText": ""
                                 }
+                            },
+                            "responsable": {
+                                "title": "Responsable",
+                                "secretary": "Secretaría",
+                                "direction": "Dirección",
+                                "boss": "Jefe de departamento",
+                                "responsable": "Responsable",
+                                "position": {
+                                    "label": "Cargo del responsable",
+                                    "placeHolder": "Cargo del responsable"
+                                },
+                                "email": {
+                                    "label": "Correo-e",
+                                    "placeHolder": "Correo del responsable"
+                                },
+                                "tel": {
+                                    "label": "Teléfono",
+                                    "placeHolder": "Teléfono del responsable"
+                                },
+                                "extension": {
+                                    "label": "Extensión",
+                                    "placeHolder": "Extención telefonica"
+                                },
+                                "observations": "Observaciones"
                             }
                         }
                     }
