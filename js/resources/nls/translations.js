@@ -368,7 +368,32 @@ define(
                                     "placeHolder": "Extención telefonica"
                                 },
                                 "observations": "Observaciones"
-                            }
+                            },
+                            "components": {
+                                "title": "Componentes",
+                                "component": "Componente 1",
+                                "name": "Nombre",
+                                "description": "Descripción",
+                                "indicator": "Indicador",
+                                "unit": "Unidad de medida",
+                                "initialValue": "Valor inicial",
+                                "finishLine": "Meta final",
+                                "generalAdvance": "% Avance general",
+                                "responsable": "Responsable",
+                                "justification": "Justificación",
+                                "advances": "Avances y metas",
+                                "tableComponents": {
+                                    "headers": {
+                                        "name": "Nombre",
+                                        "actions": "Acciones"
+                                    },
+                                    "title": "Componentes",
+                                    "tableSummary": "",
+                                    "tableAria": "",
+                                    "newErrorText": "",
+                                    "deleteErrorText": ""
+                                }
+                            } 
                         }
                     }
                 },

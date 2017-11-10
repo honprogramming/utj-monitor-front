@@ -607,4 +607,361 @@ and open the template in the editor.
         </div>
     </div>
     
+     <!-- SECCIÓN COMPONENTES -->
+    <div id="sectionComponent-collapsible" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
+            component: 'ojCollapsible',
+            expandArea: 'disclosureIcon',
+            expanded: true
+    }">
+ 
+        <h4 id="section-component-poa" data-bind="text: componentsTitle"></h4>
+        
+        <div class="oj-form-layout collapsible-content">
+            
+            <i class="fa fa-plus fa-lg pointer icon-padding"
+                
+               data-bind=""data-bind="attr: {title: newHint}, style: {opacity: state}, click: newClickHandler">
+
+            </i>
+            
+            <fieldset>
+
+                <legend>
+
+                    <label data-bind="text: componentsLabel"></label>
+                    <span class="oj-label-required-icon"></span>
+                                            
+                </legend>
+                
+                <!-- NOMBRE -->
+                <div class="oj-flex" style="margin-bottom: 1%">
+                    <div class="oj-flex-item">
+
+                        <label for="nameComponent-field" data-bind="text: componentName"></label>
+
+                        <input id='nameComponent-field' data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            required: true,
+                            rootAttributes: {
+                                style: 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: componentNameValue
+                        }">
+                    </div>
+                </div>
+
+                <!-- DESCRIPCIÓN -->
+                <div class="oj-flex" style="margin-bottom: 1%">
+                    <div class="oj-flex-item">
+
+                        <label for="description-field" data-bind="text: description"></label>
+
+                        <textarea id='description-field' data-bind="ojComponent: {
+                            component: 'ojTextArea',
+                            required: false,
+                            rootAttributes: {
+                                style: 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: descriptionValue
+                        }"></textarea>
+                    </div>
+                </div>
+                  
+                <!-- INDICADOR -->
+                <div class="oj-flex" style="margin-bottom: 1%">
+                    <div class="oj-flex-item">
+
+                        <label for="indicator-field" data-bind="text: indicator"></label>
+
+                        <input id='indicator-field' data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            required: true,
+                            rootAttributes: {
+                                style: 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: indicatorsValue
+                        }">
+                    </div>
+                </div>
+                
+                <!-- UNIDAD DE MEDIDA -->
+                <div class="oj-flex" style="margin-bottom: 2%">
+                    <div class="oj-flex-item">
+
+                        <label for="unit-field" data-bind="text: unit"></label>
+
+                        <input id='unit-field' data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            required: false,
+                            rootAttributes: {
+                                style: 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: unitValue
+                        }">
+                    </div>
+                </div>
+                
+                <div class="oj-flex oj-flex-bar oj-flex-items-pad" style="margin-bottom: 1%">                  
+                    <!-- VALOR INICIAL -->
+                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-bar" style="align-items: baseline">
+
+                        <label for="initial-field" data-bind="text: initial"></label>
+
+                        <input id='initial-field'  class="centered" data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            required: false,
+                            rootAttributes: {
+                                style: 'height: 100% ; max-width: 45%; margin-left: 3%;'
+                            },
+                                value: initialValue
+                            }">
+
+                    </div>
+
+                    <!-- META FINAL -->
+                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-bar" style="align-items: baseline; padding-left: 5%">
+
+                        <label for="finishLine-field" data-bind="text: finishLine"></label>
+
+                        <input id='finishLine-field' data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            required: false,
+                            rootAttributes: {
+                                style: 'height: 100% ; max-width: 68%; margin-left: 3%;'
+                            },
+                                value: finishLineValue
+                            }">
+
+                    </div>
+
+                    <!-- AVANCE GENERAL -->
+                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-bar" style="align-items: center; padding-left: 10%">
+
+                        <label for="generalAdvance-field" data-bind="text: generalAdvance"></label>
+
+                            <input id='generalAdvance-field' data-bind="ojComponent: {
+                                component: 'ojInputText',
+                                converter: converterGeneralAdvance,
+                                required: false,
+                                rootAttributes: {
+                                    style: 'height: 100% ; max-width: 100%; margin-left: 3%;'
+                                },
+                                value: generalAdvanceValue
+                            }">
+
+                    </div>
+                        
+                </div>
+                
+                <!-- RESPONSABLE COMPONENTE -->
+                <div class="oj-flex" style="margin-bottom: 1%">
+                    <div class="oj-flex-item">
+
+                        <label for='select-responsableComponent'data-bind="text: responsableComponents"></label>
+
+                        <select id='select-responsableComponent' data-bind="ojComponent: {
+                            component: 'ojSelect',
+                            options: responsableComponentsOptions,
+                            required: true,
+                            rootAttributes: {
+                              style: 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: responsableComponentsValue
+                        }"></select>
+
+                    </div>
+                </div>
+                
+                <!-- JUSTIFICACIÓN -->
+                <div class="oj-flex" style="margin-bottom: 2%">
+                    <div class="oj-flex-item">
+                        
+                        <label for='justification-field' data-bind="text: justification"></label>
+                        
+                        <textarea id='justification-field' data-bind="ojComponent: {
+                            component: 'ojTextArea',
+                            required: false, 
+                            rootAttributes: {
+                                style: 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: justificationValue
+                        }"></textarea>
+                        
+                    </div>   
+                </div>
+                <!-- TABLA AVANCES Y METAS -->
+                <fieldset>
+
+                    <legend>
+
+                        <label data-bind="text: advancesLabel"></label>
+                        <span class="oj-label-required-icon"></span>
+                        
+                    </legend>
+                    
+                    <div class="oj-flex" style="padding-left: 2%">
+                        <div class="oj-flex-item oj-table-body-row-edit">
+                            
+                            <table id="dataTable" class="fa-border" data-bind="ojComponent: {
+                                component: 'ojTable',
+                                columns: columnsAdvances,
+                                columnsDefault: {
+                                    sortable: 'auto'
+                                },
+                                data: dataSource,
+                                display: 'grid',
+                                editMode: 'rowEdit',
+                                rootAttributes: {
+                                    style: 'width: 98%;'
+                                },
+                                rowTemplate: getTableRowTemplate,
+                                beforeRowEditEnd: beforeRowEditEnd,
+                            }"></table>
+                                
+                        </div>
+                    </div>
+                    
+                </fieldset>     
+                <!-- GRAFICA -->
+                <div id='chart-container' class="oj-margin" style="margin-top: 2%; margin-bottom: 2%">
+                        <div id="advance-chart" data-bind="ojComponent: {
+                            component: 'ojChart',
+                            type: 'line',
+                            series: lineSeriesValue,
+                            groups: lineGroupsValue,
+                            animationOnDisplay: 'auto',
+                            animationOnDataChange: 'auto',
+                            hoverBehavior: 'dim',
+                            rootAttributes: {
+                                'style': 'width: 100%; height: 350px;'  
+                            }       
+                    }"></div>
+                </div>
+                
+            </fieldset>
+            
+            <!-- TABLA COMPONENTES -->
+                <div data-bind="template: {name: 'EditableTable', data: observableComponentsTable}"></div>
+           
+        </div>     
+    </div>
+                
 </div>
+
+<!-- COLUMNA TEMPLATE -->
+<script type="text/html" id="goalRowTemplate">
+    <tr>
+        <td data-bind="text: Mes"></td>
+        <td data-bind="text: Ene"></td>
+        <td data-bind="text: Feb"></td>
+        <td data-bind="text: Mar"></td>
+        <td data-bind="text: Abr"></td>
+        <td data-bind="text: May"></td>
+        <td data-bind="text: Jun"></td>
+        <td data-bind="text: Jul"></td>
+        <td data-bind="text: Ago"></td>
+        <td data-bind="text: Sep"></td>
+        <td data-bind="text: Oct"></td>
+        <td data-bind="text: Nov"></td>
+        <td data-bind="text: Dic"></td> 
+    </tr>
+</script>
+
+<!-- EDITAR COLUMNA TEMPLATE -->
+<script type="text/html" id="goalEditRowTemplate">
+  
+    <tr data-bind="ifnot: Mes === '% Avance'">
+        <td data-bind="text: Mes"></td>
+        <td>
+            <input data-bind="ojComponent: {
+                component: 'ojInputText',
+                value: Ene 
+            }">
+        </td>
+        <td>
+            <input data-bind="ojComponent: {
+                component: 'ojInputText',
+                value: Feb
+            }">
+        </td>
+        <td>
+            <input data-bind="ojComponent: {
+                component: 'ojInputText',
+                value: Mar
+            }">
+        </td>
+        <td>
+            <input data-bind="ojComponent: {
+                component: 'ojInputText',
+                value: Abr
+            }">
+        </td>
+        <td>
+            <input data-bind="ojComponent: {
+                component: 'ojInputText',
+                value: May
+            }">
+        </td>
+        <td>
+            <input data-bind="ojComponent: {
+                component: 'ojInputText',
+                value: Jun
+            }">
+        </td>
+        <td>
+            <input data-bind="ojComponent: {
+                component: 'ojInputText',
+                value: Jul
+            }">
+        </td>
+        <td>
+            <input data-bind="ojComponent: {
+                component: 'ojInputText',
+                value: Ago
+            }">
+        </td>
+        <td>
+            <input data-bind="ojComponent: {
+                component: 'ojInputText',
+                value: Sep
+            }">
+        </td>
+        <td>
+            <input data-bind="ojComponent: {
+                component: 'ojInputText',
+                value: Oct
+            }">
+        </td>
+        <td>
+            <input data-bind="ojComponent: {
+                component: 'ojInputText',
+                value: Nov
+            }">
+        </td>
+        <td>
+            <input data-bind="ojComponent: {
+                component: 'ojInputText',
+                value: Dic
+            }">
+        </td>
+    </tr> 
+</script>
+
+<script type="text/html" id="advanceRowTemplate">
+    <tr data-bind="if: Mes === '% Avance'">
+        <td data-bind="text: Mes"></td>
+        <td data-bind="text: Ene"></td>
+        <td data-bind="text: Feb"></td>
+        <td data-bind="text: Mar"></td>
+        <td data-bind="text: Abr"></td>
+        <td data-bind="text: May"></td>
+        <td data-bind="text: Jun"></td>
+        <td data-bind="text: Jul"></td>
+        <td data-bind="text: Ago"></td>
+        <td data-bind="text: Sep"></td>
+        <td data-bind="text: Oct"></td>
+        <td data-bind="text: Nov"></td>
+        <td data-bind="text: Dic"></td>
+    </tr>
+</script>
+

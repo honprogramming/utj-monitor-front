@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 define([
+    'ojs/ojcore',
     'jquery', 
     'knockout', 
     'modules/admin/view-model/AdminItems',
@@ -26,9 +27,13 @@ define([
     'ojs/ojtable',
     'ojs/ojradioset',
     'ojs/ojinputnumber',
-    'ojs/ojdatetimepicker'
+    'ojs/ojdatetimepicker',
+    'ojs/ojtable',
+    'ojs/ojchart',
+    'ojs/ojdatagrid',
+    'ojs/ojarraydatagriddatasource'
 ],
-function($, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvider, EditableTable, FormActions)
+function(oj, $, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvider, EditableTable, FormActions)
 {   
         function PoaEditViewModel() {
 	    var self = this;
@@ -322,6 +327,275 @@ function($, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvi
             self.observationsLabel = GeneralViewModel.nls("admin.poa.edit.responsable.observations");
             self.observationsValue = ko.observable("");
             
+            //SECCIÓN COMPONENTES
+            self.componentsTitle = GeneralViewModel.nls("admin.poa.edit.components.title");
+            self.componentsLabel = GeneralViewModel.nls("admin.poa.edit.components.component");
+
+            //NOMBRE
+            self.componentName = GeneralViewModel.nls("admin.poa.edit.components.name");
+            self.componentNameValue = ko.observable("");
+
+            //DESCRIPCIÓN
+            self.description = GeneralViewModel.nls("admin.poa.edit.components.description");
+            self.descriptionValue = ko.observable("");
+
+            //INDICADOR
+            self.indicator = GeneralViewModel.nls("admin.poa.edit.components.indicator");
+            self.indicatorValue = ko.observable("");
+
+            //UNIDAD DE MEDIDA
+            self.unit = GeneralViewModel.nls("admin.poa.edit.components.unit");
+            self.unitValue = ko.observable("");
+
+            //VALOR INICIAL
+            self.initial = GeneralViewModel.nls("admin.poa.edit.components.initialValue");
+            self.initialValue = ko.observable("");
+
+            //META FINAL
+            self.finishLine = GeneralViewModel.nls("admin.poa.edit.components.finishLine");
+            self.finishLineValue = ko.observable("");
+
+            //AVANCE GENERAL
+            self.generalAdvance = GeneralViewModel.nls("admin.poa.edit.components.generalAdvance");
+            self.converterGeneralAdvance = GeneralViewModel.converters.percent;
+            self.generalAdvanceValue = ko.observable("");
+
+            //RESPONSABLE
+            self.responsableComponents = GeneralViewModel.nls("admin.poa.edit.components.responsable");
+            self.responsableComponents1 = "Responsable";
+            self.responsableComponentsOptions = ko.observableArray([
+                {value: self.responsableComponents1, label: self.responsableComponents1}
+            ]);
+            self.responsableComponentsValue = ko.observable(self.responsableComponents1);
+
+            //JUSTIFICACIÓN
+            self.justification = GeneralViewModel.nls("admin.poa.edit.components.justification");
+            self.justificationValue = ko.observable("");
+
+            //AVANCES Y METAS
+            self.advancesLabel = GeneralViewModel.nls("admin.poa.edit.components.advances");
+
+            //TABLA AVANCES Y METAS
+            self.columnsAdvances = [
+                {"headerText": "Mes", "sortable": "disabled"},
+                {"headerText": "Ene", "sortable": "disabled"},
+                {"headerText": "Feb", "sortable": "disabled"},
+                {"headerText": "Mar", "sortable": "disabled"},
+                {"headerText": "Abr", "sortable": "disabled"},
+                {"headerText": "May", "sortable": "disabled"},
+                {"headerText": "Jun", "sortable": "disabled"},
+                {"headerText": "Jul", "sortable": "disabled"},
+                {"headerText": "Ago", "sortable": "disabled"},
+                {"headerText": "Sep", "sortable": "disabled"},
+                {"headerText": "Oct", "sortable": "disabled"},
+                {"headerText": "Nov", "sortable": "disabled"},
+                {"headerText": "Dic", "sortable": "disabled"}
+            ];
+
+            self.advanceRow = function (value, goalFinal) {
+
+                var advanceValue = (value * 100) / goalFinal;
+
+                return advanceValue;
+
+            };
+
+            var tableArray = [
+
+                {Mes: 'Meta', Ene: 22, Feb: 4, Mar: 6, Abr: 8, May: 10, Jun: 12, Jul: 14, Ago: 16, Sep: 18, Oct: 20, Nov: 22, Dic: 100},
+                {Mes: 'Valor', Ene: 10, Feb: 4, Mar: 6, Abr: 8, May: 10, Jun: 12, Jul: 14, Ago: 16, Sep: 18, Oct: 20, Nov: 22, Dic: 24},
+                {Mes: '% Avance', Ene: 10, Feb: 20, Mar: 30, Abr: 40, May: 50, Jun: 60, Jul: 70, Ago: 80, Sep: 90, Oct: 95, Nov: 98, Dic: 100}
+
+            ];
+
+            self.tableObservableArray = ko.observableArray(tableArray);
+            self.dataSource = new oj.ArrayTableDataSource(self.tableObservableArray, { idAttribute: 'Mes' });
+
+            var goalArray = [
+
+                {Mes: self.tableObservableArray()[0].Mes, Ene: self.tableObservableArray()[0].Ene, Feb: self.tableObservableArray()[0].Feb, Mar: self.tableObservableArray()[0].Mar, Abr: self.tableObservableArray()[0].Abr, May: self.tableObservableArray()[0].May,
+                    Jun: self.tableObservableArray()[0].Jun, Jul: self.tableObservableArray()[0].Jul, Ago: self.tableObservableArray()[0].Ago, Sep: self.tableObservableArray()[0].Sep, Oct: self.tableObservableArray()[0].Oct,
+                    Nov: self.tableObservableArray()[0].Nov, Dic: self.tableObservableArray()[0].Dic}
+
+            ];
+
+            self.goalObservableArray = ko.observableArray(goalArray);
+
+            var valueArray = [
+
+                 {Mes: self.tableObservableArray()[1].Mes, Ene: self.tableObservableArray()[1].Ene, Feb: self.tableObservableArray()[1].Feb, Mar: self.tableObservableArray()[1].Mar, Abr: self.tableObservableArray()[1].Abr, May: self.tableObservableArray()[1].May,
+                    Jun: self.tableObservableArray()[1].Jun, Jul: self.tableObservableArray()[1].Jul, Ago: self.tableObservableArray()[1].Ago, Sep: self.tableObservableArray()[1].Sep, Oct: self.tableObservableArray()[1].Oct,
+                    Nov: self.tableObservableArray()[1].Nov, Dic: self.tableObservableArray()[1].Dic}
+
+            ];
+
+            self.valueObservableArray = ko.observableArray(valueArray);
+
+            var advanceArray = [
+
+                {Mes: self.tableObservableArray()[2].Mes, Ene: self.tableObservableArray()[2].Ene, Feb: self.tableObservableArray()[2].Feb, Mar: self.tableObservableArray()[2].Mar, Abr: self.tableObservableArray()[2].Abr, May: self.tableObservableArray()[2].May,
+                    Jun: self.tableObservableArray()[2].Jun, Jul: self.tableObservableArray()[2].Jul, Ago: self.tableObservableArray()[2].Ago, Sep: self.tableObservableArray()[2].Sep, Oct: self.tableObservableArray()[2].Oct,
+                    Nov: self.tableObservableArray()[2].Nov, Dic: self.tableObservableArray()[2].Dic}
+
+            ];
+
+            self.advanceObservableArray = ko.observableArray(advanceArray);
+
+            // ROW TEMPLATE TABLA
+            self.getTableRowTemplate = function (data, context) {
+                var mode = context.$rowContext['mode'];
+                return mode === 'edit' ? 'goalEditRowTemplate' : 'goalRowTemplate';
+            };
+
+            //GRAFICA 
+
+            var lineGroups = ["Ene", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+
+            self.lineGroupsValue = ko.observableArray(lineGroups);
+
+            /**
+             * Update chart values.
+             * 
+             * @returns {void}
+             */
+            self.updateChart = function () {
+
+                var lineSeries = [
+                    {name: "Metas", items: []},
+                    {name: "Avances", items: [], assignedToY2: 'on'}
+                ];
+
+                self.goalObservableArray().forEach(function (goal) {
+
+                    //if (index !== 1) {
+
+                        lineSeries[0].items = [
+                            goal.Ene, // Goal value
+                            goal.Feb, // Goal value
+                            goal.Mar, // Goal value
+                            goal.Abr, // Goal value
+                            goal.May, // Goal value
+                            goal.Jun, // Goal value
+                            goal.Jul, // Goal value
+                            goal.Ago, // Goal value
+                            goal.Sep, // Goal value
+                            goal.Oct, // Goal value
+                            goal.Nov, // Goal value
+                            goal.Dic  // Goal value
+                        ];
+                    //}
+                });
+
+                self.advanceObservableArray().forEach(function (advance) {
+
+                    lineSeries[1].items = [
+                        advance.Ene, // advance value
+                        advance.Feb, // advance value
+                        advance.Mar, // advance value
+                        advance.Abr, // advance value
+                        advance.May, // advance value
+                        advance.Jun, // advance value
+                        advance.Jul, // advance value
+                        advance.Ago, // advance value
+                        advance.Sep, // advance value
+                        advance.Oct, // advance value
+                        advance.Nov, // advance value
+                        advance.Dic  // advance value
+                    ];
+
+                });
+
+                self.lineSeriesValue = ko.observableArray(lineSeries);
+
+            };
+
+            // Update chart values
+            self.updateChart();
+
+            /**
+             * Before Row Edit End event.
+             * 
+             * @param {any} event
+             * @param {any} event
+             * @returns {void}
+             */
+            self.beforeRowEditEnd = function (event, ui) {
+                // Update chart values
+                self.updateChart();
+            };
+
+            // TABLA COMPONENTES
+            self.columns = [
+                {
+                    headerText: GeneralViewModel.nls("admin.poa.edit.components.tableComponents.headers.name"),
+                    headerStyle: 'min-width: 50%; max-width: 50em; width: 85%',
+                    headerClassName: 'oj-helper-text-align-start',
+                    style: 'min-width: 50%; max-width: 50em; width: 85%;',
+                    className: 'oj-helper-text-align-start',
+                    sortProperty: 'name'
+                },
+                {
+                    headerText: GeneralViewModel.nls("admin.poa.edit.components.tableComponents.headers.actions"),
+                    headerStyle: 'min-width: 2em; max-width: 5em; width: 15%',
+                    headerClassName: 'oj-helper-text-align-start',
+                    style: 'min-width: 2em; max-width: 5em; width: 15%; text-align:center;',
+                    sortable: 'disabled'
+                }
+            ];
+
+            var componentsDataProvider =
+                new DataProvider(
+                        "data/components-types.json",
+//                            RESTConfig.admin.pe.types.path,
+                        PoaDataParser);
+
+            var componentsPromise = componentsDataProvider.fetchData();
+
+            self.observableComponentsTable = ko.observable();
+
+            Promise.all([componentsPromise]).then(
+                function () {
+                    var componentsModel = new PoaModel(componentsDataProvider);
+                    componentsModel.setTypes(componentsDataProvider.getDataArray());
+
+                    var componentsArray = componentsModel.getTypes();
+
+                    function updateEditedItem(currentRow) {
+                        componentsModel.updateItemName(currentRow.data.id, currentRow.data.name);
+                    }
+
+                    self.componentsTable = new EditableTable(componentsArray, componentsModel, {
+                        id: "components-table",
+                        title: GeneralViewModel.nls("admin.poa.edit.components.tableComponents.title"),
+                        tableSummary: GeneralViewModel.nls("admin.poa.edit.components.tableComponents.tableSummary"),
+                        tableAria: GeneralViewModel.nls("admin.poa.edit.components.tableComponents.tableAria"),
+                        columns: self.columns,
+                        newErrorText: GeneralViewModel.nls("aadmin.poa.edit.components.tableComponents.newErrorText"),
+                        deleteErrorText: GeneralViewModel.nls("admin.poa.edit.components.tableComponents.deleteErrorText"),
+                        actions: ["delete", "clone", "edit"]
+
+                    });
+
+                    self.enableComponentsNew = ko.computed(function () {
+                        self.componentsTable.setNewEnabled(true);
+                    });
+
+                    self.componentsTable.addEditListener(updateEditedItem);
+
+                    self.observableComponentsTable(self.componentsTable);
+
+                    clickOkHandlerObservable(function () {
+                        $("#" + self.resetDialogId).ojDialog("close");
+
+                        self.componentsTable.resetData();
+                    });
+
+                    // Add save listener
+                    self.formActions.addSaveListener(function () {
+
+                    });
+                });
+
         }   
         
     return new PoaEditViewModel();
