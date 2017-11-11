@@ -1,0 +1,140 @@
+<div class="full-height full-width">
+
+    <!-- Form actions -->
+    <div class="oj-flex-bar">
+        <div class="oj-flex-bar-end">
+            <div class="oj-sm-align-self-center">
+                <!-- Save icon -->
+                <i class="fa fa-save fa-lg fa-border pointer"></i>
+
+                <!-- Erase icon -->
+                <i class="fa fa-eraser fa-lg fa-border pointer"></i>
+
+                <!-- Table icon -->
+                <i class="fa fa-table fa-lg fa-border pointer"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main section -->
+    <div class="oj-margin-start">
+        <div class="oj-flex">
+            <!-- Type option -->
+            <div class="oj-flex-item oj-sm-justify-content-center">
+                <div class="oj-form">
+                    <!-- Label -->
+                    <label id="si-type-option" data-bind="text: typeLabel"></label>
+
+                    <!-- Radio Set -->
+                    <div id="si-type-radioset" aria-labelledby='si-type-option' data-bind="ojComponent: {
+                        component: 'ojRadioset',
+                        value: typeValue
+                    }">
+                        <!-- PIDE item -->
+                        <span class="oj-choice-item">
+                            <input type="radio" id="si-pide-radio" name="si-type-radio" value="PIDE">
+                            <label for="si-pide-radio">PIDE</label>
+                        </span>
+
+                        <!-- MECASUT item -->
+                        <span class="oj-choice-item">
+                            <input type="radio" id="si-mecasut-radio" name="si-type-radio" value="MECASUT">
+                            <label for="si-mecasut-radio">MECASUT</label>
+                        </span>
+
+                        <!-- PE item -->
+                        <span class="oj-choice-item">
+                            <input type="radio" id="si-pe-radio" name="si-type-radio" value="Programa Educativo">
+                            <label for="si-pe-radio">Programa Educativo</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active option -->
+            <div class="oj-flex-item oj-sm-align-self-center">
+                <div class='oj-form oj-md-labels-inline'>
+                    <div class="oj-flex">
+                        <!-- Label -->
+                        <div class='oj-flex-item'>
+                            <label for="si-active-option" data-bind="text: activeLabel"></label>
+                        </div>
+
+                        <!-- Switch -->
+                        <div class='oj-flex-item'>
+                            <input id="si-active-option" data-bind="ojComponent: {
+                                component: 'ojSwitch', 
+                                value: activeValue
+                            }" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- General section -->
+    <div id="general-section" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
+        component: 'ojCollapsible',
+        expandArea: 'disclosureIcon',
+        expanded: true
+    }">
+        <!-- Collapsible title -->
+        <h4 id="general-title" data-bind="text: generalTitle"></h4>
+
+        <!-- Collapsible content -->
+        <div class="oj-form-layout"></div>
+    </div>
+
+    <!-- Alignment section -->
+    <div id="alignment-section" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
+        component: 'ojCollapsible',
+        expandArea: 'disclosureIcon',
+        expanded: false
+    }">
+        <!-- Collapsible title -->
+        <h4 id="alignment-title" data-bind="text: alignmentTitle"></h4>
+
+        <!-- Collapsible content -->
+        <div></div>
+    </div>
+
+    <!-- Responsible section -->
+    <div id="responsible-section" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
+        component: 'ojCollapsible',
+        expandArea: 'disclosureIcon',
+        expanded: false
+    }">
+        <!-- Collapsible title -->
+        <h4 id="responsible-title" data-bind="text: responsibleTitle"></h4>
+
+        <!-- Collapsible content -->
+        <div class="oj-form-layout"></div>
+    </div>
+
+    <!-- Metadata section -->
+    <div id="metadata-section" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
+        component: 'ojCollapsible',
+        expandArea: 'disclosureIcon',
+        expanded: false
+    }">
+        <!-- Collapsible title -->
+        <h4 id="metadata-title" data-bind="text: metadataTitle"></h4>
+
+        <!-- Collapsible content -->
+        <div class="oj-form-layout"></div>
+    </div>
+
+    <!-- Goals and progress section -->
+    <div id="goals-section" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
+        component: 'ojCollapsible',
+        expandArea: 'disclosureIcon',
+        expanded: false
+    }">
+        <!-- Collapsible title -->
+        <h4 id="goals-title" data-bind="text: goalsTitle"></h4>
+
+        <!-- Collapsible content -->
+        <div class="oj-form-layout"></div>
+    </div>
+</div>
