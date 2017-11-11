@@ -10,7 +10,11 @@ define([
     'ojs/ojinputtext',
     'ojs/ojselectcombobox',
     'ojs/ojdatetimepicker',
-    'ojs/ojinputnumber'
+    'ojs/ojinputnumber',
+    'ojs/ojchart',
+    'ojs/ojtable',
+    'ojs/ojarraytabledatasource',
+    'promise'
 ], function (oj, $, ko, GeneralViewModel) {
 
     function FormViewModel() {
@@ -26,7 +30,7 @@ define([
         // Active/Inactive option
         self.activeLabel = GeneralViewModel.nls("admin.indicators.form.sections.main.active");
         self.activeValue = ko.observable(true);
-        
+
         // Date converter
         var dateOptions = { formatStyle: 'date', pattern: 'dd/MM/yyyy' };
         self.dateConverter = oj.Validation.converterFactory("datetime").createConverter(dateOptions);
@@ -154,7 +158,7 @@ define([
          * Metadata section 
          */
         self.metadataTitle = GeneralViewModel.nls("admin.indicators.form.sections.metadata.title");
-        
+
         // Source field
         self.sourceLabel = GeneralViewModel.nls("admin.indicators.form.sections.metadata.source.label");
         self.sourcePlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.metadata.source.placeholder");
@@ -211,6 +215,179 @@ define([
          * Goals and progress section
          */
         self.goalsTitle = GeneralViewModel.nls("admin.indicators.form.sections.goals.title");
+
+        // Chart series
+        self.chartSeriesValue = ko.observableArray([]);
+
+        // Goal/Progress ID
+        self.goalId = Math.floor(Math.random() * 100) + 1;
+
+        // Table headers
+        self.goalsColumns = [
+            {
+                "headerText": "Valor",
+                "headerStyle": 'max-width: 5em;',
+                "style": 'min-width: 45%; width: 45%;',
+                "sortable": "disabled"
+            },
+            {
+                "headerText": "Fecha",
+                "headerStyle": 'max-width: 5em;',
+                "style": 'min-width: 45%; width: 45%;',
+                "sortable": "auto"
+            },
+            {
+                "headerText": 'Acciones',
+                "headerStyle": 'max-width: 5em;',
+                "style": 'min-width: 10%; width: 10%;',
+                "sortable": "disabled"
+            }
+        ];
+
+        // Goals table
+        self.goalsLabel = GeneralViewModel.nls("admin.indicators.form.sections.goals.table.goals");
+        self.goalObservableArray = ko.observableArray([]);
+        self.goalDataSource = new oj.ArrayTableDataSource(self.goalObservableArray, { idAttribute: 'Id' });
+
+        // Row template for Goals' table
+        self.getGoalRowTemplate = function (data, context) {
+            var mode = context.$rowContext['mode'];
+            return mode === 'edit' ? 'goalEditRowTemplate' : 'goalRowTemplate';
+        };
+
+        // Progress table
+        self.progressLabel = GeneralViewModel.nls("admin.indicators.form.sections.goals.table.progress");
+        self.progressObservableArray = ko.observableArray([]);
+        self.progressDataSource = new oj.ArrayTableDataSource(self.progressObservableArray, { idAttribute: 'Id' });
+
+        // Row template for Progress' table
+        self.getProgressRowTemplate = function (data, context) {
+            var mode = context.$rowContext['mode'];
+            return mode === 'edit' ? 'progressEditRowTemplate' : 'progressRowTemplate';
+        };
+
+        /** 
+         * Update chart values. 
+         */
+        self.updateChart = function () {
+            // New chart series
+            var chartSeries = [
+                { name: 'Metas', items: [] },
+                { name: 'Avances', items: [] }
+            ];
+
+            // For each goal in Goals' table
+            self.goalObservableArray().forEach(function (goal) {
+                // Add new item to Chart series
+                chartSeries[0].items.push({
+                    x: goal.Date, // Goal date
+                    value: goal.Value // Goal value
+                });
+            });
+
+            // For each progress in Progress' table
+            self.progressObservableArray().forEach(function (progress) {
+                // Add new item to Chart Series
+                chartSeries[1].items.push({
+                    x: progress.Date, // Progress date
+                    value: progress.Value // Progress value
+                });
+            });
+
+            // Sort arrays by date
+            chartSeries[0].items.sort(self.orderChartByDate);
+            chartSeries[1].items.sort(self.orderChartByDate);
+
+            // Set chart values
+            self.chartSeriesValue(chartSeries);
+        };
+
+        /**
+         * Order chart by date.
+         * 
+         * @param elem1
+         * @param elem2
+         * @returns {int}
+         */
+        self.orderChartByDate = function (elem1, elem2) {
+            if (elem1.x > elem2.x)
+                return 1;
+            else if (elem1.x < elem2.x)
+                return -1;
+            else if (elem1.x === elem2.x)
+                return 0;
+        };
+
+        /**
+         * Add new row table.
+         * 
+         * @param {String} table
+         * @returns {void}
+         */
+        self.addRow = function (table) {
+            // New row
+            var row = {
+                'Id': self.goalId++,
+                'Value': 0,
+                'Date': oj.IntlConverterUtils.dateToLocalIso(new Date())
+            };
+
+            // Pick table
+            if (table === 'Goals') {
+                self.goalObservableArray.push(row);
+            } else if (table === 'Progress') {
+                self.progressObservableArray.push(row);
+            }
+
+            // Update chart values
+            self.updateChart();
+        };
+
+        /**
+         * Remove selected row.
+         * 
+         * @param {String} table Table source.
+         * @param {Object} row Goal/Progress object with ID, Value and Date.
+         * @returns {void}
+         */
+        self.removeRow = function (table, row) {
+            if (table === 'Goals') {
+                // Remove from Goals table
+                self.goalObservableArray.remove(function (item) {
+                    return item.Id === row.Id && item.Value === row.Value && item.Date === row.Date;
+                });
+            } else if (table === 'Progress') {
+                // Remove from Progress table
+                self.progressObservableArray.remove(function (item) {
+                    return item.Id === row.Id && item.Value === row.Value && item.Date === row.Date;
+                });
+            }
+
+            // Update chart values
+            self.updateChart();
+        };
+
+        /**
+         * Before Row Edit End event.
+         * 
+         * @param {any} event
+         * @param {any} ui
+         * @returns {void}
+         */
+        self.beforeRowEditEnd = function (event, ui) {
+            // Update chart values
+            self.updateChart();
+        };
+
+        // Potential risk field
+        self.riskLabel = GeneralViewModel.nls("admin.indicators.form.sections.goals.risk.label");
+        self.riskPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.goals.risk.placeholder");
+        self.riskValue = ko.observable("");
+
+        // Implemented actions
+        self.actionsLabel = GeneralViewModel.nls("admin.indicators.form.sections.goals.actions.label");
+        self.actionsPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.goals.actions.placeholder");
+        self.actionsValue = ko.observable("");
     }
 
     return new FormViewModel();

@@ -669,6 +669,218 @@
         <h4 id="goals-title" data-bind="text: goalsTitle"></h4>
 
         <!-- Collapsible content -->
-        <div class="oj-form-layout"></div>
+        <div class="oj-form-layout">
+            <!-- Goals and progress Chart -->
+            <div id='chart-container' class="oj-margin">
+                <div id="si-goals-chart" data-bind="ojComponent: {
+                    component: 'ojChart',
+                    type: 'line',
+                    series: chartSeriesValue,
+                    animationOnDisplay: 'auto',
+                    animationOnDataChange: 'auto',
+                    hoverBehavior: 'dim',
+                    rootAttributes: {
+                        'style': 'width: 100%; height: 350px;'  
+                    },
+                    timeAxisType: 'mixedFrequency',
+                    translations: {
+                        labelNoData: 'Agrega una meta o un avance'
+                    }
+                }"></div>
+            </div>
+
+            <!-- Tables section -->
+            <div class="oj-margin oj-flex">
+                <!-- Goals table -->
+                <div class="oj-flex-item oj-sm-12 oj-lg-6">
+                    <fieldset>
+                        <!-- Label -->
+                        <legend>
+                            <label data-bind="text: goalsLabel"></label>
+                            <span class="oj-label-required-icon"></span>
+                        </legend>
+
+                        <!-- Add row icon -->
+                        <i class="fa fa-plus fa-lg pointer icon-padding" data-bind="click: addRow.bind($data, 'Goals')"></i>
+
+                        <!-- Table -->
+                        <table id="si-goals-table" summary="Goals Table" aria-label="Goals Table" data-bind="ojComponent: {
+                            component: 'ojTable', 
+                            beforeRowEditEnd: beforeRowEditEnd,
+                            columns: goalsColumns,
+                            columnsDefault: {
+                                sortable: 'auto',
+                                sortProperty: 'Date'
+                            },
+                            data: goalDataSource,
+                            display: 'grid',
+                            editMode: 'rowEdit',
+                            translations: {
+                                msgNoData: 'Agrega una meta'
+                            },
+                            rootAttributes: {
+                                'style': 'width: 100%; max-height: 150px;'
+                            },
+                            rowTemplate: getGoalRowTemplate
+                        }"></table>
+                    </fieldset>
+                </div>
+
+                <!-- Progress table -->
+                <div class="oj-flex-item oj-sm-12 oj-lg-6">
+                    <fieldset>
+                        <!-- Label -->
+                        <legend>
+                            <label data-bind="text: progressLabel"></label>
+                        </legend>
+
+                        <!-- Add row icon -->
+                        <i class="fa fa-plus fa-lg pointer icon-padding" data-bind="click: addRow.bind($data, 'Progress')"></i>
+
+                        <!-- Table -->
+                        <table id="si-progress-table" summary="Progress Table" aria-label="Progress Table" data-bind="ojComponent: {
+                            component: 'ojTable', 
+                            beforeRowEditEnd: beforeRowEditEnd,
+                            columns: goalsColumns,
+                            columnsDefault: {
+                                sortable: 'auto',
+                                sortProperty: 'Date'
+                            },
+                            data: progressDataSource, 
+                            display: 'grid',
+                            editMode: 'rowEdit',
+                            translations: {
+                                msgNoData: 'Agrega un avance'
+                            },
+                            rootAttributes: {
+                                'style': 'width: 100%; max-height: 150px;'
+                            },
+                            rowTemplate: getProgressRowTemplate
+                    }"></table>
+                    </fieldset>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="oj-form">
+                <!-- Potential risk field -->
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-risk-field" data-bind="text: riskLabel"></label>
+
+                        <!-- Input Text -->
+                        <textarea id="si-risk-field" rows="3" data-bind="ojComponent: {
+                            component: 'ojTextArea',
+                            placeholder: riskPlaceholder,
+                            rootAttributes: {
+                                'style': 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: riskValue
+                        }"></textarea>
+                    </div>
+                </div>
+
+                <!-- Implemented actions field -->
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-actions-field" data-bind="text: actionsLabel"></label>
+
+                        <!-- Input Text -->
+                        <textarea id="si-actions-field" rows="3" data-bind="ojComponent: {
+                            component: 'ojTextArea',
+                            placeholder: actionsPlaceholder,
+                            rootAttributes: {
+                                'style': 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: actionsValue
+                        }"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- Goal Row Template -->
+<script type="text/html" id="goalRowTemplate">
+    <tr>
+        <td data-bind="text: Value"></td>
+        <td data-bind="text: $parent.dateConverter.format(Date)"></td>
+        <td>
+            <!--<i class="fa fa-pencil fa-border fa-lg pointer"></i>-->
+            <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.removeRow.bind($data, 'Goals', $data)"></i>
+        </td>
+    </tr>
+</script>
+
+<!-- Goal Edit Row Template -->
+<script type="text/html" id="goalEditRowTemplate">
+    <tr>
+        <td>
+            <input data-bind="ojComponent: {
+                component: 'ojInputNumber',
+                rootAttributes: {
+                    'id': 'new-goal-value-' + Id
+                },
+                value: Value
+            }">
+        </td>
+        <td>
+            <input data-bind="ojComponent: {
+                component: 'ojInputDate',
+                converter: $parent.dateConverter,
+                rootAttributes: {
+                    'id': 'new-goal-date-' + Id
+                },
+                value: Date
+            }">
+        </td>
+        <td>
+            <!--<i class="fa fa-pencil fa-border fa-lg pointer"></i>-->
+            <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.removeRow.bind($data, 'Goals', $data)"></i>
+        </td>
+    </tr>
+</script>
+
+<!-- Progress Row Template -->
+<script type="text/html" id="progressRowTemplate">
+    <tr>
+        <td data-bind="text: Value"></td>
+        <td data-bind="text: $parent.dateConverter.format(Date)"></td>
+        <td>
+            <!--<i class="fa fa-pencil fa-border fa-lg pointer"></i>-->
+            <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.removeRow.bind($data, 'Progress', $data)"></i>
+        </td>
+    </tr>
+</script>
+
+<!-- Progress Edit Row Template -->
+<script type="text/html" id="progressEditRowTemplate">
+    <tr>
+        <td>
+            <input data-bind="ojComponent: {
+                component: 'ojInputNumber',
+                rootAttributes: {
+                    'id': 'new-progress-value-' + Id
+                },
+                value: Value
+            }">
+        </td>
+        <td>
+            <input data-bind="ojComponent: {
+                component: 'ojInputDate',
+                converter: $parent.dateConverter,
+                rootAttributes: {
+                    'id': 'new-progress-date-' + Id
+                },
+                value: Date
+            }">
+        </td>
+        <td>
+            <!--<i class="fa fa-pencil fa-border fa-lg pointer"></i>-->
+            <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.removeRow.bind($data, 'Progress', $data)"></i>
+        </td>
+    </tr>
+</script>

@@ -254,7 +254,24 @@ define(
                                     }
                                 },
                                 "goals": {
-                                    "title": "Metas y avances"
+                                    "title": "Metas y avances",
+                                    "table": {
+                                        "goals": "Metas",
+                                        "progress": "Avances",
+                                        "columns": {
+                                            "value": "Valor",
+                                            "date": "Fecha",
+                                            "actions": "Acciones"
+                                        }
+                                    },
+                                    "risk": {
+                                        "label": "Riesgo potencial",
+                                        "placeholder": "Riesgo potencial"
+                                    },
+                                    "actions": {
+                                        "label": "Acciones implementadas",
+                                        "placeholder": "Acciones implementadas"
+                                    }
                                 }
                             }
                         }
