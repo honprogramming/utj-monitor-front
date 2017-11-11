@@ -9,7 +9,8 @@ define([
     'ojs/ojcollapsible',
     'ojs/ojinputtext',
     'ojs/ojselectcombobox',
-    'ojs/ojdatetimepicker'
+    'ojs/ojdatetimepicker',
+    'ojs/ojinputnumber'
 ], function (oj, $, ko, GeneralViewModel) {
 
     function FormViewModel() {
@@ -153,6 +154,58 @@ define([
          * Metadata section 
          */
         self.metadataTitle = GeneralViewModel.nls("admin.indicators.form.sections.metadata.title");
+        
+        // Source field
+        self.sourceLabel = GeneralViewModel.nls("admin.indicators.form.sections.metadata.source.label");
+        self.sourcePlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.metadata.source.placeholder");
+        self.sourceValue = ko.observable("");
+
+        // Link field
+        self.linkLabel = GeneralViewModel.nls("admin.indicators.form.sections.metadata.link.label");
+        self.linkPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.metadata.link.placeholder");
+        self.linkValue = ko.observable("");
+
+        // Formula field
+        self.formulaLabel = GeneralViewModel.nls("admin.indicators.form.sections.metadata.formula.label");
+        self.formulaPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.metadata.formula.placeholder");
+        self.formulaValue = ko.observable("");
+
+        // Variables field
+        self.variablesLabel = GeneralViewModel.nls("admin.indicators.form.sections.metadata.variables.label");
+        self.variablesPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.metadata.variables.placeholder");
+        self.variablesValue = ko.observable("");
+
+        // Method field
+        self.methodLabel = GeneralViewModel.nls("admin.indicators.form.sections.metadata.method.label");
+        self.methodPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.metadata.method.placeholder");
+        self.methodValue = ko.observable("");
+
+        // Observations field
+        self.observationsMLabel = GeneralViewModel.nls("admin.indicators.form.sections.metadata.observations.label");
+        self.observationsMPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.metadata.observations.placeholder");
+        self.observationsMValue = ko.observable("");
+
+        // Score
+        self.scoreLabel = GeneralViewModel.nls("admin.indicators.form.sections.metadata.score.label");
+
+        // Score to percent converter
+        self.scoreConverter = GeneralViewModel.converters.percent;
+
+        // Red score field
+        self.redLabel = GeneralViewModel.nls("admin.indicators.form.sections.metadata.score.red");
+        self.redValue = ko.observable(0.35);
+
+        // Orange score field
+        self.orangeLabel = GeneralViewModel.nls("admin.indicators.form.sections.metadata.score.orange");
+        self.orangeValue = ko.observable(0.6);
+
+        // Yello score field
+        self.yellowLabel = GeneralViewModel.nls("admin.indicators.form.sections.metadata.score.yellow");
+        self.yellowValue = ko.observable(0.8);
+
+        // Green score field
+        self.greenLabel = GeneralViewModel.nls("admin.indicators.form.sections.metadata.score.green");
+        self.greenValue = ko.observable(1);
 
         /*
          * Goals and progress section

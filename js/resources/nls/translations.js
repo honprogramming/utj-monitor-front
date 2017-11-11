@@ -220,7 +220,38 @@ define(
                                     "observations": "Observaciones"
                                 },
                                 "metadata": {
-                                    "title": "Metadato"
+                                    "title": "Metadato",
+                                    "source": {
+                                        "label": "Fuente",
+                                        "placeholder": "Fuente de la información"
+                                    },
+                                    "link": {
+                                        "label": "Vínculo",
+                                        "placeholder": "Dirección web"
+                                    },
+                                    "formula": {
+                                        "label": "Fórmula",
+                                        "placeholder": "Fórmula del indicador"
+                                    },
+                                    "variables": {
+                                        "label": "Variables",
+                                        "placeholder": "Variables utilizadas"
+                                    },
+                                    "method": {
+                                        "label": "Método",
+                                        "placeholder": "Método de elaboración"
+                                    },
+                                    "observations": {
+                                        "label": "Observaciones",
+                                        "placeholder": "Observaciones y aclaraciones"
+                                    },
+                                    "score": {
+                                        "label": "Calificación",
+                                        "red": "Rojo",
+                                        "orange": "Naranja",
+                                        "yellow": "Amarillo",
+                                        "green": "Verde"
+                                    }
                                 },
                                 "goals": {
                                     "title": "Metas y avances"

@@ -452,7 +452,211 @@
         <h4 id="metadata-title" data-bind="text: metadataTitle"></h4>
 
         <!-- Collapsible content -->
-        <div class="oj-form-layout"></div>
+        <div class="oj-form-layout">
+            <div class="oj-form">
+                <!-- Source field -->
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-source-field" data-bind="text: sourceLabel"></label>
+
+                        <!-- Input Text -->
+                        <input id='si-source-field' data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            placeholder: sourcePlaceholder,
+                            required: true,
+                            rootAttributes: {
+                                'style': 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: sourceValue
+                        }">
+                    </div>
+                </div>
+
+                <!-- Link field -->
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-link-field" data-bind="text: linkLabel"></label>
+
+                        <!-- Input Text -->
+                        <input id='si-link-field' data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            placeholder: linkPlaceholder,
+                            rootAttributes: {
+                                'style': 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: linkValue
+                        }">
+                    </div>
+                </div>
+
+                <!-- Formula field -->
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-formula-field" data-bind="text: formulaLabel"></label>
+
+                        <!-- Input Text -->
+                        <input id="si-formula-field" data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            placeholder: formulaPlaceholder,
+                            rootAttributes: {
+                                'style': 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: formulaValue
+                        }">
+                    </div>
+                </div>
+
+                <!-- Variables field -->
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-variables-field" data-bind="text: variablesLabel"></label>
+
+                        <!-- Input Text -->
+                        <input id="si-variables-field" data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            placeholder: variablesPlaceholder,
+                            rootAttributes: {
+                                'style': 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: variablesValue
+                        }">
+                    </div>
+                </div>
+
+                <!-- Method field -->
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-method-field" data-bind="text: methodLabel"></label>
+
+                        <!-- Input Text -->
+                        <input id="si-method-field" data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            placeholder: methodPlaceholder,
+                            rootAttributes: {
+                                'style': 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: methodValue
+                        }">
+                    </div>
+                </div>
+
+                <!-- Observations field -->
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-observations-m-field" data-bind="text: observationsMLabel"></label>
+
+                        <!-- Input Text -->
+                        <textarea id="si-observations-m-field" rows="3" data-bind="ojComponent: {
+                            component: 'ojTextArea',
+                            placeholder: observationsMPlaceholder,
+                            rootAttributes: {
+                                'style': 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: observationsMValue
+                        }"></textarea>
+                    </div>
+                </div>
+
+                <!-- Color section -->
+                <fieldset>
+                    <!-- Label -->
+                    <legend>
+                        <label data-bind="text: scoreLabel"></label>
+                        <span class="oj-label-required-icon"></span>
+                    </legend>
+
+                    <!-- Red field -->
+                    <div class="oj-flex">
+                        <div class="oj-flex-item">
+                            <!-- Label -->
+                            <label for="si-red-field" data-bind="text: redLabel"></label>
+
+                            <!-- Input text -->
+                            <input id="si-red-field" class="right-align" data-bind="ojComponent: {
+                                component: 'ojInputNumber',
+                                converter: scoreConverter,
+                                min: 0,
+                                max: 1,
+                                step: 0.05,
+                                rootAttributes: {
+                                    'style': 'max-height: 100%; max-width: 100%;'
+                                },
+                                value: redValue
+                            }">
+                        </div>
+                    </div>
+
+                    <!-- Orange field -->
+                    <div class="oj-flex">
+                        <div class="oj-flex-item">
+                            <!-- Label -->
+                            <label for="si-orange-field" data-bind="text: orangeLabel"></label>
+
+                            <!-- Input Text -->
+                            <input id="si-orange-field" class="right-align" data-bind="ojComponent: {
+                                component: 'ojInputNumber',
+                                converter: scoreConverter,
+                                min: 0,
+                                max: 1,
+                                step: 0.05,
+                                rootAttributes: {
+                                    'style': 'max-height: 100%; max-width: 100%;'
+                                },
+                                value: orangeValue
+                            }">
+                        </div>
+                    </div>
+
+                    <!-- Yellow field -->
+                    <div class="oj-flex">
+                        <div class="oj-flex-item">
+                            <!-- Label -->
+                            <label for="si-yellow-field" data-bind="text: yellowLabel"></label>
+
+                            <!-- Input Text -->
+                            <input id="si-yellow-field" class="right-align" data-bind="ojComponent: {
+                                component: 'ojInputNumber',
+                                converter: scoreConverter,
+                                min: 0,
+                                max: 1,
+                                step: 0.05,
+                                rootAttributes: {
+                                    'style': 'max-height: 100%; max-width: 100%;'
+                                },
+                                value: yellowValue
+                            }">
+                        </div>
+                    </div>
+
+                    <!-- Green field -->
+                    <div class="oj-flex">
+                        <div class="oj-flex-item">
+                            <!-- Label -->
+                            <label for="si-green-field" data-bind="text: greenLabel"></label>
+
+                            <!-- Input Text -->
+                            <input id="si-green-field" class="right-align" data-bind="ojComponent: {
+                                component: 'ojInputNumber',
+                                converter: scoreConverter,
+                                min: 0,
+                                max: 1,
+                                step: 0.05,
+                                rootAttributes: {
+                                    'style': 'max-height: 100%; max-width: 100%;'
+                                },
+                                value: greenValue
+                            }">
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
     </div>
 
     <!-- Goals and progress section -->
