@@ -196,7 +196,28 @@ define(
                                     "title": "Alineación"
                                 },
                                 "responsible": {
-                                    "title": "Responsable"
+                                    "title": "Responsable",
+                                    "secretary": "Secretaría",
+                                    "address": "Dirección",
+                                    "departmentHead": "Jefe de departamento",
+                                    "responsible": "Responsable",
+                                    "responsibleCharge": {
+                                        "label": "Cargo del responsable",
+                                        "placeholder": "Cargo del responsable"
+                                    },
+                                    "email": {
+                                        "label": "Correo-e",
+                                        "placeholder": "Correo del responsable"
+                                    },
+                                    "phone": {
+                                        "label": "Teléfono",
+                                        "placeholder": "Teléfono del responsable"
+                                    },
+                                    "extension": {
+                                        "label": "Extensión",
+                                        "placeholder": "Extensión telefónica"
+                                    },
+                                    "observations": "Observaciones"
                                 },
                                 "metadata": {
                                     "title": "Metadato"

@@ -103,6 +103,52 @@ define([
          */
         self.responsibleTitle = GeneralViewModel.nls("admin.indicators.form.sections.responsible.title");
 
+        // Secretary option
+        self.secretaryLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.secretary");
+        self.secretaryOptions = ko.observableArray([
+            { value: 'Académica', label: 'Académica' },
+            { value: 'Administrativa', label: 'Administrativa' },
+            { value: 'Vinculación', label: 'Vinculación' },
+            { value: 'Rectoría', label: 'Rectoría' }
+        ]);
+        self.secretaryValue = ko.observable('Administrativa');
+
+        // Address option
+        self.addressLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.address");
+        self.addressValue = ko.observable("Dirección 1");
+
+        // Department head option
+        self.departmentHeadLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.departmentHead");
+        self.departmentHeadValue = ko.observable('Jefe de departamento');
+
+        // Responsible option
+        self.responsibleLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.responsible");
+        self.responsibleValue = ko.observable('Persona responsable de la información');
+
+        // Responsible charge field
+        self.responsibleChargeLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.responsibleCharge.label");
+        self.responsibleChargePlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.responsible.responsibleCharge.placeholder");
+        self.responsibleChargeValue = ko.observable("");
+
+        // Email field
+        self.emailLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.email.label");
+        self.emailPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.responsible.email.placeholder");
+        self.emailValue = ko.observable("");
+
+        // Phone field
+        self.phoneLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.phone.label");
+        self.phonePlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.responsible.phone.placeholder");
+        self.phoneValue = ko.observable("");
+
+        // Extension field
+        self.extensionLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.extension.label");
+        self.extensionPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.responsible.extension.placeholder");
+        self.extensionValue = ko.observable("");
+
+        // Observations field
+        self.observationsRLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.observations");
+        self.observationsRValue = ko.observable("");
+
         /*
          * Metadata section 
          */

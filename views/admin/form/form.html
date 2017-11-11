@@ -279,7 +279,167 @@
         <h4 id="responsible-title" data-bind="text: responsibleTitle"></h4>
 
         <!-- Collapsible content -->
-        <div class="oj-form-layout"></div>
+        <div class="oj-form-layout">
+            <div class="oj-form">
+                <!-- Secretary option -->
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-secretary-option" data-bind="text: secretaryLabel"></label>
+
+                        <!-- Option -->
+                        <select id="si-secretary-option" data-bind="ojComponent: {
+                            component: 'ojSelect',
+                            options: secretaryOptions,
+                            required: true,
+                            rootAttributes: {
+                                'style': 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: secretaryValue
+                        }"></select>
+                    </div>
+                </div>
+
+                <!-- Address option -->
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-address-option" data-bind="text: addressLabel"></label>
+
+                        <!-- Select -->
+                        <select id="si-address-option" data-bind="ojComponent: {
+                            component: 'ojSelect',
+                            required: true,
+                            rootAttributes: { 
+                                'style': 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: addressValue
+                        }">
+                            <option value="Dirección 1">Dirección 1</option>
+                            <option value="Dirección 2">Dirección 2</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Department head -->
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-department-head-option" data-bind="text: departmentHeadLabel"></label>
+
+                        <!-- Select -->
+                        <select id="si-department-head-option" data-bind="ojComponent: {
+                            component: 'ojSelect',
+                            required: true,
+                            rootAttributes: {
+                                'style': 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: departmentHeadValue
+                        }">
+                            <option value="Jefe de departamento">Jefe de departamento</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Responsible option -->
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-responsible-option" data-bind="text: responsibleLabel"></label>
+
+                        <!-- Select -->
+                        <select id="si-responsible-option" data-bind="ojComponent: {
+                            component: 'ojSelect',
+                            required: true,
+                            rootAttributes: {
+                                'style': 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: responsibleValue
+                        }">
+                            <option value="Persona responsable de la información">
+                                Persona responsable de la información
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Responsible charge field -->
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-responsible-charge-field" data-bind="text: responsibleChargeLabel"></label>
+
+                        <!-- Input text -->
+                        <input id="si-responsible-charge-field" data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            placeholder: responsibleChargePlaceholder,
+                            rootAttributes: {
+                                'style': 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: responsibleChargeValue
+                        }">
+                    </div>
+                </div>
+
+                <div class="oj-flex">
+                <!-- Email field -->
+                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-email-field" data-bind="text: emailLabel"></label>
+
+                        <!-- Input text -->
+                        <input id="si-email-field" data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            placeholder: emailPlaceholder,
+                            value: emailValue
+                        }">
+                    </div>
+                    
+                    <!-- Phone field -->
+                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-phone-field" data-bind="text: phoneLabel"></label>
+
+                        <!-- Input text -->
+                        <input id="si-phone-field" data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            placeholder: phonePlaceholder,
+                            value: phoneValue
+                        }">
+                    </div>
+                    
+                    <!-- Extension field -->
+                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-extension-field" data-bind="text: extensionLabel"></label>
+
+                        <!-- Input Text -->
+                        <input id="si-extension-field" data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            placeholder: extensionPlaceholder,
+                            value: extensionValue
+                        }">
+                    </div>
+                </div>
+
+                <!-- Observations field -->
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-observations-r-field" data-bind="text: observationsRLabel"></label>
+
+                        <!-- Text Area -->
+                        <textarea id="si-observations-r-field" rows="3" data-bind="ojComponent: {
+                            component: 'ojTextArea',
+                            rootAttributes: {
+                                'style': 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: observationsRValue
+                        }"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Metadata section -->
