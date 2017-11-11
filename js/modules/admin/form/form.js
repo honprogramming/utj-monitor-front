@@ -6,7 +6,10 @@ define([
     'ojs/ojknockout',
     'ojs/ojradioset',
     'ojs/ojswitch',
-    'ojs/ojcollapsible'
+    'ojs/ojcollapsible',
+    'ojs/ojinputtext',
+    'ojs/ojselectcombobox',
+    'ojs/ojdatetimepicker'
 ], function (oj, $, ko, GeneralViewModel) {
 
     function FormViewModel() {
@@ -22,12 +25,74 @@ define([
         // Active/Inactive option
         self.activeLabel = GeneralViewModel.nls("admin.indicators.form.sections.main.active");
         self.activeValue = ko.observable(true);
+        
+        // Date converter
+        var dateOptions = { formatStyle: 'date', pattern: 'dd/MM/yyyy' };
+        self.dateConverter = oj.Validation.converterFactory("datetime").createConverter(dateOptions);
 
         /*
          * General section.
          */
         self.generalTitle = GeneralViewModel.nls("admin.indicators.form.sections.general.title");
-        
+
+        // Update option
+        self.updateLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.update");
+        self.updateValue = ko.observable('Manual');
+
+        // Name field
+        self.nameLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.name.label");
+        self.namePlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.general.name.placeholder");
+        self.nameValue = ko.observable("");
+
+        // Description field
+        self.descriptionLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.description.label");
+        self.descriptionPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.general.description.placeholder");
+        self.descriptionValue = ko.observable("");
+
+        // Sense option
+        self.senseLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.sense");
+        self.senseOptions = ko.observableArray([
+            { value: 'Positivo', label: 'Positivo' },
+            { value: 'Negativo', label: 'Negativo' }
+        ]);
+        self.senseValue = ko.observable('Positivo');
+
+        // Unit of measurement field
+        self.measureLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.measure.label");
+        self.measurePlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.general.measure.placeholder");
+        self.measureValue = ko.observable("");
+
+        // Base year field
+        self.baseYearLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.baseYear.label");
+        self.baseYearPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.general.baseYear.placeholder");
+        self.baseYearValue = ko.observable("");
+
+        // Periodicity option
+        self.periodicityLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.periodicity");
+        self.periodicityOptions = ko.observableArray([
+            { value: 'Mensual', label: 'Mensual' },
+            { value: 'Trimestral', label: 'Trimestral' },
+            { value: 'Cuatrimestral', label: 'Cuatrimestral' },
+            { value: 'Semestral', label: 'Semestral' },
+            { value: 'Anual', label: 'Anual' }
+        ]);
+        self.periodicityValue = ko.observable('Mensual');
+
+        // Reboot option
+        self.rebootLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.reboot");
+        self.rebootOptions = ko.observableArray([
+            { value: 'Continuo', label: 'Continuo' },
+            { value: 'Cuatrimestral', label: 'Cuatrimestral' },
+            { value: 'Anual', label: 'Anual' }
+        ]);
+        self.rebootValue = ko.observable('Continuo');
+
+        // Reboot date field
+        self.rebootDateLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.rebootDates");
+        self.rebootDateValue1 = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
+        self.rebootDateValue2 = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
+        self.rebootDateValue3 = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
+
         /*
          * Alignment section
          */
@@ -48,6 +113,6 @@ define([
          */
         self.goalsTitle = GeneralViewModel.nls("admin.indicators.form.sections.goals.title");
     }
-    
+
     return new FormViewModel();
 });

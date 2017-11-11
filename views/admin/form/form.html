@@ -83,7 +83,177 @@
         <h4 id="general-title" data-bind="text: generalTitle"></h4>
 
         <!-- Collapsible content -->
-        <div class="oj-form-layout"></div>
+        <div class="oj-form-layout">
+            <div class="oj-form">
+                <!-- Update option -->
+                <div class='oj-flex-bar'>
+                    <!-- Label -->
+                    <div class='oj-flex-bar-start'>
+                        <label id="si-update-option" data-bind="text: updateLabel"></label>
+                    </div>
+
+                    <!-- Radio Set -->
+                    <div class='oj-flex-bar-middle' style="margin-left: 12px;">
+                        <div id="si-update-radioset" class="oj-choice-direction-row" aria-labelledby='si-update-option' data-bind="ojComponent: {
+                            component: 'ojRadioset', 
+                            required: true, 
+                            value: updateValue
+                        }">
+                            <!-- Manual -->
+                            <span class="oj-choice-item">
+                                <input type="radio" id="si-manual-radio" name="si-update-radio" value="Manual">
+                                <label for="si-manual-radio">Manual</label>
+                            </span>
+
+                            <!-- Auto -->
+                            <span class="oj-choice-item">
+                                <input type="radio" id="si-auto-radio" name="si-update-radio" value="Automático">
+                                <label for="si-auto-radio">Automático</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indicator name field -->
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-name-field" data-bind="text: nameLabel"></label>
+
+                        <!-- Input text -->
+                        <input id='si-name-field' data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            placeholder: namePlaceholder,
+                            required: true,
+                            rootAttributes: {
+                                'style': 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: nameValue
+                        }" />
+                    </div>
+                </div>
+
+                <!-- Indicator description field -->
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-description-field" data-bind="text: descriptionLabel"></label>
+
+                        <!-- Text Area -->
+                        <textarea id="si-description-field" rows="3" data-bind="ojComponent: {
+                            component: 'ojTextArea',
+                            placeholder: descriptionPlaceholder,
+                            rootAttributes: {
+                                'style': 'max-height: 100%; max-width: 100%;'
+                            },
+                            value: descriptionValue
+                        }"></textarea>
+                    </div>
+                </div>
+
+                <div class="oj-flex">
+                    <!-- Sense -->
+                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-sense-option" data-bind="text: senseLabel"></label>
+
+                        <!-- Select -->
+                        <select id='si-sense-option' data-bind="ojComponent: {
+                            component: 'ojSelect',
+                            options: senseOptions,
+                            required: true, 
+                            value: senseValue
+                        }"></select>
+                    </div>
+
+                    <!-- Unit of measurement field -->
+                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-measure-field" data-bind="text: measureLabel"></label>
+
+                        <!-- Input text -->
+                        <input id="si-measure-field" data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            placeholder: measurePlaceholder,
+                            value: measureValue
+                        }" />
+                    </div>
+
+                    <!-- Base year field -->
+                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-base-year-field" data-bind="text: baseYearLabel"></label>
+
+                        <!-- Input text -->
+                        <input id="si-base-year-field" data-bind="ojComponent: {
+                            component: 'ojInputText',
+                            placeholder: baseYearPlaceholder,
+                            value: baseYearValue
+                        }" />
+                    </div>
+                </div>
+
+                <div class="oj-flex">
+                    <!-- Periodicity option -->
+                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+                        <!-- Label -->
+                        <label for="si-periodicity-option" data-bind="text: periodicityLabel"></label>
+
+                        <!-- Select -->
+                        <select id="si-periodicity-option" data-bind="ojComponent: {
+                            component: 'ojSelect',
+                            options: periodicityOptions,
+                            value: periodicityValue
+                        }"></select>
+                    </div>
+
+                    <!-- Reboot option -->
+                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+                        <label for="si-reboot-option" data-bind="text: rebootLabel"></label>
+                        <select id="si-reboot-option" data-bind="ojComponent: {
+                            component: 'ojSelect',
+                            options: rebootOptions,
+                            required: true, 
+                            value: rebootValue
+                        }"></select>
+                    </div>
+
+                    <!-- Reboot dates option -->
+                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item" data-bind="ifnot: rebootValue() == 'Continuo'">
+                        <!-- Label -->
+                        <label for="si-reboot-date-option-1" data-bind="text: rebootDateLabel"></label>
+
+                        <!-- Input date 1 -->
+                        <input id="si-reboot-date-option-1" data-bind="ojComponent: {
+                            component: 'ojInputDate',
+                            converter: dateConverter,
+                            required: true,
+                            value: rebootDateValue1
+                        }">
+
+                        <div data-bind="if: rebootValue() == 'Cuatrimestral'">
+                            <!-- Input date 2 -->
+                            <input id="si-reboot-date-option-2" data-bind="ojComponent: {
+                                component: 'ojInputDate',
+                                converter: dateConverter,
+                                required: true,
+                                value: rebootDateValue2
+                            }">
+                        </div>
+                        
+                        <div data-bind="if: rebootValue() == 'Cuatrimestral'">
+                            <!-- Input date 3 -->
+                            <input id="si-reboot-date-option-3" data-bind="ojComponent: {
+                                component: 'ojInputDate',
+                                converter: dateConverter,
+                                required: true,
+                                value: rebootDateValue3
+                            }">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Alignment section -->

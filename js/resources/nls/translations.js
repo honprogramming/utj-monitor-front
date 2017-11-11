@@ -169,7 +169,28 @@ define(
                                     "active": "Activo/Inactivo"
                                 },
                                 "general": {
-                                    "title": "General"
+                                    "title": "General",
+                                    "update": "Actualización",
+                                    "name": {
+                                        "label": "Nombre", 
+                                        "placeholder": "Nombre del indicador"
+                                    },
+                                    "description": {
+                                        "label": "Descripción", 
+                                        "placeholder": "Descripción del indicador"
+                                    },
+                                    "sense": "Sentido",
+                                    "measure": {
+                                        "label": "Unidad de medida",
+                                        "placeholder": "Unidad de medida"
+                                    },
+                                    'baseYear': {
+                                        "label": "Año base",
+                                        "placeholder": "Año base"
+                                    },
+                                    "periodicity": "Periodicidad",
+                                    "reboot": "Reinicio",
+                                    "rebootDates": "Fecha(s) de reinicio"
                                 },
                                 "alignment": {
                                     "title": "Alineación"
