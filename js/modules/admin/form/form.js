@@ -3,6 +3,7 @@ define([
     'jquery',
     'knockout',
     'view-models/GeneralViewModel',
+    "modules/admin/form/model/StrategicItem",
     'ojs/ojknockout',
     'ojs/ojradioset',
     'ojs/ojswitch',
@@ -15,7 +16,7 @@ define([
     'ojs/ojtable',
     'ojs/ojarraytabledatasource',
     'promise'
-], function (oj, $, ko, GeneralViewModel) {
+], function (oj, $, ko, GeneralViewModel, StrategicItem) {
 
     function FormViewModel() {
         var self = this;
@@ -102,6 +103,383 @@ define([
          * Alignment section
          */
         self.alignmentTitle = GeneralViewModel.nls("admin.indicators.form.sections.alignment.title");
+
+        // PIDE table
+        self.pideTableLabel = GeneralViewModel.nls("admin.indicators.form.sections.alignment.pide.title");
+        self.pideId = Math.floor(Math.random() * 100) + 1;
+        self.pideColumns = [
+            {
+                "headerText": "Eje",
+                "headerStyle": 'max-width: 5em;',
+                "style": 'min-width: 30%; width: 30%;',
+                "sortable": "auto"
+            },
+            {
+                "headerText": "Tema",
+                "headerStyle": 'max-width: 5em;',
+                "style": 'min-width: 30%; width: 30%;',
+                "sortable": "auto"
+            },
+            {
+                "headerText": "Objetivo",
+                "headerStyle": 'max-width: 5em;',
+                "style": 'min-width: 30%; width: 30%;',
+                "sortable": "auto"
+            },
+            {
+                "headerText": 'Acciones',
+                "headerStyle": 'max-width: 5em;',
+                "style": 'max-width: 10%; width: auto',
+                "sortable": "disabled"
+            }
+        ];
+        self.pideObservableArray = ko.observableArray([]);
+        self.pideDataSource = new oj.ArrayTableDataSource(self.pideObservableArray, { idAttribute: 'Id' });
+
+        // Row template for PIDE table
+        self.getPIDERowTemplate = function (data, context) {
+            var mode = context.$rowContext['mode'];
+            return mode === 'edit' ? 'pideEditRowTemplate' : 'pideEditRowTemplate';
+        };
+
+        // Full strategic items
+        self.strategicItems = [];
+
+        // Filtered strategic items
+        self.strategicArray = [];
+
+        // Axe options
+        self.axesOptions = ko.observableArray([]);
+
+        // Topics options
+        self.topicsOptions = ko.observableArray([]);
+
+        // Objectives options
+        self.objectivesOptions = ko.observableArray([]);
+
+        // Axes change validations
+        self.axeChanged = false;
+
+        // Get strategic items data
+        $.getJSON("data/strategic-items.json")
+            .done(function (data) {
+                // Get all strategic items
+                self.strategicItems = data.map(function (element) {
+                    return new StrategicItem(element.id, element.name, element.strategicType.name, element.children);
+                });
+
+                // Get axes
+                self.strategicArray = self.strategicItems.filter(function (element) {
+                    return element.type === "axe";
+                });
+
+                self.strategicArray.forEach(function (axe) {
+                    // Get topics
+                    axe.children = axe.children.map(function (topic) {
+                        return self.strategicItems.filter(function (element) {
+                            return element.id === topic && element.type === "topic";
+                        })[0];
+                    });
+
+                    axe.children.forEach(function (topic) {
+                        // Get objectives
+                        topic.children = topic.children.map(function (objective) {
+                            return self.strategicItems.filter(function (element) {
+                                return element.id === objective && element.type === "objective";
+                            })[0];
+                        });
+
+                        topic.children = topic.children.filter(function (element) {
+                            return typeof element !== "undefined";
+                        });
+                    });
+                });
+
+                // Get axes options
+                self.axesOptions(self.getAxes());
+
+                // Get topics options
+                self.getTopics(self.strategicArray[0].name);
+
+                // New PIDE observable row
+                self.pideAddRow();
+            })
+            .fail(function (data) {
+                console.log("Mal", data);
+            });
+
+        /**
+         * Get axes options.
+         * @returns {array}
+         */
+        self.getAxes = function () {
+            let axes = self.strategicArray.map(function (axe) {
+                return { value: axe.name, label: axe.name };
+            });
+
+            return axes;
+        };
+
+        /**
+         * Get Topic array.
+         * @param {string} search
+         * @returns {array}
+         */
+        self.getTopics = function (search) {
+            // In case the value comes in [] or {} format
+            search = typeof search === 'object' ? search[0] : search;
+
+            // Search axe
+            let searchAxe = self.strategicArray.filter(function (axe) {
+                return axe.name === search;
+            })[0];
+
+            // Get topics
+            let topics = searchAxe.children.map(function (topic) {
+                return { value: topic.name, label: topic.name };
+            });
+
+            return topics;
+        };
+
+        /**
+         * Get Objectives array;
+         * @param {any} searchAxe 
+         * @param {any} searchTopic 
+         */
+        self.getObjectives = function (searchAxe, searchTopic) {
+            // In case the value comes in [] or {} format
+            searchAxe = typeof searchAxe === 'object' ? searchAxe[0] : searchAxe;
+            searchTopic = typeof searchTopic === 'object' ? searchTopic[0] : searchTopic;
+
+            let axeArray = self.strategicArray.filter(function (axe) {
+                return axe.name === searchAxe;
+            })[0];
+
+            let topicArray = axeArray.children.filter(function (topic) {
+                return topic.name === searchTopic;
+            })[0];
+
+            let objectives = topicArray.children.map(function (topic) {
+                return { value: topic.name, label: topic.name };
+            });
+
+            return objectives;
+        };
+
+        /**
+         * Axes change event.
+         * @param {type} id
+         * @param {type} axe
+         */
+        self.axesChange = function (id, axe) {
+            // Set new topic options
+            self.setTopicOptions(id, axe());
+
+            // Set topic changes disabled
+            self.axesChanged = true;
+        };
+
+        /**
+         * Topics change event.
+         * @param {type} id
+         * @param {type} axe
+         * @param {type} topic
+         */
+        self.topicsChange = function (id, axe, topic) {
+            if (self.axesChanged !== true) {
+                // Set new objective options
+                self.setObjectiveOptions(id, axe(), topic());
+            }
+
+            // Enable topic changes
+            self.axesChanged = false;
+        };
+
+        /**
+         * Set topics options.
+         * @param {int} id
+         * @param {string} search
+         */
+        self.setTopicOptions = function (id, search) {
+            self.topicsOptions().forEach(function (element) {
+                if (element.id === id) {
+                    element.options(self.getTopics(search));
+                }
+            });
+        };
+
+        /**
+         * Get Topic Options.
+         * @param {int} id
+         * @returns {array}
+         */
+        self.getTopicOptions = function (id) {
+            let options = [];
+
+            self.topicsOptions().forEach(function (element) {
+                if (element.id === id) {
+                    options = element.options;
+                }
+            });
+
+            return options;
+        };
+
+        /**
+         * Set Objective options.
+         * @param {number} id
+         * @param {string} searchAxe
+         * @param {string} searchTopic
+         */
+        self.setObjectiveOptions = function (id, searchAxe, searchTopic) {
+            self.objectivesOptions().forEach(function (element) {
+                if (element.id === id) {
+                    element.options(self.getObjectives(searchAxe, searchTopic));
+                }
+            });
+        };
+
+        /**
+         * Get Objective options.
+         * @param {number} id
+         * @returns {Array}
+         */
+        self.getObjectiveOptions = function (id) {
+            let options = [];
+
+            self.objectivesOptions().forEach(function (element) {
+                if (element.id === id) {
+                    options = element.options;
+                }
+            });
+
+            return options;
+        };
+
+        /**
+         * Add row to PIDE's table
+         */
+        self.pideAddRow = function () {
+            // New row
+            var row = {
+                'Id': self.pideId++,
+                'Axe': ko.observable(self.strategicArray[0].name),
+                'Topic': ko.observable(self.strategicArray[0].children[0].name),
+                'Objective': ko.observable(self.strategicArray[0].children[0].children[0].name)
+            };
+
+            // Add row to PIDE table
+            self.pideObservableArray.push(row);
+
+            // Add new map to Topics Options
+            self.topicsOptions.push({
+                id: row.Id,
+                options: ko.observableArray(self.getTopics(row.Axe()))
+            });
+
+            // Add new map to Objectives Options
+            self.objectivesOptions.push({
+                id: row.Id,
+                options: ko.observableArray(self.getObjectives(row.Axe(), row.Topic()))
+            });
+        };
+
+        /**
+         * Clone PIDE's table row.
+         * @param {ko.Observable} Axe 
+         * @param {ko.Observable} Topic 
+         * @param {ko.Observable} Objective 
+         */
+        self.pideCloneRow = function (Axe, Topic, Objective) {
+            // New row
+            var row = {
+                'Id': self.pideId++,
+                'Axe': ko.observable(Axe()),
+                'Topic': ko.observable(Topic()),
+                'Objective': ko.observable(Objective())
+            };
+
+            // Add row to PIDE table
+            self.pideObservableArray.push(row);
+
+            // Add new map to Topics Option
+            self.topicsOptions.push({
+                id: row.Id,
+                options: ko.observableArray(self.getTopics(row.Axe()))
+            });
+
+            // Add new map to Objective options
+            self.objectivesOptions.push({
+                id: row.Id,
+                options: ko.observableArray(self.getObjectives(row.Axe(), row.Topic()))
+            });
+        };
+
+        /**
+         * Remove PIDE's table row.
+         * @param {number} id 
+         */
+        self.pideRemoveRow = function (id) {
+            self.pideObservableArray.remove(function (item) {
+                return item.Id === id;
+            });
+
+            self.topicsOptions.remove(function (item) {
+                return item.Id === id;
+            });
+
+            self.objectivesOptions.remove(function (item) {
+                return item.Id === id;
+            });
+        };
+
+        // POA section
+        self.poaSectionLabel = GeneralViewModel.nls("admin.indicators.form.sections.alignment.poa.title");
+
+        // Process table
+        self.processTableLabel = GeneralViewModel.nls("admin.indicators.form.sections.alignment.poa.process.title");
+        self.processId = Math.floor(Math.random() * 100) + 1;
+        self.processColumns = [
+            { "headerText": "Procesos", "sortable": "auto" }
+        ];
+        self.processObservableArray = ko.observableArray([]);
+        self.processDataSource = new oj.ArrayTableDataSource(self.processObservableArray, { idAttribute: 'Id' });
+
+        // Projects table
+        self.projectsTableLabel = GeneralViewModel.nls("admin.indicators.form.sections.alignment.poa.projects.title");
+        self.projectsId = Math.floor(Math.random() * 100) + 1;
+        self.projectsColumns = [
+            { "headerText": "Proyectos", "sortable": "auto" }
+        ];
+        self.projectsObservableArray = ko.observableArray([]);
+        self.projectsDataSource = new oj.ArrayTableDataSource(self.projectsObservableArray, { idAttribute: 'Id' });
+
+        // Get data
+        $.getJSON("data/pide-alignment.json")
+            .done(function (data) {
+                // PIDE data
+                let pide = data.alignment.pide;
+
+                // POA data
+                let poa = data.alignment.poa;
+
+                // Fill Process Table
+                $.each(poa.process, function (key, value) {
+                    self.processObservableArray.push({
+                        'Id': self.processId++,
+                        'Process': value.process
+                    });
+                });
+
+                // Fill Projects Table
+                $.each(poa.projects, function (key, value) {
+                    self.projectsObservableArray.push({
+                        'Id': self.projectsId++,
+                        'Project': value.project
+                    });
+                });
+            });
 
         /*
          * Responsible section

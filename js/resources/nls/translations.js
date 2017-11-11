@@ -193,7 +193,19 @@ define(
                                     "rebootDates": "Fecha(s) de reinicio"
                                 },
                                 "alignment": {
-                                    "title": "Alineación"
+                                    "title": "Alineación",
+                                    "pide": {
+                                        "title": "PIDE"
+                                    },
+                                    "poa": {
+                                        "title": "POA",
+                                        "process": {
+                                            "title": "Procesos"
+                                        },
+                                        "projects": {
+                                            "title": "Proyectos"
+                                        }
+                                    }
                                 },
                                 "responsible": {
                                     "title": "Responsable",

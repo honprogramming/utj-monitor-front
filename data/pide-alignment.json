@@ -1,0 +1,57 @@
+{
+    "alignment": {
+        "pide": [
+            {
+                "axe": "Eje 1",
+                "topic": "Tema 1",
+                "objective": "Objetivo 1"
+            },
+            {
+                "axe": "Eje 2",
+                "topic": "Tema 2",
+                "objective": "Objetivo 2"
+            },
+            {
+                "axe": "Eje 3",
+                "topic": "Tema 3",
+                "objective": "Objetivo 3"
+            }
+        ],
+        "poa": {
+            "process": [
+                {
+                    "process": "Proceso 1"
+                },
+                {
+                    "process": "Proceso 2"
+                },
+                {
+                    "process": "Proceso 3"
+                },
+                {
+                    "process": "Proceso 4"
+                },
+                {
+                    "process": "Proceso 5"
+                }
+            ],
+            "projects": [
+                {
+                    "project": "Proyecto 1"
+                },
+                {
+                    "project": "Proyecto 2"
+                },
+                {
+                    "project": "Proyecto 3"
+                },
+                {
+                    "project": "Proyecto 4"
+                },
+                {
+                    "project": "Proyecto 5"
+                }
+            ]
+        }
+    }
+}

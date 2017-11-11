@@ -266,7 +266,84 @@
         <h4 id="alignment-title" data-bind="text: alignmentTitle"></h4>
 
         <!-- Collapsible content -->
-        <div></div>
+        <div>
+            <!-- PIDE Section -->
+            <fieldset class="oj-margin-bottom">
+                <!-- Label -->
+                <legend>
+                    <label data-bind="text: pideTableLabel"></label>
+                    <span class="oj-label-required-icon"></span>
+                </legend>
+                
+                
+                <!-- PIDE Table -->
+                <div class="oj-margin">
+                    <!-- Add row icon -->
+                    <i class="fa fa-plus fa-lg pointer icon-padding" data-bind="click: pideAddRow.bind($data)"></i>
+
+                    <!-- Table -->
+                    <table id="si-pide-table" summary="PIDE Table" aria-label="PIDE Table" data-bind="ojComponent: {
+                        component: 'ojTable', 
+                        columns: pideColumns,
+                        data: pideDataSource, 
+                        display: 'grid',
+                        editMode: 'rowEdit',
+                        rootAttributes: {
+                            'style': 'width: 1px; min-width: 100%;'
+                        },
+                        rowTemplate: getPIDERowTemplate
+                    }"></table>
+                </div>
+            </fieldset>
+
+            <!-- POA Section -->
+            <fieldset class="oj-margin-top">
+                <!-- Label -->
+                <legend>
+                    <label data-bind="text: poaSectionLabel"></label>
+                </legend>
+
+                <div class="oj-flex">
+                    <div class="oj-flex-item">
+                        <!-- Process table -->
+                        <div class="oj-margin">
+                            <!-- Label -->
+                            <label class="oj-label" data-bind="text: processTableLabel"></label>
+
+                            <!-- Table -->
+                            <table id="si-process-table" summary="Process Table" aria-label="Process Table" data-bind="ojComponent: {
+                                component: 'ojTable', 
+                                columns: processColumns,
+                                data: processDataSource, 
+                                display: 'grid',
+                                rootAttributes: {
+                                    'style': 'width: 1px; min-width: 100%; max-height: 250px;'
+                                },
+                                rowTemplate: 'processRowTemplate'
+                            }"></table>
+                        </div>
+
+                        <!-- Projects Table -->
+                        <div class="oj-margin">
+                            <!-- Label -->
+                            <label class="oj-label" data-bind="text: projectsTableLabel"></label>
+
+                            <!-- Table -->
+                            <table id="si-pide-table" summary="Projects Table" aria-label="Projects Table" data-bind="ojComponent: {
+                                component: 'ojTable', 
+                                columns: projectsColumns,
+                                data: projectsDataSource,
+                                display: 'grid',
+                                rootAttributes: {
+                                    'style': 'width: 1px; min-width: 100%; max-height: 250px;'
+                                },
+                                rowTemplate: 'projectRowTemplate'
+                            }"></table>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
     </div>
 
     <!-- Responsible section -->
@@ -802,6 +879,81 @@
         </div>
     </div>
 </div>
+
+<!-- PIDE row template -->
+<script type="text/html" id="pideRowTemplate">
+    <tr>
+        <td data-bind="text: Axe"></td>
+        <td data-bind="text: Topic"></td>
+        <td data-bind="text: Objective"></td>
+        <td>
+            <!-- Clone option -->
+            <i class="fa fa-clone fa-border fa-lg pointer" data-bind="click: $parent.pideCloneRow.bind($data, Axe, Topic, Objective)"></i>
+            
+            <!-- Delete option -->
+            <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.pideRemoveRow.bind($data, Id)"></i>
+        </td>
+    </tr>
+</script>
+
+<!-- PIDE edit row template -->
+<script type="text/html" id="pideEditRowTemplate">
+    <tr>
+        <td>
+            <select data-bind="ojComponent: {
+                component: 'ojSelect',
+                rootAttributes: {
+                    'id': 'new-axe-value-' + Id
+                },
+                options: $parent.axesOptions,
+                optionChange: $parent.axesChange.bind($data, Id, Axe),
+                value: Axe
+            }"></select>
+        </td>
+        <td>
+            <select data-bind="ojComponent: {
+                component: 'ojSelect',
+                rootAttributes: {
+                    'id': 'new-topic-value-' + Id
+                },
+                options: $parent.getTopicOptions(Id),
+                optionChange: $parent.topicsChange.bind($data, Id, Axe, Topic),
+                value: Topic
+            }"></select>
+        </td>
+        <td>
+            <select data-bind="ojComponent: {
+                component: 'ojSelect',
+                rootAttributes: {
+                    'id': 'new-objective-value-' + Id
+                },
+                options: $parent.getObjectiveOptions(Id),
+                value: Objective
+            }"></select>
+        </td>
+        <td>
+            <!-- Clone option -->
+            <i class="fa fa-clone fa-border fa-lg pointer" data-bind="click: $parent.pideCloneRow.bind($data, Axe, Topic, Objective)"></i>
+            
+            <!-- Delete option -->
+            <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.pideRemoveRow.bind($data, Id)"></i>
+        </td>
+    </tr>
+</script>
+
+<!-- Process row template -->
+<script type="text/html" id="processRowTemplate">
+    <tr>
+        <td data-bind="text: Process"></td>
+    </tr>
+</script>
+
+<!-- Project row template -->
+<script type="text/html" id="projectRowTemplate">
+    <tr>
+        <td data-bind="text: Project"></td>
+    </tr>
+</script>
 
 <!-- Goal Row Template -->
 <script type="text/html" id="goalRowTemplate">
