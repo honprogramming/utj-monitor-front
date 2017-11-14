@@ -99,65 +99,192 @@ define(
                     },
                     "indicators": {
                         "label": "Indicadores estratégicos",
-                        "dialogs": {
-                            "save": {
-                                "title": "Información",
-                                "success": "¡Datos guardados correctamente!",
-                                "error": "Se produjo un error al guardar los datos: "
+                        "main": {
+                            "dialogs": {
+                                "save": {
+                                    "title": "Información",
+                                    "success": "¡Datos guardados correctamente!",
+                                    "error": "Se produjo un error al guardar los datos: "
+                                },
+                                "reset": {
+                                    "title": "¡Cuidado!",
+                                    "warningText": "Todos los cambios realizados se perderán.",
+                                    "okButton": "Aceptar",
+                                    "cancelButton": "Cancelar"
+                                }
                             },
-                            "reset": {
-                                "title": "¡Cuidado!",
-                                "warningText": "Todos los cambios realizados se perderán.",
-                                "okButton": "Aceptar",
-                                "cancelButton": "Cancelar"
+                            "filters": {
+                                "general": {
+                                    "title": "Filtro General",
+                                    "type": "Tipo",
+                                    "status": "Status",
+                                    "periodicity": "Periodicidad"
+                                },
+                                "pide": {
+                                    "title": "Filtro PIDE",
+                                    "axis": "Ejes",
+                                    "topic": "Temas",
+                                    "objective": "Objetivos"
+                                },
+                                "responsible": {
+                                    "title": "Filtro Responsable",
+                                    "secretary": "Secretaría",
+                                    "area": "Área",
+                                    "name": "Nombre"
+                                }
+                            },
+                            "table": {
+                                "headers": {
+                                    "status": "Status",
+                                    "name": "Indicador",
+                                    "actions": "Acciones"
+                                },
+                                "pide": {
+                                    "title": "Indicadores PIDE",
+                                    "tableSummary": "Indicadores Estratégicos",
+                                    "tableAria": "Tabla de Indicadores Estratégicos",
+                                    "newErrorText": "Debes seleccionar un indicador",
+                                    "deleteErrorText": "No puedes eliminar indicadores que tengan objetivos"
+                                },
+                                "mecasut": {
+                                    "title": "MECASUT",
+                                    "tableSummary": "Indicadores Estratégicos",
+                                    "tableAria": "Tabla de Indicadores Estratégicos",
+                                    "newErrorText": "Debes seleccionar un indicador",
+                                    "deleteErrorText": "No puedes eliminar indicadores que tengan objetivos"
+                                },
+                                "pe": {
+                                    "title": "PE",
+                                    "tableSummary": "Indicadores Estratégicos",
+                                    "tableAria": "Tabla de Indicadores Estratégicos",
+                                    "newErrorText": "Debes seleccionar un indicador",
+                                    "deleteErrorText": "No puedes eliminar indicadores que tengan objetivos"
+                                }
                             }
                         },
-                        "filters": {
-                            "general": {
-                                "title": "Filtro General",
-                                "type": "Tipo",
-                                "status": "Status",
-                                "periodicity": "Periodicidad"
-                            },
-                            "pide": {
-                                "title": "Filtro PIDE",
-                                "axis": "Ejes",
-                                "topic": "Temas",
-                                "objective": "Objetivos"
-                            },
-                            "responsible": {
-                                "title": "Filtro Responsable",
-                                "secretary": "Secretaría",
-                                "area": "Área",
-                                "name": "Nombre"
-                            }
-                        },
-                        "table": {
-                            "headers": {
-                                "status": "Status",
-                                "name": "Indicador",
-                                "actions": "Acciones"
-                            },
-                            "pide": {
-                                "title": "Indicadores PIDE",
-                                "tableSummary": "Indicadores Estratégicos",
-                                "tableAria": "Tabla de Indicadores Estratégicos",
-                                "newErrorText": "Debes seleccionar un indicador",
-                                "deleteErrorText": "No puedes eliminar indicadores que tengan objetivos"
-                            },
-                            "mecasut": {
-                                "title": "MECASUT",
-                                "tableSummary": "Indicadores Estratégicos",
-                                "tableAria": "Tabla de Indicadores Estratégicos",
-                                "newErrorText": "Debes seleccionar un indicador",
-                                "deleteErrorText": "No puedes eliminar indicadores que tengan objetivos"
-                            },
-                            "pe": {
-                                "title": "PE",
-                                "tableSummary": "Indicadores Estratégicos",
-                                "tableAria": "Tabla de Indicadores Estratégicos",
-                                "newErrorText": "Debes seleccionar un indicador",
-                                "deleteErrorText": "No puedes eliminar indicadores que tengan objetivos"
+                        "form": {
+                            "sections": {
+                                "main": {
+                                    "type": "Tipo",
+                                    "active": "Activo/Inactivo"
+                                },
+                                "general": {
+                                    "title": "General",
+                                    "update": "Actualización",
+                                    "name": {
+                                        "label": "Nombre", 
+                                        "placeholder": "Nombre del indicador"
+                                    },
+                                    "description": {
+                                        "label": "Descripción", 
+                                        "placeholder": "Descripción del indicador"
+                                    },
+                                    "sense": "Sentido",
+                                    "measure": {
+                                        "label": "Unidad de medida",
+                                        "placeholder": "Unidad de medida"
+                                    },
+                                    'baseYear': {
+                                        "label": "Año base",
+                                        "placeholder": "Año base"
+                                    },
+                                    "periodicity": "Periodicidad",
+                                    "reboot": "Reinicio",
+                                    "rebootDates": "Fecha(s) de reinicio"
+                                },
+                                "alignment": {
+                                    "title": "Alineación",
+                                    "pide": {
+                                        "title": "PIDE"
+                                    },
+                                    "poa": {
+                                        "title": "POA",
+                                        "process": {
+                                            "title": "Procesos"
+                                        },
+                                        "projects": {
+                                            "title": "Proyectos"
+                                        }
+                                    }
+                                },
+                                "responsible": {
+                                    "title": "Responsable",
+                                    "secretary": "Secretaría",
+                                    "address": "Dirección",
+                                    "departmentHead": "Jefe de departamento",
+                                    "responsible": "Responsable",
+                                    "responsibleCharge": {
+                                        "label": "Cargo del responsable",
+                                        "placeholder": "Cargo del responsable"
+                                    },
+                                    "email": {
+                                        "label": "Correo-e",
+                                        "placeholder": "Correo del responsable"
+                                    },
+                                    "phone": {
+                                        "label": "Teléfono",
+                                        "placeholder": "Teléfono del responsable"
+                                    },
+                                    "extension": {
+                                        "label": "Extensión",
+                                        "placeholder": "Extensión telefónica"
+                                    },
+                                    "observations": "Observaciones"
+                                },
+                                "metadata": {
+                                    "title": "Metadato",
+                                    "source": {
+                                        "label": "Fuente",
+                                        "placeholder": "Fuente de la información"
+                                    },
+                                    "link": {
+                                        "label": "Vínculo",
+                                        "placeholder": "Dirección web"
+                                    },
+                                    "formula": {
+                                        "label": "Fórmula",
+                                        "placeholder": "Fórmula del indicador"
+                                    },
+                                    "variables": {
+                                        "label": "Variables",
+                                        "placeholder": "Variables utilizadas"
+                                    },
+                                    "method": {
+                                        "label": "Método",
+                                        "placeholder": "Método de elaboración"
+                                    },
+                                    "observations": {
+                                        "label": "Observaciones",
+                                        "placeholder": "Observaciones y aclaraciones"
+                                    },
+                                    "score": {
+                                        "label": "Calificación",
+                                        "red": "Rojo",
+                                        "orange": "Naranja",
+                                        "yellow": "Amarillo",
+                                        "green": "Verde"
+                                    }
+                                },
+                                "goals": {
+                                    "title": "Metas y avances",
+                                    "table": {
+                                        "goals": "Metas",
+                                        "progress": "Avances",
+                                        "columns": {
+                                            "value": "Valor",
+                                            "date": "Fecha",
+                                            "actions": "Acciones"
+                                        }
+                                    },
+                                    "risk": {
+                                        "label": "Riesgo potencial",
+                                        "placeholder": "Riesgo potencial"
+                                    },
+                                    "actions": {
+                                        "label": "Acciones implementadas",
+                                        "placeholder": "Acciones implementadas"
+                                    }
+                                }
                             }
                         }
                     },

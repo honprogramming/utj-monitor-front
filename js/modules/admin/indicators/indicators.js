@@ -37,27 +37,27 @@ define([
         self.title = AdminItems["indicators"]["label"];
 
         // General filter text
-        self.generalFilter = GeneralViewModel.nls("admin.indicators.filters.general.title");
-        self.typeLabel = GeneralViewModel.nls("admin.indicators.filters.general.type");
-        self.statusLabel = GeneralViewModel.nls("admin.indicators.filters.general.status");
-        self.periodicityLabel = GeneralViewModel.nls("admin.indicators.filters.general.periodicity");
+        self.generalFilter = GeneralViewModel.nls("admin.indicators.main.filters.general.title");
+        self.typeLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.type");
+        self.statusLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.status");
+        self.periodicityLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.periodicity");
 
         // PIDE filter text
-        self.pideFilter = GeneralViewModel.nls("admin.indicators.filters.pide.title");
-        self.axisLabel = GeneralViewModel.nls("admin.indicators.filters.pide.axis");
-        self.topicLabel = GeneralViewModel.nls("admin.indicators.filters.pide.topic");
-        self.objectiveLabel = GeneralViewModel.nls("admin.indicators.filters.pide.objective");
+        self.pideFilter = GeneralViewModel.nls("admin.indicators.main.filters.pide.title");
+        self.axisLabel = GeneralViewModel.nls("admin.indicators.main.filters.pide.axis");
+        self.topicLabel = GeneralViewModel.nls("admin.indicators.main.filters.pide.topic");
+        self.objectiveLabel = GeneralViewModel.nls("admin.indicators.main.filters.pide.objective");
 
         // Responsible filter text
-        self.responsibleFilter = GeneralViewModel.nls("admin.indicators.filters.responsible.title");
-        self.secretaryLabel = GeneralViewModel.nls("admin.indicators.filters.responsible.secretary");
-        self.areaLabel = GeneralViewModel.nls("admin.indicators.filters.responsible.area");
-        self.nameLabel = GeneralViewModel.nls("admin.indicators.filters.responsible.name");
+        self.responsibleFilter = GeneralViewModel.nls("admin.indicators.main.filters.responsible.title");
+        self.secretaryLabel = GeneralViewModel.nls("admin.indicators.main.filters.responsible.secretary");
+        self.areaLabel = GeneralViewModel.nls("admin.indicators.main.filters.responsible.area");
+        self.nameLabel = GeneralViewModel.nls("admin.indicators.main.filters.responsible.name");
 
         // Table columns
         self.columns = [
             {
-                headerText: GeneralViewModel.nls("admin.indicators.table.headers.name"),
+                headerText: GeneralViewModel.nls("admin.indicators.main.table.headers.name"),
                 headerStyle: 'min-width: 50%; max-width: 50em; width: 85%',
                 headerClassName: 'oj-helper-text-align-start',
                 style: 'min-width: 50%; max-width: 50em; width: 85%;',
@@ -65,7 +65,7 @@ define([
                 sortProperty: 'name'
             },
             {
-                headerText: GeneralViewModel.nls("admin.indicators.table.headers.actions"),
+                headerText: GeneralViewModel.nls("admin.indicators.main.table.headers.actions"),
                 headerStyle: 'min-width: 2em; max-width: 5em; width: 15%',
                 headerClassName: 'oj-helper-text-align-start',
                 style: 'min-width: 2em; max-width: 5em; width: 15%; text-align:center;',
@@ -75,15 +75,15 @@ define([
 
         // Reset dialog text
         self.resetDialogId = "indicators-reset-dialog";
-        self.resetDialogTitle = GeneralViewModel.nls("admin.indicators.dialogs.reset.title");
-        self.resetWarningText = GeneralViewModel.nls("admin.indicators.dialogs.reset.warningText");
-        self.resetDialogOkButtonLabel = GeneralViewModel.nls("admin.indicators.dialogs.reset.okButton");
-        self.resetDialogCancelButtonLabel = GeneralViewModel.nls("admin.indicators.dialogs.reset.cancelButton");
+        self.resetDialogTitle = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.title");
+        self.resetWarningText = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.warningText");
+        self.resetDialogOkButtonLabel = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.okButton");
+        self.resetDialogCancelButtonLabel = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.cancelButton");
 
         // Save dialog text
         self.saveDialogId = "indicators-save-dialog";
         self.saveMessage = ko.observable();
-        self.saveDialogTitle = GeneralViewModel.nls("admin.indicators.dialogs.save.title");
+        self.saveDialogTitle = GeneralViewModel.nls("admin.indicators.main.dialogs.save.title");
         var saveDialogClass = "";
 
         // Form actions
@@ -237,12 +237,12 @@ define([
 
             self.indicatorsTable = new EditableTable(indicatorsArray, indicatorsModel, {
                 id: "indicators-table",
-                title: GeneralViewModel.nls("admin.indicators.table.pide.title"),
-                tableSummary: GeneralViewModel.nls("admin.indicators.table.pide.tableSummary"),
-                tableAria: GeneralViewModel.nls("admin.indicators.table.pide.tableAria"),
+                title: GeneralViewModel.nls("admin.indicators.main.table.pide.title"),
+                tableSummary: GeneralViewModel.nls("admin.indicators.main.table.pide.tableSummary"),
+                tableAria: GeneralViewModel.nls("admin.indicators.main.table.pide.tableAria"),
                 columns: self.columns,
-                newErrorText: GeneralViewModel.nls("admin.indicators.table.pide.newErrorText"),
-                deleteErrorText: GeneralViewModel.nls("admin.indicators.table.pide.deleteErrorText"),
+                newErrorText: GeneralViewModel.nls("admin.indicators.main.table.pide.newErrorText"),
+                deleteErrorText: GeneralViewModel.nls("admin.indicators.main.table.pide.deleteErrorText"),
                 deleteValidator: hasNoChildren,
                 actions: ["delete", "clone", "read", "edit"],
                 newValidator: function () {

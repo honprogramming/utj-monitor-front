@@ -38,6 +38,13 @@ define(
                     module: {
                         name: "admin/poa/editPoa"
                     }
+                },
+                form: {
+                    id: "form",
+                    label: "Formulario Indicadores",
+                    module: {
+                        name: "admin/form/form"
+                    }
                 }
                 
             };
