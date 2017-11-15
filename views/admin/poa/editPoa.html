@@ -416,6 +416,21 @@ and open the template in the editor.
                     </div>
                 </div>
                 
+                <div class="oj-flex" style="float: right; margin-top: 2%">                  
+                    <div class="oj-flex-item">
+
+                        <button id='button' class="right-align" data-bind="ojComponent: {
+                            component: 'ojButton',
+                            label: buttonLabel,
+                            required: false,
+                            rootAttributes: {
+                                style: 'height: 100% ; max-width: 100%;'
+                            }
+                        }"></button>
+
+                    </div>      
+                </div>
+                
             </fieldset>
             
              <!-- TABLA INDICADORES ALINEADOS -->
@@ -848,29 +863,20 @@ and open the template in the editor.
                 
 </div>
 
-<!-- COLUMNA TEMPLATE -->
-<script type="text/html" id="goalRowTemplate">
+<!-- ROW TEMPLATE -->
+<script type="text/html" id="RowTemplate">
     <tr>
         <td data-bind="text: Mes"></td>
-        <td data-bind="text: Ene"></td>
-        <td data-bind="text: Feb"></td>
-        <td data-bind="text: Mar"></td>
-        <td data-bind="text: Abr"></td>
-        <td data-bind="text: May"></td>
-        <td data-bind="text: Jun"></td>
-        <td data-bind="text: Jul"></td>
-        <td data-bind="text: Ago"></td>
-        <td data-bind="text: Sep"></td>
-        <td data-bind="text: Oct"></td>
-        <td data-bind="text: Nov"></td>
-        <td data-bind="text: Dic"></td> 
-    </tr>
+        <!--ko foreach: $parent.lineGroupsValue-->
+        <td data-bind="text: $data"></td>
+        <!--/ko-->
+    </tr>       
 </script>
 
 <!-- EDITAR COLUMNA TEMPLATE -->
-<script type="text/html" id="goalEditRowTemplate">
+<script type="text/html" id="EditRowTemplate">
   
-    <tr data-bind="ifnot: Mes === '% Avance'">
+    <!--<tr data-bind="ifnot: Mes === '% Avance'">-->
         <td data-bind="text: Mes"></td>
         <td>
             <input data-bind="ojComponent: {
@@ -947,7 +953,7 @@ and open the template in the editor.
     </tr> 
 </script>
 
-<script type="text/html" id="advanceRowTemplate">
+<!--<script type="text/html" id="advanceRowTemplate">
     <tr data-bind="if: Mes === '% Avance'">
         <td data-bind="text: Mes"></td>
         <td data-bind="text: Ene"></td>
@@ -963,5 +969,5 @@ and open the template in the editor.
         <td data-bind="text: Nov"></td>
         <td data-bind="text: Dic"></td>
     </tr>
-</script>
+</script>-->
 

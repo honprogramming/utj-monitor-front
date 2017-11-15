@@ -123,7 +123,7 @@ function(oj, $, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataP
             self.yellowLabel = GeneralViewModel.nls("admin.poa.edit.general.qualification.yellow");
             self.yellowValue = ko.observable(0.80);
             self.greenLabel = GeneralViewModel.nls("admin.poa.edit.general.qualification.green");
-            self.greenValue = ko.observable(0.100);
+            self.greenValue = ko.observable(1.00);
             
             //SECCIÓN ALINEACIÓN
             self.alignmentTitle = GeneralViewModel.nls("admin.poa.edit.alineacion.title");
@@ -168,6 +168,10 @@ function(oj, $, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataP
                 {value: self.indicators2, label: self.indicators2}
             ]);
             self.indicatorsValue = ko.observable(self.indicators1);
+            
+            //BOTÓN
+            self.buttonLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.button");
+            self.buttonValue = ko.observable();
                         
             // TABLA INDICADORES ALINEADOS
             self.columns = [
@@ -393,121 +397,138 @@ function(oj, $, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataP
             ];
 
             self.advanceRow = function (value, goalFinal) {
+                    
+                    var advanceValue = (value * 100) / goalFinal;
+                    
+                    var valueTotal = advanceValue.toFixed(2);
+                    
+                    return valueTotal;
+                    
+                };
+                
+                var advanceArray = [];
+                
+                var goalArray = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24];
 
-                var advanceValue = (value * 100) / goalFinal;
+                self.goalObservableArray = ko.observableArray(goalArray);
+                
+                var valueArray = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23];
+               
+                self.valueObservableArray = ko.observableArray(valueArray);
+                
+                for (var i = 0; i < valueArray.length; i++){
 
-                return advanceValue;
+                    advanceArray[i] =  self.advanceRow(self.valueObservableArray()[i], self.goalObservableArray()[11]);
 
-            };
+                };
+                
+                self.advanceObservableArray = ko.observableArray(advanceArray);
+           
+                var tableArray = [
 
-            var tableArray = [
-
-                {Mes: 'Meta', Ene: 22, Feb: 4, Mar: 6, Abr: 8, May: 10, Jun: 12, Jul: 14, Ago: 16, Sep: 18, Oct: 20, Nov: 22, Dic: 100},
-                {Mes: 'Valor', Ene: 10, Feb: 4, Mar: 6, Abr: 8, May: 10, Jun: 12, Jul: 14, Ago: 16, Sep: 18, Oct: 20, Nov: 22, Dic: 24},
-                {Mes: '% Avance', Ene: 10, Feb: 20, Mar: 30, Abr: 40, May: 50, Jun: 60, Jul: 70, Ago: 80, Sep: 90, Oct: 95, Nov: 98, Dic: 100}
-
-            ];
-
-            self.tableObservableArray = ko.observableArray(tableArray);
-            self.dataSource = new oj.ArrayTableDataSource(self.tableObservableArray, { idAttribute: 'Mes' });
-
-            var goalArray = [
-
-                {Mes: self.tableObservableArray()[0].Mes, Ene: self.tableObservableArray()[0].Ene, Feb: self.tableObservableArray()[0].Feb, Mar: self.tableObservableArray()[0].Mar, Abr: self.tableObservableArray()[0].Abr, May: self.tableObservableArray()[0].May,
-                    Jun: self.tableObservableArray()[0].Jun, Jul: self.tableObservableArray()[0].Jul, Ago: self.tableObservableArray()[0].Ago, Sep: self.tableObservableArray()[0].Sep, Oct: self.tableObservableArray()[0].Oct,
-                    Nov: self.tableObservableArray()[0].Nov, Dic: self.tableObservableArray()[0].Dic}
-
-            ];
-
-            self.goalObservableArray = ko.observableArray(goalArray);
-
-            var valueArray = [
-
-                 {Mes: self.tableObservableArray()[1].Mes, Ene: self.tableObservableArray()[1].Ene, Feb: self.tableObservableArray()[1].Feb, Mar: self.tableObservableArray()[1].Mar, Abr: self.tableObservableArray()[1].Abr, May: self.tableObservableArray()[1].May,
-                    Jun: self.tableObservableArray()[1].Jun, Jul: self.tableObservableArray()[1].Jul, Ago: self.tableObservableArray()[1].Ago, Sep: self.tableObservableArray()[1].Sep, Oct: self.tableObservableArray()[1].Oct,
-                    Nov: self.tableObservableArray()[1].Nov, Dic: self.tableObservableArray()[1].Dic}
-
-            ];
-
-            self.valueObservableArray = ko.observableArray(valueArray);
-
-            var advanceArray = [
-
-                {Mes: self.tableObservableArray()[2].Mes, Ene: self.tableObservableArray()[2].Ene, Feb: self.tableObservableArray()[2].Feb, Mar: self.tableObservableArray()[2].Mar, Abr: self.tableObservableArray()[2].Abr, May: self.tableObservableArray()[2].May,
-                    Jun: self.tableObservableArray()[2].Jun, Jul: self.tableObservableArray()[2].Jul, Ago: self.tableObservableArray()[2].Ago, Sep: self.tableObservableArray()[2].Sep, Oct: self.tableObservableArray()[2].Oct,
-                    Nov: self.tableObservableArray()[2].Nov, Dic: self.tableObservableArray()[2].Dic}
-
-            ];
-
-            self.advanceObservableArray = ko.observableArray(advanceArray);
-
-            // ROW TEMPLATE TABLA
-            self.getTableRowTemplate = function (data, context) {
-                var mode = context.$rowContext['mode'];
-                return mode === 'edit' ? 'goalEditRowTemplate' : 'goalRowTemplate';
-            };
-
-            //GRAFICA 
-
-            var lineGroups = ["Ene", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
-
-            self.lineGroupsValue = ko.observableArray(lineGroups);
-
-            /**
-             * Update chart values.
-             * 
-             * @returns {void}
-             */
-            self.updateChart = function () {
-
-                var lineSeries = [
-                    {name: "Metas", items: []},
-                    {name: "Avances", items: [], assignedToY2: 'on'}
+                    /*[
+                        'Meta', [self.goalObservableArray()[0], self.goalObservableArray()[1], self.goalObservableArray()[2],
+                        self.goalObservableArray()[3], self.goalObservableArray()[4], self.goalObservableArray()[5], self.goalObservableArray()[6], 
+                        self.goalObservableArray()[7], self.goalObservableArray()[8], self.goalObservableArray()[9], self.goalObservableArray()[10], 
+                        self.goalObservableArray()[11]]
+                    ],
+                    [
+                        'Valor', [self.valueObservableArray()[0], self.valueObservableArray()[1], self.valueObservableArray()[2],
+                        self.valueObservableArray()[3], self.valueObservableArray()[4], self.valueObservableArray()[5], self.valueObservableArray()[6],
+                        self.valueObservableArray()[7], self.valueObservableArray()[8], self.valueObservableArray()[9], self.valueObservableArray()[10],
+                        self.valueObservableArray()[11]]
+                    ],
+                    [
+                        '% Avance', [self.advanceObservableArray()[0], self.advanceObservableArray()[1], self.advanceObservableArray()[2], 
+                        self.advanceObservableArray()[3], self.advanceObservableArray()[4], self.advanceObservableArray()[5], self.advanceObservableArray()[6],
+                        self.advanceObservableArray()[7], self.advanceObservableArray()[8], self.advanceObservableArray()[9], self.advanceObservableArray()[10], 
+                        self.advanceObservableArray()[11]]
+                    ]*/
+                    {Mes: 'Meta', Ene: self.goalObservableArray()[0], Feb: self.goalObservableArray()[1], Mar: self.goalObservableArray()[2], 
+                        Abr: self.goalObservableArray()[3], May: self.goalObservableArray()[4], Jun: self.goalObservableArray()[5],
+                        Jul: self.goalObservableArray()[6], Ago: self.goalObservableArray()[7], Sep: self.goalObservableArray()[8],
+                        Oct: self.goalObservableArray()[9], Nov: self.goalObservableArray()[10], Dic: self.goalObservableArray()[11]},
+                    {Mes: 'Valor', Ene: self.valueObservableArray()[0], Feb: self.valueObservableArray()[1], Mar: self.valueObservableArray()[2], 
+                        Abr: self.valueObservableArray()[3], May: self.valueObservableArray()[4], Jun: self.valueObservableArray()[5],
+                        Jul: self.valueObservableArray()[6], Ago: self.valueObservableArray()[7], Sep: self.valueObservableArray()[8],
+                        Oct: self.valueObservableArray()[9], Nov: self.valueObservableArray()[10], Dic: self.valueObservableArray()[11]},
+                    {Mes: '% Avance', Ene: self.advanceObservableArray()[0], Feb: self.advanceObservableArray()[1], Mar: self.advanceObservableArray()[2],
+                        Abr: self.advanceObservableArray()[3], May: self.advanceObservableArray()[4], Jun: self.advanceObservableArray()[5],
+                        Jul: self.advanceObservableArray()[6], Ago: self.advanceObservableArray()[7], Sep: self.advanceObservableArray()[8],
+                        Oct: self.advanceObservableArray()[9], Nov: self.advanceObservableArray()[10], Dic: self.advanceObservableArray()[11]}
+                
                 ];
 
-                self.goalObservableArray().forEach(function (goal) {
+                self.tableObservableArray = ko.observableArray(tableArray);
+                self.dataSource = new oj.ArrayTableDataSource(self.tableObservableArray);
 
-                    //if (index !== 1) {
+                // ROW TEMPLATE TABLA
+                self.getTableRowTemplate = function (data, context) {
+                    var mode = context.$rowContext['mode'];
+                    return mode === 'edit' ? 'EditRowTemplate' : 'RowTemplate';
+                };
 
-                        lineSeries[0].items = [
-                            goal.Ene, // Goal value
-                            goal.Feb, // Goal value
-                            goal.Mar, // Goal value
-                            goal.Abr, // Goal value
-                            goal.May, // Goal value
-                            goal.Jun, // Goal value
-                            goal.Jul, // Goal value
-                            goal.Ago, // Goal value
-                            goal.Sep, // Goal value
-                            goal.Oct, // Goal value
-                            goal.Nov, // Goal value
-                            goal.Dic  // Goal value
-                        ];
-                    //}
-                });
+                //GRAFICA 
+                var lineGroups = ["Ene", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 
-                self.advanceObservableArray().forEach(function (advance) {
+                self.lineGroupsValue = ko.observableArray(lineGroups);
 
-                    lineSeries[1].items = [
-                        advance.Ene, // advance value
-                        advance.Feb, // advance value
-                        advance.Mar, // advance value
-                        advance.Abr, // advance value
-                        advance.May, // advance value
-                        advance.Jun, // advance value
-                        advance.Jul, // advance value
-                        advance.Ago, // advance value
-                        advance.Sep, // advance value
-                        advance.Oct, // advance value
-                        advance.Nov, // advance value
-                        advance.Dic  // advance value
+                /**
+                 * Update chart values.
+                 * 
+                 * @returns {void}
+                 */
+                self.updateChart = function () {
+
+                    var lineSeries = [
+                        {name: "Metas", items: []},
+                        {name: "Avances", items: [], assignedToY2: 'on'}
                     ];
 
-                });
+                    //self.goalObservableArray().forEach(function (goal) {
 
-                self.lineSeriesValue = ko.observableArray(lineSeries);
+                        //if (index !== 1) {
 
-            };
+                            lineSeries[0].items = [
+                                
+                                self.tableObservableArray()[0].Ene, // Goal value
+                                self.tableObservableArray()[0].Feb, // Goal value
+                                self.tableObservableArray()[0].Mar, // Goal value
+                                self.tableObservableArray()[0].Abr, // Goal value
+                                self.tableObservableArray()[0].May, // Goal value
+                                self.tableObservableArray()[0].Jun, // Goal value
+                                self.tableObservableArray()[0].Jul, // Goal value
+                                self.tableObservableArray()[0].Ago, // Goal value
+                                self.tableObservableArray()[0].Sep, // Goal value
+                                self.tableObservableArray()[0].Oct, // Goal value
+                                self.tableObservableArray()[0].Nov, // Goal value
+                                self.tableObservableArray()[0].Dic  // Goal value*/
+                            ];
+                        //}
+                    //});
+
+                    //self.advanceObservableArray().forEach(function (advance) {
+
+                        lineSeries[1].items = [
+                            self.tableObservableArray()[2].Ene, // advance value
+                            self.tableObservableArray()[2].Feb, // advance value
+                            self.tableObservableArray()[2].Mar, // advance value
+                            self.tableObservableArray()[2].Abr, // advance value
+                            self.tableObservableArray()[2].May, // advance value
+                            self.tableObservableArray()[2].Jun, // advance value
+                            self.tableObservableArray()[2].Jul, // advance value
+                            self.tableObservableArray()[2].Ago, // advance value
+                            self.tableObservableArray()[2].Sep, // advance value
+                            self.tableObservableArray()[2].Oct, // advance value
+                            self.tableObservableArray()[2].Nov, // advance value
+                            self.tableObservableArray()[2].Dic  // advance value
+                        ];
+
+                    //});
+
+                    self.lineSeriesValue = ko.observableArray(lineSeries);
+
+                };
 
             // Update chart values
             self.updateChart();

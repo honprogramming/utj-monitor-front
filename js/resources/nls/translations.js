@@ -331,7 +331,8 @@ define(
                                     "axes": "Ejes",
                                     "themes": "Temas",
                                     "objectives": "Objetivos",
-                                    "indicators": "Selecciona el nombre del indicador"
+                                    "indicators": "Selecciona el nombre del indicador",
+                                    "button" : "Agregar"
                                 },
                                 "tableAlignedIndicators": {
                                     "headers": {
