@@ -329,7 +329,7 @@ define(
                                 "alineacionPide": {
                                     "label": "Alineación PIDE",
                                     "axes": "Ejes",
-                                    "themes": "Temas",
+                                    "topics": "Temas",
                                     "objectives": "Objetivos",
                                     "indicators": "Selecciona el nombre del indicador",
                                     "button" : "Agregar"

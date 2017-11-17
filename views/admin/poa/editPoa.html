@@ -348,12 +348,13 @@ and open the template in the editor.
 
                         <select id='select-axes-alignment' data-bind="ojComponent: {
                             component: 'ojSelect',
-                            options: axesOptions,
+                            options: poaAxesOptions,
+                            optionChange: poaAxesChange,
                             required: false,
                             rootAttributes: {
                               style: 'max-height: 100%; max-width: 100%;'
                             },
-                            value: axesValue
+                            value: poaAxesValue
                         }"></select>
 
                     </div>
@@ -363,16 +364,17 @@ and open the template in the editor.
                 <div class="oj-flex" style="margin-bottom: 1%">
                     <div class="oj-flex-item">
 
-                        <label for='select-themes'data-bind="text: themesLabel"></label>
+                        <label for='select-topics'data-bind="text: topicsLabel"></label>
 
-                        <select id='select-themes' data-bind="ojComponent: {
+                        <select id='select-topics' data-bind="ojComponent: {
                             component: 'ojSelect',
-                            options: themesOptions,
+                            options: poaTopicsOptions,
+                            optionChange: poaTopicsChange,
                             required: false,
                             rootAttributes: {
                               style: 'max-height: 100%; max-width: 100%;'
                             },
-                            value: themesValue
+                            value: poaTopicsValue
                         }"></select>
 
                     </div>
@@ -386,31 +388,32 @@ and open the template in the editor.
 
                         <select id='select-objectives' data-bind="ojComponent: {
                             component: 'ojSelect',
-                            options: objectivesOptions,
+                            options: poaObjectivesOptions,
+                            optionChange: poaObjectivesChange,
                             required: false,
                             rootAttributes: {
                               style: 'max-height: 100%; max-width: 100%;'
                             },
-                            value: objectivesValue
+                            value: poaObjectivesValue
                         }"></select>
 
                     </div>
                 </div>
 
-                <!-- OBJETIVOS -->
+                <!-- INDICADORES -->
                 <div class="oj-flex" style="margin-bottom: 1%">
                     <div class="oj-flex-item">
 
-                        <label for='select-indicators'data-bind="text: indicatorsLabel"></label>
+                        <label for='select-poaIndicators'data-bind="text: indicatorsLabel"></label>
 
-                        <select id='select-indicators' data-bind="ojComponent: {
+                        <select id='select-poaIndicators' data-bind="ojComponent: {
                             component: 'ojSelect',
-                            options: indicatorsOptions,
+                            options: poaIndicatorsOptions,
                             required: false,
                             rootAttributes: {
                               style: 'max-height: 100%; max-width: 100%;'
                             },
-                            value: indicatorsValue
+                            value: poaIndicatorsValue
                         }"></select>
 
                     </div>
@@ -694,7 +697,7 @@ and open the template in the editor.
                             rootAttributes: {
                                 style: 'max-height: 100%; max-width: 100%;'
                             },
-                            value: indicatorsValue
+                            value: indicatorValue
                         }">
                     </div>
                 </div>

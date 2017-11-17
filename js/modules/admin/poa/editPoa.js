@@ -14,8 +14,8 @@ define([
     'data/DataProvider',
     'templates/EditableTable',
     'templates/FormActions',
+    'modules/admin/poa/model/StrategicItem',
     'ojs/ojknockout', 
-    'ojs/ojselectcombobox',
     'ojs/ojcollapsible',
     'ojs/ojinputtext',
     'ojs/ojtable',
@@ -24,16 +24,14 @@ define([
     'ojs/ojarraytabledatasource',
     'ojs/ojselectcombobox',
     'promise',
-    'ojs/ojtable',
     'ojs/ojradioset',
     'ojs/ojinputnumber',
     'ojs/ojdatetimepicker',
-    'ojs/ojtable',
     'ojs/ojchart',
     'ojs/ojdatagrid',
     'ojs/ojarraydatagriddatasource'
 ],
-function(oj, $, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvider, EditableTable, FormActions)
+function(oj, $, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataProvider, EditableTable, FormActions, StrategicItem)
 {   
         function PoaEditViewModel() {
 	    var self = this;
@@ -131,44 +129,264 @@ function(oj, $, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel, DataP
             
             //EJES
             self.axesLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.axes");
-            self.axes1 = "Eje 1";
-            self.axes2 = "Eje 2";
-            self.axesOptions = ko.observableArray([
-                {value: self.axes1, label: self.axes1}, 
-                {value: self.axes2, label: self.axes2}
-            ]);
-            self.axesValue = ko.observable(self.axes1);
+            self.poaAxesOptions = ko.observableArray([]);
+            self.poaAxesValue = ko.observable("");
             
             //TEMAS
-            self.themesLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.themes");
-            self.themes1 = "Tema 1";
-            self.themes2 = "Tema 2";
-            self.themesOptions = ko.observableArray([
-                {value: self.themes1, label: self.themes1}, 
-                {value: self.themes2, label: self.themes2}
-            ]);
-            self.themesValue = ko.observable(self.themes1);
+            self.topicsLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.topics");
+            self.poaTopicsOptions = ko.observableArray([]);
+            self.poaTopicsValue = ko.observable("");
             
             //OBJETIVOS
             self.objectivesLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.objectives");
-            self.objectives1 = "Objetivo 1";
-            self.objectives2 = "Objetivo 2";
-            self.objectivesOptions = ko.observableArray([
-                {value: self.objectives1, label: self.objectives1}, 
-                {value: self.objectives2, label: self.objectives2}
-            ]);
-            self.objectivesValue = ko.observable(self.objectives1);
+            self.poaObjectivesOptions = ko.observableArray([]);
+            self.poaObjectivesValue = ko.observable("");
             
             //INDICADORES
             self.indicatorsLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.indicators");
-            self.indicators1 = "Indicador 1";
-            self.indicators2 = "Indicador 2";
-            self.indicatorsOptions = ko.observableArray([
-                {value: self.indicators1, label: self.indicators1}, 
-                {value: self.indicators2, label: self.indicators2}
-            ]);
-            self.indicatorsValue = ko.observable(self.indicators1);
+            self.poaIndicatorsOptions = ko.observableArray([]);
+            self.poaIndicatorsValue = ko.observable("");
             
+             /**
+             * Axes change event.
+             * 
+             * Triggered after changing the Axes combobox.
+             * 
+             * @param {*} event 
+             * @param {*} data 
+             */
+            self.poaAxesChange = function (event, data) {
+                // If the new value is not empty
+                if (data.value !== "") {
+                     // IF the axes value has changed / the change option is triggered because the options has changed.
+                    if (data.option === "options") {
+                        // Set new objective options
+                        self.poaTopicsOptions(self.getTopics(data.value[0].value));
+                    } else {
+                        // Set new objective options
+                        self.poaTopicsOptions(self.getTopics(data.value));
+                    }
+                }
+            };
+
+            /**
+             * Topics change event.
+             * 
+             * Triggered after changing the PE Topics combobox.
+             * 
+             * @param {*} event 
+             * @param {*} data 
+             */
+            self.poaTopicsChange = function (event, data) {
+                // If the new value is not empty
+                if (data.value !== "") {
+                    // IF the axes value has changed / the change option is triggered because the options has changed.
+                    if (data.option === "options") {
+                        // Set new objective options
+                        self.poaObjectivesOptions(self.getObjectives(self.poaAxesValue(), data.value[0].value));
+                    } else {
+                        // Set new objective options
+                        self.poaObjectivesOptions(self.getObjectives(self.poaAxesValue(), data.value));
+                    }
+                }
+            };
+
+            /**
+             * Objectives change event.
+             * 
+             * Triggered after changing the PE Objectives combobox.
+             * 
+             * @param {*} event 
+             * @param {*} data 
+             */
+            self.poaObjectivesChange = function (event, data) {
+                // If the new value is not empty
+                if (data.value !== "") {
+                    // IF the topics value has changed / the change option is triggered because the options has changed.
+                    if (data.option === "options") {
+                        // Set new indicators options
+                        self.poaIndicatorsOptions(self.getIndicators(self.poaAxesValue(), self.poaTopicsValue(), data.value[0].value));
+                    } else {
+                        // Set new indicators options
+                        self.poaIndicatorsOptions(self.getIndicators(self.poaAxesValue(), self.poaTopicsValue(), data.value));
+                    }
+                }
+            };
+            
+             // Full strategic items
+            self.strategicItems = [];
+
+            // Filtered strategic items
+            self.strategicArray = [];
+
+            // Get strategic items data
+            $.getJSON("data/strategic-items.json")
+                .done(function (data) {
+                    // Get all strategic items
+                    self.strategicItems = data.map(function (element) {
+                        return new StrategicItem(element.id, element.name, element.strategicType.name, element.children);
+                    });
+  
+                    // Get axes
+                    self.strategicArray = self.strategicItems.filter(function (element) {
+                        return element.type === "axe";
+                    });
+                    
+                    self.strategicArray.forEach(function (axe) {
+                        // Get topics
+                        axe.children = axe.children.map(function (topic) {
+                            return self.strategicItems.filter(function (element) {
+                                return element.id === topic && element.type === "topic";
+                            })[0];
+                        });
+
+                        axe.children.forEach(function (topic) {
+                            // Get objectives
+                            topic.children = topic.children.map(function (objective) {
+                                return self.strategicItems.filter(function (element) {
+                                    return element.id === objective && element.type === "objective";
+                                })[0];
+                            });
+
+                            // Filter undefined
+                            topic.children = topic.children.filter(function (element) {
+                                return typeof element !== "undefined";
+                            });
+
+                            topic.children.forEach(function (objective) {
+                                // Get indicators
+                                objective.children = objective.children.map(function (indicator) {
+                                    return self.strategicItems.filter(function (element) {
+                                        return element.id === indicator && element.type === "indicator";
+                                    })[0];
+                                });
+
+                                // Filter undefined
+                                objective.children = objective.children.filter(function (element) {
+                                    return typeof element !== "undefined";
+                                });
+                            });
+                        });
+                    });
+    
+                    // New Axes' combobox options
+                    self.poaAxesOptions(self.getAxes());
+                    
+                    // New Topics' combobox options
+                    self.poaTopicsOptions(self.getTopics(self.strategicArray[0].name));
+
+                    // New Objectives' combobox options
+                    self.poaObjectivesOptions(self.getObjectives(self.strategicArray[0].name, self.strategicArray[0].children[0].name));
+
+                    // New Indicators' combobox options
+                    self.poaIndicatorsOptions(self.getIndicators(
+                        self.strategicArray[0].name, // First axe
+                        self.strategicArray[0].children[0].name, // First topic
+                        self.strategicArray[0].children[0].children[0].name // First objective
+                    ));
+                })
+                .fail(function (data) {
+                    console.log("Mal", data);
+                });
+                
+                /**
+                 * Get axes options.
+                 * @returns {array}
+                 */
+                self.getAxes = function () {
+                    // Get all axes.
+                    let axes = self.strategicArray.map(function (axe) {
+                        return { value: axe.name, label: axe.name };
+                    });
+
+                    return axes;
+                };
+
+                /**
+                 * Get Topic array.
+                 * @param {string} search
+                 * @returns {array}
+                 */
+                self.getTopics = function (search) {
+                    // In case the value comes in [] or {} format
+                    search = typeof search === 'object' ? search[0] : search;
+
+                    // Get first coincidence of the searched axe.
+                    let searchAxe = self.strategicArray.filter(function (axe) {
+                        return axe.name === search;
+                    })[0];
+
+                    // Get all topics from the searched axe.
+                    let topics = searchAxe.children.map(function (topic) {
+                        return { value: topic.name, label: topic.name };
+                    });
+
+                    return topics;
+                };
+
+                /**
+                 * Get Objectives array.
+                 * @param {any} searchAxe 
+                 * @param {any} searchTopic 
+                 */
+                self.getObjectives = function (searchAxe, searchTopic) {
+                    // In case the value comes in [] or {} format
+                    searchAxe = typeof searchAxe === 'object' ? searchAxe[0] : searchAxe;
+                    searchTopic = typeof searchTopic === 'object' ? searchTopic[0] : searchTopic;
+
+                    // Get first coincidence of the searched axe.
+                    let axeArray = self.strategicArray.filter(function (axe) {
+                        return axe.name === searchAxe;
+                    })[0];
+
+                    // Get first coincidence of the searched topic.
+                    let topicArray = axeArray.children.filter(function (topic) {
+                        return topic.name === searchTopic;
+                    })[0];
+
+                    // Get all objectives from the searched topic.
+                    let objectives = topicArray.children.map(function (topic) {
+                        return { value: topic.name, label: topic.name };
+                    });
+
+                    return objectives;
+                };
+
+                /**
+                 * Get Indicators array.
+                 * @param {*} searchAxe 
+                 * @param {*} searchTopic 
+                 * @param {*} searchObjective 
+                 */
+                self.getIndicators = function (searchAxe, searchTopic, searchObjective) {
+                    // In case the value comes in [] or {} format
+                    searchAxe = typeof searchAxe === 'object' ? searchAxe[0] : searchAxe;
+                    searchTopic = typeof searchTopic === 'object' ? searchTopic[0] : searchTopic;
+                    searchObjective = typeof searchObjective === 'object' ? searchObjective[0] : searchObjective;
+
+                    // Get first coincidence of the searched axe.
+                    let axeArray = self.strategicArray.filter(function (axe) {
+                        return axe.name === searchAxe;
+                    })[0];
+
+                    // Get first coincidence of the searched topic.
+                    let topicArray = axeArray.children.filter(function (topic) {
+                        return topic.name === searchTopic;
+                    })[0];
+
+                    // Get first coincidence of the searched objective.
+                    let objectivesArray = topicArray.children.filter(function (objective) {
+                        return objective.name === searchObjective;
+                    })[0];
+
+                    // Get all indicators from the searched objective.
+                    let indicators = objectivesArray.children.map(function (indicator) {
+                        return { value: indicator.name, label: indicator.name };
+                    });
+
+                    return indicators;
+                };
+                
             //BOTÓN
             self.buttonLabel = GeneralViewModel.nls("admin.poa.edit.alineacion.alineacionPide.button");
             self.buttonValue = ko.observable();
