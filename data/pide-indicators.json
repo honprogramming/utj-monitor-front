@@ -14,7 +14,7 @@
                     {
                         "title": "Número de programas educativos acreditados ante COPAES",
                         "attr": {
-                            "id": "indicador1.1.1",
+                            "id": "indicator1.1.1",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -34,7 +34,7 @@
                     {
                         "title": "Tasa de reprobación de los estudiantes de TSU (anual)",
                         "attr": {
-                            "id": "indicador1.2.1",
+                            "id": "indicator1.2.1",
                             "type": "indicator"
                         },
                         "unit-type": "percentage",
@@ -46,7 +46,7 @@
                     {
                         "title": "Tasa de reprobación de los estudiantes de ingeniería (anual)",
                         "attr": {
-                            "id": "indicador1.2.2",
+                            "id": "indicator1.2.2",
                             "type": "indicator"
                         },
                         "unit-type": "percentage",
@@ -58,7 +58,7 @@
                     {
                         "title": "Promedio global de calificaciones de alumnos de TSU",
                         "attr": {
-                            "id": "indicador1.2.3",
+                            "id": "indicator1.2.3",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -70,7 +70,7 @@
                     {
                         "title": "Promedio global de calificaciones de alumnos de ingenierías",
                         "attr": {
-                            "id": "indicador1.2.4",
+                            "id": "indicator1.2.4",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -82,7 +82,7 @@
                     {
                         "title": "Tasa de deserción de estudiantes de TSU (anual)",
                         "attr": {
-                            "id": "indicador1.2.5",
+                            "id": "indicator1.2.5",
                             "type": "indicator"
                         },
                         "unit-type": "percentage",
@@ -94,7 +94,7 @@
                     {
                         "title": "Tasa de deserción de estudiantes de ingeniería (anual)",
                         "attr": {
-                            "id": "indicador1.2.6",
+                            "id": "indicator1.2.6",
                             "type": "indicator"
                         },
                         "unit-type": "percentage",
@@ -106,7 +106,7 @@
                     {
                         "title": "Número de estudiantes que abandonaron sus estudios  (anual)",
                         "attr": {
-                            "id": "indicador1.2.7",
+                            "id": "indicator1.2.7",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -126,7 +126,7 @@
                     {
                         "title": "Número de programas educativos con espacios óptimos para realizar actividades docentes",
                         "attr": {
-                            "id": "indicador1.3.1",
+                            "id": "indicator1.3.1",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -138,7 +138,7 @@
                     {
                         "title": "Número de espacios adecuados para las actividades culturales, deportivas y artísticas",
                         "attr": {
-                            "id": "indicador1.3.2",
+                            "id": "indicator1.3.2",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -150,7 +150,7 @@
                     {
                         "title": "Número de grupos por PE",
                         "attr": {
-                            "id": "indicador1.3.3",
+                            "id": "indicator1.3.3",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -162,7 +162,7 @@
                     {
                         "title": "Promedio de materias impartidas por profesor",
                         "attr": {
-                            "id": "indicador1.3.4",
+                            "id": "indicator1.3.4",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -174,7 +174,7 @@
                     {
                         "title": "Número de estudiantes por grupo",
                         "attr": {
-                            "id": "indicador1.3.5",
+                            "id": "indicator1.3.5",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -194,7 +194,7 @@
                     {
                         "title": "Número de alumnos por computadora en funcionamiento",
                         "attr": {
-                            "id": "indicador1.4.1",
+                            "id": "indicator1.4.1",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -206,7 +206,7 @@
                     {
                         "title": "Relación de computadoras en estado óptimo por PTC",
                         "attr": {
-                            "id": "indicador1.4.2",
+                            "id": "indicator1.4.2",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -218,7 +218,7 @@
                     {
                         "title": "Número de edificios con espacios que cuentan con equipo de cómputo para profesores de asignatura",
                         "attr": {
-                            "id": "indicador1.4.3",
+                            "id": "indicator1.4.3",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -230,7 +230,7 @@
                     {
                         "title": "Número de asignaturas que utilizan herramientas de TIC especializadas por PE",
                         "attr": {
-                            "id": "indicador1.4.4",
+                            "id": "indicator1.4.4",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -250,7 +250,7 @@
                     {
                         "title": "Promedio de usuarios que utilizan los servicios de biblioteca (consulta de acervo general mensual)",
                         "attr": {
-                            "id": "indicador1.5.1",
+                            "id": "indicator1.5.1",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -262,7 +262,7 @@
                     {
                         "title": "Incremento del acervo bibliográfico (volúmenes)",
                         "attr": {
-                            "id": "indicador1.5.2",
+                            "id": "indicator1.5.2",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -274,7 +274,7 @@
                     {
                         "title": "Número de profesores capacitados en el uso de herramientas de la biblioteca",
                         "attr": {
-                            "id": "indicador1.5.3",
+                            "id": "indicator1.5.3",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -285,7 +285,7 @@
                     }, {
                         "title": "Número de alumnos capacitados en el uso de herramientas de la biblioteca (anual)",
                         "attr": {
-                            "id": "indicador1.5.4",
+                            "id": "indicator1.5.4",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -313,7 +313,7 @@
                     {
                         "title": "Número de talleres deportivos y culturales",
                         "attr": {
-                            "id": "indicador2.1.1",
+                            "id": "indicator2.1.1",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -325,7 +325,7 @@
                     {
                         "title": "Número de eventos deportivos, artísticos o culturales (internos y externos)",
                         "attr": {
-                            "id": "indicador2.1.2",
+                            "id": "indicator2.1.2",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -337,7 +337,7 @@
                     {
                         "title": "Número de ciclos de difusión hacia la comunidad universitaria para promover acciones de fomento deportivo o cultura (publicaciones en vitrinas y redes sociales)",
                         "attr": {
-                            "id": "indicador2.1.3",
+                            "id": "indicator2.1.3",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -349,7 +349,7 @@
                     {
                         "title": "Número de ciclos de conferencias implementados",
                         "attr": {
-                            "id": "indicador2.1.4",
+                            "id": "indicator2.1.4",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -361,7 +361,7 @@
                     {
                         "title": "Número de estudiantes que participan en actividades culturales, artísticas y deportivas (anual)",
                         "attr": {
-                            "id": "indicador2.1.5",
+                            "id": "indicator2.1.5",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -373,7 +373,7 @@
                     {
                         "title": "Número de procesos de selección deportivos y culturales.",
                         "attr": {
-                            "id": "indicador2.1.6",
+                            "id": "indicator2.1.6",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -393,7 +393,7 @@
                     {
                         "title": "Tasa de egreso y titulación por cohorte generacional en TSU",
                         "attr": {
-                            "id": "indicador2.2.1",
+                            "id": "indicator2.2.1",
                             "type": "indicator"
                         },
                         "unit-type": "rate",
@@ -405,7 +405,7 @@
                     {
                         "title": "Tasa de egreso y titulación por cohorte generacional en ingenierías",
                         "attr": {
-                            "id": "indicador2.2.2",
+                            "id": "indicator2.2.2",
                             "type": "indicator"
                         },
                         "unit-type": "rate",
@@ -425,7 +425,7 @@
                     {
                         "title": "Número de alumnos de primer ingreso que aprobaron cursos propedéuticos (anual)",
                         "attr": {
-                            "id": "indicador2.3.1",
+                            "id": "indicator2.3.1",
                             "type": "indicator"
                         },
                         "unit-type": "number",
@@ -437,7 +437,7 @@
                     {
                         "title": "Tasa de retención de estudiantes de primero a segundo año de TSU (anual)",
                         "attr": {
-                            "id": "indicador2.3.2",
+                            "id": "indicator2.3.2",
                             "type": "indicator"
                         },
                         "unit-type": "rate",
@@ -449,7 +449,7 @@
                     {
                         "title": "Tasa de retención de estudiantes de primero a segundo año de ingeniería (anual)",
                         "attr": {
-                            "id": "indicador2.3.3",
+                            "id": "indicator2.3.3",
                             "type": "indicator"
                         },
                         "unit-type": "rate",
@@ -461,7 +461,7 @@
                     {
                         "title": "Porcentaje de estudiantes con beca total o parcial en la UTJ",
                         "attr": {
-                            "id": "indicador2.3.4",
+                            "id": "indicator2.3.4",
                             "type": "indicator"
                         },
                         "unit-type": "percentage",

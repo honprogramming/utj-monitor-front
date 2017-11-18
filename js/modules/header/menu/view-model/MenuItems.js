@@ -27,14 +27,15 @@ define(
                         name: "pe/pe",
                         viewName: "pe/pe"
                     }
-                },/*,
+                },
                 poa: {
                     id: "poa",
                     label: GeneralViewModel.nls("poa.label"),
                     module: {
-                        viewName: "empty"
+                        name: "poa/poa",
+                        viewName: "poa/poa"
                     }
-                },
+                },/*
                 performance: {
                     id: "performance",
                     label: GeneralViewModel.nls("performance.label"),

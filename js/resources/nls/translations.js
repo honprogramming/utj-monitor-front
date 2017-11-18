@@ -510,10 +510,29 @@ define(
                     "label": "PE"
                 },
                 "poa": {
-                    "label": "POA"
+                    "filterSearchText" : "Selección de procesos y proyectos",
+                    "filterSearchPlaceholder": "Buscar...",
+                    "label": "POA",
+                    "switchButtonAriaLabel": "Cambia entre cumplimiento e indicadores",
+                    "title": "Tablero de seguimiento de POA"                    
                 },
                 "performance": {
                     "label": "DESEMPEÑO"
+                },
+                "treePanel": {
+                    "errors": {
+                        "unitTypesNumberExceded": {
+                            "title": "!Error!",
+                            "message": "No puedes seleccionar indicadores con 3 o más unidades de medida diferentes"
+                        }
+                    },
+                    "contextMenu": {
+                        "cardOptions": {
+                            "view": {
+                                "title": "Ver Ficha"
+                            }
+                        }
+                    }
                 },
                 "footer": {
                     "copyright": "Copyright &copy; 2016 UTJ Monitor and/or its affiliates. All rights reserved"

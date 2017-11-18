@@ -1,0 +1,171 @@
+<div id="panel-details-container" class="container column">
+    <!-- ko with: selectedPlanElement -->
+        <div class="component-title centered"  
+             data-bind="text: $data.type + ' ' + $data.text">
+        </div>
+    <!-- /ko -->
+    <div data-bind="visible: currentParents().length > 0,
+            ojComponent: {
+                component: 'ojCollapsible', 
+                expanded: false,
+                optionChange: collapseParentsHandler
+         }">
+        <div>
+            <label data-bind="text: collapsibleParentsPanelTitle"></label>
+        </div>
+        <div class="oj-flex oj-sm-flex-direction-column">
+            <!-- ko foreach: currentParents -->
+            <div class="oj-flex-item" style="margin:10px 0px 10px 0px;">
+                <div class="oj-flex oj-sm-flex-direction-column">
+                    <div class="oj-flex-item">
+                        <div class="section-title" data-bind="text: $data.type"></div>
+                    </div>
+                    <div class="oj-flex-item">
+                        <div data-bind="text: $data.text" class="pointer"></div>
+                    </div>
+                    <!-- ko with: $data.values -->
+                    <div class="oj-flex-item oj-sm-12" 
+                         style="padding-right: 5px; max-height:20px;"
+                         data-bind="attr:{id: id},
+                                ojComponent: {
+                                        animationDuration: '1s',
+                                        animationOnDisplay: 'auto',
+                                        component: 'ojStatusMeterGauge', 
+                                        min: min, 
+                                        max: max, 
+                                        plotArea: {rendered: 'on'},
+                                        referenceLines: referenceLines,
+                                        thresholds: thresholdValues,
+                                        title: title,
+                                        value: value
+                                }">
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+<!--    <div id="indicator-processes-sunburst-container" 
+         class="column" style="height: 70%; max-height: 70%; width: 100%; max-width: 100%"
+         data-bind="visible: selectedPlanElement">
+        <div class="full-width component-title centered"  
+             data-bind="text: 'Indicador, procesos y proyectos'">
+        </div>-->
+<!--        <div style="display:flex; width: 100%; align-items: center;align-content: center;">
+            <div style="width: 33%; max-width: 33%"></div>
+            <div style="align-content: center; align-items: center;"
+                    data-bind="visible: selectedPlanElement,
+                        ojComponent: {
+                            component: 'ojSunburst',
+                            animationOnDisplay: 'auto',
+                            nodes: sunburstProcessesValues,
+                            selectionMode: 'none'
+                        }">
+            </div>
+            <div style="width: 33%; max-width: 33%"></div>
+        </div>-->
+<!--        <div style="display:flex; width: 100%; align-items: center;align-content: center;">
+            <div class="oj-sm-4"></div>
+            <div class="oj-sm-4"
+                    data-bind="visible: selectedPlanElement,
+                        ojComponent: {
+                            component: 'ojSunburst',
+                            animationOnDisplay: 'auto',
+                            nodes: sunburstProcessesValues,
+                            selectionMode: 'none'
+                        }">
+            </div>
+            <div class="oj-sm-4"></div>
+        </div>-->
+    <!--</div>-->
+    <div class="full-width" 
+        data-bind="visible: selectedPlanElement,
+            ojComponent: {
+                component: 'ojCollapsible', 
+                expanded: true,
+                optionChange: collapseStatusMeter
+         }">
+        <div>
+            <label data-bind="text: collapsibleStatusMeterPanelTitle"></label>
+        </div>
+        <div id="status-meter-collapsible-content">
+            <!-- ko with: selectedPlanElement -->
+                <div class="component-title centered"  
+                     data-bind="text: 'Progreso de indicador'">
+                </div>
+                <div class="full-width">
+                    <!-- ko with: $data.values -->
+                    <div class="full-width" data-bind="ojComponent: {
+                                component: 'ojStatusMeterGauge', 
+                                min: min, 
+                                max: max, 
+                                thresholds: thresholdValues,
+                                value: value, 
+                                orientation: 'circular',
+                                metricLabel: {
+                                    rendered: 'on',
+                                    textType: 'percent'
+                                },
+                                startAngle:180,
+                                angleExtent: 180,
+                                plotArea: {rendered: 'on'},
+                                animationOnDisplay: 'auto',
+                                animationDuration: '1s',
+                                rootAttributes: {
+                                    style: 'align:center;margin-top:5px;margin-bottom:5px;height:150px;'
+                                }
+                            }">
+                    </div>
+                    <!-- /ko -->                            
+                </div>
+            <!-- /ko -->
+        </div>
+    </div>
+    <div class="full-width" 
+         data-bind="visible: currentChildren().length > 0,
+            ojComponent: {
+                component: 'ojCollapsible', 
+                expanded: true,
+                optionChange: collapseChildrenHandler
+         }">
+        <div>
+            <label data-bind="text: collapsibleChildrenPanelTitle"></label>
+        </div>
+        <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-center">
+            <div class="full-width component-title centered"  
+                 data-bind="text: 'Procesos y proyectos'">
+            </div>
+            <!-- ko foreach: currentChildren -->
+            <div class="oj-flex-item oj-sm-6" style="margin:10px 0px 10px 0px">
+                <div class="oj-flex oj-sm-flex-direction-column">
+                     <!--data-bind="click: $parent.clickHandler.bind($data.clickHandlerValue)">-->
+                    <!-- ko with: $data.values -->  
+                    <div class="oj-flex-item oj-sm-12" data-bind="ojComponent: {
+                                        component: 'ojStatusMeterGauge', 
+                                        min: min, 
+                                        max: max, 
+                                        thresholds: thresholdValues,
+                                        value: value, 
+                                        orientation: 'circular',
+                                        metricLabel: {
+                                            rendered: 'on',
+                                            textType: 'percent'
+                                        },
+                                        plotArea: {rendered: 'on'},
+                                        animationOnDisplay: 'auto',
+                                        animationDuration: '1s'
+                                    }" 
+                         style="align:center;height: 150px;">
+                    </div>
+                    <!-- /ko -->
+                    <div class="oj-flex-item oj-sm-12 pointer" 
+                         style="margin-top: 5px;text-align: center;"
+                         data-bind="text: $data.label">
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+</div>
