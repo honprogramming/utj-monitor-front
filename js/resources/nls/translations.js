@@ -382,7 +382,7 @@ define(
                                 "generalAdvance": "% Avance general",
                                 "responsable": "Responsable",
                                 "justification": "Justificación",
-                                "advances": "Avances y metas",
+                                "progressAndGoals": "Avances y metas",
                                 "tableComponents": {
                                     "headers": {
                                         "name": "Nombre",
