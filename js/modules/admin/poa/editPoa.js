@@ -22,9 +22,7 @@ define([
     'ojs/ojradioset',
     'ojs/ojinputnumber',
     'ojs/ojdatetimepicker',
-    'ojs/ojchart',
-    'ojs/ojdatagrid',
-    'ojs/ojarraydatagriddatasource'
+    'ojs/ojchart'
 ],
         function (oj, $, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel,
                 DataProvider, EditableTable, FormActions, StrategicItem) {

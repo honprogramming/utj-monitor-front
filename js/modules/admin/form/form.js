@@ -21,6 +21,15 @@ define([
     function FormViewModel() {
         var self = this;
 
+        // Date converter
+        var dateOptions = { formatStyle: 'date', pattern: 'dd/MM/yyyy' };
+        self.dateConverter = oj.Validation.converterFactory("datetime").createConverter(dateOptions);
+
+        // Sections enabled
+        self.generalEnable = ko.observable(false);
+        self.responsibleEnable = ko.observable(false);
+        self.metadataEnable = ko.observable(false);
+
         /*
          * Main section.
          */
@@ -28,13 +37,40 @@ define([
         self.typeLabel = GeneralViewModel.nls("admin.indicators.form.sections.main.type");
         self.typeValue = ko.observable('PIDE');
 
+        /**
+         * Type change event.
+         * 
+         * This functions is triggered after selecting an option of
+         * type radioset.
+         * 
+         * @param {*} event 
+         * @param {*} data 
+         */
+        self.typeChange = function (event, data) {
+            switch (data.value) {
+                case "PIDE":
+                    self.generalEnable(false);
+                    self.responsibleEnable(false);
+                    self.metadataEnable(false);
+                    break;
+
+                case "MECASUT":
+                    self.generalEnable(false);
+                    self.responsibleEnable(true);
+                    self.metadataEnable(false);
+                    break;
+
+                case "Programa Educativo":
+                    self.generalEnable(true);
+                    self.responsibleEnable(true);
+                    self.metadataEnable(true);
+                    break;
+            }
+        };
+
         // Active/Inactive option
         self.activeLabel = GeneralViewModel.nls("admin.indicators.form.sections.main.active");
         self.activeValue = ko.observable(true);
-
-        // Date converter
-        var dateOptions = { formatStyle: 'date', pattern: 'dd/MM/yyyy' };
-        self.dateConverter = oj.Validation.converterFactory("datetime").createConverter(dateOptions);
 
         /*
          * General section.
@@ -45,6 +81,86 @@ define([
         self.updateLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.update");
         self.updateValue = ko.observable('Manual');
 
+        // PE Axes option
+        self.peAxesLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.axes");
+        self.peAxesValue = ko.observable("");
+        self.peAxesOptions = ko.observableArray([]);
+
+        // PE Topics option
+        self.peTopicsLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.topics");
+        self.peTopicsValue = ko.observable("");
+        self.peTopicsOptions = ko.observableArray([]);
+
+        // PE Objectives option
+        self.peObjectivesLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.objectives");
+        self.peObjectivesValue = ko.observable("");
+        self.peObjectivesOptions = ko.observableArray([]);
+
+        // PE Indicators option
+        self.peIndicatorsLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.indicators");
+        self.peIndicatorsValue = ko.observable("");
+        self.peIndicatorsOptions = ko.observableArray([]);
+
+        /**
+         * PE Axes change event.
+         * 
+         * Triggered after changing the PE Axes combobox.
+         * 
+         * @param {*} event 
+         * @param {*} data 
+         */
+        self.peAxesChange = function (event, data) {
+            // If the new value is not empty
+            if (data.value !== "") {
+                // Set new topic options
+                self.peTopicsOptions(self.getTopics(data.value));
+            }
+        };
+
+        /**
+         * PE Topics change event.
+         * 
+         * Triggered after changing the PE Topics combobox.
+         * 
+         * @param {*} event 
+         * @param {*} data 
+         */
+        self.peTopicsChange = function (event, data) {
+            // If the new value is not empty
+            if (data.value !== "") {
+                // IF the axes value has changed / the change option is triggered because the options has changed.
+                if (data.option === "options") {
+                    // Set new objective options
+                    self.peObjectivesOptions(self.getObjectives(self.peAxesValue(), data.value[0].value));
+                } else {
+                    // Set new objective options
+                    self.peObjectivesOptions(self.getObjectives(self.peAxesValue(), data.value));
+                }
+            }
+        };
+
+        /**
+         * PE Objectives change event.
+         * 
+         * Triggered after changing the PE Objectives combobox.
+         * 
+         * @param {*} event 
+         * @param {*} data 
+         */
+        self.peObjectivesChange = function (event, data) {
+            // If the new value is not empty
+            if (data.value !== "") {
+                // IF the topics value has changed / the change option is triggered because the options has changed.
+                if (data.option === "options") {
+                    // Set new indicators options
+                    self.peIndicatorsOptions(self.getIndicators(self.peAxesValue(), self.peTopicsValue(), data.value[0].value));
+                } else {
+                    // Set new indicators options
+                    self.peIndicatorsOptions(self.getIndicators(self.peAxesValue(), self.peTopicsValue(), data.value));
+                }
+            }
+        };
+
         // Name field
         self.nameLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.name.label");
         self.namePlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.general.name.placeholder");
@@ -54,6 +170,20 @@ define([
         self.descriptionLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.description.label");
         self.descriptionPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.general.description.placeholder");
         self.descriptionValue = ko.observable("");
+
+        // Class field
+        self.classLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.class");
+        self.classValue = ko.observable("");
+
+        // PE field
+        self.peLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.pe.label");
+        self.pePlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.general.pe.placeholder");
+        self.peValue = ko.observable("");
+
+        // Short name field
+        self.shortNameLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.shortName.label");
+        self.shortNamePlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.general.shortName.placeholder");
+        self.shortNameValue = ko.observable("");
 
         // Sense option
         self.senseLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.sense");
@@ -160,15 +290,15 @@ define([
         // Axes change validations
         self.axeChanged = false;
 
-        // Get strategic items data
+        // Get Strategic Items information
         $.getJSON("data/strategic-items.json")
             .done(function (data) {
-                // Get all strategic items
+                // Get all Strategic Items
                 self.strategicItems = data.map(function (element) {
                     return new StrategicItem(element.id, element.name, element.strategicType.name, element.children);
                 });
 
-                // Get axes
+                // Get axes from Strategic Items
                 self.strategicArray = self.strategicItems.filter(function (element) {
                     return element.type === "axe";
                 });
@@ -189,8 +319,23 @@ define([
                             })[0];
                         });
 
+                        // Filter undefined
                         topic.children = topic.children.filter(function (element) {
                             return typeof element !== "undefined";
+                        });
+
+                        topic.children.forEach(function (objective) {
+                            // Get indicators
+                            objective.children = objective.children.map(function (indicator) {
+                                return self.strategicItems.filter(function (element) {
+                                    return element.id === indicator && element.type === "indicator";
+                                })[0];
+                            });
+
+                            // Filter undefined
+                            objective.children = objective.children.filter(function (element) {
+                                return typeof element !== "undefined";
+                            });
                         });
                     });
                 });
@@ -198,11 +343,27 @@ define([
                 // Get axes options
                 self.axesOptions(self.getAxes());
 
-                // Get topics options
-                self.getTopics(self.strategicArray[0].name);
-
                 // New PIDE observable row
                 self.pideAddRow();
+
+                // New PE Axes' combobox options
+                self.peAxesOptions(self.getAxes());
+
+                // New PE Topics' combobox options
+                self.peTopicsOptions(self.getTopics(self.strategicArray[0].name));
+
+                // New PE Objectives' combobox options
+                self.peObjectivesOptions(self.getObjectives(
+                    self.strategicArray[0].name, // First axe
+                    self.strategicArray[0].children[0].name // First topic
+                ));
+
+                // New PE Indicators' combobox options
+                self.peIndicatorsOptions(self.getIndicators(
+                    self.strategicArray[0].name, // First axe
+                    self.strategicArray[0].children[0].name, // First topic
+                    self.strategicArray[0].children[0].children[0].name // First objective
+                ));
             })
             .fail(function (data) {
                 console.log("Mal", data);
@@ -213,6 +374,7 @@ define([
          * @returns {array}
          */
         self.getAxes = function () {
+            // Get all axes.
             let axes = self.strategicArray.map(function (axe) {
                 return { value: axe.name, label: axe.name };
             });
@@ -229,12 +391,12 @@ define([
             // In case the value comes in [] or {} format
             search = typeof search === 'object' ? search[0] : search;
 
-            // Search axe
+            // Get first coincidence of the searched axe.
             let searchAxe = self.strategicArray.filter(function (axe) {
                 return axe.name === search;
             })[0];
 
-            // Get topics
+            // Get all topics from the searched axe.
             let topics = searchAxe.children.map(function (topic) {
                 return { value: topic.name, label: topic.name };
             });
@@ -243,7 +405,7 @@ define([
         };
 
         /**
-         * Get Objectives array;
+         * Get Objectives array.
          * @param {any} searchAxe 
          * @param {any} searchTopic 
          */
@@ -252,14 +414,17 @@ define([
             searchAxe = typeof searchAxe === 'object' ? searchAxe[0] : searchAxe;
             searchTopic = typeof searchTopic === 'object' ? searchTopic[0] : searchTopic;
 
+            // Get first coincidence of the searched axe.
             let axeArray = self.strategicArray.filter(function (axe) {
                 return axe.name === searchAxe;
             })[0];
 
+            // Get first coincidence of the searched topic.
             let topicArray = axeArray.children.filter(function (topic) {
                 return topic.name === searchTopic;
             })[0];
 
+            // Get all objectives from the searched topic.
             let objectives = topicArray.children.map(function (topic) {
                 return { value: topic.name, label: topic.name };
             });
@@ -268,9 +433,50 @@ define([
         };
 
         /**
+         * Get Indicators array.
+         * 
+         * Get Indicators data in a search based in the selected axe, topic and objective.
+         * 
+         * @param {*} searchAxe 
+         * @param {*} searchTopic 
+         * @param {*} searchObjective 
+         */
+        self.getIndicators = function (searchAxe, searchTopic, searchObjective) {
+            // In case the search type came in object/array format
+            searchAxe = typeof searchAxe === 'object' ? searchAxe[0] : searchAxe;
+            searchTopic = typeof searchTopic === 'object' ? searchTopic[0] : searchTopic;
+            searchObjective = typeof searchObjective === 'object' ? searchObjective[0] : searchObjective;
+
+            // Get first coincidence of the searched axe.
+            let axeArray = self.strategicArray.filter(function (axe) {
+                return axe.name === searchAxe;
+            })[0];
+
+            // Get first coincidence of the searched topic.
+            let topicArray = axeArray.children.filter(function (topic) {
+                return topic.name === searchTopic;
+            })[0];
+
+            // Get first coincidence of the searched objective.
+            let objectivesArray = topicArray.children.filter(function (objective) {
+                return objective.name === searchObjective;
+            })[0];
+
+            // Get all indicators from the searched objective.
+            let indicators = objectivesArray.children.map(function (indicator) {
+                return { value: indicator.name, label: indicator.name };
+            });
+
+            return indicators;
+        };
+
+        /**
          * Axes change event.
-         * @param {type} id
-         * @param {type} axe
+         * 
+         * Triggered after changing an axe in PIDE table.
+         * 
+         * @param {type} id Row's ID.
+         * @param {type} axe Axe value.
          */
         self.axesChange = function (id, axe) {
             // Set new topic options
@@ -282,11 +488,15 @@ define([
 
         /**
          * Topics change event.
+         * 
+         * Triggered after changing a topic in PIDE table.
+         * 
          * @param {type} id
          * @param {type} axe
          * @param {type} topic
          */
         self.topicsChange = function (id, axe, topic) {
+            // If the axes hasn't changed first
             if (self.axesChanged !== true) {
                 // Set new objective options
                 self.setObjectiveOptions(id, axe(), topic());
@@ -298,12 +508,17 @@ define([
 
         /**
          * Set topics options.
-         * @param {int} id
-         * @param {string} search
+         * 
+         * Update the topics options of the selected ID.
+         * 
+         * @param {int} id Row's ID
+         * @param {string} search 
          */
         self.setTopicOptions = function (id, search) {
+            // Search for row options
             self.topicsOptions().forEach(function (element) {
                 if (element.id === id) {
+                    // Set new options
                     element.options(self.getTopics(search));
                 }
             });
@@ -311,14 +526,19 @@ define([
 
         /**
          * Get Topic Options.
+         * 
+         * Get the topics options of the selected ID.
+         * 
          * @param {int} id
          * @returns {array}
          */
         self.getTopicOptions = function (id) {
             let options = [];
 
+            // Search for row options
             self.topicsOptions().forEach(function (element) {
                 if (element.id === id) {
+                    // Get row options
                     options = element.options;
                 }
             });
@@ -333,8 +553,10 @@ define([
          * @param {string} searchTopic
          */
         self.setObjectiveOptions = function (id, searchAxe, searchTopic) {
+            // Search for row options
             self.objectivesOptions().forEach(function (element) {
                 if (element.id === id) {
+                    // Set new options
                     element.options(self.getObjectives(searchAxe, searchTopic));
                 }
             });
@@ -348,8 +570,10 @@ define([
         self.getObjectiveOptions = function (id) {
             let options = [];
 
+            // Search for row options
             self.objectivesOptions().forEach(function (element) {
                 if (element.id === id) {
+                    // Get row options
                     options = element.options;
                 }
             });
@@ -421,14 +645,17 @@ define([
          * @param {number} id 
          */
         self.pideRemoveRow = function (id) {
+            // Remove row from table
             self.pideObservableArray.remove(function (item) {
                 return item.Id === id;
             });
 
+            // Remove row from topics options
             self.topicsOptions.remove(function (item) {
                 return item.Id === id;
             });
 
+            // Remove row from objectives options
             self.objectivesOptions.remove(function (item) {
                 return item.Id === id;
             });
@@ -593,6 +820,7 @@ define([
          * Goals and progress section
          */
         self.goalsTitle = GeneralViewModel.nls("admin.indicators.form.sections.goals.title");
+        self.progressTitle = GeneralViewModel.nls("admin.indicators.form.sections.goals.alternative");
 
         // Chart series
         self.chartSeriesValue = ko.observableArray([]);

@@ -171,6 +171,10 @@ define(
                                 "general": {
                                     "title": "General",
                                     "update": "Actualización",
+                                    "axes": "Ejes",
+                                    "topics": "Temas",
+                                    "objectives": "Objetivos",
+                                    "indicators": "Selecciona el nombre del indicador",
                                     "name": {
                                         "label": "Nombre", 
                                         "placeholder": "Nombre del indicador"
@@ -178,6 +182,15 @@ define(
                                     "description": {
                                         "label": "Descripción", 
                                         "placeholder": "Descripción del indicador"
+                                    },
+                                    "class": "Clase",
+                                    "pe": {
+                                        "label": "Programa educativo",
+                                        "placeholder": "Programa educativo"
+                                    },
+                                    "shortName": {
+                                        "label": "Nombre corto",
+                                        "placeholder": "Nombre corto (ejemplo: MEC)"
                                     },
                                     "sense": "Sentido",
                                     "measure": {
@@ -267,6 +280,7 @@ define(
                                 },
                                 "goals": {
                                     "title": "Metas y avances",
+                                    "alternative": "Avances",
                                     "table": {
                                         "goals": "Metas",
                                         "progress": "Avances",
