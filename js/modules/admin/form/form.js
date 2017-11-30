@@ -1198,11 +1198,13 @@ define([
         // Goals and progress chart
         self.comChartGroupsValue = ko.observableArray(months);
         self.comChartSeriesValue = ko.observableArray([]);
-        self.comChartReferenceValue = ko.observable();
+        self.comChartYAxis = ko.observable();
+        self.comChartY2Axis = {title: "Avances"};
 
         // Update reference line (final goal line) in goals and progress chart
         ko.computed(function () {
-            self.comChartReferenceValue({
+            self.comChartYAxis({
+                title: "Meta",
                 referenceObjects: [{
                     text: "Meta final",
                     type: "line",
@@ -1224,7 +1226,7 @@ define([
             // New chart series
             var chartSeries = [
                 { name: 'Metas', items: [] },
-                { name: 'Avances', items: [] }
+                { name: 'Avances', items: [], assignedToY2: 'on' }
             ];
 
             // For each goal in Goals' table
@@ -1238,11 +1240,11 @@ define([
                             chartSeries[0].items.push(value[v]());
                         }
                     }
-                } else if (index === 1) {
+                } else if (index === 2) {
                     // For each value in Values row
                     for (let v in value) {
                         // Skip row name
-                        if (value[v] !== "Valor") {
+                        if (value[v] !== "% Avance") {
                             // Add new item to Chart series
                             chartSeries[1].items.push(value[v]());
                         }
