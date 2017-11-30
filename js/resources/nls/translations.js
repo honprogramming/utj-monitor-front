@@ -298,6 +298,28 @@ define(
                                         "label": "Acciones implementadas",
                                         "placeholder": "Acciones implementadas"
                                     }
+                                },
+                                "components": {
+                                    "title": "Componentes",
+                                    "name": "Nombre",
+                                    "description": "Descripción",
+                                    "indicator": "Indicador",
+                                    "measure": "Unidad de Medida",
+                                    "initialValue": "Valor inicial",
+                                    "finalGoal": "Meta final",
+                                    "generalProgress": "% Avance general",
+                                    "initialDate": "Fecha inicial",
+                                    "finalDate": "Fecha final",
+                                    "responsible": "Responsable",
+                                    "justification": "Justificación",
+                                    "goals": "Avances y metas",
+                                    "table": {
+                                        "title": "Componentes",
+                                        "headers": {
+                                            "name": "Nombre",
+                                            "actions": "Acciones"
+                                        }
+                                    }
                                 }
                             }
                         }

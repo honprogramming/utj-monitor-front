@@ -4,6 +4,7 @@ define([
     'knockout',
     'view-models/GeneralViewModel',
     "modules/admin/form/model/StrategicItem",
+    "modules/admin/form/model/ComponentItem",
     'ojs/ojknockout',
     'ojs/ojradioset',
     'ojs/ojswitch',
@@ -16,8 +17,11 @@ define([
     'ojs/ojtable',
     'ojs/ojarraytabledatasource',
     'promise'
-], function (oj, $, ko, GeneralViewModel, StrategicItem) {
+], function (oj, $, ko, GeneralViewModel, StrategicItem, ComponentItem) {
 
+    /**
+     * Strategic Indicators Form ViewModel.
+     */
     function FormViewModel() {
         var self = this;
 
@@ -39,12 +43,12 @@ define([
 
         /**
          * Type change event.
-         * 
-         * This functions is triggered after selecting an option of
-         * type radioset.
-         * 
-         * @param {*} event 
-         * @param {*} data 
+         *
+         * This function is triggered after selecting an option in
+         * type's radioset.
+         *
+         * @param {*} event
+         * @param {*} data
          */
         self.typeChange = function (event, data) {
             switch (data.value) {
@@ -103,11 +107,11 @@ define([
 
         /**
          * PE Axes change event.
-         * 
+         *
          * Triggered after changing the PE Axes combobox.
-         * 
-         * @param {*} event 
-         * @param {*} data 
+         *
+         * @param {*} event
+         * @param {*} data
          */
         self.peAxesChange = function (event, data) {
             // If the new value is not empty
@@ -119,11 +123,11 @@ define([
 
         /**
          * PE Topics change event.
-         * 
+         *
          * Triggered after changing the PE Topics combobox.
-         * 
-         * @param {*} event 
-         * @param {*} data 
+         *
+         * @param {*} event
+         * @param {*} data
          */
         self.peTopicsChange = function (event, data) {
             // If the new value is not empty
@@ -141,11 +145,11 @@ define([
 
         /**
          * PE Objectives change event.
-         * 
+         *
          * Triggered after changing the PE Objectives combobox.
-         * 
-         * @param {*} event 
-         * @param {*} data 
+         *
+         * @param {*} event
+         * @param {*} data
          */
         self.peObjectivesChange = function (event, data) {
             // If the new value is not empty
@@ -370,6 +374,19 @@ define([
             });
 
         /**
+         * Filter search.
+         * 
+         * This functions validates a value based in Oracle JET's option value.
+         * Oracle JET returns an object value (array), so this function validates
+         * if is an array and returns the first index, otherwise returns the value.
+         * 
+         * @param {*} search 
+         */
+        function filterSearch(search) {
+            return typeof search === 'object' ? search[0] : search;
+        }
+
+        /**
          * Get axes options.
          * @returns {array}
          */
@@ -389,7 +406,7 @@ define([
          */
         self.getTopics = function (search) {
             // In case the value comes in [] or {} format
-            search = typeof search === 'object' ? search[0] : search;
+            search = filterSearch(search);
 
             // Get first coincidence of the searched axe.
             let searchAxe = self.strategicArray.filter(function (axe) {
@@ -406,13 +423,13 @@ define([
 
         /**
          * Get Objectives array.
-         * @param {any} searchAxe 
-         * @param {any} searchTopic 
+         * @param {any} searchAxe
+         * @param {any} searchTopic
          */
         self.getObjectives = function (searchAxe, searchTopic) {
             // In case the value comes in [] or {} format
-            searchAxe = typeof searchAxe === 'object' ? searchAxe[0] : searchAxe;
-            searchTopic = typeof searchTopic === 'object' ? searchTopic[0] : searchTopic;
+            searchAxe = filterSearch(searchAxe);
+            searchTopic = filterSearch(searchTopic);
 
             // Get first coincidence of the searched axe.
             let axeArray = self.strategicArray.filter(function (axe) {
@@ -434,18 +451,18 @@ define([
 
         /**
          * Get Indicators array.
-         * 
+         *
          * Get Indicators data in a search based in the selected axe, topic and objective.
-         * 
-         * @param {*} searchAxe 
-         * @param {*} searchTopic 
-         * @param {*} searchObjective 
+         *
+         * @param {*} searchAxe
+         * @param {*} searchTopic
+         * @param {*} searchObjective
          */
         self.getIndicators = function (searchAxe, searchTopic, searchObjective) {
             // In case the search type came in object/array format
-            searchAxe = typeof searchAxe === 'object' ? searchAxe[0] : searchAxe;
-            searchTopic = typeof searchTopic === 'object' ? searchTopic[0] : searchTopic;
-            searchObjective = typeof searchObjective === 'object' ? searchObjective[0] : searchObjective;
+            searchAxe = filterSearch(searchAxe);
+            searchTopic = filterSearch(searchTopic);
+            searchObjective = filterSearch(searchObjective);
 
             // Get first coincidence of the searched axe.
             let axeArray = self.strategicArray.filter(function (axe) {
@@ -472,9 +489,9 @@ define([
 
         /**
          * Axes change event.
-         * 
+         *
          * Triggered after changing an axe in PIDE table.
-         * 
+         *
          * @param {type} id Row's ID.
          * @param {type} axe Axe value.
          */
@@ -488,9 +505,9 @@ define([
 
         /**
          * Topics change event.
-         * 
+         *
          * Triggered after changing a topic in PIDE table.
-         * 
+         *
          * @param {type} id
          * @param {type} axe
          * @param {type} topic
@@ -508,11 +525,11 @@ define([
 
         /**
          * Set topics options.
-         * 
+         *
          * Update the topics options of the selected ID.
-         * 
+         *
          * @param {int} id Row's ID
-         * @param {string} search 
+         * @param {string} search
          */
         self.setTopicOptions = function (id, search) {
             // Search for row options
@@ -526,9 +543,9 @@ define([
 
         /**
          * Get Topic Options.
-         * 
+         *
          * Get the topics options of the selected ID.
-         * 
+         *
          * @param {int} id
          * @returns {array}
          */
@@ -611,9 +628,9 @@ define([
 
         /**
          * Clone PIDE's table row.
-         * @param {ko.Observable} Axe 
-         * @param {ko.Observable} Topic 
-         * @param {ko.Observable} Objective 
+         * @param {ko.Observable} Axe
+         * @param {ko.Observable} Topic
+         * @param {ko.Observable} Objective
          */
         self.pideCloneRow = function (Axe, Topic, Objective) {
             // New row
@@ -642,7 +659,7 @@ define([
 
         /**
          * Remove PIDE's table row.
-         * @param {number} id 
+         * @param {number} id
          */
         self.pideRemoveRow = function (id) {
             // Remove row from table
@@ -760,7 +777,7 @@ define([
         self.observationsRValue = ko.observable("");
 
         /*
-         * Metadata section 
+         * Metadata section
          */
         self.metadataTitle = GeneralViewModel.nls("admin.indicators.form.sections.metadata.title");
 
@@ -872,8 +889,8 @@ define([
             return mode === 'edit' ? 'progressEditRowTemplate' : 'progressRowTemplate';
         };
 
-        /** 
-         * Update chart values. 
+        /**
+         * Update chart values.
          */
         self.updateChart = function () {
             // New chart series
@@ -910,7 +927,7 @@ define([
 
         /**
          * Order chart by date.
-         * 
+         *
          * @param elem1
          * @param elem2
          * @returns {int}
@@ -926,7 +943,7 @@ define([
 
         /**
          * Add new row table.
-         * 
+         *
          * @param {String} table
          * @returns {void}
          */
@@ -951,7 +968,7 @@ define([
 
         /**
          * Remove selected row.
-         * 
+         *
          * @param {String} table Table source.
          * @param {Object} row Goal/Progress object with ID, Value and Date.
          * @returns {void}
@@ -975,7 +992,7 @@ define([
 
         /**
          * Before Row Edit End event.
-         * 
+         *
          * @param {any} event
          * @param {any} ui
          * @returns {void}
@@ -994,6 +1011,285 @@ define([
         self.actionsLabel = GeneralViewModel.nls("admin.indicators.form.sections.goals.actions.label");
         self.actionsPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.goals.actions.placeholder");
         self.actionsValue = ko.observable("");
+
+        /*
+         * Components section
+         */
+        self.componentsTitle = GeneralViewModel.nls("admin.indicators.form.sections.components.title");
+
+        // Name field
+        self.comNameLabel = GeneralViewModel.nls("admin.indicators.form.sections.components.name");
+        self.comNameValue = ko.observable("");
+
+        // Description field
+        self.comDescriptionLabel = GeneralViewModel.nls("admin.indicators.form.sections.components.description");
+        self.comDescriptionValue = ko.observable("");
+
+        // Indicator field
+        self.comIndicatorLabel = GeneralViewModel.nls("admin.indicators.form.sections.components.indicator");
+        self.comIndicatorValue = ko.observable("");
+
+        // Measure field
+        self.comMeasureLabel = GeneralViewModel.nls("admin.indicators.form.sections.components.measure");
+        self.comMeasureValue = ko.observable("");
+
+        // Initial value field
+        self.comInitialValueLabel = GeneralViewModel.nls("admin.indicators.form.sections.components.initialValue");
+        self.comInitialValueValue = ko.observable("");
+
+        // Final goal field
+        self.comFinalGoalLabel = GeneralViewModel.nls("admin.indicators.form.sections.components.finalGoal");
+        self.comFinalGoalValue = ko.observable("");
+
+        // General progress field
+        self.comGeneralProgressLabel = GeneralViewModel.nls("admin.indicators.form.sections.components.generalProgress");
+        self.comGeneralProgressValue = ko.observable("");
+
+        // Initial date field
+        self.comInitialDateLabel = GeneralViewModel.nls("admin.indicators.form.sections.components.initialDate");
+        self.comInitialDateValue = ko.observable("");
+
+        // Final date field
+        self.comFinalDateLabel = GeneralViewModel.nls("admin.indicators.form.sections.components.finalDate");
+        self.comFinalDateValue = ko.observable("");
+
+        // Responsible option
+        self.comResponsibleLabel = GeneralViewModel.nls("admin.indicators.form.sections.components.responsible");
+        self.comResponsibleOptions = ko.observableArray([
+            { "value": "Responsable", "label": "Responsable" }
+        ]);
+        self.comResponsibleValue = ko.observable("");
+
+        // Justification field
+        self.comJustificationLabel = GeneralViewModel.nls("admin.indicators.form.sections.components.justification");
+        self.comJustificationValue = ko.observable("");
+
+        // Goals and progress table
+        self.comGoalsLabel = GeneralViewModel.nls("admin.indicators.form.sections.components.goals");
+
+        // Month labels
+        let months = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+
+        // Goals and progress table columns
+        self.comGoalsColumns = [{
+            "headerText": 'Mes',
+            "headerStyle": 'max-width: 7.69%; width: 7.69%',
+            "style": 'min-width: 7.69%; width: 7.69%;',
+            "sortable": 'disabled'
+        }];
+
+        // For each month label
+        months.forEach(function (month) {
+            // Add new column to goals and progress table
+            self.comGoalsColumns.push({
+                "headerText": month,
+                "headerStyle": 'max-width: 7.69%; width: 7.69%',
+                "style": 'min-width: 7.69%; width: 7.69%;',
+                "sortable": "disabled"
+            });
+        });
+
+        // Goals observable array
+        self.comGoalsObservableArray = ko.observableArray([
+            {
+                "Mes": "Meta",
+                "Ene": ko.observable(2), "Feb": ko.observable(4), "Mar": ko.observable(6),
+                "Abr": ko.observable(8), "May": ko.observable(10), "Jun": ko.observable(12),
+                "Jul": ko.observable(14), "Ago": ko.observable(16), "Sep": ko.observable(18),
+                "Oct": ko.observable(20), "Nov": ko.observable(22), "Dic": ko.observable(24)
+            },
+            {
+                "Mes": "Valor",
+                "Ene": ko.observable(1), "Feb": ko.observable(3), "Mar": ko.observable(5),
+                "Abr": ko.observable(7), "May": ko.observable(9), "Jun": ko.observable(11),
+                "Jul": ko.observable(13), "Ago": ko.observable(15), "Sep": ko.observable(17),
+                "Oct": ko.observable(19), "Nov": ko.observable(21), "Dic": ko.observable(23)
+            },
+            {
+                "Mes": "% Avance",
+                "Ene": ko.observable(50.00), "Feb": ko.observable(75.00), "Mar": ko.observable(83.33),
+                "Abr": ko.observable(87.50), "May": ko.observable(90.00), "Jun": ko.observable(91.66),
+                "Jul": ko.observable(92.85), "Ago": ko.observable(93.75), "Sep": ko.observable(94.44),
+                "Oct": ko.observable(95.00), "Nov": ko.observable(95.45), "Dic": ko.observable(95.83)
+            }
+        ]);
+
+        /**
+         * Components Goals and Progress option change event.
+         * 
+         * Triggered after changing an input value in Goals and
+         * Progress table.
+         * 
+         * @param {*} event 
+         * @param {*} ui 
+         */
+        self.comGoalsOptionChange = function (event, ui) {
+            // If the value has changed and is not empty
+            if (ui.value !== "" && ui.option === "value") {
+                // Goals and values array
+                let goals = [];
+                let values = [];
+                let count = 0;
+
+                // For each row in goals and progress table
+                self.comGoalsObservableArray().forEach(function (value, index) {
+                    // If the current row is Goals
+                    if (index === 0) {
+                        // For each value in Goals row
+                        for (let v in value) {
+                            // Skip row name
+                            if (value[v] !== "Meta") {
+                                // Push goal in goals array
+                                goals.push(value[v]());
+                            }
+                        }
+                        // If the current row is Values
+                    } else if (index === 1) {
+                        // For each value in Values row
+                        for (let v in value) {
+                            // Skip row name
+                            if (value[v] !== "Valor") {
+                                // Push value in values array
+                                values.push(value[v]());
+                            }
+                        }
+                        // If the current row is Progress
+                    } else if (index === 2) {
+                        // For each value in Progress row
+                        for (let v in value) {
+                            // Skip row name
+                            if (value[v] !== "% Avance") {
+                                // Calculate the new value based in the column goals and values.
+                                value[v](self.calculateProgress(goals[count], values[count]));
+                                count++;
+                            }
+                        }
+                    }
+                });
+
+                // Update chart values
+                self.comUpdateChart();
+            }
+        };
+
+        /**
+         * Calculate Progress value.
+         * 
+         * This function calculates the progress based in the
+         * expected goal and actual value.
+         * 
+         * @param {*} goal 
+         * @param {*} value 
+         */
+        self.calculateProgress = function (goal, value) {
+            let progress = parseFloat(value) / parseFloat(goal) * 100;
+            return progress.toFixed(1);
+        };
+
+        // Table data source
+        self.comGoalsDataSource = ko.observable(new oj.ArrayTableDataSource(self.comGoalsObservableArray, { idAttribute: "Mes" }));
+
+        // Table row template
+        self.comGoalsRowTemplate = function (data, context) {
+            var mode = context.$rowContext['mode'];
+            return mode === 'edit' ? 'comGoalsEditRowTemplate' : 'comGoalsRowTemplate';
+        };
+
+        // Goals and progress chart
+        self.comChartGroupsValue = ko.observableArray(months);
+        self.comChartSeriesValue = ko.observableArray([]);
+        self.comChartReferenceValue = ko.observable();
+
+        // Update reference line (final goal line) in goals and progress chart
+        ko.computed(function () {
+            self.comChartReferenceValue({
+                referenceObjects: [{
+                    text: "Meta final",
+                    type: "line",
+                    value: self.comFinalGoalValue(),
+                    color: '#A0CEEC',
+                    displayInLegend: 'on',
+                    lineWidth: 3,
+                    location: 'back',
+                    lineStyle: 'dashed',
+                    shortDesc: 'Meta final del componente'
+                }]
+            });
+        });
+
+        /**
+         * Update chart values.
+         */
+        self.comUpdateChart = function () {
+            // New chart series
+            var chartSeries = [
+                { name: 'Metas', items: [] },
+                { name: 'Avances', items: [] }
+            ];
+
+            // For each goal in Goals' table
+            self.comGoalsObservableArray().forEach(function (value, index) {
+                if (index === 0) {
+                    // For each value in Goals row
+                    for (let v in value) {
+                        // Skip row name
+                        if (value[v] !== "Meta") {
+                            // Add new item to Chart series
+                            chartSeries[0].items.push(value[v]());
+                        }
+                    }
+                } else if (index === 1) {
+                    // For each value in Values row
+                    for (let v in value) {
+                        // Skip row name
+                        if (value[v] !== "Valor") {
+                            // Add new item to Chart series
+                            chartSeries[1].items.push(value[v]());
+                        }
+                    }
+                }
+            });
+
+            // Set chart values
+            self.comChartSeriesValue(chartSeries);
+        };
+
+        self.comUpdateChart();
+
+        // Components table
+        self.componentsTableLabel = GeneralViewModel.nls("admin.indicators.form.sections.components.table.title");
+        self.componentsId = 1;
+        self.componentsEnable = ko.observable(false);
+
+        // Components table columns
+        self.componentsColumns = [
+            {
+                "headerText": GeneralViewModel.nls("admin.indicators.form.sections.components.table.headers.name"),
+                "headerStyle": 'max-width: 10%; width: 10%',
+                "style": 'min-width: 90%; width: 90%;',
+                "sortable": "auto"
+            },
+            {
+                "headerText": GeneralViewModel.nls("admin.indicators.form.sections.components.table.headers.actions"),
+                "headerStyle": 'max-width: 10%; width: 10%',
+                "style": 'max-width: 10%; width: 10%',
+                "sortable": "disabled"
+            }
+        ];
+
+        // Components table observable array
+        self.componentsObservableArray = ko.observableArray([]);
+
+        // Get components data
+        $.getJSON("data/components.json")
+            .done(function (data) {
+                $.each(data, function (index, value) {
+                    self.componentsObservableArray.push(new ComponentItem(value));
+                });
+            });
+
+        // Components table data source
+        self.componentsDataSource = new oj.ArrayTableDataSource(self.componentsObservableArray, { idAttribute: 'id' });
     }
 
     return new FormViewModel();
