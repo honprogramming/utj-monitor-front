@@ -29,9 +29,10 @@ define([
         function (oj, $, ko, AdminItems, PoaModel, PoaDataParser, GeneralViewModel,
                 DataProvider, EditableTable, FormActions, StrategicItem) {
             function PoaEditViewModel() {
+                
                 var self = this;
                 self.title = AdminItems["editPoa"]["label"];
-
+                
                 self.formActions = new FormActions();
 
                 self.formActions.addResetListener(
@@ -66,16 +67,18 @@ define([
                 self.multiAnual = GeneralViewModel.nls("admin.poa.edit.general.scope.multiAnual");
                 self.scopeValue = ko.observable(self.anual);
 
-                //DENOMINACIÓN DEL PROCESO
-                self.nameLabel = GeneralViewModel.nls("admin.poa.edit.general.name.label");
+                //DENOMINACIÓN DEL PROCESO / PROYECTO
+                self.nameProcessLabel = GeneralViewModel.nls("admin.poa.edit.general.name.labelProcess");
+                self.nameProyectLabel = GeneralViewModel.nls("admin.poa.edit.general.name.labelProyect");
                 self.namePlaceHolder = GeneralViewModel.nls("admin.poa.edit.general.name.placeHolder");
                 self.nameValue = ko.observable("");
 
-                //OBJETIVO DEL PROCESO
+                //OBJETIVO DEL PROCESO / PROYECTO
                 self.objectiveLabel = GeneralViewModel.nls("admin.poa.edit.general.objective.label");
-                self.objectivePlaceHolder = GeneralViewModel.nls("admin.poa.edit.general.objective.placeHolder");
+                self.objectiveProcessPlaceHolder = GeneralViewModel.nls("admin.poa.edit.general.objective.placeHolderProcess");
+                self.objectiveProyectPlaceHolder = GeneralViewModel.nls("admin.poa.edit.general.objective.placeHolderProyect");
                 self.objectiveValue = ko.observable("");
-
+               
                 //CLASE
                 self.classLabel = GeneralViewModel.nls("admin.poa.edit.general.class.label");
                 self.class1 = "Programa educativo";
@@ -90,6 +93,21 @@ define([
                 self.problematicLabel = GeneralViewModel.nls("admin.poa.edit.general.problematic.label");
                 self.problematicPlaceHolder = GeneralViewModel.nls("admin.poa.edit.general.problematic.placeHolder");
                 self.problematicValue = ko.observable("");
+                
+                //JUSTIFICACIÓN DEL PROYECTO
+                self.justificationProyectLabel = GeneralViewModel.nls("admin.poa.edit.general.justification.label");
+                self.justificationProyectPlaceHolder = GeneralViewModel.nls("admin.poa.edit.general.justification.placeHolder");
+                self.justificationProyectValue = ko.observable("");
+                
+                //DESCRIPCIÓN DEL PROYECTO
+                self.descriptionLabel = GeneralViewModel.nls("admin.poa.edit.general.description.label");
+                self.descriptionPlaceHolder = GeneralViewModel.nls("admin.poa.edit.general.description.placeHolder");
+                self.descriptionValue = ko.observable("");
+                
+                 //RESULTADOS ESPERADOS
+                self.resultsLabel = GeneralViewModel.nls("admin.poa.edit.general.results.label");
+                self.resultsPlaceHolder = GeneralViewModel.nls("admin.poa.edit.general.results.placeHolder");
+                self.resultsValue = ko.observable("");
 
                 //AÑO
                 self.yearLabel = GeneralViewModel.nls("admin.poa.edit.general.año.label");
@@ -105,6 +123,11 @@ define([
                 self.finishedLabel = GeneralViewModel.nls("admin.poa.edit.general.termino.label");
                 self.finishedConverter = GeneralViewModel.converters.date;
                 self.finishedValue = ko.observable("");
+                
+                //ORIGEN DE LOS RECURSOS
+                self.originResourcesLabel = GeneralViewModel.nls("admin.poa.edit.general.originResources.label");
+                self.originResourcesPlaceHolder = GeneralViewModel.nls("admin.poa.edit.general.originResources.placeHolder");
+                self.originResourcesValue = ko.observable("");
 
                 //CALIFICACIÓN
                 self.qualificationLabel = GeneralViewModel.nls("admin.poa.edit.general.qualification.label");
@@ -543,7 +566,38 @@ define([
                 //OBSERVACIONES
                 self.observationsLabel = GeneralViewModel.nls("admin.poa.edit.responsable.observations");
                 self.observationsValue = ko.observable("");
-
+                
+                //SECCIÓN METAS Y AVANCES
+                self.goalsAndProgressTitle = GeneralViewModel.nls("admin.poa.edit.goalsAndProgress.title");
+                
+                //NOMBRE DEL INDICADOR GENERAL DEL AVANCE
+                self.indicatorNameLabel = GeneralViewModel.nls("admin.poa.edit.goalsAndProgress.indicatorName.label");
+                self.indicatorNamePlaceHolder = GeneralViewModel.nls("admin.poa.edit.goalsAndProgress.indicatorName.placeHolder");
+                self.indicatorNameValue = ko.observable("");
+                
+                //RIESGO POTENCIAL
+                self.potentialRiskLabel = GeneralViewModel.nls("admin.poa.edit.goalsAndProgress.potentialRisk.label");
+                self.potentialRiskPlaceHolder = GeneralViewModel.nls("admin.poa.edit.goalsAndProgress.potentialRisk.placeHolder");
+                self.potentialRiskValue = ko.observable("");
+                
+                //ACCIONES IMPLEMENTADAS
+                self.implementedActionsLabel = GeneralViewModel.nls("admin.poa.edit.goalsAndProgress.implementedActions.label");
+                self.implementedActionsPlaceHolder = GeneralViewModel.nls("admin.poa.edit.goalsAndProgress.implementedActions.placeHolder");
+                self.implementedActionsValue = ko.observable("");
+                
+                //UNIDAD DE MEDIDA
+                self.indicatorGoalsAndProgressLabel = GeneralViewModel.nls("admin.poa.edit.goalsAndProgress.indicator");
+                self.indicatorGoalsAndProgressValue = ko.observable("");
+                
+                //INDICADOR SECCIÓN METAS Y AVANCES
+                self.unitOfMLabel = GeneralViewModel.nls("admin.poa.edit.goalsAndProgress.unitOfM");
+                self.unitOfMValue = ko.observable("");
+                
+                //% AVANCE GENERAL
+                self.perProgressLabel = GeneralViewModel.nls("admin.poa.edit.goalsAndProgress.perProgress.label");
+                self.perProgressPlaceHolder = GeneralViewModel.nls("admin.poa.edit.goalsAndProgress.perProgress.placeHolder");
+                self.perProgressValue = ko.observable("");
+                
                 //SECCIÓN COMPONENTES
                 self.componentsTitle = GeneralViewModel.nls("admin.poa.edit.components.title");
                 self.componentsLabel = GeneralViewModel.nls("admin.poa.edit.components.component");
@@ -593,119 +647,196 @@ define([
                 self.progressLabel = GeneralViewModel.nls("admin.poa.edit.components.progressAndGoals");
 
                 //TABLA AVANCES Y METAS
-                let monthLabels = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", 
-                        "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
-                
-                self.goalsAndProgressColumns = [{headerText: "Mes"}];
-                
-                monthLabels.forEach(monthLabel => self.goalsAndProgressColumns.push({headerText: monthLabel}));
+                // Month labels
+                let months = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 
-                function calculateGoals(finalGoal) {
-                    let monthlyGoals = [];
-                    let monthlyGoal = finalGoal / 12;
-                    
-                    for (let i = 1; i <= 12; i ++) {
-                        monthlyGoals.push(monthlyGoal * i);
+                // Goals and progress table columns
+                self.comGoalsColumns = [{
+                    "headerText": 'Mes',
+                    "headerStyle": 'max-width: 7.69%; width: 7.69%',
+                    "style": 'min-width: 7.69%; width: 7.69%;',
+                    "sortable": 'disabled'
+                }];
+
+                // For each month label
+                months.forEach(function (month) {
+                    // Add new column to goals and progress table
+                    self.comGoalsColumns.push({
+                        "headerText": month,
+                        "headerStyle": 'max-width: 7.69%; width: 7.69%',
+                        "style": 'min-width: 7.69%; width: 7.69%;',
+                        "sortable": "disabled"
+                    });
+                });
+
+                // Goals observable array
+                self.comGoalsObservableArray = ko.observableArray([
+                    {
+                        "Mes": "Meta",
+                        "Ene": ko.observable(2), "Feb": ko.observable(4), "Mar": ko.observable(6),
+                        "Abr": ko.observable(8), "May": ko.observable(10), "Jun": ko.observable(12),
+                        "Jul": ko.observable(14), "Ago": ko.observable(16), "Sep": ko.observable(18),
+                        "Oct": ko.observable(20), "Nov": ko.observable(22), "Dic": ko.observable(24)
+                    },
+                    {
+                        "Mes": "Valor",
+                        "Ene": ko.observable(1), "Feb": ko.observable(3), "Mar": ko.observable(5),
+                        "Abr": ko.observable(7), "May": ko.observable(9), "Jun": ko.observable(11),
+                        "Jul": ko.observable(13), "Ago": ko.observable(15), "Sep": ko.observable(17),
+                        "Oct": ko.observable(19), "Nov": ko.observable(21), "Dic": ko.observable(23)
+                    },
+                    {
+                        "Mes": "% Avance",
+                        "Ene": ko.observable(50.00), "Feb": ko.observable(75.00), "Mar": ko.observable(83.33),
+                        "Abr": ko.observable(87.50), "May": ko.observable(90.00), "Jun": ko.observable(91.66),
+                        "Jul": ko.observable(92.85), "Ago": ko.observable(93.75), "Sep": ko.observable(94.44),
+                        "Oct": ko.observable(95.00), "Nov": ko.observable(95.45), "Dic": ko.observable(95.83)
                     }
-                    
-                    return monthlyGoals;
+                ]);
+
+                /**
+                 * Components Goals and Progress option change event.
+                 * 
+                 * Triggered after changing an input value in Goals and
+                 * Progress table.
+                 * 
+                 * @param {*} event 
+                 * @param {*} ui 
+                 */
+                self.comGoalsOptionChange = function (event, ui) {
+                    // If the value has changed and is not empty
+                    if (ui.value !== "" && ui.option === "value") {
+                        // Goals and values array
+                        let goals = [];
+                        let values = [];
+                        let count = 0;
+
+                        // For each row in goals and progress table
+                        self.comGoalsObservableArray().forEach(function (value, index) {
+                            // If the current row is Goals
+                            if (index === 0) {
+                                // For each value in Goals row
+                                for (let v in value) {
+                                    // Skip row name
+                                    if (value[v] !== "Meta") {
+                                        // Push goal in goals array
+                                        goals.push(value[v]());
+                                    }
+                                }
+                                // If the current row is Values
+                            } else if (index === 1) {
+                                // For each value in Values row
+                                for (let v in value) {
+                                    // Skip row name
+                                    if (value[v] !== "Valor") {
+                                        // Push value in values array
+                                        values.push(value[v]());
+                                    }
+                                }
+                                // If the current row is Progress
+                            } else if (index === 2) {
+                                // For each value in Progress row
+                                for (let v in value) {
+                                    // Skip row name
+                                    if (value[v] !== "% Avance") {
+                                        // Calculate the new value based in the column goals and values.
+                                        value[v](self.calculateProgress(goals[count], values[count]));
+                                        count++;
+                                    }
+                                }
+                            }
+                        });
+
+                        // Update chart values
+                        self.comUpdateChart();
+                    }
                 };
-                
-                var goals = calculateGoals(self.finalGoalValue());
-                
-                
-                let months = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
-                var values = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23];
-                self.observableValues = {};
-                values.forEach((value, index) => self.observableValues[months[index]] = ko.observable(value));
-                
-                function calculateProgress(values, finalGoal) {
-                    let progress = [];
-                    
-                    for (let i = 0; i < 12; i ++) {
-                        progress.push((values[i] * 100 / finalGoal).toFixed(2));
-                    }
-                    
-                    return progress;
+
+                /**
+                 * Calculate Progress value.
+                 * 
+                 * This function calculates the progress based in the
+                 * expected goal and actual value.
+                 * 
+                 * @param {*} goal 
+                 * @param {*} value 
+                 */
+                self.calculateProgress = function (goal, value) {
+                    let progress = parseFloat(value) / parseFloat(goal) * 100;
+                    return progress.toFixed(1);
                 };
-                
-                ko.pureComputed(
-                        function() {
-                            goals = calculateGoals(self.finalGoalValue());
-                        }
-                );
 
-                let progress = calculateProgress(values, self.finalGoalValue());
-                
-                var firstColumn = ["Meta", "Valor", "% Avance"];
-                
-                function buildTable(months, goals, values, progress) {
-                    let table = [];
-                    let arrays = [goals, values, progress];
-                    
-                    for (var i = 0; i < 3; i ++) {
-                        var currentObject = {dataType: firstColumn[i], editable: i === 1};
-                        table.push(currentObject);
+                // Table data source
+                self.comGoalsDataSource = ko.observable(new oj.ArrayTableDataSource(self.comGoalsObservableArray, { idAttribute: "Mes" }));
 
-                        for (var j = 0; j < 12; j ++) {
-                            currentObject[months[j]] = arrays[i][j];
-                        }
-                    }
-                    
-                    return table;
-                }
-                
-                let table = buildTable(months, goals, values, progress);
-                self.dataSource = ko.observable(new oj.ArrayTableDataSource(table, {idAttribute: "dataType"}));
-
-                // ROW TEMPLATE TABLA
-                self.getTableRowTemplate = function (data, context) {
+                // Table row template
+                self.comGoalsRowTemplate = function (data, context) {
                     var mode = context.$rowContext['mode'];
-                    return mode === 'edit' ? 'editRowTemplate' : 'rowTemplate';
+                    return mode === 'edit' ? 'comGoalsEditRowTemplate' : 'comGoalsRowTemplate';
                 };
 
-                self.groupsValues = monthLabels;
-                self.seriesValues = ko.observableArray();
-                self.yAxis = {title: "Metas"};
-                self.y2Axis = {title: "Avances"};
-                
+                // Goals and progress chart
+                self.comChartGroupsValue = ko.observableArray(months);
+                self.comChartSeriesValue = ko.observableArray([]);
+                self.comChartYAxis = ko.observable();
+                self.comChartY2Axis = {title: "Avances"};
+
+                // Update reference line (final goal line) in goals and progress chart
+                ko.computed(function () {
+                    self.comChartYAxis({
+                        title: "Meta",
+                        referenceObjects: [{
+                            text: "Meta final",
+                            type: "line",
+                            value: self.finalGoalValue(),
+                            color: '#A0CEEC',
+                            displayInLegend: 'on',
+                            lineWidth: 3,
+                            location: 'back',
+                            lineStyle: 'dashed',
+                            shortDesc: 'Meta final del componente'
+                        }]
+                    });
+                });
+
                 /**
                  * Update chart values.
-                 * @param {type} table The matrix with values to populate the table.
-                 * @returns {void}
                  */
-                self.updateChart = function (table) {
-                    var series = [
-                        {name: "Metas", items: []},
-                        {name: "Avances", items: [], assignedToY2: 'on'}
+                self.comUpdateChart = function () {
+                    // New chart series
+                    var chartSeries = [
+                        { name: 'Metas', items: [] },
+                        { name: 'Avances', items: [], assignedToY2: 'on' }
                     ];
 
-                    series[0].items = [];
-                    
-                    for (let i = 0; i < 12; i ++) {
-                        series[0].items.push(table[0][months[i]]);
-                        series[1].items.push(table[2][months[i]]);
-                    }
-                    
-                    self.seriesValues(series);
+                    // For each goal in Goals' table
+                    self.comGoalsObservableArray().forEach(function (value, index) {
+                        if (index === 0) {
+                            // For each value in Goals row
+                            for (let v in value) {
+                                // Skip row name
+                                if (value[v] !== "Meta") {
+                                    // Add new item to Chart series
+                                    chartSeries[0].items.push(value[v]());
+                                }
+                            }
+                        } else if (index === 2) {
+                            // For each value in Values row
+                            for (let v in value) {
+                                // Skip row name
+                                if (value[v] !== "% Avance") {
+                                    // Add new item to Chart series
+                                    chartSeries[1].items.push(value[v]());
+                                }
+                            }
+                        }
+                    });
+
+                    // Set chart values
+                    self.comChartSeriesValue(chartSeries);
                 };
                 
-                // Update chart values
-                self.updateChart(table);
-                
-                ko.computed(
-                        () => {
-                            let values = [];
-                            for (let p in self.observableValues) {
-                                values.push(parseInt(self.observableValues[p]()));
-                            }
-                            
-                            let progress = calculateProgress(values, self.finalGoalValue());
-                            let table = buildTable(months, goals, values, progress);
-                            self.dataSource(new oj.ArrayTableDataSource(table, {idAttribute: "dataType"}));
-                            self.updateChart(table);
-                        }
-                );
+                self.comUpdateChart();
                 
                 // TABLA COMPONENTES
                 self.columns = [
