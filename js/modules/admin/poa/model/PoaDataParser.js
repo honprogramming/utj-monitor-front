@@ -7,7 +7,7 @@
  */
 define(
         [
-            'modules/admin/poa/model/PoaItem'
+            'modules/admin/poa/model/StrategicItem'
         ],
         function (PoaItem) {
             var PoaDataParser = {

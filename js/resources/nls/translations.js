@@ -456,9 +456,10 @@ define(
                                 "alineacionPide": {
                                     "label": "Alineación PIDE",
                                     "axes": "Ejes",
-                                    "themes": "Temas",
+                                    "topics": "Temas",
                                     "objectives": "Objetivos",
-                                    "indicators": "Selecciona el nombre del indicador"
+                                    "indicators": "Selecciona el nombre del indicador",
+                                    "button" : "Agregar"
                                 },
                                 "tableAlignedIndicators": {
                                     "headers": {
@@ -495,7 +496,32 @@ define(
                                     "placeHolder": "Extención telefonica"
                                 },
                                 "observations": "Observaciones"
-                            }
+                            },
+                            "components": {
+                                "title": "Componentes",
+                                "component": "Componente 1",
+                                "name": "Nombre",
+                                "description": "Descripción",
+                                "indicator": "Indicador",
+                                "unit": "Unidad de medida",
+                                "initialValue": "Valor inicial",
+                                "finishLine": "Meta final",
+                                "generalAdvance": "% Avance general",
+                                "responsable": "Responsable",
+                                "justification": "Justificación",
+                                "progressAndGoals": "Avances y metas",
+                                "tableComponents": {
+                                    "headers": {
+                                        "name": "Nombre",
+                                        "actions": "Acciones"
+                                    },
+                                    "title": "Componentes",
+                                    "tableSummary": "",
+                                    "tableAria": "",
+                                    "newErrorText": "",
+                                    "deleteErrorText": ""
+                                }
+                            } 
                         }
                     }
                 },
