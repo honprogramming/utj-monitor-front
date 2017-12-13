@@ -514,10 +514,14 @@ define(
                     "filterSearchPlaceholder": "Buscar...",
                     "label": "POA",
                     "switchButtonAriaLabel": "Cambia entre cumplimiento e indicadores",
-                    "title": "Tablero de seguimiento de POA"                    
+                    "title": "Tablero de seguimiento de POA"
                 },
                 "performance": {
-                    "label": "DESEMPEÑO"
+                    "filterSearchText" : "Selección de responsables",
+                    "filterSearchPlaceholder": "Buscar...",
+                    "label": "DESEMPEÑO",
+                    "switchButtonAriaLabel": "Cambia entre tipos de gráfica",
+                    "title": "Tablero de Desempeño Institucional"
                 },
                 "treePanel": {
                     "errors": {

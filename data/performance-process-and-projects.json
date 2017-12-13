@@ -1,0 +1,528 @@
+[
+    {
+        "title": "Rectoría",
+        "attr": {
+            "id": "rec"
+        },
+        "children": [
+            {
+                "title": "Rector",
+                "attr": {
+                    "id": "recrec"
+                },
+                "children": [
+                    {
+                       
+                        "title": "Proceso 1",                                
+                        "attr": {"id": "process1.1.1.1", "type": "process" },
+                        "unit-type": "number",
+                        "values-range": {
+                            "lowest": 1,
+                            "highest": 17
+                        }
+                    },
+                    {
+                        "title": "Proceso 2",
+                        "attr": {"id": "process1.1.1.2", "type": "process" },
+                        "unit-type": "number",
+                        "values-range": {
+                            "lowest": 1,
+                            "highest": 17
+                        }
+                    },
+                    {
+                        "title": "Proyecto 1",
+                        "attr": {"id": "project1.1.1.1", "type": "project" },
+                        "unit-type": "number",
+                        "values-range": {
+                            "lowest": 1,
+                            "highest": 17
+                        }
+                    },
+                    {
+                        "title": "Proyecto 2",
+                        "attr": {"id": "project1.1.1.2", "type": "project" },
+                        "unit-type": "number",
+                        "values-range": {
+                            "lowest": 1,
+                            "highest": 17
+                        }
+                    }
+                ]
+            },
+            {
+                "title": "Dirección 1",
+                "attr": {
+                    "id": "recdir1"
+                },
+                "children": [
+                    {
+                        "title": "Director 1",
+                        "attr": {
+                            "id": "recdir1dir1"
+                        },
+                        "unit-type": "percentage",
+                        "values-range": {
+                            "lowest": 0,
+                            "highest": 1
+                        },
+                        "children": [
+                            {
+                                "title": "Proceso 1",
+                                "attr": {"id": "process1.2.1.1", "type": "process" },
+                                "unit-type": "number",
+                                "values-range": {
+                                    "lowest": 1,
+                                    "highest": 17
+                                }
+                            },
+                            {
+                                "title": "Proceso 2",
+                                "attr": {"id": "process1.2.1.2", "type": "process" },
+                                "unit-type": "number",
+                                "values-range": {
+                                    "lowest": 1,
+                                    "highest": 17
+                                }
+                            },
+                            {
+                                "title": "Proyecto 1",
+                                "attr": {"id": "project1.2.1.1", "type": "project" },
+                                "unit-type": "number",
+                                "values-range": {
+                                    "lowest": 1,
+                                    "highest": 17
+                                }
+                            },
+                            {
+                                "title": "Proyecto 2",
+                                "attr": {"id": "project1.2.1.2", "type": "project" },
+                                "unit-type": "number",
+                                "values-range": {
+                                    "lowest": 1,
+                                    "highest": 17
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Departamento 1",
+                        "attr": {
+                            "id": "recdir1dir1dep1"
+                        },
+                        "children": [
+                            {
+                                "title": "Jefe Departamento 1",
+                                "attr": {
+                                    "id": "recdir1dir1dep1dep1"
+                                },
+                                "children": [
+                                    {
+                                        "title": "Proceso 1",
+                                        "attr": {"id": "processdep1.1", "type": "process" },
+                                        "unit-type": "number",
+                                        "values-range": {
+                                            "lowest": 1,
+                                            "highest": 17
+                                        }
+                                    },
+                                    {
+                                        "title": "Proceso 2",
+                                        "attr": {"id": "processdep1.2", "type": "process" },
+                                        "unit-type": "number",
+                                        "values-range": {
+                                            "lowest": 1,
+                                            "highest": 17
+                                        }
+                                    },
+                                    {
+                                        "title": "Proyecto 1",
+                                        "attr": {"id": "projectdep1.1", "type": "project" },
+                                        "unit-type": "number",
+                                        "values-range": {
+                                            "lowest": 1,
+                                            "highest": 17
+                                        }
+                                    },
+                                    {
+                                        "title": "Proyecto 2",
+                                        "attr": {"id": "projectdep1.2", "type": "project" },
+                                        "unit-type": "number",
+                                        "values-range": {
+                                            "lowest": 1,
+                                            "highest": 17
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Departamento 2",
+                        "attr": {
+                            "id": "recdir1dir1dep2"
+                        },
+                        "children": [
+                            {
+                                "title": "Jefe Departamento 2",
+                                "attr": {
+                                    "id": "recdir1dir1dep1dep2"
+                                },
+                                "children": [
+                                    {
+                                        "title": "Proceso 1",
+                                        "attr": {"id": "processdep2.1", "type": "process" },
+                                        "unit-type": "number",
+                                        "values-range": {
+                                            "lowest": 1,
+                                            "highest": 17
+                                        }
+                                    },
+                                    {
+                                        "title": "Proceso 2",
+                                        "attr": {"id": "processdep2.2", "type": "process" },
+                                        "unit-type": "number",
+                                        "values-range": {
+                                            "lowest": 1,
+                                            "highest": 17
+                                        }
+                                    },
+                                    {
+                                        "title": "Proyecto 1",
+                                        "attr": {"id": "projectdep2.1", "type": "project" },
+                                        "unit-type": "number",
+                                        "values-range": {
+                                            "lowest": 1,
+                                            "highest": 17
+                                        }
+                                    },
+                                    {
+                                        "title": "Proyecto 2",
+                                        "attr": {"id": "projectdep2.2", "type": "project" },
+                                        "unit-type": "number",
+                                        "values-range": {
+                                            "lowest": 1,
+                                            "highest": 17
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Dirección 2",
+                "attr": {
+                    "id": "recdir2"
+                },
+                "children": [
+                    {
+                        "title": "Director 2",
+                        "attr": {
+                            "id": "recdir2dir2"
+                        },
+                        "children": [
+                            {
+                                "title": "Proceso 1",
+                                "attr": {"id": "process1.3.1.1", "type": "process" },
+                                "unit-type": "number",
+                                "values-range": {
+                                    "lowest": 1,
+                                    "highest": 17
+                                }
+                            },
+                            {
+                                "title": "Proceso 2",
+                                "attr": {"id": "process1.3.1.2", "type": "process" },
+                                "unit-type": "number",
+                                "values-range": {
+                                    "lowest": 1,
+                                    "highest": 17
+                                }
+                            },
+                            {
+                                "title": "Proyecto 1",
+                                "attr": {"id": "project1.3.1.1", "type": "project" },
+                                "unit-type": "number",
+                                "values-range": {
+                                    "lowest": 1,
+                                    "highest": 17
+                                }
+                            },
+                            {
+                                "title": "Proyecto 2",
+                                "attr": {"id": "project1.3.1.2", "type": "project" },
+                                "unit-type": "number",
+                                "values-range": {
+                                    "lowest": 1,
+                                    "highest": 17
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Departamento 3",
+                        "attr": {
+                            "id": "recdir2dir2dep1"
+                        },
+                        "children": [
+                            {
+                                "title": "Jefe Departamento 3",
+                                "attr": {
+                                    "id": "recdir2dir2dep3dep3"
+                                },
+                                "children": [
+                                    {
+                                        "title": "Proceso 1",
+                                        "attr": {"id": "processdep3.1", "type": "process" },
+                                        "unit-type": "number",
+                                        "values-range": {
+                                            "lowest": 1,
+                                            "highest": 17
+                                        }
+                                    },
+                                    {
+                                        "title": "Proceso 2",
+                                        "attr": {"id": "processdep3.2", "type": "process" },
+                                        "unit-type": "number",
+                                        "values-range": {
+                                            "lowest": 1,
+                                            "highest": 17
+                                        }
+                                    },
+                                    {
+                                        "title": "Proyecto 1",
+                                        "attr": {"id": "projectdep3.1", "type": "project" },
+                                        "unit-type": "number",
+                                        "values-range": {
+                                            "lowest": 1,
+                                            "highest": 17
+                                        }
+                                    },
+                                    {
+                                        "title": "Proyecto 2",
+                                        "attr": {"id": "projectdep3.2", "type": "project" },
+                                        "unit-type": "number",
+                                        "values-range": {
+                                            "lowest": 1,
+                                            "highest": 17
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Departamento 4",
+                        "attr": {
+                            "id": "recdir2dir2dep4"
+                        },
+                        "children": [
+                            {
+                                "title": "Jefe Departamento 4",
+                                "attr": {
+                                    "id": "recdir2dir2dep4dep4"
+                                },
+                                "children": [
+                                    {
+                                        "title": "Proceso 1",
+                                        "attr": {"id": "processdep4.1", "type": "process" },
+                                        "unit-type": "number",
+                                        "values-range": {
+                                            "lowest": 1,
+                                            "highest": 17
+                                        }
+                                    },
+                                    {
+                                        "title": "Proceso 2",
+                                        "attr": {"id": "processdep4.2", "type": "process" },
+                                        "unit-type": "number",
+                                        "values-range": {
+                                            "lowest": 1,
+                                            "highest": 17
+                                        }
+                                    },
+                                    {
+                                        "title": "Proyecto 1",
+                                        "attr": {"id": "projectdep4.1", "type": "project" },
+                                        "unit-type": "number",
+                                        "values-range": {
+                                            "lowest": 1,
+                                            "highest": 17
+                                        }
+                                    },
+                                    {
+                                        "title": "Proyecto 2",
+                                        "attr": {"id": "projectdep4.2", "type": "project" },
+                                        "unit-type": "number",
+                                        "values-range": {
+                                            "lowest": 1,
+                                            "highest": 17
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Secretaría Académica",
+        "attr": {
+            "id": "sa"
+        },
+        "children": [
+            {
+                "title": "Secretario Académico",
+                "attr": {
+                    "id": "sasa"
+                },
+                "children": [
+                    {
+                        "title": "Proceso 1",
+                        "attr": {"id": "process2.1.1.1", "type": "process" },
+                        "unit-type": "number",
+                        "values-range": {
+                            "lowest": 1,
+                            "highest": 17
+                        }
+                    },
+                    {
+                        "title": "Proceso 2",
+                        "attr": {"id": "process2.1.1.2", "type": "process" },
+                        "unit-type": "number",
+                        "values-range": {
+                            "lowest": 1,
+                            "highest": 17
+                        }
+                    },
+                    {
+                        "title": "Proyecto 1",
+                        "attr": {"id": "project2.1.1.1", "type": "project" },
+                        "unit-type": "number",
+                        "values-range": {
+                            "lowest": 1,
+                            "highest": 17
+                        }
+                    },
+                    {
+                        "title": "Proyecto 2",
+                        "attr": {"id": "project2.1.1.2", "type": "project" },
+                        "unit-type": "number",
+                        "values-range": {
+                            "lowest": 1,
+                            "highest": 17
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Secretaría Administrativa",
+        "attr": {
+            "id": "sad"
+        },
+        "children": [
+            {
+                "title": "Secretario Administrativo",
+                "attr": {
+                    "id": "saad"
+                },
+                "children": [
+                    {
+                        "title": "Proceso 1",
+                        "attr": {"id": "process2.1.1.1", "type": "process" },
+                        "unit-type": "number",
+                        "values-range": {
+                            "lowest": 1,
+                            "highest": 17
+                        }
+                    },
+                    {
+                        "title": "Proceso 2",
+                        "attr": {"id": "process2.1.1.2", "type": "process" },
+                        "unit-type": "number",
+                        "values-range": {
+                            "lowest": 1,
+                            "highest": 17
+                        }
+                    },
+                    {
+                        "title": "Proyecto 1",
+                        "attr": {"id": "project2.1.1.1", "type": "project" },
+                        "unit-type": "number",
+                        "values-range": {
+                            "lowest": 1,
+                            "highest": 17
+                        }
+                    },
+                    {
+                        "title": "Proyecto 2",
+                        "attr": {"id": "project2.1.1.2", "type": "project" },
+                        "unit-type": "number",
+                        "values-range": {
+                            "lowest": 1,
+                            "highest": 17
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Secretaría de Vinculación",
+        "attr": {
+            "id": "sv"
+        },
+        "children": [
+            {
+                "title": "Secretario de Vinculación",
+                "attr": {
+                    "id": "sasa"
+                },
+                "children": [
+                    {
+                        "title": "Proceso 1",
+                        "attr": {"id": "process2.1.1.1", "type": "process" },
+                        "unit-type": "number",
+                        "values-range": {
+                            "lowest": 1,
+                            "highest": 17
+                        }
+                    },
+                    {
+                        "title": "Proceso 2",
+                        "attr": {"id": "process2.1.1.2", "type": "process" },
+                        "unit-type": "number",
+                        "values-range": {
+                            "lowest": 1,
+                            "highest": 17
+                        }
+                    },
+                    {
+                        "title": "Proyecto 1",
+                        "attr": {"id": "project2.1.1.1", "type": "project" },
+                        "unit-type": "number",
+                        "values-range": {
+                            "lowest": 1,
+                            "highest": 17
+                        }
+                    },
+                    {
+                        "title": "Proyecto 2",
+                        "attr": {"id": "project2.1.1.2", "type": "project" },
+                        "unit-type": "number",
+                        "values-range": {
+                            "lowest": 1,
+                            "highest": 17
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]

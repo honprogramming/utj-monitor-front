@@ -1,0 +1,162 @@
+[
+    {
+        "title": "Rectoría",
+        "attr": {
+            "id": "rec",
+            "type": "area"
+        },
+        "children": [
+                {
+                    "title": "Rector",
+                    "attr": {
+                        "id": "recres",
+                        "type": "responsible"
+                    }
+                },
+                {
+                    "title": "Dirección 1",
+                    "attr": {
+                        "id": "dir1",
+                        "type": "area"
+                    },
+                    "children": [
+                            {
+                                "title": "Director 1",
+                                "attr": {
+                                    "id": "dir1res",
+                                    "type": "responsible"
+                                }
+                            },
+                            {
+                                "title": "Departamento 1",
+                                "attr": {
+                                    "id": "dep1",
+                                    "type": "area"
+                                },
+                                "children": [
+                                        {
+                                            "title": "Jefe de departamento 1",
+                                            "attr": {
+                                                "id": "dep1res",
+                                                "type": "responsible"
+                                            }
+                                        }
+                                    ]
+                            },
+                            {
+                                "title": "Departamento 2",
+                                "attr": {
+                                    "id": "dep2",
+                                    "type": "area"
+                                },
+                                "children": [
+                                        {
+                                            "title": "Jefe de departamento 2",
+                                            "attr": {
+                                                "id": "dep2res",
+                                                "type": "responsible"
+                                            }
+                                        }
+                                    ]
+                            }
+                        ]
+                },
+                {
+                    "title": "Dirección 2",
+                    "attr": {
+                        "id": "dir2",
+                        "type": "area"
+                    },
+                    "children": [
+                            {
+                                "title": "Director 2",
+                                "attr": {
+                                    "id": "dir2res",
+                                    "type": "responsible"
+                                }
+                            },
+                            {
+                                "title": "Departamento 3",
+                                "attr": {
+                                    "id": "dep3",
+                                    "type": "area"
+                                },
+                                "children": [
+                                    {
+                                        "title": "Jefe de departamento 3",
+                                        "attr": {
+                                            "id": "dep3res",
+                                            "type": "responsible"
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "title": "Departamento 4",
+                                "attr": {
+                                    "id": "dep4",
+                                    "type": "area"
+                                },
+                                "children": [
+                                    {
+                                        "title": "Jefe de departamento 4",
+                                        "attr": {
+                                            "id": "dep4res",
+                                            "type": "responsible"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                }
+            ]
+    },
+    {
+        "title": "Secretaria Académica",
+        "attr": {
+            "id": "sac",
+            "type": "area"
+        },
+        "children": [
+            {
+                "title": "Secretario Académico",
+                "attr": {
+                    "id": "sacres",
+                    "type": "responsible"
+                }
+            }
+        ]
+    },
+    {
+        "title": "Secretaría Administrativa",
+        "attr": {
+            "id": "sad",
+            "type": "area"
+        },
+        "children": [
+            {
+                "title": "Secretario Administrativo",
+                "attr": {
+                    "id": "sadres",
+                    "type": "responsible"
+                }
+            }
+        ]
+    },
+    {
+        "title": "Secretaría de Vinculación",
+        "attr": {
+            "id": "svi",
+            "type": "area"
+        },
+        "children": [
+            {
+                "title": "Secretario de Vinculación",
+                "attr": {
+                    "id": "svires",
+                    "type": "responsible"
+                }
+            }
+        ]
+    }
+]

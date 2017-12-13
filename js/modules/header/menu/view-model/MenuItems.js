@@ -35,14 +35,15 @@ define(
                         name: "poa/poa",
                         viewName: "poa/poa"
                     }
-                },/*
+                },
                 performance: {
                     id: "performance",
                     label: GeneralViewModel.nls("performance.label"),
                     module: {
-                        viewName: "empty"
+                        name: "performance/performance",
+                        viewName: "performance/performance"
                     }
-                },*/
+                },
                 admin: {
                     id: "admin",
                     label: "ADMINISTRADOR",

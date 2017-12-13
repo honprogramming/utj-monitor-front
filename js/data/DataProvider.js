@@ -14,7 +14,8 @@ define(['jquery'],
                 var privateData = {
                     dataSourceURL: dataSourceURL,
                     dataParser: dataParser,
-                    dataArray: undefined
+                    dataArray: undefined,
+                    dataMap: undefined
                 };
 
                 this.DataProvider_ = function (key) {
@@ -66,6 +67,27 @@ define(['jquery'],
 
                 return deferred;
             };
+            
+            /**
+             * Returns the Promise Object created by the ajax call done in this
+             * method.
+             * 
+             * @returns {Promise} An Object promise created by the ajax call.
+             */
+            prototype.fetchDataMap = function () {
+                var self = this;
+                var promise = $.getJSON(this.getSourceURL());
+                var deferred = $.Deferred();
+                
+                promise.then(
+                        function (data) {
+                            self.setDataMap(self.getDataParser().parseMap(data));
+                            deferred.resolve(data);
+                        }
+                );
+
+                return deferred;
+            };
 
             /**
              * Getter method for data stored as an Array.
@@ -85,6 +107,26 @@ define(['jquery'],
              */
             prototype.setDataArray = function (dataArray) {
                 this.DataProvider_(theKey).dataArray = dataArray;
+            };
+            
+            /**
+             * Getter method for data stored as an Array.
+             * 
+             * @returns An Object with data stored as an Array containing parsed
+             * data to be used mainly in the details panel.
+             */
+            prototype.getDataMap = function () {
+                return this.DataProvider_(theKey).dataMap;
+            };
+
+            /**
+             * Setter method for data stored as an Array.
+             * 
+             * @param{Array} dataMap An Object with data stored as 
+             * an Array containing parsed data.
+             */
+            prototype.setDataMap = function (dataMap) {
+                this.DataProvider_(theKey).dataMap = dataMap;
             };
 
             return DataProvider;

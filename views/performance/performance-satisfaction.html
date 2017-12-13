@@ -1,0 +1,73 @@
+<div id="pide-indicators-split-container" class="container column">
+    <div class="section-title">
+        Tablero de indicadores
+    </div>
+    <hr/>
+    <div class="container" data-bind="css: {'oj-flex':displayPanel()}">
+        <div 
+                data-bind="css: {'container oj-flex-item oj-sm-3': displayPanel()}">
+            <div class="container oj-flex-items-pad">
+                <div style="display:none" id="unit-type-error-pop-up"
+                            data-bind="ojComponent:{component: 'ojPopup'}">
+                    <div>
+                        <div class="error-title">!Error!</div>
+                        <div class="error-message"> 
+                            No puedes seleccionar indicadores con 3 o más unidades de medida diferentes
+                        </div>
+                    </div>
+                </div>
+                <div id="indicators-tree-container" class="container">
+                    <div class="container column">
+                        <div id="filter-container" class="oj-flex oj-flex-items-pad">
+                            <div class="oj-flex-item">
+                                <label for="filterSearch">Selección de Indicadores</label>
+                            </div>
+                            <div class="oj-flex-item">
+                                <input id="filterSearch" placeholder="Buscar..."
+                                        data-bind=" event: {keyup: handleKeyUp},
+                                                    textInput: searchValue,
+                                                    ojComponent: {
+                                                        component: 'ojInputText',
+                                                        rootAttributes: {
+                                                            style: 'max-width: 100%;'
+                                                        }
+                                                    }">
+                            </div>
+                        </div>
+                        <div id="pide-indicators-selection-panel"
+                                class="container scrolly">
+                            <div id="tree" class="container"
+                                 data-bind="ojComponent: {
+                                                component: 'ojTree',
+                                                data:{data: getJson},
+                                                icons: false,
+                                                initExpanded: 'all',
+                                                loaded: loadHandler,
+                                                optionChange: clickHandler,
+                                                selection: nodes,        
+                                                selectionMode: 'single',
+                                                types: getTypes()
+                                            }">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="pide-indicators-spliter"
+                        class="full-height">
+                    <div class="oj-flex oj-sm-flex-items-initial full-height">
+                        <button class="button-color full-height no-padding oj-button" 
+                                data-bind="click: toggleDrawer">
+                            <i class="fa" data-bind="css: arrowClass"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="performance-satisfaction-graphics-panel" class="container"
+                data-bind="css:{'oj-flex-item oj-sm-9': displayPanel()}">
+            <div class="container column">
+                <div data-bind="ojModule: detailsData" class="container scrolly"></div>
+            </div>
+        </div>
+    </div>
+</div>
