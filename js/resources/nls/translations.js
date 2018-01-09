@@ -456,12 +456,26 @@ define(
                                     "multiAnual": "Multianual"
                                 },
                                 "name": {
-                                    "label": "Denominación del proceso",
+                                    "labelProcess": "Denominación del proceso",
+                                    "labelProyect": "Denominación del proyecto",
                                     "placeHolder": "Nombre"
                                 },
                                 "objective": {
                                     "label": "Objetivo",
-                                    "placeHolder": "Objetivo del proceso"
+                                    "placeHolderProcess": "Objetivo del proceso",
+                                    "placeHolderProyect": "Objetivo del proyecto" 
+                                },
+                                "justification": {
+                                    "label": "Justificación del proyecto",
+                                    "placeHolder": "Justificación del proyecto"
+                                },
+                                "description": {
+                                    "label": "Descripción del proyecto",
+                                    "placeHolder": "Descripción del proyecto"
+                                },
+                                "results": {
+                                    "label": "Resultados esperados",
+                                    "placeHolder": "Resultados esperados"
                                 },
                                 "class": {
                                     "label": "Clase"
@@ -478,6 +492,10 @@ define(
                                 },
                                 "termino": {
                                     "label": "Término"
+                                },
+                                "originResources": {
+                                    "label": "Origen de los recursos",
+                                    "placeHolder": "Origen de los recursos"
                                 },
                                 "qualification": {
                                     "label": "Calificación",
@@ -532,6 +550,28 @@ define(
                                     "placeHolder": "Extención telefonica"
                                 },
                                 "observations": "Observaciones"
+                            },
+                            "goalsAndProgress": {
+                                "title": "Metas y Avances",
+                                "indicatorName": {
+                                    "label": "Nombre del indicador general del avance",
+                                    "placeHolder": "Indicador general de avance"
+                                },
+                                "potentialRisk": {
+                                    "label": "Riesgo potencial",
+                                    "placeHolder": "Riesgo potencial"
+                                },
+                                "implementedActions": {
+                                    "label": "Acciones implementadas",
+                                    "placeHolder": "Acciones implementadas"
+                                },
+                                "indicator": "Indicador",
+                                "unitOfM": "Unidad de medida",
+                                "perProgress": {
+                                    "label": "% Avance general",
+                                    "placeHolder": "%"
+                                },
+                                "progressAndGoals": "Avances y metas"
                             },
                             "components": {
                                 "title": "Componentes",
