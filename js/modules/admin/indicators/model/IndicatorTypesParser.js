@@ -1,21 +1,25 @@
-define([
-    'modules/admin/indicators/model/IndicatorItem',
-    'modules/admin/indicators/model/IndicatorType'
-], function (IndicatorType) {
-    var IndicatorTypesParser = {
-        
-        parse: function (data) {
-            var indicatorTypes = [];
+define(
+    [
+        'modules/admin/indicators/model/IndicatorItem',
+        'modules/admin/indicators/model/IndicatorType'
+    ], function (IndicatorType) {
+        var IndicatorTypesParser = {
 
-            if (Array.isArray(data)) {
-                data.forEach(function (jsonType) {
-                    indicatorTypes.push(new IndicatorType(jsonType["id"], jsonType["name"]));
-                });
+            parse: function (data) {
+                var indicatorTypes = [];
+
+                if (Array.isArray(data)) {
+                    data.forEach(
+                        function (object) {
+                            indicatorTypes.push(new IndicatorType(object["id"], object["name"]));
+                        }
+                    );
+                }
+
+                return indicatorTypes;
             }
+        };
 
-            return indicatorTypes;
-        }
-    };
-
-    return IndicatorTypesParser;
-});
+        return IndicatorTypesParser;
+    }
+);

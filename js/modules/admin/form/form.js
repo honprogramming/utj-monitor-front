@@ -295,7 +295,7 @@ define([
         self.axeChanged = false;
 
         // Get Strategic Items information
-        $.getJSON("data/strategic-items.json")
+        $.getJSON("data/admin-strategic-items.json")
             .done(function (data) {
                 // Get all Strategic Items
                 self.strategicItems = data.map(function (element) {

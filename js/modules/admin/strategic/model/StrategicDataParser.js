@@ -27,7 +27,9 @@ define(
                     var typesMap = StrategicTypes.getTypesMap();
                     var vision = data[0];
 
-                    createStrategicItem(vision);
+                    if (vision) {
+                        createStrategicItem(vision);
+                    }
 
                     function createStrategicItem(item) {
                         var strategicItem = 

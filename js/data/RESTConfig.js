@@ -3,7 +3,7 @@ define(
             var paths = {};
 
             var restConfig = {
-                subPath: "services/v1",
+                subPath: "/utj/api/v1",
 
                 admin: {
                     subPath: "/admin",
@@ -16,6 +16,19 @@ define(
                         },
                         types: {
                             endPath: "/types"
+                        }
+                    },
+                    indicators: {
+                        subPath: "/indicator",
+                        
+                        periodicities: {
+                            endPath: "/periodicities"
+                        },
+                        types: {
+                            endPath: "/types"
+                        },
+                        status: {
+                            endPath: "/status"
                         }
                     }
                 }

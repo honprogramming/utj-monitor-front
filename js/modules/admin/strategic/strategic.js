@@ -90,8 +90,8 @@ define(
                 
                 var strategicTypesDataProvider =
                         new DataProvider(
-                        "data/strategic-types.json",
-//                            RESTConfig.admin.strategic.types.path,
+//                        "data/strategic-types.json",
+                            RESTConfig.admin.strategic.types.path,
                             StrategicTypesParser);
                 
                 var typesPromise = strategicTypesDataProvider.fetchData();
@@ -115,8 +115,8 @@ define(
                 
                 var strategicDataProvider =
                         new DataProvider(
-                        "data/strategic-items-full.json",
-//                                RESTConfig.admin.strategic.items.path,
+//                        "data/strategic-items-full.json",
+                                RESTConfig.admin.strategic.items.path,
                                 StrategicDataParser);
                                         
                 var dataPromise = strategicDataProvider.fetchData();
@@ -221,6 +221,7 @@ define(
                             self.axesTable = new EditableTable(axesArray, strategicModel,
                                     {
                                         id: "axes-table",
+                                        actions: ["filter", "delete"],
                                         title: GeneralViewModel.nls("admin.strategic.axesTable.title"),
                                         tableSummary: GeneralViewModel.nls("admin.strategic.axesTable.tableSummary"),
                                         tableAria: GeneralViewModel.nls("admin.strategic.axesTable.tableAria"),
@@ -257,6 +258,7 @@ define(
                             self.topicsTable = new EditableTable(topicsArray, strategicModel,
                                     {
                                         id: "topics-table",
+                                        actions: ["filter", "delete"],
                                         title: GeneralViewModel.nls("admin.strategic.topicsTable.title"),
                                         tableSummary: GeneralViewModel.nls("admin.strategic.topicsTable.tableSummary"),
                                         tableAria: GeneralViewModel.nls("admin.strategic.topicsTable.tableAria"),
@@ -312,6 +314,7 @@ define(
                             self.objectivesTable = new EditableTable(objectivesArray, strategicModel,
                                     {
                                         id: "objectives-table",
+                                        actions: ["filter", "delete"],
                                         title: GeneralViewModel.nls("admin.strategic.objectivesTable.title"),
                                         tableSummary: GeneralViewModel.nls("admin.strategic.objectivesTable.tableSummary"),
                                         tableAria: GeneralViewModel.nls("admin.strategic.objectivesTable.tableAria"),
@@ -373,6 +376,7 @@ define(
                             self.strategiesTable = new EditableTable(strategiesArray, strategicModel,
                                     {
                                         id: "strategies-table",
+                                        actions: ["filter", "delete"],
                                         title: GeneralViewModel.nls("admin.strategic.strategiesTable.title"),
                                         tableSummary: GeneralViewModel.nls("admin.strategic.strategiesTable.tableSummary"),
                                         tableAria: GeneralViewModel.nls("admin.strategic.strategiesTable.tableAria"),

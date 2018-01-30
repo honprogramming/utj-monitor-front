@@ -236,7 +236,7 @@ define([
                 self.strategicArray = [];
 
                 // Get strategic items data
-                $.getJSON("data/strategic-items.json")
+                $.getJSON("data/admin-strategic-items.json")
                         .done(function (data) {
                             // Get all strategic items
                             self.strategicItems = data.map(function (element) {

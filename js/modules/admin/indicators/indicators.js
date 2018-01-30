@@ -25,7 +25,10 @@ define([
     'ojs/ojselectcombobox',
     'promise',
     'ojs/ojtable'
-], function ($, ko, DataProvider, RESTConfig, AjaxUtils, GeneralViewModel, IndicatorDataParser, IndicatorModel, IndicatorItem, IndicatorTypes, IndicatorTypesParser, EditableTable, FormActions, AdminItems, ActionTypes) {
+], function ($, ko, DataProvider, RESTConfig, AjaxUtils, GeneralViewModel, 
+            IndicatorDataParser, IndicatorModel, IndicatorItem, IndicatorTypes,
+            IndicatorTypesParser, EditableTable, FormActions, AdminItems, 
+            ActionTypes) {
 
     function IndicatorViewModel() {
         var self = this;
@@ -41,6 +44,9 @@ define([
         self.typeLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.type");
         self.statusLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.status");
         self.periodicityLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.periodicity");
+        self.periodicities = ko.observableArray([]);
+        self.types = ko.observableArray([]);
+        self.status = ko.observableArray([]);
 
         // PIDE filter text
         self.pideFilter = GeneralViewModel.nls("admin.indicators.main.filters.pide.title");
@@ -105,10 +111,11 @@ define([
         self.clickCancelHandler = function () {
             $("#" + self.resetDialogId).ojDialog("close");
         };
-
+        
+        
         // Indicator Types Provider
         var indicatorsTypesDataProvider = new DataProvider(
-            "data/strategic-types.json",
+            "data/admin-strategic-types.json",
             // RESTConfig.admin.strategic.types.path,
             IndicatorTypesParser
         );
@@ -132,7 +139,34 @@ define([
                 }
             });
         });
+        
+        var periodicitiesPromise = AjaxUtils.ajax(RESTConfig.admin.indicators.periodicities.path, 'GET');
+        
+        periodicitiesPromise.then(
+            periodicities => {
+                self.periodicities(periodicities);
+                $("#periodicity").ojSelect("refresh");
+            } 
+        );
 
+        var typesPromise = AjaxUtils.ajax(RESTConfig.admin.indicators.types.path, 'GET');
+        
+        typesPromise.then(
+            types => {
+                self.types(types);
+                $("#type").ojSelect("refresh");
+            } 
+        );
+
+        var statusPromise = AjaxUtils.ajax(RESTConfig.admin.indicators.status.path, 'GET');
+        
+        statusPromise.then(
+            status => {
+                self.status(status);
+                $("#status").ojSelect("refresh");
+            } 
+        );
+        
         // Indicator data provider
         var indicatorDataProvider = new DataProvider(
             "data/pide-items-full.json",
