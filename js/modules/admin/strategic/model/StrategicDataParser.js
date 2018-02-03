@@ -25,7 +25,7 @@ define(
                     var strategicItems = [];
                     var strategicItemsMap = {};
                     var typesMap = StrategicTypes.getTypesMap();
-                    var vision = data[0];
+                    var vision = data.filter(item => item.strategicType.name === StrategicTypes.VISION.name)[0];
 
                     if (vision) {
                         createStrategicItem(vision);

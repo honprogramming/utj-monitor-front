@@ -927,7 +927,17 @@
                                 ],
                                 "name": "5.2 Fortalecer la preparación, formación y actualización de docentes",
                                 "id": 61
-                            },
+                            }                            
+                        ],
+                        "name": "Perfil y actividades del personal académico",
+                        "id": 24
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 3
+                        },
+                        "children": [
                             {
                                 "strategicType": {
                                     "name": "objective",
@@ -1011,15 +1021,6 @@
                                 "id": 119
                             }
                         ],
-                        "name": "Perfil y actividades del personal académico",
-                        "id": 24
-                    },
-                    {
-                        "strategicType": {
-                            "name": "topic",
-                            "id": 3
-                        },
-                        "children": [],
                         "name": "Labores de investigación, desarrollo tecnológico e innovación",
                         "id": 48
                     },
