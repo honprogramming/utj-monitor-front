@@ -7,7 +7,7 @@
  */
 define([
     'modules/admin/indicators/model/IndicatorItem',
-    'modules/admin/indicators/model/IndicatorTypes'
+    'modules/admin/strategic/model/StrategicTypes'
 ], function (IndicatorItem, IndicatorTypes) {
 
     var IndicatorDataParser = {

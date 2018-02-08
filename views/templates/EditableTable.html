@@ -1,12 +1,4 @@
 <!-- ko if: $data -->
-<div class="full-width form-container oj-accordion-collapsible"
-     data-bind="attr: {id: collapsibleId},
-                ojComponent: {
-                    component: 'ojCollapsible',
-                    expandArea: 'disclosureIcon',
-                    expanded: true
-                }">
-    <h4 class="" data-bind="attr:{id: titleId}, text: title"></h4>
     <div class="oj-flex full-width collapsible-content">
         <i class="fa fa-plus fa-lg pointer icon-padding"
            data-bind="attr: {title: newHint}, style: {opacity: state}, click: newClickHandler"></i>
@@ -98,5 +90,4 @@
             </div>
         </div>
     </div>
-</div>
 <!-- /ko -->

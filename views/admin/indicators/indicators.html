@@ -72,28 +72,31 @@
                 <div class="oj-flex oj-flex-items-pad">
                     <!-- Axis option -->
                     <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                        <label for="axis" class="oj-label" data-bind="text: axisLabel"></label>
-                        <select id="axis" data-bind="ojComponent: {component: 'ojSelect'}">
-                            <option value="Eje 1">Eje 1</option>
-                            <option value="Eje 2">Eje 2</option>
+                        <label for="axes" class="oj-label" data-bind="text: axisLabel"></label>
+                        <select id="axes" data-bind="ojComponent: {component: 'ojSelect'}">
+                            <!-- ko foreach: axes -->
+                                <option data-bind="text: $data.name, value: $data.id"></option>
+                            <!-- /ko -->
                         </select>
                     </div>
 
                     <!-- Topic option -->
                     <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                        <label for="topic" class="oj-label" data-bind="text: topicLabel"></label>
-                        <select id="topic" data-bind="ojComponent: {component: 'ojSelect'}">
-                            <option value="Tema 1">Tema 1</option>
-                            <option value="Tema 2">Tema 2</option>
+                        <label for="topics" class="oj-label" data-bind="text: topicLabel"></label>
+                        <select id="topics" data-bind="ojComponent: {component: 'ojSelect'}">
+                            <!-- ko foreach: topics -->
+                                <option data-bind="text: $data.name, value: $data.id"></option>
+                            <!-- /ko -->
                         </select>
                     </div>
 
                     <!-- Objective option -->
                     <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                        <label for="objective" class="oj-label" data-bind="text: objectiveLabel"></label>
-                        <select id="objective" data-bind="ojComponent: {component: 'ojSelect'}">
-                            <option value="Objetivo 1">Objetivo 1</option>
-                            <option value="Objetivo 2">Objetivo 2</option>
+                        <label for="objectives" class="oj-label" data-bind="text: objectiveLabel"></label>
+                        <select id="objectives" data-bind="ojComponent: {component: 'ojSelect'}">
+                            <!-- ko foreach: objectives -->
+                                <option data-bind="text: $data.name, value: $data.id"></option>
+                            <!-- /ko -->
                         </select>
                     </div>
                 </div>
@@ -102,13 +105,14 @@
     </div>
 
     <!-- Responsible filter section -->
-    <div id="responsible-collapsible" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
-        component: 'ojCollapsible',
-        expandArea: 'disclosureIcon',
-        expanded: false
-    }">
+    <div id="responsible-collapsible" class="form-container oj-accordion-collapsible" 
+         data-bind="ojComponent: {
+                        component: 'ojCollapsible',
+                        expandArea: 'disclosureIcon',
+                        expanded: false
+                    }">
         <!-- Collapsible title -->
-        <h4 id="responsible-filter" data-bind="text: responsibleFilter"></h4>
+        <h4 id="responsible-filter" data-bind="text: responsibleFilterTitle"></h4>
 
         <!-- Collapsible content -->
         <div class="oj-form-layout collapsible-content">
@@ -147,27 +151,35 @@
         </div>
     </div>
 
-    <!-- Search filter -->
-    <div class="right-align">
-        <input id="filter" data-bind="ojComponent: {
-            component: 'ojInputText',
-            placeholder: 'Escribe el nombre de un indicador'
-        }" />
-        <button id="clear" data-bind="ojComponent: { 
-            component: 'ojButton',
-            chroming: 'half',
-            display: 'icons',
-            label: 'Clear',
-            icons: {
-                'start': 'oj-fwk-icon oj-fwk-icon-cross03'
-            }
-        }">
-        </button>
-    </div>
-
     <!-- Indicators table -->
-    <div data-bind="template: {name: 'EditableTable', data: observableIndicatorsTable}"></div>
-
+    <div id="indicators-collapsible" class="form-container oj-accordion-collapsible" 
+         data-bind="ojComponent: {
+                        component: 'ojCollapsible',
+                        expandArea: 'disclosureIcon',
+                        expanded: true
+                    }">
+        <h4 id="indicators-collapsible-title" data-bind="text: indicatorsCollapsibleTitle"></h4>
+        <!-- Search filter -->
+        <div id="indicators-collapsible-content">
+            <div class="right-align">
+                <input id="filter" data-bind="ojComponent: {
+                    component: 'ojInputText',
+                    placeholder: 'Escribe el nombre de un indicador'
+                }" />
+                <button id="clear" data-bind="ojComponent: { 
+                    component: 'ojButton',
+                    chroming: 'half',
+                    display: 'icons',
+                    label: 'Clear',
+                    icons: {
+                        'start': 'oj-fwk-icon oj-fwk-icon-cross03'
+                    }
+                }">
+                </button>
+            </div>
+            <div data-bind="template: {name: 'EditableTable', data: observableIndicatorsTable}"></div>
+        </div>
+    </div>
     <div class="oj-flex oj-sm-justify-content-flex-end">
         <div data-bind="template: {name: 'FormActions', data: formActions}"></div>
     </div>

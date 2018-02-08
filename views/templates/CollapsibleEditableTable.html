@@ -1,0 +1,13 @@
+<!-- ko if: $data -->
+<div class="full-width form-container oj-accordion-collapsible"
+     data-bind="attr: {id: collapsibleId},
+                ojComponent: {
+                    component: 'ojCollapsible',
+                    expandArea: 'disclosureIcon',
+                    expanded: true
+                }">
+    <h4 class="" data-bind="attr:{id: titleId}, text: title"></h4>
+    <div data-bind="template: {name: 'EditableTable', data: $data}">
+    </div>
+</div>
+<!-- /ko -->

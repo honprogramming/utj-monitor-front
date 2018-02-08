@@ -134,13 +134,15 @@ define(
                                 }
                             },
                             "table": {
+                                "collapsible": {
+                                    "title": "Indicadores PIDE"  
+                                },
                                 "headers": {
                                     "status": "Status",
                                     "name": "Indicador",
                                     "actions": "Acciones"
                                 },
                                 "pide": {
-                                    "title": "Indicadores PIDE",
                                     "tableSummary": "Indicadores Estratégicos",
                                     "tableAria": "Tabla de Indicadores Estratégicos",
                                     "newErrorText": "Debes seleccionar un indicador",

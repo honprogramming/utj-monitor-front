@@ -1,193 +1,198 @@
-define([
-    'jquery',
-    'knockout',
-    'data/DataProvider',
-    'data/RESTConfig',
-    'data/AjaxUtils',
-    'view-models/GeneralViewModel',
-    'modules/admin/indicators/model/IndicatorDataParser',
-    'modules/admin/indicators/model/IndicatorModel',
-    'modules/admin/indicators/model/IndicatorItem',
-    'modules/admin/indicators/model/IndicatorTypes',
-    'modules/admin/indicators/model/IndicatorTypesParser',
-    'templates/EditableTable',
-    'templates/FormActions',
-    'modules/admin/view-model/AdminItems',
-    'events/ActionTypes',
-    'ojs/ojcore',
-    'ojs/ojknockout',
-    'ojs/ojcollapsible',
-    'ojs/ojinputtext',
-    'ojs/ojtable',
-    'ojs/ojdialog',
-    'ojs/ojbutton',
-    'ojs/ojarraytabledatasource',
-    'ojs/ojselectcombobox',
-    'promise',
-    'ojs/ojtable'
-], function ($, ko, DataProvider, RESTConfig, AjaxUtils, GeneralViewModel, 
-            IndicatorDataParser, IndicatorModel, IndicatorItem, IndicatorTypes,
-            IndicatorTypesParser, EditableTable, FormActions, AdminItems, 
-            ActionTypes) {
+define(
+    [
+        'jquery',
+        'knockout',
+        'data/DataProvider',
+        'data/RESTConfig',
+        'data/AjaxUtils',
+        'view-models/GeneralViewModel',
+        'modules/admin/strategic/model/StrategicDataParser',
+        'modules/admin/strategic/model/StrategicTypes',
+        'modules/admin/strategic/model/StrategicModel',
+        'modules/admin/indicators/model/IndicatorDataParser',
+        'modules/admin/indicators/model/IndicatorModel',
+        'modules/admin/indicators/model/IndicatorItem',
+        'templates/EditableTable',
+        'templates/FormActions',
+        'modules/admin/view-model/AdminItems',
+        'events/ActionTypes',
+        'ojs/ojcore',
+        'ojs/ojknockout',
+        'ojs/ojcollapsible',
+        'ojs/ojinputtext',
+        'ojs/ojdialog',
+        'ojs/ojbutton',
+        'ojs/ojarraytabledatasource',
+        'ojs/ojselectcombobox',
+        'promise',
+        'ojs/ojtable'
+    ], function ($, ko, DataProvider, RESTConfig, AjaxUtils, GeneralViewModel, 
+            StrategicDataParser, StrategicTypes, StrategicModel,
+            IndicatorDataParser, IndicatorModel, IndicatorItem,
+            EditableTable, FormActions, AdminItems) {
 
-    function IndicatorViewModel() {
-        var self = this;
+        function IndicatorViewModel() {
+            var self = this;
 
-        // Vision data
-        self.vision = ko.observable();
+            // Vision data
+            self.vision = ko.observable();
 
-        // Section title text
-        self.title = AdminItems["indicators"]["label"];
+            // Section title text
+            self.title = AdminItems["indicators"]["label"];
 
-        // General filter text
-        self.generalFilter = GeneralViewModel.nls("admin.indicators.main.filters.general.title");
-        self.typeLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.type");
-        self.statusLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.status");
-        self.periodicityLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.periodicity");
-        self.periodicities = ko.observableArray([]);
-        self.types = ko.observableArray([]);
-        self.status = ko.observableArray([]);
+            // General filter text
+            self.generalFilter = GeneralViewModel.nls("admin.indicators.main.filters.general.title");
+            self.typeLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.type");
+            self.statusLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.status");
+            self.periodicityLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.periodicity");
+            self.periodicities = ko.observableArray([]);
+            self.types = ko.observableArray([]);
+            self.status = ko.observableArray([]);
 
-        // PIDE filter text
-        self.pideFilter = GeneralViewModel.nls("admin.indicators.main.filters.pide.title");
-        self.axisLabel = GeneralViewModel.nls("admin.indicators.main.filters.pide.axis");
-        self.topicLabel = GeneralViewModel.nls("admin.indicators.main.filters.pide.topic");
-        self.objectiveLabel = GeneralViewModel.nls("admin.indicators.main.filters.pide.objective");
+            // PIDE filter text
+            self.pideFilter = GeneralViewModel.nls("admin.indicators.main.filters.pide.title");
+            self.axisLabel = GeneralViewModel.nls("admin.indicators.main.filters.pide.axis");
+            self.topicLabel = GeneralViewModel.nls("admin.indicators.main.filters.pide.topic");
+            self.objectiveLabel = GeneralViewModel.nls("admin.indicators.main.filters.pide.objective");
+            self.axes = ko.observableArray([]);
+            self.topics = ko.observableArray([]);
+            self.objectives = ko.observableArray([]);
 
-        // Responsible filter text
-        self.responsibleFilter = GeneralViewModel.nls("admin.indicators.main.filters.responsible.title");
-        self.secretaryLabel = GeneralViewModel.nls("admin.indicators.main.filters.responsible.secretary");
-        self.areaLabel = GeneralViewModel.nls("admin.indicators.main.filters.responsible.area");
-        self.nameLabel = GeneralViewModel.nls("admin.indicators.main.filters.responsible.name");
-
-        // Table columns
-        self.columns = [
-            {
-                headerText: GeneralViewModel.nls("admin.indicators.main.table.headers.name"),
-                headerStyle: 'min-width: 50%; max-width: 50em; width: 85%',
-                headerClassName: 'oj-helper-text-align-start',
-                style: 'min-width: 50%; max-width: 50em; width: 85%;',
-                className: 'oj-helper-text-align-start',
-                sortProperty: 'name'
-            },
-            {
-                headerText: GeneralViewModel.nls("admin.indicators.main.table.headers.actions"),
-                headerStyle: 'min-width: 2em; max-width: 5em; width: 15%',
-                headerClassName: 'oj-helper-text-align-start',
-                style: 'min-width: 2em; max-width: 5em; width: 15%; text-align:center;',
-                sortable: 'disabled'
-            }
-        ];
-
-        // Reset dialog text
-        self.resetDialogId = "indicators-reset-dialog";
-        self.resetDialogTitle = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.title");
-        self.resetWarningText = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.warningText");
-        self.resetDialogOkButtonLabel = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.okButton");
-        self.resetDialogCancelButtonLabel = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.cancelButton");
-
-        // Save dialog text
-        self.saveDialogId = "indicators-save-dialog";
-        self.saveMessage = ko.observable();
-        self.saveDialogTitle = GeneralViewModel.nls("admin.indicators.main.dialogs.save.title");
-        var saveDialogClass = "";
-
-        // Form actions
-        self.formActions = new FormActions();
-
-        // Reset listener
-        self.formActions.addResetListener(function () {
-            $("#" + self.resetDialogId).ojDialog("open");
-        });
-
-        // Click ok handler
-        var clickOkHandlerObservable = ko.observable();
-        self.clickOkHandler = function () {
-            var handler = clickOkHandlerObservable();
-            handler();
-        };
-
-        // Click cancer handler
-        self.clickCancelHandler = function () {
-            $("#" + self.resetDialogId).ojDialog("close");
-        };
-        
-        
-        // Indicator Types Provider
-        var indicatorsTypesDataProvider = new DataProvider(
-            "data/admin-strategic-types.json",
-            // RESTConfig.admin.strategic.types.path,
-            IndicatorTypesParser
-        );
-
-        // Indicator Types Promise
-        var typesPromise = indicatorsTypesDataProvider.fetchData();
-
-        // Indicator Types Promise resolve
-        var typesSetPromise = typesPromise.then(function () {
-            // Get Indicator Types Array
-            var types = indicatorsTypesDataProvider.getDataArray();
-
-            // Get Indicator Types Map
-            var indicatorTypesMap = IndicatorTypes.getTypesMap();
-
-            types.forEach(function (type) {
-                var indicatorType = indicatorTypesMap[type.name];
-
-                if (indicatorType) {
-                    indicatorType.id = type.id;
+            // Responsible filter text
+            self.responsibleFilterTitle = GeneralViewModel.nls("admin.indicators.main.filters.responsible.title");
+            self.secretaryLabel = GeneralViewModel.nls("admin.indicators.main.filters.responsible.secretary");
+            self.areaLabel = GeneralViewModel.nls("admin.indicators.main.filters.responsible.area");
+            self.nameLabel = GeneralViewModel.nls("admin.indicators.main.filters.responsible.name");
+            
+            //Indicators table section
+            self.indicatorsCollapsibleTitle = GeneralViewModel.nls("admin.indicators.main.table.collapsible.title");
+            
+            // Table columns
+            self.columns = [
+                {
+                    headerText: GeneralViewModel.nls("admin.indicators.main.table.headers.name"),
+                    headerStyle: 'min-width: 50%; max-width: 50em; width: 85%',
+                    headerClassName: 'oj-helper-text-align-start',
+                    style: 'min-width: 50%; max-width: 50em; width: 85%;',
+                    className: 'oj-helper-text-align-start',
+                    sortProperty: 'name'
+                },
+                {
+                    headerText: GeneralViewModel.nls("admin.indicators.main.table.headers.actions"),
+                    headerStyle: 'min-width: 2em; max-width: 5em; width: 15%',
+                    headerClassName: 'oj-helper-text-align-start',
+                    style: 'min-width: 2em; max-width: 5em; width: 15%; text-align:center;',
+                    sortable: 'disabled'
                 }
-            });
-        });
-        
-        var periodicitiesPromise = AjaxUtils.ajax(RESTConfig.admin.indicators.periodicities.path, 'GET');
-        
-        periodicitiesPromise.then(
-            periodicities => {
-                self.periodicities(periodicities);
-                $("#periodicity").ojSelect("refresh");
-            } 
-        );
+            ];
 
-        var typesPromise = AjaxUtils.ajax(RESTConfig.admin.indicators.types.path, 'GET');
-        
-        typesPromise.then(
-            types => {
-                self.types(types);
-                $("#type").ojSelect("refresh");
-            } 
-        );
+            // Reset dialog text
+            self.resetDialogId = "indicators-reset-dialog";
+            self.resetDialogTitle = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.title");
+            self.resetWarningText = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.warningText");
+            self.resetDialogOkButtonLabel = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.okButton");
+            self.resetDialogCancelButtonLabel = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.cancelButton");
 
-        var statusPromise = AjaxUtils.ajax(RESTConfig.admin.indicators.status.path, 'GET');
-        
-        statusPromise.then(
-            status => {
-                self.status(status);
-                $("#status").ojSelect("refresh");
-            } 
-        );
-        
-        // Indicator data provider
-        var indicatorDataProvider = new DataProvider(
-            "data/pide-items-full.json",
-            // RESTConfig.admin.strategic.items.path,
-            IndicatorDataParser
-        );
+            // Save dialog text
+            self.saveDialogId = "indicators-save-dialog";
+            self.saveMessage = ko.observable();
+            self.saveDialogTitle = GeneralViewModel.nls("admin.indicators.main.dialogs.save.title");
+            var saveDialogClass = "";
 
-        var dataPromise = indicatorDataProvider.fetchData();
+            // Form actions
+            self.formActions = new FormActions();
 
-        // Tables observable
-        self.observableIndicatorsTable = ko.observable();
+            // Reset listener
+            self.formActions.addResetListener(
+                    () =>  $("#" + self.resetDialogId).ojDialog("open")
+            );
 
-        // Obtain data from promises
-        Promise.all([typesSetPromise, dataPromise]).then(function () {
+            // Click ok handler
+            var clickOkHandlerObservable = ko.observable();
+            self.clickOkHandler = function () {
+                var handler = clickOkHandlerObservable();
+                handler();
+            };
+
+            // Click cancer handler
+            self.clickCancelHandler = () => $("#" + self.resetDialogId).ojDialog("close");            
+            
+            let sortByName = (a, b) => a.name.localeCompare(b.name);
+            
+            //General Filter select controls population
+            var periodicitiesPromise = AjaxUtils.ajax(RESTConfig.admin.indicators.periodicities.path, 'GET');
+
+            periodicitiesPromise.then(
+                periodicities => {
+                    self.periodicities(periodicities);
+                    $("#periodicity").ojSelect("refresh");
+                } 
+            );
+
+            var typesPromise = AjaxUtils.ajax(RESTConfig.admin.indicators.types.path, 'GET');
+
+            typesPromise.then(
+                types => {
+                    self.types(types);
+                    $("#type").ojSelect("refresh");
+                } 
+            );
+
+            var statusPromise = AjaxUtils.ajax(RESTConfig.admin.indicators.status.path, 'GET');
+
+            statusPromise.then(
+                status => {
+                    self.status(status);
+                    $("#status").ojSelect("refresh");
+                } 
+            );
+            
+            //PIDE Filter select controls population
+            var strategicDataProvider =
+                            new DataProvider(
+                                    RESTConfig.admin.strategic.items.path,
+                                    StrategicDataParser);
+
+            var strategicPromise = strategicDataProvider.fetchData();
+
+            strategicPromise.then(
+                () =>  {
+                    let strategicModel = new StrategicModel(strategicDataProvider);
+                    let axes = strategicModel.getItemsByType(StrategicTypes.AXE);
+            
+                    self.axes(axes.sort(sortByName));
+                    $("#axes").ojSelect("refresh");
+                    
+                    let topics = strategicModel.getItemsByType(StrategicTypes.TOPIC);
+                    self.topics(topics.sort(sortByName));
+                    $("#topics").ojSelect("refresh");
+                    
+                    let objectives = strategicModel.getItemsByType(StrategicTypes.OBJECTIVE);
+                    self.objectives(objectives.sort(sortByName));
+                    $("#objectives").ojSelect("refresh");
+                }
+            );
+
+            // Indicator data provider
+            var indicatorDataProvider = new DataProvider(
+                "data/pide-items-full.json",
+                // RESTConfig.admin.strategic.items.path,
+                IndicatorDataParser
+            );
+
+            var dataPromise = indicatorDataProvider.fetchData();
+
+            // Tables observable
+            self.observableIndicatorsTable = ko.observable();
+            
+            Promise.all([dataPromise]).then(function () {
             var indicatorsModel = new IndicatorModel(indicatorDataProvider);
-            var visionItem = indicatorsModel.getItemsByType(IndicatorTypes.VISION)[0];
-            var indicatorsArray = indicatorsModel.getItemsByType(IndicatorTypes.INDICATOR);
+            var visionItem = indicatorsModel.getItemsByType(StrategicTypes.VISION)[0];
+            var indicatorsArray = indicatorsModel.getItemsByType(StrategicTypes.INDICATOR);
             var deletedIds = [];
 
             if (!visionItem) {
-                visionItem = new IndicatorItem(1, "", IndicatorTypes.VISION);
+                visionItem = new IndicatorItem(1, "", StrategicTypes.VISION);
                 indicatorsModel.addItem(null, visionItem);
             }
 
@@ -283,7 +288,7 @@ define([
                     return true;//self.vision().length > 0;
                 },
                 itemCreator: function (id) {
-                    return createItem(id, self.indicatorsTable, IndicatorTypes.INDICATOR);
+                    return createItem(id, self.indicatorsTable, StrategicTypes.INDICATOR);
                 },
                 itemRemover: removeItem
             });
@@ -349,8 +354,11 @@ define([
                 saveDialog.ojDialog("widget").addClass(saveDialogClass);
                 saveDialog.ojDialog("open");
             };
-        });
-    }
 
-    return new IndicatorViewModel();
-});
+        });
+
+        }
+
+        return new IndicatorViewModel();
+    }
+);
