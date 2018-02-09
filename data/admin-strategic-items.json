@@ -501,6 +501,383 @@
                 ],
                 "name": "2 Formación integral y aprovechamiento académico",
                 "id": 3
+            },            
+            {
+                "strategicType": {
+                    "name": "axe",
+                    "id": 2
+                },
+                "children": [
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 3
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 4
+                                },
+                                "children": [
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "b) Institucionalizar el seguimiento y evaluación como una práctica continua y necesaria para la tomar de decisiones",
+                                        "id": 96
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "a) Asegurar que los procesos, proyectos y actividades se realicen de acuerdo al PIDE",
+                                        "id": 70
+                                    }
+                                ],
+                                "name": "3.1 Consolidar los trabajos e instrumentos de planeación, seguimiento y evaluación",
+                                "id": 53
+                            }
+                        ],
+                        "name": "Planeación y evaluación",
+                        "id": 28
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 3
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 4
+                                },
+                                "children": [
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "a) Promocionar la cultura de la calidad",
+                                        "id": 93
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "b) Generar un sistema integral de indicadores",
+                                        "id": 107
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "c) Implementar un modelo de mejora continua",
+                                        "id": 120
+                                    }
+                                ],
+                                "name": "3.6 Incrementar el impacto del sistema de gestión de calidad en la mejora continua del desempeño universitario",
+                                "id": 68
+                            }
+                        ],
+                        "name": "Sistema de Gestión de Calidad",
+                        "id": 19
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 3
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 4
+                                },
+                                "children": [
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "a) Actualizar la normatividad universitaria",
+                                        "id": 84
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "b) Asegurar que las normas y reglamentos respondan a la realidad académica",
+                                        "id": 153
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "c) Mantener un estricto seguimiento del sistema integral de gestión",
+                                        "id": 39
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "d) Asegurar el seguimiento adecuado a las sesiones del Consejo Directivo de la UTJ",
+                                        "id": 137
+                                    }
+                                ],
+                                "name": "3.8 Asegurar la actualización y aplicación de la normatividad universitaria y facilitar los medios para las sesiones del Consejo Directivo de la UTJ",
+                                "id": 174
+                            }
+                        ],
+                        "name": "Gobierno y normatividad universitaria",
+                        "id": 11
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 3
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 4
+                                },
+                                "children": [
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "a) Generar incentivos que apoyen la inclusión de estudiantes provenientes de grupos vulnerables",
+                                        "id": 127
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "b) Otorgar un porcentaje de becas a estudiantes provenientes de grupos vulnerables",
+                                        "id": 116
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "c) Generar instrumentos de promoción de la oferta educativa orientados a la captación de estudiantes provenientes de grupos vulnerables",
+                                        "id": 62
+                                    }
+                                ],
+                                "name": "3.4 Promover el acceso a la Universidad a los estudiantes que provienen de grupos vulnerables",
+                                "id": 106
+                            }
+                        ],
+                        "name": "Inclusión social y acceso a grupos vulnerables",
+                        "id": 34
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 3
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 4
+                                },
+                                "children": [
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "a) Mejorar la gestión integral de residuos",
+                                        "id": 189
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "b) Reducir el desperdicio de recursos como agua, electricidad, papel, etc.",
+                                        "id": 148
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "c) Incrementar la difusión del sistema de gestión ambiental",
+                                        "id": 124
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "d) Incluir en los PE temas de desarrollo sustentable",
+                                        "id": 88
+                                    }
+                                ],
+                                "name": "3.7 Asegurar el cumplimiento de las normas del sistema de gestión ambiental",
+                                "id": 112
+                            }
+                        ],
+                        "name": "Sistema de Gestión Ambiental",
+                        "id": 21
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 3
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 4
+                                },
+                                "children": [
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "b) Mejorar la coordinación y colaboración de las áreas administrativas y académicas",
+                                        "id": 89
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "a) Incentivar el desarrollo profesional de los recursos humanos",
+                                        "id": 115
+                                    }
+                                ],
+                                "name": "3.2 Mejorar el desempeño de la estructura organizacional",
+                                "id": 58
+                            }
+                        ],
+                        "name": "Estructura administrativa",
+                        "id": 4
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 3
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 4
+                                },
+                                "children": [
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "a) Generar conciencia en la comunidad universitaria sobre la prevención y atención del hostigamiento y acoso sexual",
+                                        "id": 186
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "b) Promover cursos y capacitaciones orientadas al respeto y equidad de género",
+                                        "id": 109
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "c) Realizar campañas de difusión de la cultura de equidad de género",
+                                        "id": 92
+                                    }
+                                ],
+                                "name": "3.3 Asegurar que la comunidad universitaria cumpla con las políticas de equidad de género",
+                                "id": 166
+                            }
+                        ],
+                        "name": "Equidad de género y buen trato entre la comunidad universitaria",
+                        "id": 20
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 3
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 4
+                                },
+                                "children": [
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "a) Reducir la dependencia del presupuesto asignado anualmente",
+                                        "id": 95
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 5
+                                        },
+                                        "children": [],
+                                        "name": "b) Aprovechar la disponibilidad de recursos provenientes de los programas federales y otras fuentes de financiamiento externas",
+                                        "id": 104
+                                    }
+                                ],
+                                "name": "3.5 Incrementar los recursos disponibles para la operación y ampliación de la infraestructura universitaria",
+                                "id": 133
+                            }
+                        ],
+                        "name": "Finanzas",
+                        "id": 40
+                    }
+                ],
+                "name": "3 Planeación, administración, equidad y gobierno",
+                "id": 8
             },
             {
                 "strategicType": {
@@ -1148,383 +1525,6 @@
                 ],
                 "name": "5 Innovación y desarrollo tecnológico",
                 "id": 10
-            },
-            {
-                "strategicType": {
-                    "name": "axe",
-                    "id": 2
-                },
-                "children": [
-                    {
-                        "strategicType": {
-                            "name": "topic",
-                            "id": 3
-                        },
-                        "children": [
-                            {
-                                "strategicType": {
-                                    "name": "objective",
-                                    "id": 4
-                                },
-                                "children": [
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "b) Institucionalizar el seguimiento y evaluación como una práctica continua y necesaria para la tomar de decisiones",
-                                        "id": 96
-                                    },
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "a) Asegurar que los procesos, proyectos y actividades se realicen de acuerdo al PIDE",
-                                        "id": 70
-                                    }
-                                ],
-                                "name": "3.1 Consolidar los trabajos e instrumentos de planeación, seguimiento y evaluación",
-                                "id": 53
-                            }
-                        ],
-                        "name": "Planeación y evaluación",
-                        "id": 28
-                    },
-                    {
-                        "strategicType": {
-                            "name": "topic",
-                            "id": 3
-                        },
-                        "children": [
-                            {
-                                "strategicType": {
-                                    "name": "objective",
-                                    "id": 4
-                                },
-                                "children": [
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "a) Promocionar la cultura de la calidad",
-                                        "id": 93
-                                    },
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "b) Generar un sistema integral de indicadores",
-                                        "id": 107
-                                    },
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "c) Implementar un modelo de mejora continua",
-                                        "id": 120
-                                    }
-                                ],
-                                "name": "3.6 Incrementar el impacto del sistema de gestión de calidad en la mejora continua del desempeño universitario",
-                                "id": 68
-                            }
-                        ],
-                        "name": "Sistema de Gestión de Calidad",
-                        "id": 19
-                    },
-                    {
-                        "strategicType": {
-                            "name": "topic",
-                            "id": 3
-                        },
-                        "children": [
-                            {
-                                "strategicType": {
-                                    "name": "objective",
-                                    "id": 4
-                                },
-                                "children": [
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "a) Actualizar la normatividad universitaria",
-                                        "id": 84
-                                    },
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "b) Asegurar que las normas y reglamentos respondan a la realidad académica",
-                                        "id": 153
-                                    },
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "c) Mantener un estricto seguimiento del sistema integral de gestión",
-                                        "id": 39
-                                    },
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "d) Asegurar el seguimiento adecuado a las sesiones del Consejo Directivo de la UTJ",
-                                        "id": 137
-                                    }
-                                ],
-                                "name": "3.8 Asegurar la actualización y aplicación de la normatividad universitaria y facilitar los medios para las sesiones del Consejo Directivo de la UTJ",
-                                "id": 174
-                            }
-                        ],
-                        "name": "Gobierno y normatividad universitaria",
-                        "id": 11
-                    },
-                    {
-                        "strategicType": {
-                            "name": "topic",
-                            "id": 3
-                        },
-                        "children": [
-                            {
-                                "strategicType": {
-                                    "name": "objective",
-                                    "id": 4
-                                },
-                                "children": [
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "a) Generar incentivos que apoyen la inclusión de estudiantes provenientes de grupos vulnerables",
-                                        "id": 127
-                                    },
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "b) Otorgar un porcentaje de becas a estudiantes provenientes de grupos vulnerables",
-                                        "id": 116
-                                    },
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "c) Generar instrumentos de promoción de la oferta educativa orientados a la captación de estudiantes provenientes de grupos vulnerables",
-                                        "id": 62
-                                    }
-                                ],
-                                "name": "3.4 Promover el acceso a la Universidad a los estudiantes que provienen de grupos vulnerables",
-                                "id": 106
-                            }
-                        ],
-                        "name": "Inclusión social y acceso a grupos vulnerables",
-                        "id": 34
-                    },
-                    {
-                        "strategicType": {
-                            "name": "topic",
-                            "id": 3
-                        },
-                        "children": [
-                            {
-                                "strategicType": {
-                                    "name": "objective",
-                                    "id": 4
-                                },
-                                "children": [
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "a) Mejorar la gestión integral de residuos",
-                                        "id": 189
-                                    },
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "b) Reducir el desperdicio de recursos como agua, electricidad, papel, etc.",
-                                        "id": 148
-                                    },
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "c) Incrementar la difusión del sistema de gestión ambiental",
-                                        "id": 124
-                                    },
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "d) Incluir en los PE temas de desarrollo sustentable",
-                                        "id": 88
-                                    }
-                                ],
-                                "name": "3.7 Asegurar el cumplimiento de las normas del sistema de gestión ambiental",
-                                "id": 112
-                            }
-                        ],
-                        "name": "Sistema de Gestión Ambiental",
-                        "id": 21
-                    },
-                    {
-                        "strategicType": {
-                            "name": "topic",
-                            "id": 3
-                        },
-                        "children": [
-                            {
-                                "strategicType": {
-                                    "name": "objective",
-                                    "id": 4
-                                },
-                                "children": [
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "b) Mejorar la coordinación y colaboración de las áreas administrativas y académicas",
-                                        "id": 89
-                                    },
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "a) Incentivar el desarrollo profesional de los recursos humanos",
-                                        "id": 115
-                                    }
-                                ],
-                                "name": "3.2 Mejorar el desempeño de la estructura organizacional",
-                                "id": 58
-                            }
-                        ],
-                        "name": "Estructura administrativa",
-                        "id": 4
-                    },
-                    {
-                        "strategicType": {
-                            "name": "topic",
-                            "id": 3
-                        },
-                        "children": [
-                            {
-                                "strategicType": {
-                                    "name": "objective",
-                                    "id": 4
-                                },
-                                "children": [
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "a) Generar conciencia en la comunidad universitaria sobre la prevención y atención del hostigamiento y acoso sexual",
-                                        "id": 186
-                                    },
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "b) Promover cursos y capacitaciones orientadas al respeto y equidad de género",
-                                        "id": 109
-                                    },
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "c) Realizar campañas de difusión de la cultura de equidad de género",
-                                        "id": 92
-                                    }
-                                ],
-                                "name": "3.3 Asegurar que la comunidad universitaria cumpla con las políticas de equidad de género",
-                                "id": 166
-                            }
-                        ],
-                        "name": "Equidad de género y buen trato entre la comunidad universitaria",
-                        "id": 20
-                    },
-                    {
-                        "strategicType": {
-                            "name": "topic",
-                            "id": 3
-                        },
-                        "children": [
-                            {
-                                "strategicType": {
-                                    "name": "objective",
-                                    "id": 4
-                                },
-                                "children": [
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "a) Reducir la dependencia del presupuesto asignado anualmente",
-                                        "id": 95
-                                    },
-                                    {
-                                        "strategicType": {
-                                            "name": "strategy",
-                                            "id": 5
-                                        },
-                                        "children": [],
-                                        "name": "b) Aprovechar la disponibilidad de recursos provenientes de los programas federales y otras fuentes de financiamiento externas",
-                                        "id": 104
-                                    }
-                                ],
-                                "name": "3.5 Incrementar los recursos disponibles para la operación y ampliación de la infraestructura universitaria",
-                                "id": 133
-                            }
-                        ],
-                        "name": "Finanzas",
-                        "id": 40
-                    }
-                ],
-                "name": "3 Planeación, administración, equidad y gobierno",
-                "id": 8
             },
             {
                 "strategicType": {

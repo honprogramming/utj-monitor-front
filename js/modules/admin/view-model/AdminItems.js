@@ -17,35 +17,35 @@ define(
                     module: {
                         name: "admin/indicators/indicators"
                     }
-                },
-                pe: {
-                    id: "pe",
-                    label: GeneralViewModel.nls("admin.pe.label"),
-                    module: {
-                        name: "admin/pe/pe"
-                    }
-                },
-                poa: {
-                    id: "poa",
-                    label: GeneralViewModel.nls("admin.poa.label"),
-                    module: {
-                        name: "admin/poa/poa"
-                    }
-                },
-                editPoa: {
-                    id: "editPoa",
-                    label: GeneralViewModel.nls("admin.poa.label1"),
-                    module: {
-                        name: "admin/poa/editPoa"
-                    }
-                },
-                form: {
-                    id: "form",
-                    label: "Formulario Indicadores",
-                    module: {
-                        name: "admin/form/form"
-                    }
                 }
+//                pe: {
+//                    id: "pe",
+//                    label: GeneralViewModel.nls("admin.pe.label"),
+//                    module: {
+//                        name: "admin/pe/pe"
+//                    }
+//                },
+//                poa: {
+//                    id: "poa",
+//                    label: GeneralViewModel.nls("admin.poa.label"),
+//                    module: {
+//                        name: "admin/poa/poa"
+//                    }
+//                },
+//                editPoa: {
+//                    id: "editPoa",
+//                    label: GeneralViewModel.nls("admin.poa.label1"),
+//                    module: {
+//                        name: "admin/poa/editPoa"
+//                    }
+//                },
+//                form: {
+//                    id: "form",
+//                    label: "Formulario Indicadores",
+//                    module: {
+//                        name: "admin/form/form"
+//                    }
+//                }
                 
             };
             

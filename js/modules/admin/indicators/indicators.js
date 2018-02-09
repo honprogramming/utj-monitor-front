@@ -283,7 +283,7 @@ define(
                 newErrorText: GeneralViewModel.nls("admin.indicators.main.table.pide.newErrorText"),
                 deleteErrorText: GeneralViewModel.nls("admin.indicators.main.table.pide.deleteErrorText"),
                 deleteValidator: hasNoChildren,
-                actions: ["delete", "clone", "read", "edit"],
+                actions: ["delete", "clone", "edit"],
                 newValidator: function () {
                     return true;//self.vision().length > 0;
                 },
