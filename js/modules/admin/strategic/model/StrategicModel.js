@@ -120,8 +120,8 @@ define(
                         function (element) {
                             var parentItem;
 
-                            for (var i = 0; i < parents.length; i++) {
-                                parentItem = allItems[i];
+                            for (let i = 0; i < parents.length; i++) {
+                                parentItem = allItems[parents[i].id];
                                 if (parentItem.children.includes(element)) {
                                     return true;
                                 }

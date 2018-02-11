@@ -38,13 +38,13 @@
 
                         <!-- MECASUT item -->
                         <span class="oj-choice-item">
-                            <input type="radio" id="si-mecasut-radio" name="si-type-radio" value="MECASUT">
+                            <input type="radio" id="si-mecasut-radio" disabled="disabled" name="si-type-radio" value="MECASUT">
                             <label for="si-mecasut-radio">MECASUT</label>
                         </span>
 
                         <!-- PE item -->
                         <span class="oj-choice-item">
-                            <input type="radio" id="si-pe-radio" name="si-type-radio" value="Programa Educativo">
+                            <input type="radio" id="si-pe-radio" disabled="disabled" name="si-type-radio" value="Programa Educativo">
                             <label for="si-pe-radio">Programa Educativo</label>
                         </span>
                     </div>
@@ -82,31 +82,31 @@
         <div class="oj-form-layout">
             <div class="oj-form">
                 <!-- Update option -->
-                <div class='oj-flex'>
+<!--                <div class='oj-flex'>
                     <div class="oj-flex-item">
-                        <!-- Label -->
+                         Label 
                         <label id="si-update-option" class="oj-label-inline" data-bind="text: updateLabel"></label>
 
-                        <!-- Radio Set -->
+                         Radio Set 
                         <div id="si-update-radioset" class="oj-choice-direction-row" aria-labelledby='si-update-option' data-bind="ojComponent: {
                             component: 'ojRadioset',
                             required: true,
                             value: updateValue
                         }">
-                            <!-- Manual -->
+                             Manual 
                             <span class="oj-choice-item">
                                 <input type="radio" id="si-manual-radio" name="si-update-radio" value="Manual">
                                 <label for="si-manual-radio">Manual</label>
                             </span>
 
-                            <!-- Auto -->
+                             Auto 
                             <span class="oj-choice-item">
                                 <input type="radio" id="si-auto-radio" name="si-update-radio" value="Automático">
                                 <label for="si-auto-radio">Automático</label>
                             </span>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
                 <!-- ko if: typeValue() === "Programa Educativo" -->
                 <!-- PE Axe option -->
@@ -430,35 +430,36 @@
                     <i class="fa fa-plus fa-lg pointer icon-padding" data-bind="click: pideAddRow.bind($data)"></i>
 
                     <!-- Table -->
-                    <table id="si-pide-table" summary="PIDE Table" aria-label="PIDE Table" data-bind="ojComponent: {
-                        component: 'ojTable',
-                        columns: pideColumns,
-                        data: pideDataSource,
-                        display: 'grid',
-                        editMode: 'rowEdit',
-                        rootAttributes: {
-                            'style': 'width: 1px; min-width: 100%;'
-                        },
-                        rowTemplate: getPIDERowTemplate
-                    }"></table>
+                    <table id="alignment-pide-table" summary="PIDE Table" aria-label="PIDE Table" 
+                           data-bind="ojComponent: {
+                                        component: 'ojTable',
+                                        columns: pideColumns,
+                                        data: pideDataSource,
+                                        display: 'grid',
+                                        editMode: 'rowEdit',
+                                        rootAttributes: {
+                                            'style': 'width: 1px; min-width: 100%;'
+                                        },
+                                        rowTemplate: getPIDERowTemplate
+                                    }"></table>
                 </div>
             </fieldset>
 
             <!-- POA Section -->
-            <fieldset class="oj-margin-top">
-                <!-- Label -->
+<!--            <fieldset class="oj-margin-top">
+                 Label 
                 <legend>
                     <label data-bind="text: poaSectionLabel"></label>
                 </legend>
 
                 <div class="oj-flex">
                     <div class="oj-flex-item">
-                        <!-- Process table -->
+                         Process table 
                         <div class="oj-margin">
-                            <!-- Label -->
+                             Label 
                             <label class="oj-label" data-bind="text: processTableLabel"></label>
 
-                            <!-- Table -->
+                             Table 
                             <table id="si-process-table" summary="Process Table" aria-label="Process Table" data-bind="ojComponent: {
                                 component: 'ojTable',
                                 columns: processColumns,
@@ -471,12 +472,12 @@
                             }"></table>
                         </div>
 
-                        <!-- Projects Table -->
+                         Projects Table 
                         <div class="oj-margin">
-                            <!-- Label -->
+                             Label 
                             <label class="oj-label" data-bind="text: projectsTableLabel"></label>
 
-                            <!-- Table -->
+                             Table 
                             <table id="si-pide-table" summary="Projects Table" aria-label="Projects Table" data-bind="ojComponent: {
                                 component: 'ojTable',
                                 columns: projectsColumns,
@@ -490,7 +491,7 @@
                         </div>
                     </div>
                 </div>
-            </fieldset>
+            </fieldset>-->
         </div>
     </div>
     <!-- /ko -->
@@ -1440,15 +1441,15 @@
 <!-- PIDE row template -->
 <script type="text/html" id="pideRowTemplate">
     <tr>
-        <td data-bind="text: Axe"></td>
-        <td data-bind="text: Topic"></td>
-        <td data-bind="text: Objective"></td>
+        <td data-bind="text: axe"></td>
+        <td data-bind="text: topic"></td>
+        <td data-bind="text: objective"></td>
         <td>
             <!-- Clone option -->
-            <i class="fa fa-clone fa-border fa-lg pointer" data-bind="click: $parent.pideCloneRow.bind($data, Axe, Topic, Objective)"></i>
+            <i class="fa fa-clone fa-border fa-lg pointer" data-bind="click: $parent.pideCloneRow.bind($data, axe, topic, objective)"></i>
 
             <!-- Delete option -->
-            <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.pideRemoveRow.bind($data, Id)"></i>
+            <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.pideRemoveRow.bind($data, id)"></i>
         </td>
     </tr>
 </script>
@@ -1457,43 +1458,46 @@
 <script type="text/html" id="pideEditRowTemplate">
     <tr>
         <td>
-            <select data-bind="ojComponent: {
-                component: 'ojSelect',
-                rootAttributes: {
-                    'id': 'new-axe-value-' + Id
-                },
-                options: $parent.axesOptions,
-                optionChange: $parent.axesChange.bind($data, Id, Axe),
-                value: Axe
-            }"></select>
+            <select data-bind="
+                ojComponent: {
+                    component: 'ojSelect',
+                    rootAttributes: {
+                        'id': 'new-axe-value-' + id
+                    },
+                    options: $parent.axesOptions,
+                    optionChange: $parent.axesChange.bind($data, id, axe),
+                    value: axe
+                }"></select>
         </td>
         <td>
-            <select data-bind="ojComponent: {
-                component: 'ojSelect',
-                rootAttributes: {
-                    'id': 'new-topic-value-' + Id
-                },
-                options: $parent.getTopicOptions(Id),
-                optionChange: $parent.topicsChange.bind($data, Id, Axe, Topic),
-                value: Topic
-            }"></select>
+            <select data-bind="
+                ojComponent: {
+                    component: 'ojSelect',
+                    rootAttributes: {
+                        'id': 'new-topic-value-' + id
+                    },
+                    options: $parent.topicsOptionsByRow()[id],
+                    optionChange: $parent.topicsChange.bind($data, id, topic),
+                    value: topic
+                }"></select>
         </td>
         <td>
-            <select data-bind="ojComponent: {
-                component: 'ojSelect',
-                rootAttributes: {
-                    'id': 'new-objective-value-' + Id
-                },
-                options: $parent.getObjectiveOptions(Id),
-                value: Objective
-            }"></select>
+            <select data-bind="
+                ojComponent: {
+                    component: 'ojSelect',
+                    rootAttributes: {
+                        'id': 'new-objective-value-' + id
+                    },
+                    options: $parent.objectivesOptionsByRow()[id],
+                    value: objective
+                }"></select>
         </td>
         <td>
             <!-- Clone option -->
-            <i class="fa fa-clone fa-border fa-lg pointer" data-bind="click: $parent.pideCloneRow.bind($data, Axe, Topic, Objective)"></i>
+            <i class="fa fa-clone fa-border fa-lg pointer" data-bind="click: $parent.pideCloneRow.bind($data, axe, topic, objective)"></i>
 
             <!-- Delete option -->
-            <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.pideRemoveRow.bind($data, Id)"></i>
+            <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.pideRemoveRow.bind($data, id)"></i>
         </td>
     </tr>
 </script>
