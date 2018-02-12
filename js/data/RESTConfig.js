@@ -1,7 +1,5 @@
 define(
         function () {
-            var paths = {};
-
             var restConfig = {
                 subPath: "/utj/api/v1",
 
@@ -19,7 +17,7 @@ define(
                         }
                     },
                     indicators: {
-                        subPath: "/indicator",
+                        subPath: "/indicators",
                         
                         periodicities: {
                             endPath: "/periodicities"
@@ -29,6 +27,13 @@ define(
                         },
                         status: {
                             endPath: "/status"
+                        },
+                        pide: {
+                            subPath: "/pide",
+                            
+                            items: {
+                                endPath: "/items"
+                            }
                         }
                     }
                 }

@@ -194,7 +194,7 @@ define(
                                         "label": "Nombre corto",
                                         "placeholder": "Nombre corto (ejemplo: MEC)"
                                     },
-                                    "sense": "Sentido",
+                                    "direction": "Sentido",
                                     "measure": {
                                         "label": "Unidad de medida",
                                         "placeholder": "Unidad de medida"
@@ -204,8 +204,8 @@ define(
                                         "placeholder": "Año base"
                                     },
                                     "periodicity": "Periodicidad",
-                                    "reboot": "Reinicio",
-                                    "rebootDates": "Fecha(s) de reinicio"
+                                    "reset": "Reinicio",
+                                    "resetDates": "Fecha(s) de reinicio"
                                 },
                                 "alignment": {
                                     "title": "Alineación",

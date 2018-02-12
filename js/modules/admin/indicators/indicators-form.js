@@ -5,11 +5,12 @@ define(
         'knockout',
         'view-models/GeneralViewModel',
         'data/RESTConfig',
+        'data/AjaxUtils',
         'data/DataProvider',
         'modules/admin/strategic/model/StrategicModel',
         'modules/admin/strategic/model/StrategicTypes',
         'modules/admin/strategic/model/StrategicDataParser',
-        'modules/admin/indicators/model/StrategicItem',
+        'modules/admin/indicators/model/FullIndicator',
         'modules/admin/indicators/model/ComponentItem',
         'ojs/ojknockout',
         'ojs/ojradioset',
@@ -24,13 +25,14 @@ define(
         'ojs/ojarraytabledatasource',
         'promise'
     ], 
-    function (oj, $, ko, GeneralViewModel, RESTConfig, DataProvider,
-            StrategicModel, StrategicTypes, StrategicDataParser, 
-            StrategicItem, ComponentItem) {
+    function (oj, $, ko, GeneralViewModel, RESTConfig, AjaxUtils, DataProvider,
+            StrategicModel, StrategicTypes, StrategicDataParser,
+            FullIndicator,
+            ComponentItem) {
         /**
          * Indicators Form ViewModel.
          */
-        function FormViewModel() {
+        function FormViewModel(params) {
         var self = this;
 
         // Date converter
@@ -47,7 +49,7 @@ define(
          */
         // Type option
         self.typeLabel = GeneralViewModel.nls("admin.indicators.form.sections.main.type");
-        self.typeValue = ko.observable('PIDE');
+        self.typeValue = ko.observable('1');
 
         /**
          * Type change event.
@@ -83,7 +85,60 @@ define(
         // Active/Inactive option
         self.activeLabel = GeneralViewModel.nls("admin.indicators.form.sections.main.active");
         self.activeValue = ko.observable(true);
+        self.switchToList = function() {
+            params.switchFunction();
+        };
+        
+        self.saveMessage = ko.observable();
+        self.saveDialogId = "indicator-form-save-dialog";
+        self.saveDialogTitle = GeneralViewModel.nls("admin.strategic.saveDialog.title");
+        let saveDialogClass;
+        
+        function populateIndicator(indicator) {
+            indicator.setType({id: parseInt(self.typeValue())});
+            indicator.setStatus({id: self.activeValue() ? 1 : 2});
+            indicator.setDescription(self.descriptionValue());
+            indicator.setDirection(self.directionValue()[0]);
+            indicator.setPeriodicity({id: parseInt(self.periodicityValue()[0])});
+            indicator.setUnitMeasure({id: parseInt(self.measureUnitValue()[0])});
+            indicator.setResetType({id: parseInt(self.resetValue()[0])});
+            indicator.setBaseYear(self.baseYearValue());
+        }
+        
+        self.saveForm = function() {
+            let indicator = new FullIndicator(-1, self.nameValue());
+            populateIndicator(indicator);
+            
+            let path = RESTConfig.admin.indicators.pide.items.path;
+            let method = indicator.getId() !== -1 ? "PUT" : "POST";
+            
+            function successFunction (data) {
+                self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success"));
+                saveDialogClass = "save-dialog-success";
+                
+                if (data) {
+                    indicator.setId(data.id);
+                }
+            }
 
+            function errorFunction(jqXHR, textStatus, errMsg) {
+                self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success") + errMsg);
+                saveDialogClass = "save-dialog-error";
+            }
+            let savePromise = AjaxUtils.ajax(path, method, indicator, successFunction, errorFunction);
+            
+            savePromise.then(
+                function() {
+                    self.showDialog();
+                }
+            );
+        };
+        
+        self.showDialog = function() {
+            var saveDialog = $("#" + self.saveDialogId);
+            saveDialog.ojDialog("widget").addClass(saveDialogClass);
+            saveDialog.ojDialog("open");
+        };
         /*
          * General section.
          */
@@ -197,18 +252,30 @@ define(
         self.shortNamePlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.general.shortName.placeholder");
         self.shortNameValue = ko.observable("");
 
-        // Sense option
-        self.senseLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.sense");
-        self.senseOptions = ko.observableArray([
-            { value: 'Positivo', label: 'Positivo' },
-            { value: 'Negativo', label: 'Negativo' }
-        ]);
-        self.senseValue = ko.observable('Positivo');
+        // Direction option
+        self.directionLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.direction");
+        self.directionOptions = ko.observableArray(
+                [
+                    { value: 'POSITIVE', label: 'Positivo' },
+                    { value: 'NEGATIVE', label: 'Negativo' }
+                ]
+        );
+        self.directionValue = ko.observable('POSITIVE');
 
         // Unit of measurement field
-        self.measureLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.measure.label");
-        self.measurePlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.general.measure.placeholder");
-        self.measureValue = ko.observable("");
+        self.measureUnitLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.measure.label");
+        self.measureUnitOptions = ko.observableArray(
+                [
+                    { value: '1', label: 'Numérico' },
+                    { value: '2', label: 'Porcentaje' },
+                    { value: '3', label: 'Ordinal' },
+                    { value: '4', label: 'Promedio' },
+                    { value: '5', label: 'Moneda' },
+                    { value: '6', label: 'Tiempo' }
+                ]
+        );
+
+        self.measureUnitValue = ko.observable('1');
 
         // Base year field
         self.baseYearLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.baseYear.label");
@@ -218,28 +285,28 @@ define(
         // Periodicity option
         self.periodicityLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.periodicity");
         self.periodicityOptions = ko.observableArray([
-            { value: 'Mensual', label: 'Mensual' },
-            { value: 'Trimestral', label: 'Trimestral' },
-            { value: 'Cuatrimestral', label: 'Cuatrimestral' },
-            { value: 'Semestral', label: 'Semestral' },
-            { value: 'Anual', label: 'Anual' }
+            { value: '1', label: 'Mensual' },
+            { value: '2', label: 'Trimestral' },
+            { value: '3', label: 'Cuatrimestral' },
+            { value: '4', label: 'Semestral' },
+            { value: '5', label: 'Anual' }
         ]);
-        self.periodicityValue = ko.observable('Mensual');
+        self.periodicityValue = ko.observable('1');
 
-        // Reboot option
-        self.rebootLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.reboot");
-        self.rebootOptions = ko.observableArray([
-            { value: 'Continuo', label: 'Continuo' },
-            { value: 'Cuatrimestral', label: 'Cuatrimestral' },
-            { value: 'Anual', label: 'Anual' }
+        // Reset option
+        self.resetLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.reset");
+        self.resetOptions = ko.observableArray([
+            { value: '1', label: 'Continuo' },
+            { value: '2', label: 'Cuatrimestral' },
+            { value: '3', label: 'Anual' }
         ]);
-        self.rebootValue = ko.observable('Continuo');
+        self.resetValue = ko.observable('1');
 
-        // Reboot date field
-        self.rebootDateLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.rebootDates");
-        self.rebootDateValue1 = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
-        self.rebootDateValue2 = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
-        self.rebootDateValue3 = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
+        // Reset date field
+        self.resetDateLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.resetDates");
+        self.resetDateValue1 = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
+        self.resetDateValue2 = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
+        self.resetDateValue3 = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
 
         /*
          * Alignment section
@@ -317,91 +384,6 @@ define(
                 );
             }
         );
-
-        // Full strategic items
-        self.strategicItems = [];
-
-        // Filtered strategic items
-        self.strategicArray = ["a"];
-
-        // Axes change validations
-        self.axeChanged = false;
-
-        // Get Strategic Items information
-        $.getJSON("data/admin-strategic-items.json")
-            .done(function (data) {
-                // Get all Strategic Items
-                self.strategicItems = data.map(function (element) {
-                    return new StrategicItem(element.id, element.name, element.strategicType.name, element.children);
-                });
-
-                // Get axes from Strategic Items
-                self.strategicArray = self.strategicItems.filter(function (element) {
-                    return element.type === "axe";
-                });
-
-                self.strategicArray.forEach(function (axe) {
-                    // Get topics
-                    axe.children = axe.children.map(function (topic) {
-                        return self.strategicItems.filter(function (element) {
-                            return element.id === topic && element.type === "topic";
-                        })[0];
-                    });
-
-                    axe.children.forEach(function (topic) {
-                        // Get objectives
-                        topic.children = topic.children.map(function (objective) {
-                            return self.strategicItems.filter(function (element) {
-                                return element.id === objective && element.type === "objective";
-                            })[0];
-                        });
-
-                        // Filter undefined
-                        topic.children = topic.children.filter(function (element) {
-                            return typeof element !== "undefined";
-                        });
-
-                        topic.children.forEach(function (objective) {
-                            // Get indicators
-                            objective.children = objective.children.map(function (indicator) {
-                                return self.strategicItems.filter(function (element) {
-                                    return element.id === indicator && element.type === "indicator";
-                                })[0];
-                            });
-
-                            // Filter undefined
-                            objective.children = objective.children.filter(function (element) {
-                                return typeof element !== "undefined";
-                            });
-                        });
-                    });
-                });
-
-                // Get axes options
-//                self.axesOptions(self.getAxes());
-
-                // New PE Axes' combobox options
-//                self.peAxesOptions(self.getAxes());
-
-                // New PE Topics' combobox options
-//                self.peTopicsOptions(self.getTopics(self.strategicArray[0].name));
-
-                // New PE Objectives' combobox options
-//                self.peObjectivesOptions(self.getObjectives(
-//                    self.strategicArray[0].name, // First axe
-//                    self.strategicArray[0].children[0].name // First topic
-//                ));
-
-                // New PE Indicators' combobox options
-//                self.peIndicatorsOptions(self.getIndicators(
-//                    self.strategicArray[0].name, // First axe
-//                    self.strategicArray[0].children[0].name, // First topic
-//                    self.strategicArray[0].children[0].children[0].name // First objective
-//                ));
-            })
-            .fail(function (data) {
-                console.log("Mal", data);
-            });
 
         /**
          * Filter search.
@@ -568,81 +550,6 @@ define(
         };
 
         /**
-         * Set topics options.
-         *
-         * Update the topics options of the selected ID.
-         *
-         * @param {int} id Row's ID
-         * @param {string} search
-         */
-        self.setTopicOptions = function (id, search) {
-            // Search for row options
-            self.topicsOptions().forEach(function (element) {
-                if (element.id === id) {
-                    // Set new options
-                    element.options(self.getTopics(search));
-                }
-            });
-        };
-
-        /**
-         * Get Topic Options.
-         *
-         * Get the topics options of the selected ID.
-         *
-         * @param {int} id
-         * @returns {array}
-         */
-        self.getTopicOptions = function (id) {
-            let options = [];
-
-            // Search for row options
-            self.topicsOptions().forEach(function (element) {
-                if (element.id === id) {
-                    // Get row options
-                    options = element.options;
-                }
-            });
-
-            return options;
-        };
-
-        /**
-         * Set Objective options.
-         * @param {number} id
-         * @param {string} searchAxe
-         * @param {string} searchTopic
-         */
-        self.setObjectiveOptions = function (id, searchAxe, searchTopic) {
-            // Search for row options
-            self.objectivesOptions().forEach(function (element) {
-                if (element.id === id) {
-                    // Set new options
-                    element.options(self.getObjectives(searchAxe, searchTopic));
-                }
-            });
-        };
-
-        /**
-         * Get Objective options.
-         * @param {number} id
-         * @returns {Array}
-         */
-        self.getObjectiveOptions = function (id) {
-            let options = [];
-
-            // Search for row options
-            self.objectivesOptions().forEach(function (element) {
-                if (element.id === id) {
-                    // Get row options
-                    options = element.options;
-                }
-            });
-
-            return options;
-        };
-
-        /**
          * Add row to PIDE's table
          */
         self.pideAddRow = function () {
@@ -665,17 +572,6 @@ define(
             let objectives = self.objectivesOptionsByRow();            
             objectives[row.id] = ko.observableArray();
             self.objectivesOptionsByRow(objectives);
-            
-//                    .push({
-//                id: row.Id,
-//                options: ko.observableArray(self.getTopics(row.Axe()))
-//            });
-
-//            // Add new map to Objectives Options
-//            self.objectivesOptions.push({
-//                id: row.Id,
-//                options: ko.observableArray(self.getObjectives(row.Axe(), row.Topic()))
-//            });
         };
 
         /**
@@ -713,6 +609,7 @@ define(
          * Remove PIDE's table row.
          * @param {number} id
          */
+        //TODO: Update this function according to new variables
         self.pideRemoveRow = function (id) {
             // Remove row from table
             self.pideObservableArray.remove(function (item) {
@@ -1024,7 +921,7 @@ define(
          * @param {String} table Table source.
          * @param {Object} row Goal/Progress object with ID, Value and Date.
          * @returns {void}
-         */
+         */        
         self.removeRow = function (table, row) {
             if (table === 'Goals') {
                 // Remove from Goals table
@@ -1346,6 +1243,6 @@ define(
         self.componentsDataSource = new oj.ArrayTableDataSource(self.componentsObservableArray, { idAttribute: 'id' });
     }
 
-        return new FormViewModel;
+        return FormViewModel;
     }
 );

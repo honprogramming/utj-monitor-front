@@ -1,16 +1,32 @@
 <div class="full-height full-width">
+    <div style="display:none;"
+        data-bind="attr: {id: saveDialogId, title: saveDialogTitle},
+                   ojComponent:{
+                       component: 'ojDialog',
+                       initialVisibility: 'hide',
+                       modality: 'modeless'
+                   }">
+        <div class="oj-dialog-body" data-bind="text: saveMessage"></div>
+    </div>
     <!-- Form actions -->
     <div class="oj-flex-bar">
         <div class="oj-flex-bar-end">
             <div class="oj-sm-align-self-center">
                 <!-- Save icon -->
-                <i class="fa fa-save fa-lg fa-border pointer"></i>
+                <i class="fa fa-save fa-lg fa-border pointer" 
+                    data-bind="click: saveForm">
+                </i>
 
                 <!-- Erase icon -->
-                <i class="fa fa-eraser fa-lg fa-border pointer"></i>
+                <i class="fa fa-eraser fa-lg fa-border pointer"
+                    data-bind="">
+                       
+                </i>
 
                 <!-- Table icon -->
-                <i class="fa fa-table fa-lg fa-border pointer"></i>
+                <i class="fa fa-table fa-lg fa-border pointer"
+                    data-bind="click: switchToList">
+                </i>
             </div>
         </div>
     </div>
@@ -22,30 +38,30 @@
             <div class="oj-flex-item oj-sm-justify-content-center">
                 <div class="oj-form">
                     <!-- Label -->
-                    <label id="si-type-option" data-bind="text: typeLabel"></label>
+                    <label id="indicator-type-label" data-bind="text: typeLabel"></label>
 
                     <!-- Radio Set -->
-                    <div id="si-type-radioset" aria-labelledby='si-type-option' data-bind="ojComponent: {
+                    <div id="indicator-type-radio" aria-labelledby='indicator-type-label' data-bind="ojComponent: {
                         component: 'ojRadioset',
                         optionChange: typeChange,
                         value: typeValue
                     }">
                         <!-- PIDE item -->
                         <span class="oj-choice-item">
-                            <input type="radio" id="si-pide-radio" name="si-type-radio" value="PIDE">
-                            <label for="si-pide-radio">PIDE</label>
+                            <input type="radio" id="indicator-pide-radio" name="indicators-type-radio" value="1">
+                            <label for="indicator-pide-radio">PIDE</label>
                         </span>
 
                         <!-- MECASUT item -->
                         <span class="oj-choice-item">
-                            <input type="radio" id="si-mecasut-radio" disabled="disabled" name="si-type-radio" value="MECASUT">
-                            <label for="si-mecasut-radio">MECASUT</label>
+                            <input type="radio" id="indicator-mecasut-radio" disabled="disabled" name="indicators-type-radio" value="2">
+                            <label for="indicator-mecasut-radio">MECASUT</label>
                         </span>
 
                         <!-- PE item -->
                         <span class="oj-choice-item">
-                            <input type="radio" id="si-pe-radio" disabled="disabled" name="si-type-radio" value="Programa Educativo">
-                            <label for="si-pe-radio">Programa Educativo</label>
+                            <input type="radio" id="indicator-pe-radio" disabled="disabled" name="indicators-type-radio" value="3">
+                            <label for="indicator-pe-radio">Programa Educativo</label>
                         </span>
                     </div>
                 </div>
@@ -56,13 +72,15 @@
                 <div class="oj-flex">
                     <div class='oj-flex-item'>
                         <!-- Label -->
-                        <label for="si-active-option" class="oj-label-inline" data-bind="text: activeLabel"></label>
+                        <label for="indicator-status" class="oj-label-inline" 
+                               data-bind="text: activeLabel"></label>
 
                         <!-- Switch -->
-                        <input id="si-active-option" data-bind="ojComponent: {
-                            component: 'ojSwitch',
-                            value: activeValue
-                        }" />
+                        <input id="indicator-status" 
+                               data-bind="ojComponent: {
+                                            component: 'ojSwitch',
+                                            value: activeValue
+                                        }" />
                     </div>
                 </div>
             </div>
@@ -108,7 +126,7 @@
                     </div>
                 </div>-->
 
-                <!-- ko if: typeValue() === "Programa Educativo" -->
+                <!-- ko if: typeValue() === '3' -->
                 <!-- PE Axe option -->
                 <div class="oj-flex">
                     <div class="oj-flex-item">
@@ -186,15 +204,15 @@
                 </div>
                 <!-- /ko -->
 
-                <!-- ko ifnot: typeValue() === 'Programa Educativo'  -->
+                <!-- ko ifnot: typeValue() === '3'  -->
                 <!-- Indicator name field -->
                 <div class="oj-flex">
                     <div class="oj-flex-item">
                         <!-- Label -->
-                        <label for="si-name-field" data-bind="text: nameLabel"></label>
+                        <label for="indicator-name" data-bind="text: nameLabel"></label>
 
                         <!-- Input text -->
-                        <input id='si-name-field' data-bind="ojComponent: {
+                        <input id='indicator-name-' data-bind="ojComponent: {
                             component: 'ojInputText',
                             placeholder: namePlaceholder,
                             required: true,
@@ -211,10 +229,10 @@
                 <div class="oj-flex">
                     <div class="oj-flex-item">
                         <!-- Label -->
-                        <label for="si-description-field" data-bind="text: descriptionLabel"></label>
+                        <label for="indicator-description" data-bind="text: descriptionLabel"></label>
 
                         <!-- Text Area -->
-                        <textarea id="si-description-field" rows="3" data-bind="ojComponent: {
+                        <textarea id="indicator-description" rows="3" data-bind="ojComponent: {
                             component: 'ojTextArea',
                             disabled: generalEnable,
                             placeholder: descriptionPlaceholder,
@@ -226,7 +244,7 @@
                     </div>
                 </div>
 
-                <!-- ko ifnot: typeValue() === 'PIDE'  -->
+                <!-- ko ifnot: typeValue() === '1' -->
                 <!-- Class option -->
                 <div class="oj-flex">
                     <div class="oj-flex-item">
@@ -248,7 +266,7 @@
                 </div>
                 <!-- /ko -->
 
-                <!-- ko if: typeValue() === 'Programa Educativo'  -->
+                <!-- ko if: typeValue() === '3' -->
                 <!-- PE field -->
                 <div class="oj-flex">
                     <div class="oj-flex-item">
@@ -269,7 +287,7 @@
                 </div>
                 <!-- /ko -->
 
-                <!-- ko if: typeValue() === 'Programa Educativo'  -->
+                <!-- ko if: typeValue() === '3' -->
                 <!-- Short name field -->
                 <div class="oj-flex">
                     <div class="oj-flex-item">
@@ -294,39 +312,40 @@
                     <!-- Sense -->
                     <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
                         <!-- Label -->
-                        <label for="si-sense-option" data-bind="text: senseLabel"></label>
+                        <label for="indicator-direction-option" data-bind="text: directionLabel"></label>
 
                         <!-- Select -->
-                        <select id='si-sense-option' data-bind="ojComponent: {
+                        <select id='indicator-direction-option' data-bind="ojComponent: {
                             component: 'ojSelect',
                             disabled: generalEnable,
-                            options: senseOptions,
+                            options: directionOptions,
                             required: true,
-                            value: senseValue
+                            value: directionValue
                         }"></select>
                     </div>
 
                     <!-- Unit of measurement field -->
                     <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
                         <!-- Label -->
-                        <label for="si-measure-field" data-bind="text: measureLabel"></label>
+                        <label for="indicator-measure-unit" data-bind="text: measureUnitLabel"></label>
 
                         <!-- Input text -->
-                        <input id="si-measure-field" data-bind="ojComponent: {
-                            component: 'ojInputText',
+                        <input id="indicator-measure-unit" data-bind="ojComponent: {
+                            component: 'ojSelect',
                             disabled: generalEnable,
-                            placeholder: measurePlaceholder,
-                            value: measureValue
+                            options: measureUnitOptions,
+                            required: true,
+                            value: measureUnitValue
                         }" />
                     </div>
 
                     <!-- Base year field -->
                     <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
                         <!-- Label -->
-                        <label for="si-base-year-field" data-bind="text: baseYearLabel"></label>
+                        <label for="indicator-base-year" data-bind="text: baseYearLabel"></label>
 
                         <!-- Input text -->
-                        <input id="si-base-year-field" data-bind="ojComponent: {
+                        <input id="indicator-base-year" data-bind="ojComponent: {
                             component: 'ojInputText',
                             disabled: generalEnable,
                             placeholder: baseYearPlaceholder,
@@ -335,66 +354,64 @@
                     </div>
                 </div>
 
-                <!-- ko ifnot: typeValue() === "Programa Educativo" -->
+                <!-- ko ifnot: typeValue() === '3' -->
                 <div class="oj-flex">
                     <!-- Periodicity option -->
                     <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
                         <!-- Label -->
-                        <label for="si-periodicity-option" data-bind="text: periodicityLabel"></label>
+                        <label for="indicator-periodicity" data-bind="text: periodicityLabel"></label>
 
                         <!-- Select -->
-                        <select id="si-periodicity-option" data-bind="ojComponent: {
+                        <select id="indicator-periodicity" data-bind="ojComponent: {
                             component: 'ojSelect',
                             options: periodicityOptions,
                             value: periodicityValue
                         }"></select>
                     </div>
 
-                    <!-- Reboot option -->
+                    <!-- Reset option -->
                     <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                        <label for="si-reboot-option" data-bind="text: rebootLabel"></label>
-                        <select id="si-reboot-option" data-bind="ojComponent: {
+                        <label for="indicator-reset" data-bind="text: resetLabel"></label>
+                        <select id="indicator-reset" data-bind="ojComponent: {
                             component: 'ojSelect',
-                            options: rebootOptions,
+                            options: resetOptions,
                             required: true,
-                            value: rebootValue
+                            value: resetValue
                         }"></select>
                     </div>
 
-                    <!-- ko ifnot: rebootValue() == 'Continuo' -->
-                    <!-- Reboot dates option -->
-                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-reboot-date-option-1" data-bind="text: rebootDateLabel"></label>
+                    <!-- ko ifnot: resetValue() == 1 -->
+                        <!-- Reset dates option -->
+                        <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+                            <!-- Label -->
+                            <label for="indicator-reset-date-option-1" data-bind="text: resetDateLabel"></label>
 
-                        <!-- Input date 1 -->
-                        <input id="si-reboot-date-option-1" data-bind="ojComponent: {
-                            component: 'ojInputDate',
-                            converter: dateConverter,
-                            required: true,
-                            value: rebootDateValue1
-                        }">
+                            <!-- Input date 1 -->
+                            <input id="indicator-reset-date-option-1" data-bind="ojComponent: {
+                                component: 'ojInputDate',
+                                converter: dateConverter,
+                                required: true,
+                                value: resetDateValue1
+                            }">
 
-                        <!-- ko if: rebootValue() == 'Cuatrimestral' -->
-                        <br>
-                        <!-- Input date 2 -->
-                        <input id="si-reboot-date-option-2" data-bind="ojComponent: {
-                            component: 'ojInputDate',
-                            converter: dateConverter,
-                            required: true,
-                            value: rebootDateValue2
-                        }">
-                        <br>
-                        <!-- /ko -->
+                        <!-- ko if: resetValue() == 2 -->
+                            <br>
+                            <!-- Input date 2 -->
+                            <input id="indicator-reset-date-option-2" data-bind="ojComponent: {
+                                component: 'ojInputDate',
+                                converter: dateConverter,
+                                required: true,
+                                value: resetDateValue2
+                            }">
+                            <br>
 
-                        <!-- ko if: rebootValue() == 'Cuatrimestral' -->
-                        <!-- Input date 3 -->
-                        <input id="si-reboot-date-option-3" data-bind="ojComponent: {
-                            component: 'ojInputDate',
-                            converter: dateConverter,
-                            required: true,
-                            value: rebootDateValue3
-                        }">
+                            <!-- Input date 3 -->
+                            <input id="indicator-reset-date-option-3" data-bind="ojComponent: {
+                                component: 'ojInputDate',
+                                converter: dateConverter,
+                                required: true,
+                                value: resetDateValue3
+                            }">
                         <!-- /ko -->
                     </div>
                     <!-- /ko -->
@@ -404,7 +421,7 @@
         </div>
     </div>
 
-    <!-- ko ifnot: typeValue() == 'MECASUT' || typeValue() == 'Programa Educativo' -->
+    <!-- ko ifnot: typeValue() == '2' || typeValue() == '3' -->
     <!-- Alignment section -->
     <div id="alignment-section" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
         component: 'ojCollapsible',
@@ -799,7 +816,7 @@
                     </div>
                 </div>
 
-                <!-- ko ifnot: typeValue() == 'MECASUT' -->
+                <!-- ko ifnot: typeValue() == '2' -->
                 <!-- Color section -->
                 <fieldset>
                     <!-- Label -->
@@ -897,7 +914,7 @@
         </div>
     </div>
 
-    <!-- ko ifnot: typeValue() == 'MECASUT' -->
+    <!-- ko ifnot: typeValue() == '2' -->
     <!-- Goals and progress section -->
     <div id="goals-section" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
         component: 'ojCollapsible',
@@ -1042,7 +1059,7 @@
     </div>
     <!-- /ko -->
 
-    <!-- ko if: typeValue() == 'MECASUT' -->
+    <!-- ko if: typeValue() == '2' -->
     <!-- Progress section -->
     <div id="progress-section" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
         component: 'ojCollapsible',
@@ -1152,7 +1169,7 @@
     </div>
     <!-- /ko -->
 
-    <!-- ko if: typeValue() === 'Programa Educativo'  -->
+    <!-- ko if: typeValue() === '3' -->
     <!-- Components section -->
     <div id="components-section" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
         component: 'ojCollapsible',

@@ -208,15 +208,15 @@ define(
                 }
 
                 function createItem(id, table, indicatorType) {
-                    var newItem = new IndicatorItem(id, "", indicatorType);
-                    //var parentRow = table.getCurrentRow();
-
-                    var parentRow = table.observableDataSource().data.length - 1;
-
-                    indicatorsModel.addItem(parentRow.rowKey, newItem);
-                    removeDeletedIds(id);
-
-                    return newItem;
+//                    var newItem = new IndicatorItem(id, "", indicatorType);
+//                    //var parentRow = table.getCurrentRow();
+//
+//                    var parentRow = table.observableDataSource().data.length - 1;
+//
+//                    indicatorsModel.addItem(parentRow.rowKey, newItem);
+//                    removeDeletedIds(id);
+//
+//                    return newItem;
                 }
 
                 function removeItem(itemId) {

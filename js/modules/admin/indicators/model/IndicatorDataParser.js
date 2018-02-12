@@ -49,7 +49,7 @@ define([
                     // For each child
                     item.children.forEach(function (item) {
                         // Add new Indicator Item to children array
-                        indicatorItem.children.push(createIndicatorItem(item));
+//                        indicatorItem.children.push(createIndicatorItem(item));
                     });
                 }
 
