@@ -22,6 +22,8 @@ define(
                 this.resetType;
                 this.baseYear;
                 this.status;
+                this.strategicItem;
+                this.achievements;
             }
             
             FullIndicator.prototype = Object.create(SummaryIndicator.prototype);
@@ -91,6 +93,22 @@ define(
             
             prototype.setStatus = function(status) {
                 this.status = status;
+            };
+            
+            prototype.getStrategicItem = function() {
+                return this.strategicItem;
+            };
+            
+            prototype.setStrategicItem = function(strategicItem) {
+                this.strategicItem = strategicItem;
+            };
+            
+            prototype.getAchievements = function() {
+                return this.achievements;
+            };
+            
+            prototype.setAchievements = function(achievements) {
+                this.achievements = achievements;
             };
             
             return FullIndicator;

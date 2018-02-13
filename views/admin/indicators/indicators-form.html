@@ -916,33 +916,35 @@
 
     <!-- ko ifnot: typeValue() == '2' -->
     <!-- Goals and progress section -->
-    <div id="goals-section" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
-        component: 'ojCollapsible',
-        expandArea: 'disclosureIcon',
-        expanded: false
-    }">
+    <div id="achievements-section" class="form-container oj-accordion-collapsible" 
+         data-bind="ojComponent: {
+                        component: 'ojCollapsible',
+                        expandArea: 'disclosureIcon',
+                        expanded: false
+                    }">
         <!-- Collapsible title -->
-        <h4 id="goals-title" data-bind="text: goalsTitle"></h4>
+        <h4 id="achievements-title" data-bind="text: goalsTitle"></h4>
 
         <!-- Collapsible content -->
         <div class="oj-form-layout">
             <!-- Goals and progress Chart -->
             <div id='chart-container' class="oj-margin">
-                <div id="si-goals-chart" data-bind="ojComponent: {
-                    component: 'ojChart',
-                    type: 'line',
-                    series: chartSeriesValue,
-                    animationOnDisplay: 'auto',
-                    animationOnDataChange: 'auto',
-                    hoverBehavior: 'dim',
-                    rootAttributes: {
-                        'style': 'width: 100%; height: 350px;'
-                    },
-                    timeAxisType: 'mixedFrequency',
-                    translations: {
-                        labelNoData: 'Agrega una meta o un avance'
-                    }
-                }"></div>
+                <div id="si-goals-chart"
+                     data-bind="ojComponent: {
+                        component: 'ojChart',
+                        type: 'line',
+                        series: chartSeriesValue,
+                        animationOnDisplay: 'auto',
+                        animationOnDataChange: 'auto',
+                        hoverBehavior: 'dim',
+                        rootAttributes: {
+                            'style': 'width: 100%; height: 350px;'
+                        },
+                        timeAxisType: 'mixedFrequency',
+                        translations: {
+                            labelNoData: 'Agrega una meta o un avance'
+                        }
+                    }"></div>
             </div>
 
             <!-- Tables section -->
@@ -960,25 +962,27 @@
                         <i class="fa fa-plus fa-lg pointer icon-padding" data-bind="click: addRow.bind($data, 'Goals')"></i>
 
                         <!-- Table -->
-                        <table id="si-goals-table" summary="Goals Table" aria-label="Goals Table" data-bind="ojComponent: {
-                            component: 'ojTable',
-                            beforeRowEditEnd: beforeRowEditEnd,
-                            columns: goalsColumns,
-                            columnsDefault: {
-                                sortable: 'auto',
-                                sortProperty: 'Date'
-                            },
-                            data: goalDataSource,
-                            display: 'grid',
-                            editMode: 'rowEdit',
-                            translations: {
-                                msgNoData: 'Agrega una meta'
-                            },
-                            rootAttributes: {
-                                'style': 'width: 100%; max-height: 150px;'
-                            },
-                            rowTemplate: getGoalRowTemplate
-                        }"></table>
+                        <table id="indicator-goals-table" summary="Goals Table" 
+                               aria-label="Goals Table" 
+                               data-bind="ojComponent: {
+                                            component: 'ojTable',
+                                            beforeRowEditEnd: beforeRowEditEnd,
+                                            columns: goalsColumns,
+                                            columnsDefault: {
+                                                sortable: 'auto',
+                                                sortProperty: 'date'
+                                            },
+                                            data: goalDataSource,
+                                            display: 'grid',
+                                            editMode: 'rowEdit',
+                                            translations: {
+                                                msgNoData: 'Agrega una meta'
+                                            },
+                                            rootAttributes: {
+                                                'style': 'width: 100%; max-height: 150px;'
+                                            },
+                                            rowTemplate: getGoalRowTemplate
+                                        }"></table>
                     </fieldset>
                 </div>
 
@@ -994,25 +998,27 @@
                         <i class="fa fa-plus fa-lg pointer icon-padding" data-bind="click: addRow.bind($data, 'Progress')"></i>
 
                         <!-- Table -->
-                        <table id="si-progress-table" summary="Progress Table" aria-label="Progress Table" data-bind="ojComponent: {
-                            component: 'ojTable',
-                            beforeRowEditEnd: beforeRowEditEnd,
-                            columns: goalsColumns,
-                            columnsDefault: {
-                                sortable: 'auto',
-                                sortProperty: 'Date'
-                            },
-                            data: progressDataSource,
-                            display: 'grid',
-                            editMode: 'rowEdit',
-                            translations: {
-                                msgNoData: 'Agrega un avance'
-                            },
-                            rootAttributes: {
-                                'style': 'width: 100%; max-height: 150px;'
-                            },
-                            rowTemplate: getProgressRowTemplate
-                        }"></table>
+                        <table id="si-progress-table" summary="Progress Table" 
+                               aria-label="Progress Table" 
+                               data-bind="ojComponent: {
+                                            component: 'ojTable',
+                                            beforeRowEditEnd: beforeRowEditEnd,
+                                            columns: goalsColumns,
+                                            columnsDefault: {
+                                                sortable: 'auto',
+                                                sortProperty: 'date'
+                                            },
+                                            data: progressDataSource,
+                                            display: 'grid',
+                                            editMode: 'rowEdit',
+                                            translations: {
+                                                msgNoData: 'Agrega un avance'
+                                            },
+                                            rootAttributes: {
+                                                'style': 'width: 100%; max-height: 150px;'
+                                            },
+                                            rowTemplate: getProgressRowTemplate
+                                        }"></table>
                     </fieldset>
                 </div>
             </div>
@@ -1536,8 +1542,8 @@
 <!-- Goal Row Template -->
 <script type="text/html" id="goalRowTemplate">
     <tr>
-        <td data-bind="text: Value"></td>
-        <td data-bind="text: $parent.dateConverter.format(Date)"></td>
+        <td data-bind="text: value"></td>
+        <td data-bind="text: $parent.dateConverter.format(date)"></td>
         <td>
             <!--<i class="fa fa-pencil fa-border fa-lg pointer"></i>-->
             <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.removeRow.bind($data, 'Goals', $data)"></i>
@@ -1552,9 +1558,9 @@
             <input data-bind="ojComponent: {
                 component: 'ojInputNumber',
                 rootAttributes: {
-                    'id': 'new-goal-value-' + Id
+                    'id': 'new-goal-value-' + id
                 },
-                value: Value
+                value: value
             }">
         </td>
         <td>
@@ -1562,9 +1568,9 @@
                 component: 'ojInputDate',
                 converter: $parent.dateConverter,
                 rootAttributes: {
-                    'id': 'new-goal-date-' + Id
+                    'id': 'new-goal-date-' + id
                 },
-                value: Date
+                value: date
             }">
         </td>
         <td>
@@ -1577,8 +1583,8 @@
 <!-- Progress Row Template -->
 <script type="text/html" id="progressRowTemplate">
     <tr>
-        <td data-bind="text: Value"></td>
-        <td data-bind="text: $parent.dateConverter.format(Date)"></td>
+        <td data-bind="text: value"></td>
+        <td data-bind="text: $parent.dateConverter.format(date)"></td>
         <td>
             <!--<i class="fa fa-pencil fa-border fa-lg pointer"></i>-->
             <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.removeRow.bind($data, 'Progress', $data)"></i>
@@ -1593,9 +1599,9 @@
             <input data-bind="ojComponent: {
                 component: 'ojInputNumber',
                 rootAttributes: {
-                    'id': 'new-progress-value-' + Id
+                    'id': 'new-progress-value-' + id
                 },
-                value: Value
+                value: value
             }">
         </td>
         <td>
@@ -1603,9 +1609,9 @@
                 component: 'ojInputDate',
                 converter: $parent.dateConverter,
                 rootAttributes: {
-                    'id': 'new-progress-date-' + Id
+                    'id': 'new-progress-date-' + id
                 },
-                value: Date
+                value: date
             }">
         </td>
         <td>

@@ -103,6 +103,51 @@ define(
             indicator.setUnitMeasure({id: parseInt(self.measureUnitValue()[0])});
             indicator.setResetType({id: parseInt(self.resetValue()[0])});
             indicator.setBaseYear(self.baseYearValue());
+            
+            let alignmentItemsArray = self.alignmentItems();
+            
+            if (alignmentItemsArray.length > 0) {
+                let rowId = alignmentItemsArray[0].id;
+                let objectives = self.objectivesOptionsByRow();
+                indicator.setStrategicItem({id: parseInt(objectives[rowId]()[0].value)});
+            }
+            
+            let achievements = [];
+            let progressItems = self.progressObservableArray();
+            
+            if (progressItems.length > 0) {
+                let items = 
+                        progressItems.map(
+                            item => {
+                                return {
+                                    data: item.value,
+                                    date: item.date + " 00:00:00",
+                                    achievementType: 'PROGRESS'
+                                };
+                            }
+                        );
+                
+                achievements = achievements.concat(items);
+            }
+            
+            let goalItems = self.goalObservableArray();
+            
+            if (goalItems.length > 0) {
+                let items = 
+                        goalItems.map(
+                            item => {
+                                return {
+                                    data: item.value,
+                                    date: item.date + " 00:00:00",
+                                    achievementType: 'GOAL'
+                                };
+                            }
+                        );
+                
+                achievements = achievements.concat(items);
+            }
+            
+            indicator.setAchievements(achievements);
         }
         
         self.saveForm = function() {
@@ -342,8 +387,8 @@ define(
                 "sortable": "disabled"
             }
         ];
-        self.pideObservableArray = ko.observableArray([]);
-        self.pideDataSource = new oj.ArrayTableDataSource(self.pideObservableArray, { idAttribute: 'id' });
+        self.alignmentItems = ko.observableArray([]);
+        self.pideDataSource = new oj.ArrayTableDataSource(self.alignmentItems, { idAttribute: 'id' });
 
         // Row template for PIDE table
         self.getPIDERowTemplate = function (data, context) {
@@ -563,7 +608,7 @@ define(
             };
 
             // Add row to PIDE table
-            self.pideObservableArray.push(row);
+            self.alignmentItems.push(row);
             // Add new map to Topics Options
             let topics = self.topicsOptionsByRow();            
             topics[row.id] = ko.observableArray();
@@ -590,17 +635,17 @@ define(
             };
 
             // Add row to PIDE table
-            self.pideObservableArray.push(row);
+            self.alignmentItems.push(row);
 
             // Add new map to Topics Option
             self.topicsOptions.push({
-                id: row.Id,
+                id: row.id,
                 options: ko.observableArray(self.getTopics(row.Axe()))
             });
 
             // Add new map to Objective options
             self.objectivesOptions.push({
-                id: row.Id,
+                id: row.id,
                 options: ko.observableArray(self.getObjectives(row.Axe(), row.Topic()))
             });
         };
@@ -612,18 +657,18 @@ define(
         //TODO: Update this function according to new variables
         self.pideRemoveRow = function (id) {
             // Remove row from table
-            self.pideObservableArray.remove(function (item) {
-                return item.Id === id;
+            self.alignmentItems.remove(function (item) {
+                return item.id === id;
             });
 
             // Remove row from topics options
             self.topicsOptions.remove(function (item) {
-                return item.Id === id;
+                return item.id === id;
             });
 
             // Remove row from objectives options
             self.objectivesOptions.remove(function (item) {
-                return item.Id === id;
+                return item.id === id;
             });
         };
 
@@ -637,7 +682,7 @@ define(
             { "headerText": "Procesos", "sortable": "auto" }
         ];
         self.processObservableArray = ko.observableArray([]);
-        self.processDataSource = new oj.ArrayTableDataSource(self.processObservableArray, { idAttribute: 'Id' });
+        self.processDataSource = new oj.ArrayTableDataSource(self.processObservableArray, { idAttribute: 'id' });
 
         // Projects table
         self.projectsTableLabel = GeneralViewModel.nls("admin.indicators.form.sections.alignment.poa.projects.title");
@@ -646,7 +691,7 @@ define(
             { "headerText": "Proyectos", "sortable": "auto" }
         ];
         self.projectsObservableArray = ko.observableArray([]);
-        self.projectsDataSource = new oj.ArrayTableDataSource(self.projectsObservableArray, { idAttribute: 'Id' });
+        self.projectsDataSource = new oj.ArrayTableDataSource(self.projectsObservableArray, { idAttribute: 'id' });
 
         // Get data
         $.getJSON("data/pide-alignment.json")
@@ -660,7 +705,7 @@ define(
                 // Fill Process Table
                 $.each(poa.process, function (key, value) {
                     self.processObservableArray.push({
-                        'Id': self.processId++,
+                        'id': self.processId++,
                         'Process': value.process
                     });
                 });
@@ -668,7 +713,7 @@ define(
                 // Fill Projects Table
                 $.each(poa.projects, function (key, value) {
                     self.projectsObservableArray.push({
-                        'Id': self.projectsId++,
+                        'id': self.projectsId++,
                         'Project': value.project
                     });
                 });
@@ -819,7 +864,7 @@ define(
         // Goals table
         self.goalsLabel = GeneralViewModel.nls("admin.indicators.form.sections.goals.table.goals");
         self.goalObservableArray = ko.observableArray([]);
-        self.goalDataSource = new oj.ArrayTableDataSource(self.goalObservableArray, { idAttribute: 'Id' });
+        self.goalDataSource = new oj.ArrayTableDataSource(self.goalObservableArray, { idAttribute: 'id' });
 
         // Row template for Goals' table
         self.getGoalRowTemplate = function (data, context) {
@@ -830,7 +875,7 @@ define(
         // Progress table
         self.progressLabel = GeneralViewModel.nls("admin.indicators.form.sections.goals.table.progress");
         self.progressObservableArray = ko.observableArray([]);
-        self.progressDataSource = new oj.ArrayTableDataSource(self.progressObservableArray, { idAttribute: 'Id' });
+        self.progressDataSource = new oj.ArrayTableDataSource(self.progressObservableArray, { idAttribute: 'id' });
 
         // Row template for Progress' table
         self.getProgressRowTemplate = function (data, context) {
@@ -852,8 +897,8 @@ define(
             self.goalObservableArray().forEach(function (goal) {
                 // Add new item to Chart series
                 chartSeries[0].items.push({
-                    x: goal.Date, // Goal date
-                    value: goal.Value // Goal value
+                    x: goal.date, // Goal date
+                    value: goal.value // Goal value
                 });
             });
 
@@ -861,8 +906,8 @@ define(
             self.progressObservableArray().forEach(function (progress) {
                 // Add new item to Chart Series
                 chartSeries[1].items.push({
-                    x: progress.Date, // Progress date
-                    value: progress.Value // Progress value
+                    x: progress.date, // Progress date
+                    value: progress.value // Progress value
                 });
             });
 
@@ -899,9 +944,9 @@ define(
         self.addRow = function (table) {
             // New row
             var row = {
-                'Id': self.goalId++,
-                'Value': 0,
-                'Date': oj.IntlConverterUtils.dateToLocalIso(new Date())
+                'id': self.goalId++,
+                'value': 0,
+                'date': oj.IntlConverterUtils.dateToLocalIso(new Date())
             };
 
             // Pick table
@@ -926,12 +971,12 @@ define(
             if (table === 'Goals') {
                 // Remove from Goals table
                 self.goalObservableArray.remove(function (item) {
-                    return item.Id === row.Id && item.Value === row.Value && item.Date === row.Date;
+                    return item.id === row.id && item.value === row.value && item.date === row.date;
                 });
             } else if (table === 'Progress') {
                 // Remove from Progress table
                 self.progressObservableArray.remove(function (item) {
-                    return item.Id === row.Id && item.Value === row.Value && item.Date === row.Date;
+                    return item.id === row.id && item.value === row.value && item.date === row.date;
                 });
             }
 
