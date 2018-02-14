@@ -1,64 +1,46 @@
 /**
  * Indicator Data Parser.
  * 
- * @param {type} IndicatorItem
- * @param {type} IndicatorTypes
- * @returns {IndicatorDataParserL#7.IndicatorDataParser}
+ * @param {type} SummaryIndicator
  */
-define([
-    'modules/admin/indicators/model/IndicatorItem',
-    'modules/admin/strategic/model/StrategicTypes'
-], function (IndicatorItem, IndicatorTypes) {
+define(
+        [
+            'modules/admin/indicators/model/SummaryIndicator'
+        ],
+        function (SummaryIndicator) {
 
-    var IndicatorDataParser = {
+            var IndicatorDataParser = {
 
-        parse: function (data) {
+                parse: function (data) {
 
-            // Indicator items array
-            var indicatorItems = [];
-            var indicatorItemsMap = {};
-            var typesMap = IndicatorTypes.getTypesMap();
+                    // Indicator items array
+                    let indicatorItems = [];
 
-            var vision = data[0];
+                    data.forEach(element => createIndicator(element));
 
-            createIndicatorItem(vision);
+                    /**
+                     * Creates an Indicator Item..
+                     * 
+                     * @param {type} item
+                     */
+                    function createIndicator(item) {
 
-            /**
-             * Creates an Indicator Item..
-             * 
-             * @param {type} item
-             * @returns {IndicatorDataParserL#4.IndicatorItem}
-             */
-            function createIndicatorItem(item) {
+                        // Creates a new Indicator item based on the param values.
+                        let indicator = new SummaryIndicator(
+                                item.id,
+                                item.name
+                        );
 
-                // Creates a new Indicator item based on the param values.
-                var indicatorItem = new IndicatorItem(
-                    item.id, 
-                    item.name, 
-                    typesMap[item.type.name]
-                );
+                        // Add the new Indicator item to items array
+                        indicatorItems.push(indicator);
 
-                // Add the new Indicator item to items array
-                indicatorItems.push(indicatorItem);
+                        return indicator;
+                    }
 
-                // Add item's ID to items map array
-                indicatorItemsMap[indicatorItem.id] = indicatorItem;
-
-                // If Item has children
-                if (item.children) {
-                    // For each child
-                    item.children.forEach(function (item) {
-                        // Add new Indicator Item to children array
-//                        indicatorItem.children.push(createIndicatorItem(item));
-                    });
+                    return indicatorItems;
                 }
+            };
 
-                return indicatorItem;
-            }
-
-            return indicatorItems;
+            return IndicatorDataParser;
         }
-    };
-
-    return IndicatorDataParser;
-});
+);

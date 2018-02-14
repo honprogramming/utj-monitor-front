@@ -10,7 +10,6 @@ define(
              * @param {type} id
              * @param {type} name
              * @param {type} type
-             * @returns {IndicatorItemL#1.IndicatorItem}
              */
             function FullIndicator(id, name, type) {
                 SummaryIndicator.call(this, id, name);
@@ -18,7 +17,7 @@ define(
                 this.description;
                 this.direction;
                 this.periodicity;
-                this.unitMeasure;
+                this.measureUnit;
                 this.resetType;
                 this.baseYear;
                 this.status;
@@ -63,12 +62,12 @@ define(
                 this.periodicity = periodicity;
             };
             
-            prototype.getUnitMeasure = function() {
-                return this.unitMeasure;
+            prototype.getMeasureUnit = function() {
+                return this.measureUnit;
             };
             
-            prototype.setUnitMeasure = function(unitMeasure) {
-                this.unitMeasure = unitMeasure;
+            prototype.setMeasureUnit = function(measureUnit) {
+                this.measureUnit = measureUnit;
             };
             
             prototype.getResetType = function() {

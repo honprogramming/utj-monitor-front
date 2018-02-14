@@ -100,7 +100,7 @@ define(
             indicator.setDescription(self.descriptionValue());
             indicator.setDirection(self.directionValue()[0]);
             indicator.setPeriodicity({id: parseInt(self.periodicityValue()[0])});
-            indicator.setUnitMeasure({id: parseInt(self.measureUnitValue()[0])});
+            indicator.setMeasureUnit({type: {id: parseInt(self.measureUnitValue()[0])}});
             indicator.setResetType({id: parseInt(self.resetValue()[0])});
             indicator.setBaseYear(self.baseYearValue());
             
@@ -150,12 +150,40 @@ define(
             indicator.setAchievements(achievements);
         }
         
+        function initializeForm() {
+            if (params.id) {
+                let path = RESTConfig.admin.indicators.pide.items.path + "/" + params.id;
+                let method = "GET";
+            
+                function errorFunction(jqXHR, textStatus, errMsg) {
+                    console.error(errMsg);
+                }
+                
+                let indicatorPromise = AjaxUtils.ajax(path, method, null, null, errorFunction);
+
+                indicatorPromise.then(
+                    function(indicator) {
+                        self.nameValue(indicator.name);
+                        self.activeValue(indicator.status.id === 1);
+                        self.descriptionValue(indicator.description);
+                        self.directionValue([indicator.direction]);
+                        self.periodicityValue([String(indicator.periodicity.id)]);
+                        self.measureUnitValue(String(indicator.measureUnit.type.id));
+                        self.resetValue(String(indicator.resetType.id));
+                        self.baseYearValue(indicator.baseYear);
+                    }
+                );
+            }
+        }
+        
         self.saveForm = function() {
-            let indicator = new FullIndicator(-1, self.nameValue());
+            let indicator = new FullIndicator(params.id, self.nameValue());
             populateIndicator(indicator);
             
             let path = RESTConfig.admin.indicators.pide.items.path;
-            let method = indicator.getId() !== -1 ? "PUT" : "POST";
+            let method = indicator.getId() ? "PUT" : "POST";
+            
+            path += indicator.getId() ? "/" + params.id : "";
             
             function successFunction (data) {
                 self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success"));
@@ -170,6 +198,7 @@ define(
                 self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success") + errMsg);
                 saveDialogClass = "save-dialog-error";
             }
+            
             let savePromise = AjaxUtils.ajax(path, method, indicator, successFunction, errorFunction);
             
             savePromise.then(
@@ -331,10 +360,9 @@ define(
         self.periodicityLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.periodicity");
         self.periodicityOptions = ko.observableArray([
             { value: '1', label: 'Mensual' },
-            { value: '2', label: 'Trimestral' },
-            { value: '3', label: 'Cuatrimestral' },
-            { value: '4', label: 'Semestral' },
-            { value: '5', label: 'Anual' }
+            { value: '2', label: 'Cuatrimestral' },
+            { value: '3', label: 'Semestral' },
+            { value: '4', label: 'Anual' }
         ]);
         self.periodicityValue = ko.observable('1');
 
@@ -1286,6 +1314,7 @@ define(
 
         // Components table data source
         self.componentsDataSource = new oj.ArrayTableDataSource(self.componentsObservableArray, { idAttribute: 'id' });
+        initializeForm();
     }
 
         return FormViewModel;

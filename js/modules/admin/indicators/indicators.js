@@ -6,10 +6,12 @@ define(
         function IndicatorsViewModel() {
             let self = this;
             
-            function switchModule() {
+            function switchModule(id) {
                 let index = self.currentModule() === modules[0] ? 1 : 0;
+                let moduleData = modules[index];
                 
-                self.currentModule(modules[index]);
+                moduleData.module.params['id'] = id;
+                self.currentModule(moduleData);
             }
             
             let listModule = {

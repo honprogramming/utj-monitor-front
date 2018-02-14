@@ -7,7 +7,6 @@ define(
              * @param {type} id
              * @param {type} name
              * @param {type} type
-             * @returns {IndicatorItemL#1.IndicatorItem}
              */
             function SummaryIndicator(id, name) {
                 this.id = id;

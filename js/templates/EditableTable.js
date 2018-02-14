@@ -18,16 +18,18 @@ define(
                 
                 var privateData = {
                     model: model,
-                    data: [],
+                    data: [{id: 1, name: 'lalala'}],
                     dataSource: undefined,
                     actions: ["filter", "delete", "clone", "read", "edit"],
                     currentFilterRow: ko.observable(),
                     ENABLED: 1.0,
                     DISABLED: 0.5,
-                    newValidator: function() {return true;},
-                    deleteValidator: function() {return false;},
-                    itemCreator: function() {return {};},
-                    itemRemover: function() {return false;}
+                    newValidator: () => true,
+                    deleteValidator: () => false,
+                    editValidator: () => true,
+                    itemCreator: () => {},
+                    itemRemover: () => false,
+                    itemEditor: () => false
                 };
                 
                 this.EditableTable_ = function(key) {
@@ -65,8 +67,10 @@ define(
                     self.tableAria = params.tableAria ? params.tableAria : "";
                     self.newErrorText = params.newErrorText ? params.newErrorText : "Error";
                     self.deleteErrorText = params.deleteErrorText ? params.deleteErrorText : "Error";
+                    self.setEditValidator(params.editValidator);
                     self.setNewValidator(params.newValidator);
                     self.setDeleteValidator(params.deleteValidator);
+                    self.setItemEditor(params.itemEditor);
                     self.setItemCreator(params.itemCreator);
                     self.setItemRemover(params.itemRemover);
                     self.setNewEnabled(params.newEnabled !== undefined ? params.newEnabled : true);
@@ -96,13 +100,19 @@ define(
                 };
                 
                 self.editHandler = function(event, data) {
-                    var rowIdx = data.rowContext.status.rowIndex;
-                    
-                    self.getDataSource(theKey).at(rowIdx).then(
-                            function(currentRow) {
-                                self.callListeners(EventTypes.EDIT_EVENT, currentRow);
-                            }
-                    );
+                    if (data.rowContext) {
+                        var rowIdx = data.rowContext.status.rowIndex;
+
+                        self.getDataSource(theKey).at(rowIdx).then(
+                                function(currentRow) {
+                                    self.callListeners(EventTypes.EDIT_EVENT, currentRow);
+                                }
+                        );
+                    } else {
+                        if (self.validateOnEdit(event.id, theKey)) {
+                            self.editItem(event.id, theKey);
+                        }
+                    }
                 };
                 
                 self.deleteHandler = function () {
@@ -224,6 +234,23 @@ define(
                 }
             };
             
+            prototype.editItem = function(id, key) {
+                if (theKey === key) {
+                    let editor = this.getItemEditor();
+                    return editor(id);
+                }
+            };
+            
+            prototype.getItemEditor = function() {
+                return this.EditableTable_(theKey).itemEditor;
+            };
+            
+            prototype.setItemEditor = function(itemEditor) {
+                if (typeof itemEditor === 'function') {
+                    this.EditableTable_(theKey).itemEditor = itemEditor;
+                }
+            };
+            
             prototype.createItem = function(id, key) {
                 if (theKey === key) {
                     var creator = this.getItemCreator();
@@ -241,10 +268,19 @@ define(
                 }
             };
             
+            prototype.validateOnEdit = function(id, key) {
+                if (theKey === key) {
+                    var validator = this.getEditValidator();
+                    return validator(id);
+                }
+                
+                return false;
+            };
+            
             prototype.validateOnDelete = function(item, key) {
                 if (theKey === key) {
                     var validator = this.getDeleteValidator();
-                    return validator(id);
+                    return validator(item);
                 }
                 
                 return false;
@@ -259,6 +295,16 @@ define(
                 return false;
             };
             
+            prototype.getEditValidator = function() {
+                return this.EditableTable_(theKey).editValidator;
+            };
+            
+            prototype.setEditValidator = function(editValidator) {
+                if (typeof editValidator === 'function') {
+                    this.EditableTable_(theKey).editValidator = editValidator;
+                }
+            };
+            
             prototype.getNewValidator = function() {
                 return this.EditableTable_(theKey).newValidator;
             };
@@ -267,15 +313,6 @@ define(
                 if (typeof newValidator === 'function') {
                     this.EditableTable_(theKey).newValidator = newValidator;
                 }
-            };
-            
-            prototype.validateOnDelete = function(item, key) {
-                if (theKey === key) {
-                    var validator = this.getDeleteValidator();
-                    return validator(item);
-                }
-                
-                return false;
             };
             
             prototype.getDeleteValidator = function() {
@@ -337,7 +374,6 @@ define(
                     this.EditableTable_(theKey).dataSource = dataSource;
                 }
             };
-            
             
             prototype.resetData = function() {
                 var dataSource = new oj.ArrayTableDataSource(
