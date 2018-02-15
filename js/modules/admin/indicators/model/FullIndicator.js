@@ -23,6 +23,7 @@ define(
                 this.status;
                 this.strategicItem;
                 this.achievements;
+                this.resetDates;
             }
             
             FullIndicator.prototype = Object.create(SummaryIndicator.prototype);
@@ -108,6 +109,14 @@ define(
             
             prototype.setAchievements = function(achievements) {
                 this.achievements = achievements;
+            };
+            
+            prototype.getResetDates = function() {
+                return this.resetDates;
+            };
+            
+            prototype.setResetDates = function(resetDates) {
+                this.resetDates = resetDates;
             };
             
             return FullIndicator;

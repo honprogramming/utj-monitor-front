@@ -391,7 +391,7 @@
                                 component: 'ojInputDate',
                                 converter: dateConverter,
                                 required: true,
-                                value: resetDateValue1
+                                value: resetDateValues[0]
                             }">
 
                         <!-- ko if: resetValue() == 2 -->
@@ -401,7 +401,7 @@
                                 component: 'ojInputDate',
                                 converter: dateConverter,
                                 required: true,
-                                value: resetDateValue2
+                                value: resetDateValues[1]
                             }">
                             <br>
 
@@ -410,7 +410,7 @@
                                 component: 'ojInputDate',
                                 converter: dateConverter,
                                 required: true,
-                                value: resetDateValue3
+                                value: resetDateValues[2]
                             }">
                         <!-- /ko -->
                     </div>
@@ -1464,9 +1464,9 @@
 <!-- PIDE row template -->
 <script type="text/html" id="pideRowTemplate">
     <tr>
-        <td data-bind="text: axe"></td>
-        <td data-bind="text: topic"></td>
-        <td data-bind="text: objective"></td>
+        <td data-bind="text: $parent.getAxeName(axe)"></td>
+        <td data-bind="text: $parent.getTopicName(id, topic)"></td>
+        <td data-bind="text: $parent.getObjectiveName(id, objective)"></td>
         <td>
             <!-- Clone option -->
             <i class="fa fa-clone fa-border fa-lg pointer" data-bind="click: $parent.pideCloneRow.bind($data, axe, topic, objective)"></i>
