@@ -32,8 +32,20 @@ define(
                             subPath: "/pide",
                             
                             items: {
-                                endPath: "/items"
+                                endPath: "/items",
+                                
                             }
+                        }
+                    }
+                },
+                pide: {
+                    subPath: "/pide",
+                    
+                    indicators: {
+                        subPath: "/indicators",
+                        
+                        tree: {
+                            endPath: "/items/objectives/axes"
                         }
                     }
                 }

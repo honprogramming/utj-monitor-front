@@ -3,6 +3,7 @@ define(
             'jquery',
             'ojs/ojcore',
             'knockout',
+            'data/RESTConfig',
             'view-models/GeneralViewModel',
             'ojs/ojbutton',
             'hammerjs',
@@ -17,7 +18,7 @@ define(
             'ojs/ojmoduleanimations',
             'ojs/ojpopup'
         ],
-        function ($, oj, ko, GeneralViewModel) {
+        function ($, oj, ko, RESTConfig, GeneralViewModel) {
             var theKey = {};
             
             function PIDEIndicatorsViewModel() {
@@ -377,6 +378,7 @@ define(
                 
                 self.getJson = function (node, fn) {
                     $.getJSON("data/pide-indicators.json").then(
+//                    $.getJSON(RESTConfig.pide.indicators.tree.path).then(
                             function (data) {
                                 model = data;
                                 fn(model);  // pass to ojTree using supplied function
