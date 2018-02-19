@@ -482,7 +482,7 @@
                 var monthlySeries = this.getMonthlySeries();
                 var yaxes = this.getYAxes();
                 var item = model[id];
-                var unitType = item["unit-type"];
+                var unitType = item.attr.measureUnit.type.name;
                 var displayLegends = this.graphicOptions().indexOf(this.elementType.GOAL) < 0;
                 var markerHandler = this.getMarkerHandler(theKey);
                 var markerShape = markerHandler.getValue(id);
@@ -541,18 +541,81 @@
                     assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                 };
                 
-                var highestAllowed = item["values-range"].highest;
-                var lowestAllowed = item["values-range"].lowest;
+                let achievements = item.attr.achievements;
+                let monthlyElements = {
+                    "GOAL": monthlyGoalElement,
+                    "PROGRESS": monthlyProgressElement
+                };
+                let yearlyElements = {
+                    "GOAL": yearlyGoalElement,
+                    "PROGRESS": yearlyProgressElement
+                };
                 
-                var startDate = oj.IntlConverterUtils.isoToDate(this.fromDateValue());
-                var endDate = oj.IntlConverterUtils.isoToDate(this.toDateValue());
+                let yearlyData = {};
                 
-                if (endDate > startDate) {
-                    var startYear = startDate.getFullYear();
-                    var endYear = endDate.getFullYear();
-                    var currentYear = startYear;
-                    var tempDate = new Date(startDate.getTime());
-
+                achievements.forEach(
+                    achievement => {
+                        let date = new Date();
+                        date.setTime(achievement.date.time);
+                        
+                        let isoDate = oj.IntlConverterUtils.dateToLocalIso(date);
+                        let monthlyElement = monthlyElements[achievement.achievementType];
+                    
+                        monthlyElement.items.push({x: isoDate, y: achievement.data});
+                        
+                        if (!yearlyData[date.getFullYear()]) {
+                            yearlyData[date.getFullYear()] = {
+                                "GOAL": {}, 
+                                "PROGRESS": {}
+                            };
+                            
+                            yearlyData[date.getFullYear()][achievement.achievementType] =
+                                    {date: date, value: achievement.data};
+                        } else {
+                            if(yearlyData[date.getFullYear()][achievement.achievementType].date) {
+                                if (date > yearlyData[date.getFullYear()][achievement.achievementType].date) {
+                                    yearlyData[date.getFullYear()][achievement.achievementType] =
+                                            {date: date, value: achievement.data};
+                                }
+                            } else {
+                                yearlyData[date.getFullYear()][achievement.achievementType] = 
+                                        {date: date, value: achievement.data};
+                            }
+                        }
+                    }
+                );
+                
+                for (let year in yearlyData) {
+                    this.addGroup(theKey, year);
+                    
+                    yearlyElements["GOAL"].items.push( 
+                        {
+                            x: oj.IntlConverterUtils.dateToLocalIso(new Date(year, 0, 1)),
+                            y: yearlyData[year]["GOAL"].value
+                        }
+                    );
+                    yearlyElements["PROGRESS"].items.push(
+                        {
+                            x: oj.IntlConverterUtils.dateToLocalIso(new Date(year, 0, 1)),
+                            y: yearlyData[year]["PROGRESS"].value
+                        } 
+                    );
+                }
+                        
+//                var highestAllowed = item["values-range"].highest;
+//                var lowestAllowed = item["values-range"].lowest;
+                
+//                var startDate = oj.IntlConverterUtils.isoToDate(this.fromDateValue());
+//                var endDate = oj.IntlConverterUtils.isoToDate(this.toDateValue());
+                
+                // <editor-fold>
+//                if (endDate > startDate) {
+//                    var startYear = startDate.getFullYear();
+//                    var endYear = endDate.getFullYear();
+//                    var currentYear = startYear;
+//                    var tempDate = new Date(startDate.getTime());
+                    
+                    /*
                     do {
                         var monthsNumber = currentYear === endYear
                                 ? endDate.getMonth() - tempDate.getMonth()
@@ -655,13 +718,15 @@
                         this.addGroup(theKey, currentYear);
                         tempDate = new Date(++ currentYear, 0, 1);
                     } while(currentYear <= endYear);
+                    */
+                   //</editor-fold>
                     
                     monthlySeries.push(monthlyProgressElement);
                     monthlySeries.push(monthlyGoalElement);
                     
                     yearlySeries.push(yearlyGoalElement);
                     yearlySeries.push(yearlyProgressElement);
-                }
+//                }
             };
             
             function filterProgress(element) {
