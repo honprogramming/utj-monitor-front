@@ -95,6 +95,7 @@ define(
                 let saveDialogClass;
 
                 function populateIndicator(indicator) {
+                    //general
                     indicator.setType({id: parseInt(self.typeValue())});
                     indicator.setStatus({id: self.activeValue() ? 1 : 2});
                     indicator.setDescription(self.descriptionValue());
@@ -113,7 +114,7 @@ define(
                     }
 
                     indicator.setResetDates(resetDates);
-
+                    //alignment
                     let alignmentItemsArray = self.alignmentItems();
 
                     if (alignmentItemsArray.length > 0) {
@@ -121,7 +122,37 @@ define(
                         let objectives = self.objectivesOptionsByRow();
                         indicator.setStrategicItem({id: parseInt(objectives[rowId]()[0].value)});
                     }
-
+                    
+                    //responsible
+                    
+                    //metadata
+                    indicator.setSource(self.sourceValue());
+                    indicator.setLink(self.linkValue());
+                    indicator.setFormula(self.formulaValue());
+                    indicator.setVariables(self.variablesValue());
+                    indicator.setMethod(self.methodValue());
+                    indicator.setMetaDataObservations(self.observationsMValue());
+                    indicator.setGrades(
+                        [    
+                            {
+                                color: "red",
+                                maxPercentage: self.redValue() * 100
+                            },
+                            {
+                                color: "orange",
+                                maxPercentage: self.orangeValue() * 100
+                            },
+                            {
+                                color: "yellow",
+                                maxPercentage: self.yellowValue() * 100
+                            },
+                            {
+                                color: "green",
+                                maxPercentage: self.greenValue() * 100
+                            }
+                        ]
+                    );
+                    //achievements
                     let achievements = [];
                     let progressItems = self.progressObservableArray();
 
@@ -184,6 +215,7 @@ define(
 
                         indicatorPromise.then(
                                 function (indicator) {
+                                    //general
                                     self.nameValue(indicator.name);
                                     self.activeValue(indicator.status.id === 1);
                                     self.descriptionValue(indicator.description);
@@ -211,7 +243,8 @@ define(
                                                 self.resetDateValues[index](oj.IntlConverterUtils.dateToLocalIso(date));
                                             }
                                     );
-
+                                    
+                                    //alignment
                                     if (indicator.strategicItem) {
                                         let objective = strategicModel.getItemById(indicator.strategicItem.id);
                                         let topic = strategicModel
@@ -249,6 +282,23 @@ define(
                                         self.alignmentItems.push(row);
                                     }
                                     
+                                    //responsible
+                                    //metadata
+                                    self.sourceValue(indicator.source);
+                                    self.linkValue(indicator.link);
+                                    self.formulaValue(indicator.formula);
+                                    self.variablesValue(indicator.variables);
+                                    self.methodValue(indicator.method);
+                                    self.observationsMValue(indicator.metaDataObservations);
+                                    
+                                    let colorGradesMap = {};
+                                    indicator.grades.forEach(g => colorGradesMap[g.color] = g.maxPercentage / 100);
+                                    
+                                    self.redValue(colorGradesMap[FullIndicator.GradesColor.RED]);
+                                    self.orangeValue(colorGradesMap[FullIndicator.GradesColor.ORANGE]);
+                                    self.yellowValue(colorGradesMap[FullIndicator.GradesColor.YELLOW]);
+                                    self.greenValue(colorGradesMap[FullIndicator.GradesColor.GREEN]);
+                                    //achievements
                                     let achievementTypes = ['PROGRESS', 'GOAL'];
                                     let observableAchievements = [self.progressObservableArray, self.goalObservableArray];
 
