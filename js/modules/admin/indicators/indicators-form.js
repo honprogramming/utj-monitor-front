@@ -121,9 +121,9 @@ define(
                     }
 
                     indicator.setResetDates(resetDates);
+                    
                     //alignment
-
-                    if(self.alignmentObjective().length > 0) {
+                    if(self.alignmentObjective() && self.alignmentObjective().length > 0) {
                         indicator.setStrategicItem({id: self.alignmentObjective()[0]});
                     }
                     
@@ -193,7 +193,9 @@ define(
                     }
 
                     indicator.setAchievements(achievements);
-
+                    indicator.setPotentialRisk(self.riskValue());
+                    indicator.setImplementedActions(self.actionsValue());
+                    
                     function isoToTimestamp(isoDate) {
                         let date = oj.IntlConverterUtils.isoToLocalDate(isoDate);
                         let year = date.getFullYear();
@@ -323,15 +325,12 @@ define(
                                                 observableAchievement.push(row);
                                             }
                                     );
-                            
+                                    
+                                    self.riskValue(indicator.potentialRisk);
+                                    self.actionsValue(indicator.implementedActions);
+                                    
                                     self.updateChart();
                                 }
-                        )
-                        .then(
-                            () => {
-                                self.axeChangeHandler(self.axeChange);
-                                self.topicChangeHandler(self.topicChange);
-                            }
                         );
                     }
                 }
@@ -590,8 +589,8 @@ define(
                 * Triggered after changing the axe to align.
                 *
                 */
-                self.axeChange = function () {
-                    if (strategicModel && self.alignmentSectionExpanded()) {
+                self.axeChange = function (event, data) {
+                    if (data.option === "value" && strategicModel && self.alignmentSectionExpanded()) {
                         let topics = strategicModel.getItemsByTypeByParent(
                                StrategicTypes.TOPIC, 
                                [strategicModel.getItemById(self.alignmentAxe()[0])]
@@ -612,8 +611,8 @@ define(
                 *
                 * Triggered after changing the topic to align.
                 */
-                self.topicChange = function () {
-                    if (strategicModel && self.alignmentSectionExpanded()) {
+                self.topicChange = function (event, data) {
+                    if (data.option === "value" && strategicModel && self.alignmentSectionExpanded() && self.alignmentTopic()) {
                         let objectives = strategicModel.getItemsByTypeByParent(
                                 StrategicTypes.OBJECTIVE,
                                 [strategicModel.getItemById(self.alignmentTopic()[0])]
@@ -682,36 +681,28 @@ define(
                 self.responsibleTitle = GeneralViewModel.nls("admin.indicators.form.sections.responsible.title");
 
                 // Secretary option
-                self.secretaryLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.secretary");
-                self.secretaryOptions = ko.observableArray([
-                    {value: 'Académica', label: 'Académica'},
-                    {value: 'Administrativa', label: 'Administrativa'},
-                    {value: 'Vinculación', label: 'Vinculación'},
+                self.areaLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.area");
+                self.areaOptions = ko.observableArray([
+                    {value: 'Académica', label: 'Secretaría Académica'},
+                    {value: 'Administrativa', label: 'Secretaría Administrativa'},
+                    {value: 'Vinculación', label: 'Secretaría de Vinculación'},
                     {value: 'Rectoría', label: 'Rectoría'}
                 ]);
-                self.secretaryValue = ko.observable('Administrativa');
+                self.areaValue = ko.observable('Administrativa');
 
                 // Address option
-                self.addressLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.address");
-                self.addressValue = ko.observable("Dirección 1");
-
-                // Department head option
-                self.departmentHeadLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.departmentHead");
-                self.departmentHeadValue = ko.observable('Jefe de departamento');
-
-                // Responsible option
-                self.responsibleLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.responsible");
-                self.responsibleValue = ko.observable('Persona responsable de la información');
-
-                // Responsible charge field
-                self.responsibleChargeLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.responsibleCharge.label");
-                self.responsibleChargePlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.responsible.responsibleCharge.placeholder");
-                self.responsibleChargeValue = ko.observable("");
+                self.jobTitleLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.jobTitle");
+                self.jobTitleValue = ko.observable("Dirección 1");
+                
+                // Responsible name
+                self.responsibleNameLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.name.label");
+                self.responsibleNameValue = ko.observable("Nombre del responsable");
+                self.responsibleNamePlaceHolder = GeneralViewModel.nls("admin.indicators.form.sections.responsible.name.placeholder");
 
                 // Email field
-                self.emailLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.email.label");
-                self.emailPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.responsible.email.placeholder");
-                self.emailValue = ko.observable("");
+//                self.emailLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.email.label");
+//                self.emailPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.responsible.email.placeholder");
+//                self.emailValue = ko.observable("");
 
                 // Phone field
                 self.phoneLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.phone.label");

@@ -37,6 +37,8 @@ define(
                 this.gradesMap = {};
                 //achievements
                 this.achievements;
+                this.potentialRisk;
+                this.implementedActions;
             }
             
             FullIndicator.prototype = Object.create(SummaryIndicator.prototype);
@@ -49,6 +51,22 @@ define(
                 ORANGE: "orange",
                 YELLOW: "yellow",
                 GREEN: "green"
+            };
+            
+            prototype.getImplementedActions = function() {
+                return this.implementedActions;
+            };
+            
+            prototype.setImplementedActions = function(implementedActions) {
+                this.implementedActions = implementedActions;
+            };
+            
+            prototype.getPotentialRisk = function() {
+                return this.potentialRisk;
+            };
+            
+            prototype.setPotentialRisk = function(potentialRisk) {
+                this.potentialRisk = potentialRisk;
             };
             
             prototype.getGradeByColor = function(color) {

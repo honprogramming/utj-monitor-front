@@ -465,7 +465,7 @@
                                                 'style': 'min-width: 100%;'
                                             },
                                             options: axesOptions,
-                                            optionChange: axeChangeHandler,
+                                            optionChange: axeChange,
                                             value: alignmentAxe
                                         }"></select>
                             </div>
@@ -478,7 +478,7 @@
                                             'style': 'min-width: 100%'
                                         },
                                         options: topicsOptions,
-                                        optionChange: topicChangeHandler,
+                                        optionChange: topicChange,
                                         value: alignmentTopic
                                     }"></select>
                             </div>
@@ -567,17 +567,17 @@
                 <div class="oj-flex">
                     <div class="oj-flex-item">
                         <!-- Label -->
-                        <label for="si-secretary-option" data-bind="text: secretaryLabel"></label>
+                        <label for="area-option" data-bind="text: areaLabel"></label>
 
                         <!-- Option -->
-                        <select id="si-secretary-option" data-bind="ojComponent: {
+                        <select id="area-option" data-bind="ojComponent: {
                             component: 'ojSelect',
-                            options: secretaryOptions,
+                            options: areaOptions,
                             required: true,
                             rootAttributes: {
                                 'style': 'max-height: 100%; max-width: 100%;'
                             },
-                            value: secretaryValue
+                            value: areaValue
                         }"></select>
                     </div>
                 </div>
@@ -586,39 +586,19 @@
                 <div class="oj-flex">
                     <div class="oj-flex-item">
                         <!-- Label -->
-                        <label for="si-address-option" data-bind="text: addressLabel"></label>
+                        <label for="job-title-option" data-bind="text: jobTitleLabel"></label>
 
                         <!-- Select -->
-                        <select id="si-address-option" data-bind="ojComponent: {
+                        <select id="job-title-option" data-bind="ojComponent: {
                             component: 'ojSelect',
                             required: true,
                             rootAttributes: {
                                 'style': 'max-height: 100%; max-width: 100%;'
                             },
-                            value: addressValue
+                            value: jobTitleValue
                         }">
-                            <option value="Dirección 1">Dirección 1</option>
-                            <option value="Dirección 2">Dirección 2</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Department head -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-department-head-option" data-bind="text: departmentHeadLabel"></label>
-
-                        <!-- Select -->
-                        <select id="si-department-head-option" data-bind="ojComponent: {
-                            component: 'ojSelect',
-                            required: true,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: departmentHeadValue
-                        }">
-                            <option value="Jefe de departamento">Jefe de departamento</option>
+                            <option value="Dirección 1">Director</option>
+                            <option value="Dirección 2">Jefe de departamento</option>
                         </select>
                     </div>
                 </div>
@@ -627,81 +607,57 @@
                 <div class="oj-flex">
                     <div class="oj-flex-item">
                         <!-- Label -->
-                        <label for="si-responsible-option" data-bind="text: responsibleLabel"></label>
-
-                        <!-- Select -->
-                        <select id="si-responsible-option" data-bind="ojComponent: {
-                            component: 'ojSelect',
-                            required: true,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: responsibleValue
-                        }">
-                            <option value="Persona responsable de la información">
-                                Persona responsable de la información
-                            </option>
-                        </select>
+                        <label for="responsible-name-field" data-bind="text: responsibleNameLabel"></label>
+                        <input id="responsible-name-field" 
+                               data-bind="ojComponent: {
+                                            component: 'ojInputText',
+                                            disabled: true,
+                                            placeholder: responsibleNamePlaceHolder,
+                                            rootAttributes: {
+                                                'style': 'max-height: 100%; max-width: 100%;'
+                                            },
+                                            value: responsibleNameValue
+                                        }">
                     </div>
                 </div>
-
-                <!-- Responsible charge field -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-responsible-charge-field" data-bind="text: responsibleChargeLabel"></label>
-
-                        <!-- Input text -->
-                        <input id="si-responsible-charge-field" data-bind="ojComponent: {
-                            component: 'ojInputText',
-                            disabled: responsibleEnable,
-                            placeholder: responsibleChargePlaceholder,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: responsibleChargeValue
-                        }">
-                    </div>
-                </div>
-
                 <div class="oj-flex">
                     <!-- Email field -->
-                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                        <!-- Label -->
+<!--                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+                         Label 
                         <label for="si-email-field" data-bind="text: emailLabel"></label>
 
-                        <!-- Input text -->
+                         Input text 
                         <input id="si-email-field" data-bind="ojComponent: {
                             component: 'ojInputText',
                             disabled: responsibleEnable,
                             placeholder: emailPlaceholder,
                             value: emailValue
                         }">
-                    </div>
+                    </div>-->
 
                     <!-- Phone field -->
-                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+                    <div class="oj-sm-12 oj-md-6 oj-lg-6 oj-flex-item">
                         <!-- Label -->
                         <label for="si-phone-field" data-bind="text: phoneLabel"></label>
 
                         <!-- Input text -->
                         <input id="si-phone-field" data-bind="ojComponent: {
                             component: 'ojInputText',
-                            disabled: responsibleEnable,
+                            disabled: true,
                             placeholder: phonePlaceholder,
                             value: phoneValue
                         }">
                     </div>
 
                     <!-- Extension field -->
-                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+                    <div class="oj-sm-12 oj-md-6 oj-lg-6 oj-flex-item">
                         <!-- Label -->
                         <label for="si-extension-field" data-bind="text: extensionLabel"></label>
 
                         <!-- Input Text -->
                         <input id="si-extension-field" data-bind="ojComponent: {
                             component: 'ojInputText',
-                            disabled: responsibleEnable,
+                            disabled: true,
                             placeholder: extensionPlaceholder,
                             value: extensionValue
                         }">

@@ -227,13 +227,11 @@ define(
                                 },
                                 "responsible": {
                                     "title": "Responsable",
-                                    "secretary": "Secretaría",
-                                    "address": "Dirección",
-                                    "departmentHead": "Jefe de departamento",
-                                    "responsible": "Responsable",
-                                    "responsibleCharge": {
-                                        "label": "Cargo del responsable",
-                                        "placeholder": "Cargo del responsable"
+                                    "area": "Area",
+                                    "jobTitle": "Cargo",
+                                    "name": {
+                                        "label": "Nombre",
+                                        "placeholder": "Nombre del responsable"
                                     },
                                     "email": {
                                         "label": "Correo-e",
