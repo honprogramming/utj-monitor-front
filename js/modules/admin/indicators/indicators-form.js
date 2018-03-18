@@ -93,7 +93,14 @@ define(
                 self.saveDialogId = "indicator-form-save-dialog";
                 self.saveDialogTitle = GeneralViewModel.nls("admin.strategic.saveDialog.title");
                 let saveDialogClass;
-
+                
+                self.alignmentSectionExpanded = ko.observable(false);
+                self.axesOptions = ko.observableArray();
+                self.topicsOptions = ko.observableArray();
+                self.objectivesOptions = ko.observableArray();
+                self.axeChangeHandler = ko.observable(() => {});
+                self.topicChangeHandler = ko.observable(() => {});
+                
                 function populateIndicator(indicator) {
                     //general
                     indicator.setType({id: parseInt(self.typeValue())});
@@ -115,12 +122,9 @@ define(
 
                     indicator.setResetDates(resetDates);
                     //alignment
-                    let alignmentItemsArray = self.alignmentItems();
 
-                    if (alignmentItemsArray.length > 0) {
-                        let rowId = alignmentItemsArray[0].id;
-                        let objectives = self.objectivesOptionsByRow();
-                        indicator.setStrategicItem({id: parseInt(objectives[rowId]()[0].value)});
+                    if(self.alignmentObjective().length > 0) {
+                        indicator.setStrategicItem({id: self.alignmentObjective()[0]});
                     }
                     
                     //responsible
@@ -256,30 +260,31 @@ define(
                                                 .filter(item => item.children.includes(topic));
                                         axe = axe[0];
 
-                                        let topicOptions = {};
-                                        topicOptions[indicator.id] = ko.observableArray(strategicModel
+                                        let topicOptionsArray;
+                                        topicOptionsArray = strategicModel
                                                 .getItemsByTypeByParent(StrategicTypes.TOPIC, [axe])
-                                                .map(topic => {
-                                                    return {value: topic.id, label: topic.name}
-                                                }));
-                                        self.topicsOptionsByRow(topicOptions);
+                                                .map(
+                                                    topic => {
+                                                        return {value: topic.id, label: topic.name};
+                                                    }
+                                                );
+                                                
+                                        self.topicsOptions(topicOptionsArray);
 
-                                        let objectiveOptions = {};
-                                        objectiveOptions[indicator.id] = ko.observableArray(strategicModel
+                                        let objectiveOptionsArray;
+                                        objectiveOptionsArray = strategicModel
                                                 .getItemsByTypeByParent(StrategicTypes.OBJECTIVE, [topic])
-                                                .map(objective => {
-                                                    return {value: objective.id, label: objective.name}
-                                                }));
-                                        self.objectivesOptionsByRow(objectiveOptions);
-
-                                        let row = {
-                                            id: indicator.id,
-                                            axe: ko.observable([axe.id]),
-                                            topic: ko.observable([topic.id]),
-                                            objective: ko.observable([objective.id])
-                                        };
-
-                                        self.alignmentItems.push(row);
+                                                .map(
+                                                    objective => {
+                                                        return {value: objective.id, label: objective.name};
+                                                    }
+                                                );
+                                                
+                                        self.objectivesOptions(objectiveOptionsArray);
+                                        
+                                        self.alignmentAxe([axe.id]);
+                                        self.alignmentTopic([topic.id]);
+                                        self.alignmentObjective([objective.id]);
                                     }
                                     
                                     //responsible
@@ -321,6 +326,12 @@ define(
                             
                                     self.updateChart();
                                 }
+                        )
+                        .then(
+                            () => {
+                                self.axeChangeHandler(self.axeChange);
+                                self.topicChangeHandler(self.topicChange);
+                            }
                         );
                     }
                 }
@@ -536,48 +547,15 @@ define(
                  * Alignment section
                  */
                 self.alignmentTitle = GeneralViewModel.nls("admin.indicators.form.sections.alignment.title");
-
+                self.alignmentAxe = ko.observable();
+                self.alignmentTopic = ko.observable();
+                self.alignmentObjective = ko.observable();
+                
                 // PIDE table
-                self.pideTableLabel = GeneralViewModel.nls("admin.indicators.form.sections.alignment.pide.title");
-                self.pideId = Math.floor(Math.random() * 100) + 1;
-                self.pideColumns = [
-                    {
-                        "headerText": "Eje",
-                        "headerStyle": 'max-width: 5em;',
-                        "style": 'min-width: 30%; max-width: 20em; width: 30%;',
-                        "sortable": "auto"
-                    },
-                    {
-                        "headerText": "Tema",
-                        "headerStyle": 'max-width: 5em;',
-                        "style": 'min-width: 30%; max-width: 20em; width: 30%;',
-                        "sortable": "auto"
-                    },
-                    {
-                        "headerText": "Objetivo",
-                        "headerStyle": 'max-width: 5em;',
-                        "style": 'min-width: 30%; max-width: 20em; width: 30%;',
-                        "sortable": "auto"
-                    },
-                    {
-                        "headerText": 'Acciones',
-                        "headerStyle": 'max-width: 5em;',
-                        "style": 'min-width: 10%; width: 10%;',
-                        "sortable": "disabled"
-                    }
-                ];
-                self.alignmentItems = ko.observableArray([]);
-                self.pideDataSource = new oj.ArrayTableDataSource(self.alignmentItems, {idAttribute: 'id'});
-
-                // Row template for PIDE table
-                self.getPIDERowTemplate = function (data, context) {
-                    let mode = context.$rowContext['mode'];
-                    let templateName = mode === 'edit' || data.isNew ? 'pideEditRowTemplate' : 'pideRowTemplate';
-
-                    data.isNew = false;
-
-                    return templateName;
-                };
+                self.pideTableLabel = GeneralViewModel.nls("admin.indicators.form.sections.alignment.table.title");
+                self.axeColumnLabel = GeneralViewModel.nls("admin.indicators.form.sections.alignment.table.axe");
+                self.topicColumnLabel = GeneralViewModel.nls("admin.indicators.form.sections.alignment.table.topic");
+                self.objectiveColumnLabel = GeneralViewModel.nls("admin.indicators.form.sections.alignment.table.objective");
 
                 let sortByName = (a, b) => a.name.localeCompare(b.name);
 
@@ -589,207 +567,68 @@ define(
 
                 let strategicPromise = strategicDataProvider.fetchData();
                 let strategicModel;
-                self.axesOptions = ko.observableArray();
-                self.topicsOptionsByRow = ko.observable({});
-                self.objectivesOptionsByRow = ko.observable({});
-
+                
                 let strategicLoadedPromise = strategicPromise.then(
                     () => {
                         strategicModel = new StrategicModel(strategicDataProvider);
                         self.axesOptions(
-                                strategicModel
-                                .getItemsByType(StrategicTypes.AXE)
-                                .sort(sortByName)
-                                .map(
-                                    (axe) => {
-                                        return {value: axe.id, label: axe.name};
-                                    }
-                                )
-                        );
+                                 strategicModel
+                                 .getItemsByType(StrategicTypes.AXE)
+                                 .sort(sortByName)
+                                 .map(
+                                     (axe) => {
+                                         return {value: axe.id, label: axe.name};
+                                     }
+                                 )
+                         );
                     }
                 );
-
+                
                 /**
-                 * Filter search.
-                 * 
-                 * This functions validates a value based in Oracle JET's option value.
-                 * Oracle JET returns an object value (array), so this function validates
-                 * if is an array and returns the first index, otherwise returns the value.
-                 * 
-                 * @param {*} search 
-                 */
-                function filterSearch(search) {
-                    return typeof search === 'object' ? search[0] : search;
-                }
+                * Axes change event.
+                *
+                * Triggered after changing the axe to align.
+                *
+                */
+                self.axeChange = function () {
+                    if (strategicModel && self.alignmentSectionExpanded()) {
+                        let topics = strategicModel.getItemsByTypeByParent(
+                               StrategicTypes.TOPIC, 
+                               [strategicModel.getItemById(self.alignmentAxe()[0])]
+                            );
 
-                /**
-                 * Axes change event.
-                 *
-                 * Triggered after changing an axe in PIDE table.
-                 *
-                 * @param {type} id Row's ID.
-                 * @param {type} axe Axe value.
-                 */
-                self.axesChange = function (id, axeId) {
-                    // Set new topic options
-                    axeId = axeId()[0];
-
-                    if (axeId) {
-                        let topics = strategicModel.getItemsByTypeByParent(StrategicTypes.TOPIC, [strategicModel.getItemById(axeId)]);
-                        let options = self.topicsOptionsByRow();
                         topics = topics.map(
                                 (topic) => {
-                            return {value: topic.id, label: topic.name};
-                        }
+                                    return {value: topic.id, label: topic.name};
+                                }
                         );
 
-                        options[id](topics);
+                        self.topicsOptions(topics);
                     }
                 };
 
                 /**
-                 * Topics change event.
-                 *
-                 * Triggered after changing a topic in PIDE table.
-                 *
-                 * @param {type} id
-                 * @param {type} axe
-                 * @param {type} topic
-                 */
-                self.topicsChange = function (id, topicId) {
-                    topicId = topicId()[0];
+                * Topics change event.
+                *
+                * Triggered after changing the topic to align.
+                */
+                self.topicChange = function () {
+                    if (strategicModel && self.alignmentSectionExpanded()) {
+                        let objectives = strategicModel.getItemsByTypeByParent(
+                                StrategicTypes.OBJECTIVE,
+                                [strategicModel.getItemById(self.alignmentTopic()[0])]
+                            );
 
-                    if (topicId) {
-                        let objectives = strategicModel.getItemsByTypeByParent(StrategicTypes.OBJECTIVE, [strategicModel.getItemById(topicId)]);
-                        let options = self.objectivesOptionsByRow();
                         objectives = objectives.map(
                                 (objective) => {
-                            return {value: objective.id, label: objective.name};
-                        }
+                                    return {value: objective.id, label: objective.name};
+                                }
                         );
 
-                        options[id](objectives);
+                        self.objectivesOptions(objectives);
                     }
                 };
-
-                /**
-                 * Add row to PIDE's table
-                 */
-                self.pideAddRow = function () {
-                    // New row
-                    var row = {
-                        'id': self.pideId++,
-                        'axe': ko.observable(''),
-                        'topic': ko.observable(''),
-                        'objective': ko.observable(''),
-                        'isNew': true
-                    };
-
-                    // Add row to PIDE table
-                    self.alignmentItems.push(row);
-                    // Add new map to Topics Options
-                    let topics = self.topicsOptionsByRow();
-                    topics[row.id] = ko.observableArray();
-                    self.topicsOptionsByRow(topics);
-
-                    let objectives = self.objectivesOptionsByRow();
-                    objectives[row.id] = ko.observableArray();
-                    self.objectivesOptionsByRow(objectives);
-                };
-
-                self.getAxeName = function (axeId) {
-                    let options = self.axesOptions();
-
-                    if (options && axeId) {
-                        for (let i = 0; i < options.length; i++) {
-                            if (options[i].value === axeId()[0]) {
-                                return options[i].label;
-                            }
-                        }
-                    }
-                };
-
-                self.getTopicName = function (id, topicId) {
-                    let options = self.topicsOptionsByRow()[id];
-
-                    if (options) {
-                        options = options();
-
-                        for (let i = 0; i < options.length; i++) {
-                            if (options[i].value === topicId()[0]) {
-                                return options[i].label;
-                            }
-                        }
-                    }
-                };
-
-                self.getObjectiveName = function (id, objectiveId) {
-                    let options = self.objectivesOptionsByRow()[id];
-
-                    if (options) {
-                        options = options();
-
-                        for (let i = 0; i < options.length; i++) {
-                            if (options[i].value === objectiveId()[0]) {
-                                return options[i].label;
-                            }
-                        }
-                    }
-                };
-
-                /**
-                 * Clone PIDE's table row.
-                 * @param {ko.Observable} Axe
-                 * @param {ko.Observable} Topic
-                 * @param {ko.Observable} Objective
-                 */
-                self.pideCloneRow = function (Axe, Topic, Objective) {
-                    // New row
-                    var row = {
-                        'id': self.pideId++,
-                        'axe': ko.observable(Axe()),
-                        'topic': ko.observable(Topic()),
-                        'objective': ko.observable(Objective())
-                    };
-
-                    // Add row to PIDE table
-                    self.alignmentItems.push(row);
-
-                    // Add new map to Topics Option
-//                    self.topicsOptions.push({
-//                        id: row.id,
-//                        options: ko.observableArray(self.getTopics(row.Axe()))
-//                    });
-
-                    // Add new map to Objective options
-//                    self.objectivesOptions.push({
-//                        id: row.id,
-//                        options: ko.observableArray(self.getObjectives(row.Axe(), row.Topic()))
-//                    });
-                };
-
-                /**
-                 * Remove PIDE's table row.
-                 * @param {number} id
-                 */
-                //TODO: Update this function according to new variables
-                self.pideRemoveRow = function (id) {
-                    // Remove row from table
-                    self.alignmentItems.remove(function (item) {
-                        return item.id === id;
-                    });
-
-                    // Remove row from topics options
-                    self.topicsOptions.remove(function (item) {
-                        return item.id === id;
-                    });
-
-                    // Remove row from objectives options
-                    self.objectivesOptions.remove(function (item) {
-                        return item.id === id;
-                    });
-                };
-
+                        
                 // POA section
                 self.poaSectionLabel = GeneralViewModel.nls("admin.indicators.form.sections.alignment.poa.title");
 

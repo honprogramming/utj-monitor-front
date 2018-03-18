@@ -423,11 +423,12 @@
 
     <!-- ko ifnot: typeValue() == '2' || typeValue() == '3' -->
     <!-- Alignment section -->
-    <div id="alignment-section" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
-        component: 'ojCollapsible',
-        expandArea: 'disclosureIcon',
-        expanded: false
-    }">
+    <div id="alignment-section" class="form-container oj-accordion-collapsible"
+         data-bind="ojComponent: {
+                        component: 'ojCollapsible',
+                        expandArea: 'disclosureIcon',
+                        expanded: alignmentSectionExpanded
+                    }">
         <!-- Collapsible title -->
         <h4 id="alignment-title" data-bind="text: alignmentTitle"></h4>
 
@@ -440,25 +441,62 @@
                     <label data-bind="text: pideTableLabel"></label>
                     <span class="oj-label-required-icon"></span>
                 </legend>
-
-                <!-- PIDE Table -->
-                <div class="oj-margin">
-                    <!-- Add row icon -->
-                    <i class="fa fa-plus fa-lg pointer icon-padding" data-bind="click: pideAddRow.bind($data)"></i>
-
-                    <!-- Table -->
-                    <table id="alignment-pide-table" summary="PIDE Table" aria-label="PIDE Table" 
-                           data-bind="ojComponent: {
-                                        component: 'ojTable',
-                                        columns: pideColumns,
-                                        data: pideDataSource,
-                                        display: 'grid',
-                                        editMode: 'rowEdit',
+                <div class="oj-flex">
+                    <div class="oj-sm-flex-direction-column table-div">
+                        <div class="oj-flex">
+                            <div class="oj-flex-item oj-sm-12 oj-md-4 header-cell-div"
+                                 data-bind="text: axeColumnLabel">
+                            </div>
+                            <div class="oj-flex-item oj-sm-12 oj-md-4 header-cell-div"
+                                 data-bind="text: topicColumnLabel">
+                            </div>
+                            <div class="oj-flex-item oj-sm-12 oj-md-4 header-cell-div"
+                                 data-bind="text: objectiveColumnLabel">
+                            </div>
+                        </div>
+                        <div class="oj-flex">
+                            <div class="oj-flex-item oj-sm-12 oj-md-4 body-cell-div">
+                                <select class="oj-flex-item oj-sm-12"
+                                    data-bind="
+                                        ojComponent: {
+                                            component: 'ojSelect',
+                                            rootAttributes: {
+                                                'id': 'new-axe-value',
+                                                'style': 'min-width: 100%;'
+                                            },
+                                            options: axesOptions,
+                                            optionChange: axeChangeHandler,
+                                            value: alignmentAxe
+                                        }"></select>
+                            </div>
+                            <div class="oj-flex-item oj-sm-12 oj-md-4 body-cell-div">
+                                <select data-bind="
+                                    ojComponent: {
+                                        component: 'ojSelect',
                                         rootAttributes: {
-                                            'style': 'width: 1px; min-width: 100%;'
+                                            'id': 'new-topic-value',
+                                            'style': 'min-width: 100%'
                                         },
-                                        rowTemplate: getPIDERowTemplate
-                                    }"></table>
+                                        options: topicsOptions,
+                                        optionChange: topicChangeHandler,
+                                        value: alignmentTopic
+                                    }"></select>
+                            </div>
+                            <div class="oj-flex-item oj-sm-12 oj-md-4 body-cell-div">
+                                <select 
+                                    data-bind="
+                                    ojComponent: {
+                                        component: 'ojSelect',
+                                        rootAttributes: {
+                                            'id': 'new-objective-value',
+                                            'style': 'min-width: 100%'
+                                        },
+                                        options: objectivesOptions,
+                                        value: alignmentObjective
+                                    }"></select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </fieldset>
 
@@ -1460,70 +1498,6 @@
     </div>
     <!-- /ko -->
 </div>
-
-<!-- PIDE row template -->
-<script type="text/html" id="pideRowTemplate">
-    <tr>
-        <td data-bind="text: $parent.getAxeName(axe)"></td>
-        <td data-bind="text: $parent.getTopicName(id, topic)"></td>
-        <td data-bind="text: $parent.getObjectiveName(id, objective)"></td>
-        <td>
-            <!-- Clone option -->
-            <i class="fa fa-clone fa-border fa-lg pointer" data-bind="click: $parent.pideCloneRow.bind($data, axe, topic, objective)"></i>
-
-            <!-- Delete option -->
-            <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.pideRemoveRow.bind($data, id)"></i>
-        </td>
-    </tr>
-</script>
-
-<!-- PIDE edit row template -->
-<script type="text/html" id="pideEditRowTemplate">
-    <tr>
-        <td>
-            <select data-bind="
-                ojComponent: {
-                    component: 'ojSelect',
-                    rootAttributes: {
-                        'id': 'new-axe-value-' + id
-                    },
-                    options: $parent.axesOptions,
-                    optionChange: $parent.axesChange.bind($data, id, axe),
-                    value: axe
-                }"></select>
-        </td>
-        <td>
-            <select data-bind="
-                ojComponent: {
-                    component: 'ojSelect',
-                    rootAttributes: {
-                        'id': 'new-topic-value-' + id
-                    },
-                    options: $parent.topicsOptionsByRow()[id],
-                    optionChange: $parent.topicsChange.bind($data, id, topic),
-                    value: topic
-                }"></select>
-        </td>
-        <td>
-            <select data-bind="
-                ojComponent: {
-                    component: 'ojSelect',
-                    rootAttributes: {
-                        'id': 'new-objective-value-' + id
-                    },
-                    options: $parent.objectivesOptionsByRow()[id],
-                    value: objective
-                }"></select>
-        </td>
-        <td>
-            <!-- Clone option -->
-            <i class="fa fa-clone fa-border fa-lg pointer" data-bind="click: $parent.pideCloneRow.bind($data, axe, topic, objective)"></i>
-
-            <!-- Delete option -->
-            <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.pideRemoveRow.bind($data, id)"></i>
-        </td>
-    </tr>
-</script>
 
 <!-- Process row template -->
 <script type="text/html" id="processRowTemplate">

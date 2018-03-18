@@ -209,8 +209,11 @@ define(
                                 },
                                 "alignment": {
                                     "title": "Alineación",
-                                    "pide": {
-                                        "title": "PIDE"
+                                    "table": {
+                                        "title": "PIDE",
+                                        "axe": "Eje",
+                                        "topic": "Tema",
+                                        "objective": "Objetivo"
                                     },
                                     "poa": {
                                         "title": "POA",
