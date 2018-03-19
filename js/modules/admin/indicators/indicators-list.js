@@ -11,6 +11,7 @@ define(
             'modules/admin/strategic/model/StrategicModel',
             'modules/admin/indicators/model/IndicatorDataParser',
             'modules/admin/indicators/model/IndicatorModel',
+            'modules/admin/indicators/model/SummaryIndicator',
             'templates/EditableTable',
             'templates/FormActions',
             'modules/admin/view-model/AdminItems',
@@ -28,7 +29,7 @@ define(
         ],
         function ($, ko, DataProvider, RESTConfig, AjaxUtils, GeneralViewModel,
                 StrategicDataParser, StrategicTypes, StrategicModel,
-                IndicatorDataParser, IndicatorModel,
+                IndicatorDataParser, IndicatorModel, SummaryIndicator,
                 EditableTable, FormActions, AdminItems) {
 
             function IndicatorsListViewModel(params) {
@@ -188,13 +189,23 @@ define(
                         let deletedIds = [];
 
                         function removeItem(itemId) {
-                            var item = indicatorsModel.getItemById(itemId);
+                            let item = indicatorsModel.getItemById(itemId);
                             indicatorsModel.removeItem(item);
                             deletedIds.push(item.id);
                         }
 
                         function updateEditedItem(currentRow) {
                             indicatorsModel.updateItemName(currentRow.data.id, currentRow.data.name);
+                        }
+                        
+                        function cloneItem(itemId) {
+                            let item = indicatorsModel.getItemById(itemId);
+                            let indicator = new SummaryIndicator(item.id + 1, item.name + "_clone");
+                            
+                            indicator.setCloneOf(itemId);
+                            indicatorsModel.addItem(indicator);
+                            
+                            return indicator;
                         }
 
                         let indicatorsTable = new EditableTable(indicatorsArray, indicatorsModel, 
@@ -211,9 +222,10 @@ define(
                                 newValidator: function () {
                                     return true;
                                 },
+                                itemClonator: (id) => cloneItem(id),
                                 itemCreator: () => params.switchFunction(),
-                                itemRemover: removeItem,
-                                itemEditor: (id) => params.switchFunction(id)
+                                itemRemover: (id) => removeItem(id),
+                                itemEditor: (id) => params.switchFunction(indicatorsModel.getItemById(id))
                             }
                         );
 

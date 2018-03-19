@@ -14,7 +14,8 @@
                 <!-- /ko -->
                 <td>
                     <!-- ko if: $parent.displayAction('clone') -->
-                    <i class="fa fa-clone fa-border fa-lg pointer"></i>
+                    <i class="fa fa-clone fa-border fa-lg pointer"
+                       data-bind="click: $parent.cloneHandler"></i>
                     <!-- /ko -->
                     <!-- ko if: $parent.displayAction('read') -->
                     <i class="fa fa-eye fa-border fa-lg pointer"></i>
@@ -47,7 +48,8 @@
                 </td>
                 <td>
                     <!-- ko if: $parent.displayAction('clone') -->
-                    <i class="fa fa-clone fa-border fa-lg pointer"></i>
+                    <i class="fa fa-clone fa-border fa-lg pointer"
+                       data-bind="click: $parent.cloneHandler"></i>
                     <!-- /ko -->
                     
                     <!-- ko if: $parent.displayAction('read') -->

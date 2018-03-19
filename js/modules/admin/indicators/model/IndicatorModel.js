@@ -58,7 +58,17 @@ define(
 
                 return items;
             };
-
+            
+            prototype.addItem = function(item) {
+                if (item.id) {
+                    let items = this.getItems();
+                    items[item.id] = item;
+                    
+                    items = this.getItemsArray();
+                    items.push(item);
+                }
+            };
+            
             prototype.removeItem = function (target) {
                 var items = this.getItems();
 

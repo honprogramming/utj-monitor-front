@@ -11,9 +11,18 @@ define(
             function SummaryIndicator(id, name) {
                 this.id = id;
                 this.name = name;
+                this.cloneOf = undefined;
             }
             
             var prototype = SummaryIndicator.prototype;
+            
+            prototype.getCloneOf = function() {
+                return this.cloneOf;
+            };
+            
+            prototype.setCloneOf = function(id) {
+                this.cloneOf = id;
+            };
             
             prototype.getId = function () {
                 return this.id;

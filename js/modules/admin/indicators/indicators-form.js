@@ -213,7 +213,8 @@ define(
 
                 function initializeForm() {
                     if (params.id) {
-                        let path = RESTConfig.admin.indicators.pide.items.path + "/" + params.id;
+                        let id = params.cloneOf ? params.cloneOf : params.id;
+                        let path = RESTConfig.admin.indicators.pide.items.path + "/" + id;
                         let method = "GET";
 
                         function errorFunction(jqXHR, textStatus, errMsg) {
@@ -225,7 +226,8 @@ define(
                         indicatorPromise.then(
                                 function (indicator) {
                                     //general
-                                    self.nameValue(indicator.name);
+                                    let name = params.cloneOf ? params.name : indicator.name;
+                                    self.nameValue(name);
                                     self.activeValue(indicator.status.id === 1);
                                     self.descriptionValue(indicator.description);
                                     self.directionValue([indicator.direction]);

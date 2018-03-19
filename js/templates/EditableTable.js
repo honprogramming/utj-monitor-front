@@ -27,6 +27,7 @@ define(
                     newValidator: () => true,
                     deleteValidator: () => false,
                     editValidator: () => true,
+                    itemClonator: () => {},
                     itemCreator: () => {},
                     itemRemover: () => false,
                     itemEditor: () => false
@@ -72,6 +73,7 @@ define(
                     self.setDeleteValidator(params.deleteValidator);
                     self.setItemEditor(params.itemEditor);
                     self.setItemCreator(params.itemCreator);
+                    self.setItemClonator(params.itemClonator);
                     self.setItemRemover(params.itemRemover);
                     self.setNewEnabled(params.newEnabled !== undefined ? params.newEnabled : true);
                     self.setActions(params.actions !== undefined ? params.actions : [], theKey);
@@ -86,7 +88,14 @@ define(
                     var mode = context.$rowContext['mode'];
                     return mode === 'edit' ? self.editRowTemplateId : self.rowTemplateId;
                 };
+                
+                self.cloneHandler = function(date, data) {
+                    let rowKey = self.getCurrentRow()["rowKey"];
 
+                    let newItem = self.cloneItem(rowKey, theKey);
+                    self.observableDataSource().add(newItem);
+                };
+                
                 self.newClickHandler = function () {
                     if (self.validateOnNew(theKey)) {
                         var itemIds = Object.keys(self.getModel().getItems());
@@ -251,9 +260,26 @@ define(
                 }
             };
             
+            prototype.cloneItem = function(id, key) {
+                if (theKey === key) {
+                    var clonator = this.getItemClonator();
+                    return clonator(id);
+                }
+            };
+            
+            prototype.getItemClonator = function() {
+                return this.EditableTable_(theKey).itemClonator;
+            };
+            
+            prototype.setItemClonator = function(itemClonator) {
+                if (typeof itemClonator === 'function') {
+                    this.EditableTable_(theKey).itemClonator = itemClonator;
+                }
+            };
+            
             prototype.createItem = function(id, key) {
                 if (theKey === key) {
-                    var creator = this.getItemCreator();
+                    let creator = this.getItemCreator();
                     return creator(id);
                 }
             };
