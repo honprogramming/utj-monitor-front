@@ -6,7 +6,7 @@ define(
                 var privateData = {
                     dataProvider: dataProvider,
                     itemsArray: undefined,
-                    itemsMap: {}
+                    itemsMap: {}                    
                 };
 
                 this.StrategicModel_ = function (key) {
@@ -15,7 +15,7 @@ define(
                     }
                 };
 
-                privateData.itemsArray = dataProvider.getDataArray();
+                privateData.itemsArray = dataProvider.getDataArray().slice();
 
                 var items = privateData.itemsArray.slice();
 
@@ -50,7 +50,11 @@ define(
             prototype.getItems = function () {
                 return this.StrategicModel_(theKey).itemsMap;
             };
-
+            
+            prototype.getData = function() {
+                return this.StrategicModel_(theKey).itemsArray;
+            };
+            
             prototype.getItemById = function (itemId) {
                 return this.getItems()[itemId];
             };

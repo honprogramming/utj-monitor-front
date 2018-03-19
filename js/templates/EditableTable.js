@@ -11,19 +11,20 @@ define(
         function (ko, oj, $, GeneralViewModel, EventTypes, IdGenerator) {
             var theKey = {};
             
-            function EditableTable(data, model, params) {
+            function EditableTable(model, params) {
                 var self = this;
                 
                 self.listeners = [];
                 
                 var privateData = {
                     model: model,
-                    data: [{id: 1, name: 'lalala'}],
+                    data: undefined,
                     dataSource: undefined,
                     actions: ["filter", "delete", "clone", "read", "edit"],
                     currentFilterRow: ko.observable(),
                     ENABLED: 1.0,
                     DISABLED: 0.5,
+                    filterFunction: undefined,
                     newValidator: () => true,
                     deleteValidator: () => false,
                     editValidator: () => true,
@@ -77,19 +78,17 @@ define(
                     self.setItemRemover(params.itemRemover);
                     self.setNewEnabled(params.newEnabled !== undefined ? params.newEnabled : true);
                     self.setActions(params.actions !== undefined ? params.actions : [], theKey);
+                    self.setFilterFunction(params.filterFunction);
                 }
                 
-                if (data) {
-                    this.setData(data, theKey);
-                    this.resetData();
-                }
+                this.resetData();
 
                 self.getRowTemplate = function (data, context) {
                     var mode = context.$rowContext['mode'];
                     return mode === 'edit' ? self.editRowTemplateId : self.rowTemplateId;
                 };
                 
-                self.cloneHandler = function(date, data) {
+                self.cloneHandler = function() {
                     let rowKey = self.getCurrentRow()["rowKey"];
 
                     let newItem = self.cloneItem(rowKey, theKey);
@@ -377,6 +376,14 @@ define(
                 this.addListener(listener, EventTypes.DATA_EVENT);
             };
             
+            prototype.getFilterFunction = function() {
+                return this.EditableTable_(theKey).filterFunction;
+            };
+            
+            prototype.setFilterFunction = function(filterFunction) {
+                this.EditableTable_(theKey).filterFunction = filterFunction;
+            };
+            
             prototype.getData = function() {
                 return this.EditableTable_(theKey).data;
             };
@@ -402,7 +409,15 @@ define(
             };
             
             prototype.resetData = function() {
-                var dataSource = new oj.ArrayTableDataSource(
+                let filterFunction = this.getFilterFunction();
+                
+                if (filterFunction) {
+                    this.setData(filterFunction(), theKey);
+                } else {
+                    this.setData(this.getModel().getData(), theKey);
+                }
+                
+                let dataSource = new oj.ArrayTableDataSource(
                             this.getData(),
                             {idAttribute: "id"}
                 );

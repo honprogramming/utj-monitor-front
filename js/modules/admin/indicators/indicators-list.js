@@ -84,37 +84,6 @@ define(
                     }
                 ];
 
-                // Reset dialog text
-                self.resetDialogId = "indicators-reset-dialog";
-                self.resetDialogTitle = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.title");
-                self.resetWarningText = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.warningText");
-                self.resetDialogOkButtonLabel = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.okButton");
-                self.resetDialogCancelButtonLabel = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.cancelButton");
-
-                // Save dialog text
-                self.saveDialogId = "indicators-save-dialog";
-                self.saveMessage = ko.observable();
-                self.saveDialogTitle = GeneralViewModel.nls("admin.indicators.main.dialogs.save.title");
-                var saveDialogClass = "";
-
-                // Form actions
-                self.formActions = new FormActions();
-
-                // Reset listener
-                self.formActions.addResetListener(
-                        () => $("#" + self.resetDialogId).ojDialog("open")
-                );
-
-                // Click ok handler
-                let clickOkHandlerObservable = ko.observable();
-                self.clickOkHandler = function () {
-                    var handler = clickOkHandlerObservable();
-                    handler();
-                };
-
-                // Click cancer handler
-                self.clickCancelHandler = () => $("#" + self.resetDialogId).ojDialog("close");
-
                 let sortByName = (a, b) => a.name.localeCompare(b.name);
 
                 //General Filter select controls population
@@ -185,7 +154,6 @@ define(
                 indicatorsPromise.then(
                     () => {
                         let indicatorsModel = new IndicatorModel(indicatorsDataProvider);
-                        let indicatorsArray = indicatorsModel.getItemsArray();
                         let deletedIds = [];
 
                         function removeItem(itemId) {
@@ -208,7 +176,7 @@ define(
                             return indicator;
                         }
 
-                        let indicatorsTable = new EditableTable(indicatorsArray, indicatorsModel, 
+                        let indicatorsTable = new EditableTable(indicatorsModel, 
                             {
                                 id: "indicators-table",
                                 title: GeneralViewModel.nls("admin.indicators.main.table.pide.title"),
@@ -217,7 +185,7 @@ define(
                                 columns: self.columns,
 //                                newErrorText: GeneralViewModel.nls("admin.indicators.main.table.pide.newErrorText"),
 //                                deleteErrorText: GeneralViewModel.nls("admin.indicators.main.table.pide.deleteErrorText"),
-//                                deleteValidator: 
+                                deleteValidator: () => true, 
                                 actions: ["delete", "clone", "edit"],
                                 newValidator: function () {
                                     return true;
@@ -231,22 +199,47 @@ define(
 
                         indicatorsTable.addEditListener(updateEditedItem);
                         self.observableIndicatorsTable(indicatorsTable);
-
                         clickOkHandlerObservable(
                             () => {
-                                $("#" + self.resetDialogId).ojDialog("close");
+                                let indicatorsModel = new IndicatorModel(indicatorsDataProvider);
+                                
+                                indicatorsTable.setModel(indicatorsModel);
                                 indicatorsTable.resetData();
+                                $("#" + self.resetDialogId).ojDialog("close");
                             }
                         );
-
-                        // Show dialog
-                        self.showDialog = function () {
-                            var saveDialog = $("#" + self.saveDialogId);
-                            saveDialog.ojDialog("widget").addClass(saveDialogClass);
-                            saveDialog.ojDialog("open");
-                        };
                     }
                 );
+        
+                // Reset dialog text
+                self.resetDialogId = "indicators-reset-dialog";
+                self.resetDialogTitle = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.title");
+                self.resetWarningText = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.warningText");
+                self.resetDialogOkButtonLabel = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.okButton");
+                self.resetDialogCancelButtonLabel = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.cancelButton");
+
+                // Save dialog text
+                self.saveDialogId = "indicators-save-dialog";
+                self.saveMessage = ko.observable();
+                self.saveDialogTitle = GeneralViewModel.nls("admin.indicators.main.dialogs.save.title");
+
+                // Form actions
+                self.formActions = new FormActions();
+
+                // Reset listener
+                self.formActions.addResetListener(
+                    () => $("#" + self.resetDialogId).ojDialog("open")
+                );
+
+                // Click ok handler
+                let clickOkHandlerObservable = ko.observable();
+                self.clickOkHandler = function () {
+                    var handler = clickOkHandlerObservable();
+                    handler();
+                };
+
+                // Click cancer handler
+                self.clickCancelHandler = () => $("#" + self.resetDialogId).ojDialog("close");
             }
 
             return IndicatorsListViewModel;

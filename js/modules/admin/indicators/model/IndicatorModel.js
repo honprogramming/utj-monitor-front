@@ -16,7 +16,7 @@ define(
                     }
                 };
 
-                privateData.itemsArray = dataProvider.getDataArray();
+                privateData.itemsArray = dataProvider.getDataArray().slice();
 
                 var items = privateData.itemsArray.slice();
 
@@ -37,7 +37,7 @@ define(
                 return this.IndicatorModel_(theKey).itemsMap;
             };
             
-            prototype.getItemsArray = function () {
+            prototype.getData = function () {
                 return this.IndicatorModel_(theKey).itemsArray;
             };
 
@@ -69,21 +69,18 @@ define(
                 }
             };
             
-            prototype.removeItem = function (target) {
-                var items = this.getItems();
-
-                for (var id in items) {
-                    var item = items[id];
-
-                    if (item.children.includes(target)) {
-                        item.children = item.children.filter(function (value) {
-                            return value !== target;
-                        });
-
-                        delete items[target.id];
-
-                        return target;
-                    }
+            prototype.removeItem = function (itemTarget) {
+                let items = this.getData();
+                let itemIndex = items.indexOf(itemTarget);
+                
+                if (itemIndex >= 0) {
+                    items.splice(itemIndex, 1);
+                }
+                
+                items = this.getItems();
+                
+                if (items[itemTarget.id]) {
+                    delete items[itemTarget.id];
                 }
             };
 

@@ -129,7 +129,6 @@ define(
                         function () {
                             var strategicModel = new StrategicModel(strategicDataProvider);
                             var visionItem = strategicModel.getItemsByType(StrategicTypes.VISION)[0];
-                            var axesArray = strategicModel.getItemsByType(StrategicTypes.AXE);
                             var deletedIds = [];
                             
                             if (!visionItem) {
@@ -218,7 +217,7 @@ define(
                             
                             self.vision(visionItem ? visionItem.name : "");
                             
-                            self.axesTable = new EditableTable(axesArray, strategicModel,
+                            self.axesTable = new EditableTable(strategicModel,
                                     {
                                         id: "axes-table",
                                         actions: ["filter", "delete"],
@@ -239,7 +238,8 @@ define(
                                             
                                             return newItem;
                                         },
-                                        itemRemover: removeItem
+                                        itemRemover: removeItem,
+                                        filterFunction: () => {return strategicModel.getItemsByType(StrategicTypes.AXE);}
                                     }
                             );
                     
@@ -253,9 +253,7 @@ define(
                     
                             self.observableAxesTable(self.axesTable);
                             
-                            var topicsArray = strategicModel.getItemsByType(StrategicTypes.TOPIC);
-                            
-                            self.topicsTable = new EditableTable(topicsArray, strategicModel,
+                            self.topicsTable = new EditableTable(strategicModel,
                                     {
                                         id: "topics-table",
                                         actions: ["filter", "delete"],
@@ -273,7 +271,8 @@ define(
                                         itemCreator: function(id) {
                                             return createItem(id, self.axesTable, StrategicTypes.TOPIC);
                                         },
-                                        itemRemover: removeItem
+                                        itemRemover: removeItem,
+                                        filterFunction: () => {return strategicModel.getItemsByType(StrategicTypes.TOPIC);}
                                     }
                             );
                             
@@ -309,9 +308,7 @@ define(
                                 }
                             );
                     
-                            var objectivesArray = strategicModel.getItemsByType(StrategicTypes.OBJECTIVE);
-                            
-                            self.objectivesTable = new EditableTable(objectivesArray, strategicModel,
+                            self.objectivesTable = new EditableTable(strategicModel,
                                     {
                                         id: "objectives-table",
                                         actions: ["filter", "delete"],
@@ -329,7 +326,8 @@ define(
                                         itemCreator: function(id) {
                                             return createItem(id, self.topicsTable, StrategicTypes.OBJECTIVE);
                                         },
-                                        itemRemover: removeItem
+                                        itemRemover: removeItem,
+                                        filterFunction: () => {return strategicModel.getItemsByType(StrategicTypes.OBJECTIVE);}
                                     }
                             );
                             
@@ -371,12 +369,9 @@ define(
                                 }
                             );
                     
-                            var strategiesArray = strategicModel.getItemsByType(StrategicTypes.STRATEGY);
-                            
-                            self.strategiesTable = new EditableTable(strategiesArray, strategicModel,
+                            self.strategiesTable = new EditableTable(strategicModel,
                                     {
                                         id: "strategies-table",
-                                        actions: ["filter", "delete"],
                                         title: GeneralViewModel.nls("admin.strategic.strategiesTable.title"),
                                         tableSummary: GeneralViewModel.nls("admin.strategic.strategiesTable.tableSummary"),
                                         tableAria: GeneralViewModel.nls("admin.strategic.strategiesTable.tableAria"),
@@ -392,7 +387,8 @@ define(
                                         itemCreator: function(id) {
                                             return createItem(id, self.objectivesTable, StrategicTypes.STRATEGY);
                                         },
-                                        itemRemover: removeItem
+                                        itemRemover: removeItem,
+                                        filterFunction: () => {return strategicModel.getItemsByType(StrategicTypes.STRATEGY);}
                                     }
                             );
                             
