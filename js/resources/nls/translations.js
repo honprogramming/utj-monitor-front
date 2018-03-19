@@ -55,8 +55,8 @@ define(
                             "error": "Se produjo un error al guardar los datos: "
                         },
                         "resetDialog": {
-                            "title": "¡Cuidado!",
-                            "warningText": "Todos los cambios realizados se perderán.",
+                            "title": "¡Advertencia!",
+                            "warningText": "Al hacer click en Aceptar todos los cambios realizados se perderán.",
                             "okButton": "Aceptar",
                             "cancelButton": "Cancelar"
                         },
@@ -107,8 +107,8 @@ define(
                                     "error": "Se produjo un error al guardar los datos: "
                                 },
                                 "reset": {
-                                    "title": "¡Cuidado!",
-                                    "warningText": "Todos los cambios realizados se perderán.",
+                                    "title": "¡Advertencia!",
+                                    "warningText": "Al hacer click en Aceptar todos los cambios realizados se perderán.",
                                     "okButton": "Aceptar",
                                     "cancelButton": "Cancelar"
                                 }

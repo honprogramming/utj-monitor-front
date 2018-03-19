@@ -91,7 +91,10 @@ define(
 
                 self.saveMessage = ko.observable();
                 self.saveDialogId = "indicator-form-save-dialog";
-                self.saveDialogTitle = GeneralViewModel.nls("admin.strategic.saveDialog.title");
+                self.saveDialogTitle = GeneralViewModel.nls("admin.indicators.main.dialogs.save.title");
+                self.resetMessage = ko.observable();
+                self.resetDialogId = "indicator-form-reset-dialog";
+                self.resetDialogTitle = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.title");
                 let saveDialogClass;
                 
                 self.alignmentSectionExpanded = ko.observable(false);
@@ -372,6 +375,26 @@ define(
                     saveDialog.ojDialog("widget").addClass(saveDialogClass);
                     saveDialog.ojDialog("open");
                 };
+                
+                self.resetDialogCancelButtonLabel = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.cancelButton");
+                self.clickCancelHandler = function() {
+                    var resetDialog = $("#" + self.resetDialogId);
+                    resetDialog.ojDialog("close");
+                };
+                
+                self.resetDialogOkButtonLabel = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.okButton");
+                self.clickOkHandler = function() {
+                    var resetDialog = $("#" + self.resetDialogId);
+                    resetDialog.ojDialog("close");
+                    initializeForm();
+                };
+                
+                self.resetMessage(GeneralViewModel.nls("admin.indicators.main.dialogs.reset.warningText"));
+                self.resetForm = function () {
+                    var resetDialog = $("#" + self.resetDialogId);
+                    resetDialog.ojDialog("open");
+                };
+                
                 /*
                  * General section.
                  */
