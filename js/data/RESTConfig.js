@@ -32,8 +32,10 @@ define(
                             subPath: "/pide",
                             
                             items: {
-                                endPath: "/items",
-                                
+                                endPath: "/items"
+                            },
+                            clone: {
+                                endPath: "/items/clone"
                             }
                         }
                     }

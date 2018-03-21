@@ -64,7 +64,7 @@ define(
                     let items = this.getItems();
                     items[item.id] = item;
                     
-                    items = this.getItemsArray();
+                    items = this.getData();
                     items.push(item);
                 }
             };

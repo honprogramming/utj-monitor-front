@@ -147,15 +147,15 @@ define(
                 );
 
                 let indicatorsPromise = indicatorsDataProvider.fetchData();
-
+                let deletedIds = [];
+                let cloneItems = [];
                 // Tables observable
                 self.observableIndicatorsTable = ko.observable();
 
                 indicatorsPromise.then(
                     () => {
                         let indicatorsModel = new IndicatorModel(indicatorsDataProvider);
-                        let deletedIds = [];
-
+                        
                         function removeItem(itemId) {
                             let item = indicatorsModel.getItemById(itemId);
                             indicatorsModel.removeItem(item);
@@ -166,12 +166,13 @@ define(
                             indicatorsModel.updateItemName(currentRow.data.id, currentRow.data.name);
                         }
                         
-                        function cloneItem(itemId) {
+                        function cloneItem(itemId, newId) {
                             let item = indicatorsModel.getItemById(itemId);
-                            let indicator = new SummaryIndicator(item.id + 1, item.name + "_clone");
+                            let indicator = new SummaryIndicator(newId, "clone_" + item.name);
                             
-                            indicator.setCloneOf(itemId);
+                            indicator.setCloneOf(item.getCloneOf() ? item.getCloneOf() : itemId);
                             indicatorsModel.addItem(indicator);
+                            cloneItems.push(indicator);
                             
                             return indicator;
                         }
@@ -190,7 +191,7 @@ define(
                                 newValidator: function () {
                                     return true;
                                 },
-                                itemClonator: (id) => cloneItem(id),
+                                itemClonator: (id, newId) => cloneItem(id, newId),
                                 itemCreator: () => params.switchFunction(),
                                 itemRemover: (id) => removeItem(id),
                                 itemEditor: (id) => params.switchFunction(indicatorsModel.getItemById(id))
@@ -201,11 +202,13 @@ define(
                         self.observableIndicatorsTable(indicatorsTable);
                         clickOkHandlerObservable(
                             () => {
-                                let indicatorsModel = new IndicatorModel(indicatorsDataProvider);
+                                indicatorsModel = new IndicatorModel(indicatorsDataProvider);
                                 
                                 indicatorsTable.setModel(indicatorsModel);
                                 indicatorsTable.resetData();
                                 $("#" + self.resetDialogId).ojDialog("close");
+                                deletedIds = [];
+                                cloneItems = [];
                             }
                         );
                     }
@@ -230,7 +233,57 @@ define(
                 self.formActions.addResetListener(
                     () => $("#" + self.resetDialogId).ojDialog("open")
                 );
-
+                
+                //Save Listener
+                self.formActions.addSaveListener(
+                    () => {
+                        let saveDialogClass = "save-dialog-success";
+                        self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success"));
+                        
+                        for (let i = 0; i < deletedIds.length; i ++) {
+                            let id = deletedIds[i];
+                            
+                            AjaxUtils.ajax(
+                                RESTConfig.admin.indicators.pide.items.path + "/" + id,
+                                'DELETE', 
+                                {id: id},
+                                () => {},
+                                (jqXHR, textStatus, errMsg) => {
+                                    saveDialogClass = "save-dialog-error";
+                                    self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success") + errMsg);
+                                }
+                            );
+                        };
+                
+                        cloneItems.forEach(
+                            (indicator) => {
+                                AjaxUtils.ajax(
+                                    RESTConfig.admin.indicators.pide.clone.path + "/" + indicator.getCloneOf(),
+                                    'POST', 
+                                    indicator,
+                                    () => {},
+                                    (jqXHR, textStatus, errMsg) => {
+                                        saveDialogClass = "save-dialog-error";
+                                        self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success") + errMsg);
+                                    }
+                                );
+                            }
+                        );
+                        
+                        deletedIds = [];
+                        cloneItems = [];
+                        
+                        self.showDialog(saveDialogClass);
+                    }
+                );
+                
+                // Show dialog
+                self.showDialog = function (saveDialogClass) {
+                    var saveDialog = $("#" + self.saveDialogId);
+                    saveDialog.ojDialog("widget").addClass(saveDialogClass);
+                    saveDialog.ojDialog("open");
+                };
+                
                 // Click ok handler
                 let clickOkHandlerObservable = ko.observable();
                 self.clickOkHandler = function () {

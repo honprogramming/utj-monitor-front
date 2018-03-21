@@ -90,17 +90,19 @@ define(
                 
                 self.cloneHandler = function() {
                     let rowKey = self.getCurrentRow()["rowKey"];
-
-                    let newItem = self.cloneItem(rowKey, theKey);
+                    let itemIds = Object.keys(self.getModel().getItems());
+                    let newId = IdGenerator.getNewIntegerId(itemIds, itemIds.length * 2);
+                        
+                    let newItem = self.cloneItem(rowKey, newId, theKey);
                     self.observableDataSource().add(newItem);
                 };
                 
                 self.newClickHandler = function () {
                     if (self.validateOnNew(theKey)) {
-                        var itemIds = Object.keys(self.getModel().getItems());
-                        var id = IdGenerator.getNewIntegerId(itemIds, itemIds.length * 2);
+                        let itemIds = Object.keys(self.getModel().getItems());
+                        let id = IdGenerator.getNewIntegerId(itemIds, itemIds.length * 2);
                         
-                        var newItem = self.createItem(id, theKey);
+                        let newItem = self.createItem(id, theKey);
                         self.observableDataSource().add(newItem);
                     } else {
                         self.showNewError(true);
@@ -259,10 +261,10 @@ define(
                 }
             };
             
-            prototype.cloneItem = function(id, key) {
+            prototype.cloneItem = function(id, newId, key) {
                 if (theKey === key) {
                     var clonator = this.getItemClonator();
-                    return clonator(id);
+                    return clonator(id, newId);
                 }
             };
             
