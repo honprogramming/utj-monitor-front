@@ -595,6 +595,7 @@
                         <select id="area-option" data-bind="ojComponent: {
                             component: 'ojSelect',
                             options: areaOptions,
+                            optionChange: areaChangeHandler,
                             required: true,
                             rootAttributes: {
                                 'style': 'max-height: 100%; max-width: 100%;'
@@ -604,7 +605,6 @@
                     </div>
                 </div>
 
-                <!-- Address option -->
                 <div class="oj-flex">
                     <div class="oj-flex-item">
                         <!-- Label -->
@@ -613,14 +613,14 @@
                         <!-- Select -->
                         <select id="job-title-option" data-bind="ojComponent: {
                             component: 'ojSelect',
+                            options: jobTitleOptions,
+                            optionChange: jobChangeHandler,
                             required: true,
                             rootAttributes: {
                                 'style': 'max-height: 100%; max-width: 100%;'
                             },
                             value: jobTitleValue
                         }">
-                            <option value="Dirección 1">Director</option>
-                            <option value="Dirección 2">Jefe de departamento</option>
                         </select>
                     </div>
                 </div>
@@ -672,18 +672,18 @@
                     </div>
 
                     <!-- Extension field -->
-                    <div class="oj-sm-12 oj-md-6 oj-lg-6 oj-flex-item">
-                        <!-- Label -->
+<!--                    <div class="oj-sm-12 oj-md-6 oj-lg-6 oj-flex-item">
+                         Label 
                         <label for="si-extension-field" data-bind="text: extensionLabel"></label>
 
-                        <!-- Input Text -->
+                         Input Text 
                         <input id="si-extension-field" data-bind="ojComponent: {
                             component: 'ojInputText',
                             disabled: true,
                             placeholder: extensionPlaceholder,
                             value: extensionValue
                         }">
-                    </div>
+                    </div>-->
                 </div>
 
                 <!-- Observations field -->

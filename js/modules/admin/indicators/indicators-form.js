@@ -114,7 +114,7 @@ define(
                     indicator.setMeasureUnit({type: {id: parseInt(self.measureUnitValue()[0])}});
                     indicator.setBaseYear(self.baseYearValue());
                     indicator.setResetType({id: parseInt(self.resetValue()[0])});
-
+                    
                     let resetType = indicator.getResetType().id;
                     let resetDatesNumber = resetType === 1 ? 0 : resetType === 2 ? 3 : 1;
                     let resetDates = [];
@@ -131,6 +131,7 @@ define(
                     }
                     
                     //responsible
+                    indicator.setResponsible({id: responsibleId});
                     
                     //metadata
                     indicator.setSource(self.sourceValue());
@@ -295,6 +296,13 @@ define(
                                     }
                                     
                                     //responsible
+                                    responsibleId = indicator.responsible.id;
+                                    self.areaValue(positionsMap[responsibleId].area.id);
+                                    self.jobTitleValue(positionsMap[responsibleId].jobTitle.id);
+                                    self.responsibleNameValue(positionsMap[responsibleId].player.name);
+                                    let phone = positionsMap[responsibleId].player.phones[0];
+                                    self.phoneValue(phone ? phone.number : '');
+                                    
                                     //metadata
                                     self.sourceValue(indicator.source);
                                     self.linkValue(indicator.link);
@@ -355,6 +363,7 @@ define(
 
                         if (data) {
                             indicator.setId(data.id);
+                            params.id = data.id;
                         }
                     }
 
@@ -705,25 +714,24 @@ define(
                  */
                 self.responsibleTitle = GeneralViewModel.nls("admin.indicators.form.sections.responsible.title");
 
-                // Secretary option
+                // positions
                 self.areaLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.area");
-                self.areaOptions = ko.observableArray([
-                    {value: 'Académica', label: 'Secretaría Académica'},
-                    {value: 'Administrativa', label: 'Secretaría Administrativa'},
-                    {value: 'Vinculación', label: 'Secretaría de Vinculación'},
-                    {value: 'Rectoría', label: 'Rectoría'}
-                ]);
-                self.areaValue = ko.observable('Administrativa');
-
-                // Address option
-                self.jobTitleLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.jobTitle");
-                self.jobTitleValue = ko.observable("Dirección 1");
+                let positionsPromise = AjaxUtils.ajax(RESTConfig.admin.indicators.positions.path, 'GET');
+                self.areaOptions = ko.observableArray();
+                let areaValues = [];
+                let jobTitlesByArea = {};
+                let playersByAreaAndJobTitle = {};
                 
+                self.areaValue = ko.observable();
+                self.jobTitleOptions = ko.observableArray();
+                self.jobTitleValue = ko.observable();
                 // Responsible name
                 self.responsibleNameLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.name.label");
                 self.responsibleNameValue = ko.observable("Nombre del responsable");
                 self.responsibleNamePlaceHolder = GeneralViewModel.nls("admin.indicators.form.sections.responsible.name.placeholder");
-
+                let responsibleId;
+                let positionsMap = {};
+                
                 // Email field
 //                self.emailLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.email.label");
 //                self.emailPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.responsible.email.placeholder");
@@ -738,7 +746,72 @@ define(
                 self.extensionLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.extension.label");
                 self.extensionPlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.responsible.extension.placeholder");
                 self.extensionValue = ko.observable("");
-
+                
+                positionsPromise.then(
+                        positions => {
+                            positions.forEach(
+                                p => {
+                                    const area = p.area;
+                                    const areaObject = {label: area.name, value: area.id};
+                                    
+                                    if (!areaValues.includes(areaObject.value)) {
+                                        self.areaOptions.push(areaObject);
+                                        areaValues.push(areaObject.value);
+                                    }
+                                    
+                                    const jobTitle = p.jobTitle;
+                                    const jobTitleObject = {label: jobTitle.name, value: `${jobTitle.id}#${p.id}`};
+                                    
+                                    if (!jobTitlesByArea[areaObject.value]) {
+                                        jobTitlesByArea[areaObject.value] = [];
+                                    }
+                                    
+                                    let jobTitles = jobTitlesByArea[areaObject.value];
+                                    jobTitles.push(jobTitleObject);
+                                    
+                                    playersByAreaAndJobTitle[`${areaObject.value}#${jobTitleObject.value}`] = p.player;
+                                    p.player.id = p.id;
+                                    
+                                    positionsMap[p.id] = p;
+                                }
+                            );
+                        }
+                ).then(
+                    () => {
+                        self.jobTitleOptions(jobTitlesByArea[self.areaValue()[0]]);
+                    }
+                ).then(
+                    () => {
+                        let player = playersByAreaAndJobTitle[`${self.areaValue()[0]}#${self.jobTitleValue()[0]}`];
+                        self.responsibleNameValue(player.name);
+                        responsibleId = player.id;
+                    }
+                );
+                
+                self.areaChangeHandler = (event, data) => {
+                    if (data.option === 'value') {
+                        self.jobTitleOptions(jobTitlesByArea[data.value]);
+                    }
+                };
+                    
+                // Address option
+                self.jobTitleLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.jobTitle");
+                
+                self.jobChangeHandler = (event, data) => {
+                    if (data.option === 'value') {
+                        let player = playersByAreaAndJobTitle[`${self.areaValue()[0]}#${self.jobTitleValue()[0]}`];
+                        
+                        if (player) {
+                            self.responsibleNameValue(player.name);
+                            
+                            let phone = player.phones[0];
+                            self.phoneValue(phone ? phone.number : '');
+                            
+                            responsibleId = player.id;
+                        }
+                    }
+                };
+                
                 // Observations field
                 self.observationsRLabel = GeneralViewModel.nls("admin.indicators.form.sections.responsible.observations");
                 self.observationsRValue = ko.observable("");
@@ -1259,7 +1332,8 @@ define(
 
                 // Components table data source
                 self.componentsDataSource = new oj.ArrayTableDataSource(self.componentsObservableArray, {idAttribute: 'id'});
-                strategicLoadedPromise.then(() => initializeForm());
+                let promises = [strategicLoadedPromise, positionsPromise]
+                Promise.all(promises).then(() => initializeForm());
             }
 
             return FormViewModel;

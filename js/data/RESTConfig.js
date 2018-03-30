@@ -19,6 +19,9 @@ define(
                     indicators: {
                         subPath: "/indicators",
                         
+                        positions: {
+                            endPath: "/positions"
+                        },
                         periodicities: {
                             endPath: "/periodicities"
                         },

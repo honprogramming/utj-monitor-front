@@ -26,6 +26,7 @@ define(
                 //alignment
                 this.strategicItem;
                 //responsible
+                this.responsible;
                 //meta data
                 this.source;
                 this.link;
@@ -51,6 +52,13 @@ define(
                 ORANGE: "orange",
                 YELLOW: "yellow",
                 GREEN: "green"
+            };
+            
+            prototype.getResponsible = function() {
+                return this.responsible;
+            }
+            prototype.setResponsible = function(responsible) {
+                this.responsible = responsible;
             };
             
             prototype.getImplementedActions = function() {

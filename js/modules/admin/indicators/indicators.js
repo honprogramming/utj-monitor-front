@@ -5,12 +5,20 @@ define(
     function(ko) {
         function IndicatorsViewModel() {
             let self = this;
+            let commonParams = {switchFunction: switchModule};
             
             function switchModule(params) {
                 let index = self.currentModule() === modules[0] ? 1 : 0;
                 let moduleData = modules[index];
                 
+                if (!params) {
+                    delete moduleData.module.params;
+                    params = commonParams;
+                    moduleData.module.params = {};
+                }
+ 
                 Object.assign(moduleData.module.params, params);
+                
                 self.currentModule(moduleData);
             }
             
@@ -18,9 +26,7 @@ define(
                     id: 'indicators-list',
                     module: {
                         name: 'admin/indicators/indicators-list',
-                        params: {
-                            switchFunction: switchModule
-                        }
+                        params: commonParams
                     }
                 };
                 
@@ -28,9 +34,7 @@ define(
                 id: 'indicators-form',
                 module: {
                     name: 'admin/indicators/indicators-form',
-                    params: {
-                        switchFunction: switchModule
-                    }
+                    params: commonParams
                 }
             };
             
