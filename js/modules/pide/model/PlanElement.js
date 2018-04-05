@@ -8,13 +8,14 @@ define([],
         function() {
             var theKey = {};
             
-            function PlanElement(type, label, name, parent, children) {
+            function PlanElement(id, type, label, name, parent, children = []) {
                 var privateData = {
-                    type: type,
-                    label: label,
-                    name: name,
-                    parent: parent,
-                    children: children
+                    id,
+                    type,
+                    label,
+                    name,
+                    parent,
+                    children
                 };
                 
                 this.PlanElement_ = function(key) {
@@ -27,6 +28,15 @@ define([],
             }
             
             var prototype = PlanElement.prototype;
+            
+            /**
+             * Returns the id of this element.
+             * 
+             * @returns {Number} The id assigned in the database.
+             */
+            prototype.getId = function() {
+                return this.PlanElement_(theKey).id;
+            };
             
             /**
              * Returns the type of this element.

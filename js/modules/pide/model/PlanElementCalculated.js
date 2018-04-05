@@ -8,12 +8,12 @@
         function(PlanElement) {
             var theKey = {};
             
-            function PlanElementCalculated(type, label, name, parent, children,
+            function PlanElementCalculated(id, type, label, name, parent, children,
                     responsibles) {
-                PlanElement.call(this, type, label, name, parent, children);
+                PlanElement.call(this, id, type, label, name, parent, children);
                 
                 var privateData = {
-                    responsibles: responsibles,
+                    responsibles,
                     calculatedGoal: undefined,
                     calculatedProgress: undefined
                 };
@@ -63,8 +63,9 @@
                     progress = 0;
                     
                     for (var i = 0; i < children.length; i ++) {
-                        var child = children[i];
-                        progress += child.getProgress();
+                        let child = children[i];
+                        let childProgress = child.getProgress();
+                        progress += isNaN(childProgress) ? 0 : childProgress;
                     }
                     
                     progress /= children.length;

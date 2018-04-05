@@ -4,7 +4,7 @@ define(
         ],
         function ($) {
             var ajaxUtils = {
-                ajax: function (path, method, data, successFunction, errorFunction, completeFunction) {
+                ajax: function (path, method = 'GET', data = {}, successFunction, errorFunction, completeFunction) {
                     return $.ajax(path,
                             {
                                 data: JSON.stringify(data),

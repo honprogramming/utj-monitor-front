@@ -196,16 +196,13 @@ define(
 
             prototype.onClick = function (selectedPlanElementId) {
                 var controlPanelModel = this.getControlPanelModel();
-                var selectedPlanElement = controlPanelModel.getPlanElementsArray()[selectedPlanElementId];
+                var selectedPlanElement = controlPanelModel.getData()[selectedPlanElementId];
                 this.setSelectedItem(selectedPlanElement);
                 this.callListeners(EventTypes.SELECTION_EVENT, selectedPlanElement);
             };
 
             prototype.setSelectedItem = function (selectedPlanElement) {
-                var controlPanelModel = this.getControlPanelModel();
-                var planElementIndex = controlPanelModel.getPlanElementsArray().indexOf(selectedPlanElement);
-
-                var statusMeterPlanElement = this.getStatusMeterPlanElement(planElementIndex);
+                const statusMeterPlanElement = this.getStatusMeterPlanElement(selectedPlanElement.getId());
 
                 this.selectedPlanElement(statusMeterPlanElement);
                 this.updateParents(selectedPlanElement);
@@ -218,7 +215,7 @@ define(
 
                 if (!statusMeterPlanElement) {
                     var controlPanelModel = this.getControlPanelModel();
-                    var planElement = controlPanelModel.getPlanElementsArray()[id];
+                    var planElement = controlPanelModel.getData()[id];
 
                     return addNewPlanElementToMap.call(this, planElement,
                             controlPanelModel, statusMeterPlanElementsMap);
@@ -233,12 +230,11 @@ define(
 
             prototype.updateChildren = function (selectedPlanElement) {
                 var childrenPlanElement = [];
-                var planElementsArray = this.getControlPanelModel().getPlanElementsArray();
                 var children = selectedPlanElement.getChildren(PlanElementCalculated);
 
                 if (children) {
                     for (var i = 0; i < children.length; i++) {
-                        var child = this.getStatusMeterPlanElement(planElementsArray.indexOf(children[i]));
+                        var child = this.getStatusMeterPlanElement(children[i].getId());
                         childrenPlanElement.push(child);
                     }
 
@@ -256,12 +252,11 @@ define(
 
             function getParents(planElement, controlPanelModel) {
                 var parentElements = [];
-                var planElementsArray = controlPanelModel.getPlanElementsArray();
 
                 while (planElement.getParent()) {
                     planElement = planElement.getParent();
 
-                    var id = planElementsArray.indexOf(planElement);
+                    var id = planElement.getId();
                     var statusMeterElement = this.getStatusMeterPlanElement(id);
 
                     parentElements.unshift(statusMeterElement);
@@ -279,14 +274,14 @@ define(
             };
 
             function addNewPlanElementToMap(element, controlPanelModel, statusMeterPlanElementsMap) {
-                var planElementIndex = controlPanelModel.getPlanElementsArray().indexOf(element);
-                var statusMeterPlanElement = createStatusMeterPlanElement.call(this, planElementIndex, element);
+                var planElement = controlPanelModel.getData()[element.getId()];
+                var statusMeterPlanElement = createStatusMeterPlanElement.call(this, planElement);
 
-                statusMeterPlanElementsMap[planElementIndex] = statusMeterPlanElement;
+                statusMeterPlanElementsMap[planElement.getId()] = statusMeterPlanElement;
                 return statusMeterPlanElement;
             }
 
-            function createStatusMeterPlanElement(id, element) {
+            function createStatusMeterPlanElement(element) {
                 var progress = Math.round(element.getProgress() * 100);
                 var referenceLines = [{value: 0, color: "#000000"}];
                 var thresholdValues = [
@@ -321,10 +316,10 @@ define(
                     responsibles: element.getResponsibles(),
                     children: children,
                     childrenType: childrenType,
-                    clickHandlerValue: id,
+                    clickHandlerValue: element.getId(),
                     doesItFlip: element.getType() !== PlanElementTypes.VISION,
                     values: {
-                        id: id,
+                        id: element.getId(),
                         min: progress < 0 ? progress : 0,
                         max: 100,
                         value: progress < 0 ? 0 : progress,
@@ -337,11 +332,10 @@ define(
                 };
 
                 if (typeof statusMeterElement.responsibles !== "undefined") {
-                    statusMeterElement.responsibles.forEach(function (responsible) {
-                        responsible.email = "responsable@correo.com";
-                        responsible.phone = "3333-3333";
-                        responsible.ext = "1234";
-                    });
+                    statusMeterElement.responsibles = {
+                        email: 'NA',
+                        phone: statusMeterElement.responsibles['player'][0]
+                    };
                 }
 
                 return statusMeterElement;

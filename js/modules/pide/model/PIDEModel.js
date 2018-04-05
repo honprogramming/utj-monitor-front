@@ -9,9 +9,10 @@ define([],
             var theKey = {};
 
             function PIDEModel(dataProvider) {
-                var privateData = {
+                const privateData = {
                     dataProvider: dataProvider,
-                    planElementsArray: undefined
+                    planElementsArray: undefined,
+                    planElementsMap: {}
                 };
 
                 this.PIDEModel_ = function (key) {
@@ -21,9 +22,19 @@ define([],
                 };
 
                 privateData.planElementsArray = dataProvider.getDataArray();
+                
+                dataProvider
+                        .getDataArray()
+                        .forEach(e => privateData.planElementsMap[e.getId()] = e);
             }
 
-            var prototype = PIDEModel.prototype;
+            const prototype = PIDEModel.prototype;
+            
+            prototype.getElementsByType = function(type) {
+                return this
+                        .getPlanElementsArray()
+                        .filter(e => e.getType() === type);
+            };
             
             /**
              * Returns the Array of objects for this model.
@@ -32,6 +43,15 @@ define([],
              */
             prototype.getPlanElementsArray = function () {
                 return this.PIDEModel_(theKey).planElementsArray;
+            };
+            
+            /**
+             * Returns the Map of objects for this model.
+             * 
+             * @returns {Object} An map containing the plan elements of the model.
+             */
+            prototype.getData = function () {
+                return this.PIDEModel_(theKey).planElementsMap;
             };
 
             return PIDEModel;

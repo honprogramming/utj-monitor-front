@@ -1,37 +1,102 @@
 define(
         [
             'knockout',
+            'data/AjaxUtils',
             'data/DataProvider',
+            'data/RESTConfig',
             'modules/pide/view-model/SunburstViewModel',
             'modules/pide/model/PIDEModel',
             'modules/pide/model/PIDEDataParser',
             'modules/pide/view-model/DetailsViewModel',
+            'modules/pide/model/PlanElementMeasurable',
+            'modules/pide/model/PlanElementTypes',
             'view-models/GeneralViewModel'
         ],
-        function (ko, DataProvider, SunburstViewModel, PIDEModel,
-                 PIDEDataParser, DetailsViewModel, GeneralViewModel) {
+        function (
+                ko, AjaxUtils, DataProvider, RESTConfig, 
+                SunburstViewModel, PIDEModel,
+                 PIDEDataParser, DetailsViewModel,
+                 PlanElementMeasurable,
+                 PlanElementTypes,
+                 GeneralViewModel
+            ) {
             function PIDESatisfactionViewModel() {
-                var self = this;
-                var controlPanelDataProvider =
-                        new DataProvider("data/pide.json",
+                const self = this;
+                const controlPanelDataProvider =
+                        new DataProvider(
+                                RESTConfig.admin.strategic.items.path,
+//                                "data/pide.json",
                                 PIDEDataParser);
 
-                var dataPromise = controlPanelDataProvider.fetchData();
+                const dataPromise = controlPanelDataProvider.fetchData();
                 self.observableSunburst = ko.observable();
                 self.observableDetails = ko.observable();
                 self.sunburstTitle = GeneralViewModel.nls("controlPanel.sunburst.title");
                 self.detailsTitle = GeneralViewModel.nls("controlPanel.details.title");
                 
                 dataPromise.then(
-                        function () {
-                            var controlPanelModel = new PIDEModel(controlPanelDataProvider);
-                            self.sunburst = new SunburstViewModel("control_panel", 
-                                    controlPanelModel); 
-                            self.sunburst.addClickListener(handleSunburstClick);
-                            self.details = new DetailsViewModel(controlPanelModel);
-                            self.details.addSelectionListener(handleDetailsSelection);
-                            self.observableSunburst(self.sunburst);
-                            self.observableDetails(self.details);
+                        () => {
+                            const controlPanelModel = new PIDEModel(controlPanelDataProvider);
+                            
+                            const indicatorsPromise = AjaxUtils.ajax(RESTConfig.pide.indicators.active.path);
+                            
+                            indicatorsPromise.then(
+                                indicators => {
+                                    const strategicMap = controlPanelModel.getData();
+                                    const strategicArray = controlPanelModel.getPlanElementsArray();
+                                    
+                                    indicators.forEach(
+                                        i => {
+                                            const goals = i.achievements.filter(a => a.achievementType === 'GOAL');
+                                            const progresses = i.achievements.filter(a => a.achievementType === 'PROGRESS');
+                                            
+                                            let latestGoal = goals[0];
+                                            let latestProgress = progresses[0];
+                                            
+                                            goals.forEach(
+                                              g => {
+                                                  if (latestGoal.time < g.time) {
+                                                      latestGoal = g;
+                                                  }
+                                              }
+                                            );
+                                    
+                                            progresses.forEach(
+                                              p => {
+                                                  if (latestProgress.time < p.time) {
+                                                      latestProgress = p;
+                                                  }
+                                              }
+                                            );
+                                    
+                                            const indicator = new PlanElementMeasurable(
+                                                    `i_${i.id}`,
+                                                    PlanElementTypes.OBJECTIVE,
+                                                    i.name,
+                                                    i.name,
+                                                    latestGoal.data,
+                                                    latestProgress.data,
+                                                    strategicMap[i.strategicItem],
+                                                    null,
+                                                    i.responsible,
+                                                    i.grades
+                                            );
+                                    
+                                            strategicMap[i.strategicItem].getChildren().push(indicator);
+                                            strategicArray.push(indicator);
+                                            strategicMap[`i_${i.id}`] = indicator;
+                                        }
+                                    );
+                            
+                                    self.sunburst = new SunburstViewModel("control_panel", 
+                                            controlPanelModel); 
+                                    self.sunburst.addClickListener(handleSunburstClick);
+                                    self.details = new DetailsViewModel(controlPanelModel);
+                                    self.details.addSelectionListener(handleDetailsSelection);
+                                    self.observableSunburst(self.sunburst);
+                                    self.observableDetails(self.details);
+                                }
+                            );
                         }
                 );
                 

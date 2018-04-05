@@ -4,9 +4,11 @@ define(
             'events/EventTypes',
             'modules/pide/model/PlanElementCalculated',
             'modules/pide/model/PlanElementMeasurable',
+            'modules/pide/model/PlanElementTypes',
             'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojsunburst'
         ],
-        function ($, ko, GeneralViewModel, EventTypes, PlanElementCalculated, PlanElementMeasurable) {
+        function ($, ko, GeneralViewModel, EventTypes, 
+            PlanElementCalculated, PlanElementMeasurable, PlanElementTypes) {
             var theKey = {};
             function SunburstViewModel(prefix, controlPanelModel) {
                 var self = this;
@@ -17,7 +19,7 @@ define(
                 };
 
                 privateData.planElementsMap =
-                        parsePlanElementsArray(controlPanelModel.getPlanElementsArray());
+                        parsePlanElementsArray(controlPanelModel);
 
                 this.SunburstViewModel_ = function (key) {
                     if (theKey === key) {
@@ -33,7 +35,7 @@ define(
                     if (data.option === "selection") {
                         if (data.value.length > 0) {
                             var id = data.value[0];
-                            self.onClick(self.getControlPanelModel().getPlanElementsArray()[id]);
+                            self.onClick(self.getControlPanelModel().getData()[id]);
                         }
                     }
                 };
@@ -71,18 +73,16 @@ define(
             };
 
             prototype.getMainNode = function () {
-                return this.SunburstViewModel_(theKey).planElementsMap[0];
+                let mainElement = this.getControlPanelModel().getElementsByType(PlanElementTypes.VISION)[0];
+                return this.SunburstViewModel_(theKey).planElementsMap[mainElement.getId()];
             };
 
             function updateSiblingsNodes(planElement, planElementsMap, controlPanelModel) {
                 var planElementParent = planElement.getParent();
 
-
                 if (planElementParent) {
-                    var planElementIndex = controlPanelModel.getPlanElementsArray().indexOf(planElement);
-                    var planElementNodeToKeep = planElementsMap[planElementIndex];
-                    var parentElementIndex = controlPanelModel.getPlanElementsArray().indexOf(planElementParent);
-                    var planElementParentNode = planElementsMap[parentElementIndex];
+                    var planElementNodeToKeep = planElementsMap[planElement.getId()];
+                    var planElementParentNode = planElementsMap[planElementParent.getId()];
 
                     updateChildrenNodes(planElementParentNode, planElementNodeToKeep);
                 } else {
@@ -121,36 +121,34 @@ define(
                 planElementNode.nodes = planElementNode.hiddenNodes.splice(indexToKeep, 1);
             }
 
-            function parsePlanElementsArray(planElementsArray) {
-                var id = 0;
-                var nodesMap = {};
-                var visionObject = planElementsArray[0];
+            function parsePlanElementsArray(controlPanelModel) {
+                const nodesMap = {};
+                const visionObject = controlPanelModel.getElementsByType(PlanElementTypes.VISION)[0];
+                const planElementsMap = controlPanelModel.getData();
 
-                var textId = id.toString();
-                nodesMap[textId] = createNode(textId, visionObject, 360);
-                id++;
+                nodesMap[visionObject.getId()] = createNode(visionObject, 360);
 
-                for (var i = 1; i < planElementsArray.length; i++, id++) {
-                    var planElement = planElementsArray[i];
-                    if (planElement instanceof PlanElementCalculated) {
-                        var parentElement = planElement.getParent();
-                        var sibilings = parentElement.getChildren(PlanElementCalculated).length;
-                        textId = id.toString();
-                        nodesMap[textId] = createNode(textId, planElement, sibilings);
-                    } 
-//                    else {
-//                        id --;
-//                    }
+                for (let prop in planElementsMap) {
+                    let planElement = planElementsMap[prop];
+                    
+                    if (planElement !== visionObject) {
+                        if (planElement instanceof PlanElementCalculated) {
+                            let parentElement = planElement.getParent();
+                            let sibilings = parentElement.getChildren(PlanElementCalculated).length;
+
+                            nodesMap[planElement.getId()] = createNode(planElement, sibilings);
+                        }
+                    }
                 }
 
-                for (var id in nodesMap) {
-                    addChildNodes(id, planElementsArray, nodesMap);
+                for (let p in nodesMap) {
+                    addChildNodes(p, controlPanelModel.getData(), nodesMap);
                 }
 
                 return nodesMap;
             }
 
-            function createNode(id, planElement, length) {
+            function createNode(planElement, length) {
 
                 var progress = planElement.getProgress();
                 var shortDesc = "&lt;b&gt;" + planElement.getName() + "&lt;/b&gt;";
@@ -163,8 +161,12 @@ define(
 
                 progress *= 100;
                 progress = Math.round(progress);
+                
+                if (isNaN(progress)) {
+                    progress = 0;
+                }
 
-                var color = getColor(progress);
+                var color = getColor(progress, planElement instanceof PlanElementMeasurable ? planElement.getGrades() : null);
                 var progressDesc = "&lt;br/&gt;Progreso: " + progress + "%";
 
                 shortDesc += progressDesc;
@@ -173,7 +175,7 @@ define(
                 var responsibles = planElement.getResponsibles();
                 
                 if (responsibles) {
-                    responsiblesDesc = "&lt;br/&gt;Responsable(s):&lt;br/&gt;";
+                    responsiblesDesc = "&lt;br/&gt;Responsable:&lt;br/&gt;";
                     responsiblesDesc += "&lt;table style='width:100%;margin:2px' border='1'&gt;";
                     responsiblesDesc += "&lt;tr&gt;";
                     responsiblesDesc += "&lt;td style='text-align:center'&gt;";
@@ -186,18 +188,24 @@ define(
                     responsiblesDesc += "Area";
                     responsiblesDesc += "&lt;/b&gt;";
                     responsiblesDesc += "&lt;/td&gt;";
+                    responsiblesDesc += "&lt;td style='text-align:center'&gt;";
+                    responsiblesDesc += "&lt;b&gt;";
+                    responsiblesDesc += "Puesto";
+                    responsiblesDesc += "&lt;/b&gt;";
+                    responsiblesDesc += "&lt;/td&gt;";
                     responsiblesDesc += "&lt;/tr&gt;";
                     
-                    for (var i = 0; i < responsibles.length; i ++) {
-                        responsiblesDesc += "&lt;tr&gt;";
-                        responsiblesDesc += "&lt;td&gt;";
-                        responsiblesDesc += responsibles[i]["person"];
-                        responsiblesDesc += "&lt;/td&gt;";
-                        responsiblesDesc += "&lt;td&gt;";
-                        responsiblesDesc += responsibles[i]["area"];
-                        responsiblesDesc += "&lt;/td&gt;";
-                        responsiblesDesc += "&lt;/tr&gt;";
-                    }
+                    responsiblesDesc += "&lt;tr&gt;";
+                    responsiblesDesc += "&lt;td&gt;";
+                    responsiblesDesc += responsibles['player']['name'];
+                    responsiblesDesc += "&lt;/td&gt;";
+                    responsiblesDesc += "&lt;td&gt;";
+                    responsiblesDesc += responsibles['area']['name'];
+                    responsiblesDesc += "&lt;/td&gt;";
+                    responsiblesDesc += "&lt;td&gt;";
+                    responsiblesDesc += responsibles['jobTitle']['name'];
+                    responsiblesDesc += "&lt;/td&gt;";
+                    responsiblesDesc += "&lt;/tr&gt;";
                     
                     responsiblesDesc += "&lt;/table&gt;";
                     shortDesc += responsiblesDesc;
@@ -205,12 +213,12 @@ define(
                 
 
                 return {
-                    id: id,
+                    id: planElement.getId(),
                     label: planElement.getLabel(),
                     value: 360 / length,
-                    color: color,
+                    color,
                     borderWidth: 2,
-                    shortDesc: shortDesc
+                    shortDesc
                 };
             }
 
@@ -221,21 +229,21 @@ define(
              * @param {type} nodesMap
              * @returns {undefined}
              */
-            function addChildNodes(id, planElementsArray, nodesMap) {
-                var planElement = planElementsArray[id];
-                var children = planElement.getChildren(PlanElementCalculated);
-                var node = nodesMap[id];
+            function addChildNodes(id, planElementsMap, nodesMap) {
+                let planElement = planElementsMap[id];
+                let children = planElement.getChildren(PlanElementCalculated);
+                let node = nodesMap[id];
 
                 node.nodes = [];
                 node.hiddenNodes = [];
 
                 if (children) {
-                    var nodes = node.nodes;
-                    var childrenLength = children.length;
+                    let nodes = node.nodes;
+                    let childrenLength = children.length;
 
-                    for (var i = 0; i < childrenLength; i++) {
-                        var child = children[i];
-                        nodes.push(nodesMap[planElementsArray.indexOf(child)]);
+                    for (let i = 0; i < childrenLength; i++) {
+                        let child = children[i];
+                        nodes.push(nodesMap[child.getId()]);
                     }
                 }
             }
@@ -245,16 +253,46 @@ define(
              * @param {type} achieve
              * @returns {String}
              */
-            function getColor(progress) {
-                if (progress >= 90) {
-                    return "#31B404";
-                } else if (progress >= 60) {
-                    return "#D7DF01";
-                } else if (progress >= 40) {
-                    return "#FE9A2E";
-                } else {
-                    return "#DF0101";
+            function getColor(progress, grades) {
+                const colorGrades = {
+                        green: {
+                            maxPercentage: 100,
+                            color: '#31B404'
+                        }, 
+                        yellow: {
+                          maxPercentage: 90,
+                          color: '#D7DF01'
+                        },
+                        orange: {
+                            maxPercentage: 60,
+                            color: '#FE9A2E'
+                        },
+                        red: {
+                            maxPercentage: 40,
+                            color: '#DF0101'
+                        },
+                        white: {
+                            color: '#FFFFFF'
+                        }
+                    };
+                
+                if (grades) {
+                    grades.forEach(
+                        g => {
+                            colorGrades[g['color']]['maxPercentage'] = g['maxPercentage'];
+                        }
+                    );
                 }
+                
+                const colorNames = ['green', 'yellow', 'orange', 'red'];
+                
+                for (let i = 1; i < colorNames.length; i ++) {
+                    if (progress >= colorGrades[colorNames[i]].maxPercentage) {
+                        return colorGrades[colorNames[i - 1]].color;
+                    }
+                }
+                
+                return colorGrades['red'].color;;
             }
             return SunburstViewModel;
         }

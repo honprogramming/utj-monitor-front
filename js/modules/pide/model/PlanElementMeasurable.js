@@ -12,12 +12,13 @@ define(['modules/pide/model/PlanElementCalculated'],
         function(PlanElementCalculated) {
             var theKey = {};
             
-            function PlanElementMeasurable(type, label, name, goal, achieve, parent, children, responsibles) {
-                PlanElementCalculated.call(this, type, label, name, parent, children, responsibles);
+            function PlanElementMeasurable(id, type, label, name, goal, achieve, parent, children, responsibles, grades) {
+                PlanElementCalculated.call(this, id, type, label, name, parent, children, responsibles);
                 
                 var privateData = {
-                    goal: goal,
-                    achieve: achieve
+                    goal,
+                    achieve,
+                    grades
                 };
                 
                 this.PlanElementMeasurable_ = function(key) {
@@ -29,6 +30,15 @@ define(['modules/pide/model/PlanElementCalculated'],
             
             PlanElementMeasurable.prototype = Object.create(PlanElementCalculated.prototype);
             var prototype = PlanElementMeasurable.prototype;
+            
+            /**
+             * Returns the goal for this element.
+             * 
+             * @returns {Number} An integer with the current goal of the element.
+             */
+            prototype.getGrades = function() {
+                return this.PlanElementMeasurable_(theKey).grades;
+            };
             
             /**
              * Returns the goal for this element.
