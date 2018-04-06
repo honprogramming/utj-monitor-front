@@ -67,9 +67,7 @@ define(
             };
 
             prototype.setSelectedItem = function (selectedPlanElement) {
-                var planElementsArray = this.getControlPanelModel().getPlanElementsArray();
-                var id = planElementsArray.indexOf(selectedPlanElement);
-                this.selection([id]);
+                this.selection([selectedPlanElement.getId()]);
             };
 
             prototype.getMainNode = function () {
@@ -77,7 +75,7 @@ define(
                 return this.SunburstViewModel_(theKey).planElementsMap[mainElement.getId()];
             };
 
-            function updateSiblingsNodes(planElement, planElementsMap, controlPanelModel) {
+            function updateSiblingsNodes(planElement, planElementsMap) {
                 var planElementParent = planElement.getParent();
 
                 if (planElementParent) {

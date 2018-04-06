@@ -144,9 +144,9 @@ define(
                             {
                                 name: 'pide/indicator', 
                                 params: {
-                                    model: cardModel,
-                                    id: 'indicador' + element.text.substring(0, 5),
-                                    graphicName: cardModel['indicador' + element.text.substring(0, 5)]["title"]
+                                    model: controlPanelModel,
+                                    id: element.values.id,
+                                    graphicName: controlPanelModel.getData()[element.values.id].getName()
                                 }
                             }
                     );
@@ -238,7 +238,9 @@ define(
                         childrenPlanElement.push(child);
                     }
 
-                    this.childrenType(this.nls("controlPanel." + PlanElementTypes.getPlural(children[0].getType())));
+                    if (children && children.length > 0) {
+                        this.childrenType(this.nls("controlPanel." + PlanElementTypes.getPlural(children[0].getType())));
+                    }
                 }
 
                 this.currentChildren(childrenPlanElement);
@@ -250,7 +252,7 @@ define(
                 this.currentParents(parents);
             };
 
-            function getParents(planElement, controlPanelModel) {
+            function getParents(planElement) {
                 var parentElements = [];
 
                 while (planElement.getParent()) {
@@ -309,15 +311,14 @@ define(
                         childrenType = this.nls("controlPanel." + childrenType);
                     }
                 }
-                
+                                
                 var statusMeterElement = {
                     type: translatedType,
                     text: element.getName(),
-                    responsibles: element.getResponsibles(),
                     children: children,
                     childrenType: childrenType,
                     clickHandlerValue: element.getId(),
-                    doesItFlip: element.getType() !== PlanElementTypes.VISION,
+                    doesItFlip: element.getType() === PlanElementTypes.INDICATOR,
                     values: {
                         id: element.getId(),
                         min: progress < 0 ? progress : 0,
@@ -330,11 +331,14 @@ define(
 //                        tooltipRenderer: toolTipStatusMeter
                     }
                 };
-
-                if (typeof statusMeterElement.responsibles !== "undefined") {
-                    statusMeterElement.responsibles = {
-                        email: 'NA',
-                        phone: statusMeterElement.responsibles['player'][0]
+                
+                let responsible = element.getResponsibles();
+                
+                if (responsible) {
+                    statusMeterElement.responsible = {
+                        name: responsible['player']['name'],
+                        area: responsible['area']['name'],
+                        phone: responsible['player']['phones'][0]['number']
                     };
                 }
 

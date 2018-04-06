@@ -104,7 +104,7 @@ define(
                             this.graphic = graphicReference;
                         },
                         graphic: undefined,
-                        graphicName: params.model[params.id]["title"],
+                        graphicName: params.model.getData()[params.id].getName(),
                         model: params.model,
                         ids: [params.id]
                     }

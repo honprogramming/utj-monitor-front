@@ -71,7 +71,7 @@ define(
                                     
                                             const indicator = new PlanElementMeasurable(
                                                     `i_${i.id}`,
-                                                    PlanElementTypes.OBJECTIVE,
+                                                    PlanElementTypes.INDICATOR,
                                                     i.name,
                                                     i.name,
                                                     latestGoal.data,
