@@ -603,7 +603,7 @@ define(
                 
                 let strategicLoadedPromise = strategicPromise.then(
                     () => {
-                        strategicModel = new StrategicModel(strategicDataProvider);
+                        strategicModel = new StrategicModel(strategicDataProvider.getDataArray());
                         self.axesOptions(
                                  strategicModel
                                  .getItemsByType(StrategicTypes.AXE)

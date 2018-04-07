@@ -21,16 +21,29 @@ define(
                  * @returns {Array} An Array containing PlanElementCalculated 
                  * and PlanElementMeasurable objects.
                  */
-                parse: function (data) {
+                parse: function (data, asMap) {
                     var strategicItems = [];
                     var strategicItemsMap = {};
                     var typesMap = StrategicTypes.getTypesMap();
-                    var vision = data.filter(item => item.strategicType.name === StrategicTypes.VISION.name)[0];
+                    var vision = getVision(data);
 
                     if (vision) {
                         createStrategicItem(vision);
                     }
-
+                    
+                    function getVision(data) {
+                        const isVision = item => item.strategicType.name === StrategicTypes.VISION.name;
+                        if (Array.isArray(data)) {
+                            return data.filter(isVision)[0];
+                        } else {
+                            if (isVision(data)) {
+                                return data;
+                            } else {
+                                throw 'Vision element not found, cannot parse';
+                            }
+                        }
+                    }
+                    
                     function createStrategicItem(item) {
                         var strategicItem = 
                                 new StrategicItem(
@@ -54,7 +67,7 @@ define(
                         return strategicItem;
                     }
 
-                    return strategicItems;
+                    return asMap ? strategicItemsMap : strategicItems;
                 }
             };
 

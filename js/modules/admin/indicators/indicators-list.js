@@ -124,7 +124,7 @@ define(
 
                 strategicPromise.then(
                     () => {
-                        let strategicModel = new StrategicModel(strategicDataProvider);
+                        let strategicModel = new StrategicModel(strategicDataProvider.getDataArray());
                         let axes = strategicModel.getItemsByType(StrategicTypes.AXE);
 
                         self.axes(axes.sort(sortByName));

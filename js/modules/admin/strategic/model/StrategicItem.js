@@ -6,6 +6,7 @@ define(
                 this.name = name;
                 this.strategicType = strategicType;
                 this.children = [];
+                this.isNew = false;
             }
             
             var prototype = StrategicItem.prototype;

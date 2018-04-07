@@ -2,9 +2,8 @@ define(
         function () {
             var theKey = {};
 
-            function StrategicModel(dataProvider) {
+            function StrategicModel(data) {
                 var privateData = {
-                    dataProvider: dataProvider,
                     itemsArray: undefined,
                     itemsMap: {}                    
                 };
@@ -15,13 +14,13 @@ define(
                     }
                 };
 
-                privateData.itemsArray = dataProvider.getDataArray().slice();
+                privateData.itemsArray = data.slice();
 
-                var items = privateData.itemsArray.slice();
+                const items = privateData.itemsArray.slice();
 
                 items.forEach(
                     function(item) {
-                        privateData.itemsMap[item.id] = item;
+                        privateData.itemsMap[item.getId()] = item;
                     }
                 );
             }

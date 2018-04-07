@@ -56,16 +56,15 @@ define(['jquery'],
             prototype.fetchData = function () {
                 var self = this;
                 var promise = $.getJSON(this.getSourceURL());
-                var deferred = $.Deferred();
                 
-                promise.then(
-                        function (data) {
-                            self.setDataArray(self.getDataParser().parse(data));
-                            deferred.resolve(data);
-                        }
+                return promise.then(
+                        data => {
+                                self.setDataArray(self.getDataParser().parse(data));
+                                return new Promise(
+                                    (resolve) => resolve(data)
+                                );
+                            }
                 );
-
-                return deferred;
             };
             
             /**
