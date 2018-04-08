@@ -321,9 +321,9 @@ define(
                     doesItFlip: element.getType() === PlanElementTypes.INDICATOR,
                     values: {
                         id: element.getId(),
-                        min: progress < 0 ? progress : 0,
+                        min: isNaN(progress) || !progress ? 0: progress,
                         max: 100,
-                        value: progress < 0 ? 0 : progress,
+                        value: progress < 0 || isNaN(progress) ? 0 : progress,
                         title: {text: progress + '%', position: 'center'},
                         thresholdValues: thresholdValues,
                         referenceLines: progress < 0 ? referenceLines : undefined
