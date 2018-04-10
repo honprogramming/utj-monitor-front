@@ -210,6 +210,10 @@ define(
                         indicator.setImplementedActions(self.actionsValue());
                     }
                     
+                    if (indicator.getIndicatorType().id === 2) {
+                        indicator.setClassType({id: parseInt(self.classValue()[0])});
+                    }
+                    
                     function isoToTimestamp(isoDate) {
                         let date = oj.IntlConverterUtils.isoToLocalDate(isoDate);
                         let year = date.getFullYear();
@@ -353,6 +357,10 @@ define(
                                     
                                     self.riskValue(indicator.potentialRisk);
                                     self.actionsValue(indicator.implementedActions);
+                                    
+                                    if (indicator.classType) {
+                                        self.classValue(`${indicator.classType.id}`);
+                                    }
                                     
                                     self.updateChart();
                                 }
@@ -520,6 +528,16 @@ define(
                 // Class field
                 self.classLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.class");
                 self.classValue = ko.observable("");
+                self.classOptions = ko.observableArray(
+                        [
+                            {value: '1', label: 'Eficiencia'},
+                            {value: '2', label: 'Eficacia'},
+                            {value: '3', label: 'Pertinencia'},
+                            {value: '4', label: 'Equidad'},
+                            {value: '5', label: 'Vinculación'},
+                            {value: '6', label: 'Otros'}
+                        ]
+                );
 
                 // PE field
                 self.peLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.pe.label");

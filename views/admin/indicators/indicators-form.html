@@ -274,15 +274,16 @@
                         <label for="si-class-option" data-bind="text: classLabel"></label>
 
                         <!-- Select -->
-                        <select id="si-class-option" data-bind="ojComponent: {
-                            component: 'ojSelect',
-                            required: true,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: classValue
-                        }">
-                            <option value="Eficacia">Eficacia</option>
+                        <select id="si-class-option"
+                                data-bind="ojComponent: {
+                                            component: 'ojSelect',
+                                            options: classOptions,
+                                            required: true,
+                                            rootAttributes: {
+                                                'style': 'max-height: 100%; max-width: 100%;'
+                                            },
+                                            value: classValue
+                                        }">
                         </select>
                     </div>
                 </div>

@@ -40,6 +40,8 @@ define(
                 this.achievements;
                 this.potentialRisk;
                 this.implementedActions;
+                //class
+                this.classType;
             }
             
             FullIndicator.prototype = Object.create(SummaryIndicator.prototype);
@@ -54,9 +56,18 @@ define(
                 GREEN: "green"
             };
             
+            prototype.getClassType = function() {
+                return this.classType;
+            };
+            
+            prototype.setClassType = function(classType) {
+                this.classType = classType;
+            };
+            
             prototype.getResponsible = function() {
                 return this.responsible;
-            }
+            };
+            
             prototype.setResponsible = function(responsible) {
                 this.responsible = responsible;
             };
