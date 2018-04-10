@@ -24,7 +24,7 @@ define(
                 const self = this;
                 const controlPanelDataProvider =
                         new DataProvider(
-                                RESTConfig.admin.strategic.items.path,
+                                RESTConfig.admin.strategic.path,
 //                                "data/pide.json",
                                 PIDEDataParser);
 
@@ -38,7 +38,7 @@ define(
                         () => {
                             const controlPanelModel = new PIDEModel(controlPanelDataProvider);
                             
-                            const indicatorsPromise = AjaxUtils.ajax(RESTConfig.pide.indicators.active.path);
+                            const indicatorsPromise = AjaxUtils.ajax(RESTConfig.indicators.pide.active.path);
                             
                             indicatorsPromise.then(
                                 indicators => {

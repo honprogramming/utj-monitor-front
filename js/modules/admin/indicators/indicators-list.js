@@ -117,7 +117,7 @@ define(
                 //PIDE Filter select controls population
                 let strategicDataProvider =
                         new DataProvider(
-                                RESTConfig.admin.strategic.items.path,
+                                RESTConfig.admin.strategic.path,
                                 StrategicDataParser);
 
                 let strategicPromise = strategicDataProvider.fetchData();
@@ -142,7 +142,7 @@ define(
 
                 // Indicators data provider
                 let indicatorsDataProvider = new DataProvider(
-                        RESTConfig.admin.indicators.pide.items.path,
+                        RESTConfig.admin.indicators.path,
                         IndicatorDataParser
                 );
 
@@ -168,7 +168,7 @@ define(
                         
                         function cloneItem(itemId, newId) {
                             let item = indicatorsModel.getItemById(itemId);
-                            let indicator = new SummaryIndicator(newId, "clone_" + item.name);
+                            let indicator = new SummaryIndicator(newId, "clone_" + item.name, item.type);
                             
                             indicator.setCloneOf(item.getCloneOf() ? item.getCloneOf() : itemId);
                             indicatorsModel.addItem(indicator);
@@ -244,7 +244,7 @@ define(
                             let id = deletedIds[i];
                             
                             AjaxUtils.ajax(
-                                RESTConfig.admin.indicators.pide.items.path + "/" + id,
+                                RESTConfig.admin.indicators.path + "/" + id,
                                 'DELETE', 
                                 {id: id},
                                 () => {},
@@ -258,7 +258,7 @@ define(
                         cloneItems.forEach(
                             (indicator) => {
                                 AjaxUtils.ajax(
-                                    RESTConfig.admin.indicators.pide.clone.path + "/" + indicator.getCloneOf(),
+                                    RESTConfig.admin.indicators.clone.path + "/" + indicator.getCloneOf(),
                                     'POST', 
                                     indicator,
                                     () => {},

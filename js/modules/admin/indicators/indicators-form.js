@@ -106,7 +106,7 @@ define(
                 
                 function populateIndicator(indicator) {
                     //general
-                    indicator.setType({id: parseInt(self.typeValue())});
+                    indicator.setIndicatorType({id: parseInt(self.typeValue())});
                     indicator.setStatus({id: self.activeValue() ? 1 : 2});
                     indicator.setDescription(self.descriptionValue());
                     indicator.setDirection(self.directionValue()[0]);
@@ -140,26 +140,31 @@ define(
                     indicator.setVariables(self.variablesValue());
                     indicator.setMethod(self.methodValue());
                     indicator.setMetaDataObservations(self.observationsMValue());
-                    indicator.setGrades(
-                        [    
-                            {
-                                color: "red",
-                                maxPercentage: self.redValue() * 100
-                            },
-                            {
-                                color: "orange",
-                                maxPercentage: self.orangeValue() * 100
-                            },
-                            {
-                                color: "yellow",
-                                maxPercentage: self.yellowValue() * 100
-                            },
-                            {
-                                color: "green",
-                                maxPercentage: self.greenValue() * 100
-                            }
-                        ]
-                    );
+                    
+                    if (indicator.getIndicatorType().id === 1) {
+                        indicator.setGrades(
+                            [    
+                                {
+                                    color: "red",
+                                    maxPercentage: self.redValue() * 100
+                                },
+                                {
+                                    color: "orange",
+                                    maxPercentage: self.orangeValue() * 100
+                                },
+                                {
+                                    color: "yellow",
+                                    maxPercentage: self.yellowValue() * 100
+                                },
+                                {
+                                    color: "green",
+                                    maxPercentage: self.greenValue() * 100
+                                }
+                            ]
+                        );
+                    } else {
+                        delete indicator.gradesMap;
+                    }
                     //achievements
                     let achievements = [];
                     let progressItems = self.progressObservableArray();
@@ -178,27 +183,32 @@ define(
 
                         achievements = achievements.concat(items);
                     }
+                    
+                    if (indicator.getIndicatorType().id === 1) {
+                        let goalItems = self.goalObservableArray();
 
-                    let goalItems = self.goalObservableArray();
+                        if (goalItems.length > 0) {
+                            let items =
+                                    goalItems.map(
+                                            item => {
+                                                return {
+                                                    data: item.value,
+                                                    date: isoToTimestamp(item.date),
+                                                    achievementType: 'GOAL'
+                                                };
+                                            }
+                                    );
 
-                    if (goalItems.length > 0) {
-                        let items =
-                                goalItems.map(
-                                        item => {
-                                            return {
-                                                data: item.value,
-                                                date: isoToTimestamp(item.date),
-                                                achievementType: 'GOAL'
-                                            };
-                                        }
-                                );
-
-                        achievements = achievements.concat(items);
+                            achievements = achievements.concat(items);
+                        }
                     }
 
                     indicator.setAchievements(achievements);
-                    indicator.setPotentialRisk(self.riskValue());
-                    indicator.setImplementedActions(self.actionsValue());
+                    
+                    if (indicator.getIndicatorType().id === 1) {
+                        indicator.setPotentialRisk(self.riskValue());
+                        indicator.setImplementedActions(self.actionsValue());
+                    }
                     
                     function isoToTimestamp(isoDate) {
                         let date = oj.IntlConverterUtils.isoToLocalDate(isoDate);
@@ -214,8 +224,9 @@ define(
 
                 function initializeForm() {
                     if (params.id) {
+                        const pathTypes = {1: "pide", 2: "mecasut", 3: "pe"};
                         let id = params.cloneOf ? params.cloneOf : params.id;
-                        let path = RESTConfig.admin.indicators.pide.items.path + "/" + id;
+                        let path = RESTConfig.admin.indicators.path + "/" + id;
                         let method = "GET";
 
                         function errorFunction(jqXHR, textStatus, errMsg) {
@@ -229,6 +240,7 @@ define(
                                     //general
                                     let name = params.cloneOf ? params.name : indicator.name;
                                     self.nameValue(name);
+                                    self.typeValue(indicator.indicatorType.id.toString());
                                     self.activeValue(indicator.status.id === 1);
                                     self.descriptionValue(indicator.description);
                                     self.directionValue([indicator.direction]);
@@ -352,7 +364,7 @@ define(
                     let indicator = new FullIndicator(params.id, self.nameValue());
                     populateIndicator(indicator);
 
-                    let path = RESTConfig.admin.indicators.pide.items.path;
+                    let path = RESTConfig.admin.indicators.path;
                     let method = indicator.getId() ? "PUT" : "POST";
 
                     path += indicator.getId() ? "/" + params.id : "";
@@ -595,7 +607,7 @@ define(
                 //PIDE Filter select controls population
                 let strategicDataProvider =
                         new DataProvider(
-                                RESTConfig.admin.strategic.items.path,
+                                RESTConfig.admin.strategic.path,
                                 StrategicDataParser);
 
                 let strategicPromise = strategicDataProvider.fetchData();

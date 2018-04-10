@@ -378,7 +378,7 @@ define(
                 
                 self.getJson = function (node, fn) {
 //                    $.getJSON("data/pide-indicators.json").then(
-                    $.getJSON(RESTConfig.pide.indicators.tree.path).then(
+                    $.getJSON(RESTConfig.indicators.pide.tree.path).then(
                             function (data) {
                                 model = data;
                                 fn(model);  // pass to ojTree using supplied function

@@ -116,7 +116,7 @@ define(
                 var strategicDataProvider =
                         new DataProvider(
 //                        "data/strategic-items-full.json",
-                                RESTConfig.admin.strategic.items.path,
+                                RESTConfig.admin.strategic.path,
                                 StrategicDataParser);
                                         
                 const dataPromise = strategicDataProvider.fetchData();
@@ -473,11 +473,11 @@ define(
 
                         let method = 'PUT';
                         let visionPromise = $.getJSON(
-                                RESTConfig.admin.strategic.items.path + "/" + visionItem.id);
+                                RESTConfig.admin.strategic.path + "/" + visionItem.id);
 
                         visionPromise.then(
                             function(data) {
-                                let path = RESTConfig.admin.strategic.items.path;
+                                let path = RESTConfig.admin.strategic.path;
 
                                 if (!data) {
                                     method = 'POST';
@@ -498,7 +498,7 @@ define(
                                 if (deletedIds.length > 0) {
                                     deletedIds.forEach(
                                             function(id) {
-                                                AjaxUtils.ajax(RESTConfig.admin.strategic.items.path + "/" + id, 'DELETE', null, null, errorFunction);
+                                                AjaxUtils.ajax(RESTConfig.admin.strategic.path + "/" + id, 'DELETE', null, null, errorFunction);
                                             }
                                     );
                                 }

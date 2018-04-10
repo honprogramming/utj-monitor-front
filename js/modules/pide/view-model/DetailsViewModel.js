@@ -232,7 +232,7 @@ define(
                 var childrenPlanElement = [];
                 var children = selectedPlanElement.getChildren(PlanElementCalculated);
 
-                if (children) {
+                if (children && children.length > 0) {
                     for (var i = 0; i < children.length; i++) {
                         var child = this.getStatusMeterPlanElement(children[i].getId());
                         childrenPlanElement.push(child);
@@ -312,7 +312,7 @@ define(
                     }
                 }
                                 
-                var statusMeterElement = {
+                const statusMeterElement = {
                     type: translatedType,
                     text: element.getName(),
                     children: children,
@@ -321,9 +321,9 @@ define(
                     doesItFlip: element.getType() === PlanElementTypes.INDICATOR,
                     values: {
                         id: element.getId(),
-                        min: isNaN(progress) || !progress ? 0: progress,
+                        min: isNaN(progress) ? 0 : progress < 0 ? progress : 0,
                         max: 100,
-                        value: progress < 0 || isNaN(progress) ? 0 : progress,
+                        value: isNaN(progress) ? 0 : progress < 0 ? 0 : progress,
                         title: {text: progress + '%', position: 'center'},
                         thresholdValues: thresholdValues,
                         referenceLines: progress < 0 ? referenceLines : undefined

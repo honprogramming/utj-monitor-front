@@ -8,7 +8,8 @@ define(
 
                     strategic: {
                         subPath: '/strategic',
-
+                        endPath: '/strategic',
+                        
                         items: {
                             endPath: '/items'
                         },
@@ -18,7 +19,11 @@ define(
                     },
                     indicators: {
                         subPath: '/indicators',
+                        endPath: '/indicators',
                         
+                        clone: {
+                            endPath: '/clone'
+                        },
                         positions: {
                             endPath: '/positions'
                         },
@@ -30,31 +35,27 @@ define(
                         },
                         status: {
                             endPath: '/status'
-                        },
-                        pide: {
-                            subPath: '/pide',
-                            
-                            items: {
-                                endPath: '/items'
-                            },
-                            clone: {
-                                endPath: '/items/clone'
-                            }
                         }
                     }
                 },
-                pide: {
-                    subPath: '/pide',
+                indicators: {
+                    subPath: '/indicators',
                     
-                    indicators: {
-                        subPath: '/indicators',
-                        endPath: '/indicators',
-                        
+                    pide: {
+                        subPath: '/pide',
+
                         active: {
                             endPath: '/active'
                         },
                         tree: {
                             endPath: '/objectives/axes'
+                        }
+                    },
+                    mecasut: {
+                        subPath: '/mecasut',
+                        
+                        active: {
+                            endPath: '/active'
                         }
                     }
                 }

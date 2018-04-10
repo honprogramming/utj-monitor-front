@@ -9,12 +9,12 @@ define(
              * 
              * @param {type} id
              * @param {type} name
-             * @param {type} type
+             * @param {type} indicatorType
              */
-            function FullIndicator(id, name, type) {
+            function FullIndicator(id, name, indicatorType) {
                 //general
                 SummaryIndicator.call(this, id, name);
-                this.type = type;
+                this.indicatorType = indicatorType;
                 this.description;
                 this.direction;
                 this.periodicity;
@@ -141,12 +141,12 @@ define(
                 this.source = source;
             };
             
-            prototype.getType = function () {
-                return this.type;
+            prototype.getIndicatorType = function () {
+                return this.indicatorType;
             };
 
-            prototype.setType = function (type) {
-                this.type = type;
+            prototype.setIndicatorType = function (type) {
+                this.indicatorType = type;
             };
             
             prototype.getDescription = function() {
