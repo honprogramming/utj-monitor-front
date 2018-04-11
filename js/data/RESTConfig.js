@@ -48,7 +48,7 @@ define(
                             endPath: '/active'
                         },
                         tree: {
-                            endPath: '/objectives/axes'
+                            endPath: '/tree'
                         }
                     },
                     mecasut: {
@@ -56,6 +56,9 @@ define(
                         
                         active: {
                             endPath: '/active'
+                        },
+                        tree: {
+                            endPath: '/tree'
                         }
                     }
                 }

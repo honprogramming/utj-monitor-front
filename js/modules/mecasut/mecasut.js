@@ -3,6 +3,7 @@ define(
             'jquery',
             'ojs/ojcore',
             'knockout',
+            'data/RESTConfig',
             'view-models/GeneralViewModel',
             'ojs/ojbutton',
             'hammerjs',
@@ -17,7 +18,7 @@ define(
             'ojs/ojmoduleanimations',
             'ojs/ojpopup'
         ],
-        function ($, oj, ko, GeneralViewModel) {
+        function ($, oj, ko, RESTConfig, GeneralViewModel) {
             var theKey = {};
             
             function MECASUTIndicatorsViewModel() {
@@ -360,7 +361,8 @@ define(
                 };
                 
                 self.getJson = function (node, fn) {
-                    $.getJSON("data/mecasut-indicators.json").then(
+//                    $.getJSON("data/mecasut-indicators.json").then(
+                    $.getJSON(RESTConfig.indicators.mecasut.tree.path).then(
                             function (data) {
                                 model = data;
                                 fn(model);  // pass to ojTree using supplied function
