@@ -17,14 +17,14 @@ define(
                     module: {
                         name: "admin/indicators/indicators"
                     }
+                },
+                pe: {
+                    id: "pe",
+                    label: GeneralViewModel.nls("admin.pe.label"),
+                    module: {
+                        name: "admin/pe/pe"
+                    }
                 }
-//                pe: {
-//                    id: "pe",
-//                    label: GeneralViewModel.nls("admin.pe.label"),
-//                    module: {
-//                        name: "admin/pe/pe"
-//                    }
-//                },
 //                poa: {
 //                    id: "poa",
 //                    label: GeneralViewModel.nls("admin.poa.label"),

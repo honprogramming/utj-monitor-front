@@ -6,8 +6,8 @@
  */
 define(
         [
-            'modules/admin/pe/model/PeItem',
-            'modules/admin/pe/model/PeType'
+            'modules/admin/pe/model/PEItem',
+            'modules/admin/pe/model/PEType'
         ],
         function (PeType) {
             var PeTypesParser = {

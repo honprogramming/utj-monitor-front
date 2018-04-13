@@ -1,8 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 define(
         [
             'jquery',
@@ -11,10 +6,10 @@ define(
             'data/RESTConfig',
             'data/AjaxUtils',
             'view-models/GeneralViewModel',
-            'modules/admin/pe/model/PeDataParser',
-            'modules/admin/pe/model/PeModel',
-            'modules/admin/pe/model/PeItem',
-            'modules/admin/pe/model/PeTypesParser',
+            'modules/admin/pe/model/PEDataParser',
+            'modules/admin/pe/model/PEModel',
+            'modules/admin/pe/model/PEItem',
+            'modules/admin/pe/model/PETypesParser',
             'templates/EditableTable',
             'templates/FormActions',
             'modules/admin/view-model/AdminItems',
@@ -34,8 +29,8 @@ define(
             function PeViewModel() {
                 var self = this;
                 self.title = AdminItems["pe"]["label"];
-      
-                self.columnsPe = [
+                
+                const PETypesColumns = [
                     {
                         headerText: GeneralViewModel.nls("admin.pe.tableHeaders.nameColumn"),
                         headerStyle: 'min-width: 50%; max-width: 50em; width: 90%',
@@ -46,9 +41,28 @@ define(
                     },
                     {
                         headerText: GeneralViewModel.nls("admin.pe.tableHeaders.nameShortColumn"),
-                        headerStyle: 'min-width: 50%; max-width: 50em; width: 90%',
+                        headerStyle: 'min-width: 10%; max-width: 10em; width: 10%',
                         headerClassName: 'oj-helper-text-align-start',
-                        style: 'min-width: 50%; max-width: 50em; width: 90%;',
+                        style: 'min-width: 10%; max-width: 10em; width: 10%;',
+                        className: 'oj-helper-text-align-start',
+                        sortable: 'name'
+                    }
+                ];
+                
+                const PEColumns = [
+                    {
+                        headerText: GeneralViewModel.nls("admin.pe.tableHeaders.nameColumn"),
+                        headerStyle: 'min-width: 50%; max-width: 50em; width: 80%',
+                        headerClassName: 'oj-helper-text-align-start',
+                        style: 'min-width: 5%; max-width: 5em; width: 80%;',
+                        className: 'oj-helper-text-align-start',
+                        sortProperty: 'name'
+                    },
+                    {
+                        headerText: GeneralViewModel.nls("admin.pe.tableHeaders.nameShortColumn"),
+                        headerStyle: 'min-width: 10%; max-width: 10em; width: 10%',
+                        headerClassName: 'oj-helper-text-align-start',
+                        style: 'min-width: 5%; max-width: 5em; width: 10%;',
                         className: 'oj-helper-text-align-start',
                         sortable: 'name'
                     },
@@ -167,16 +181,16 @@ define(
                                 table.filter(itemsToKeep);
                             }
                           
-                            self.tiposPeTable = new EditableTable(typesArray, peModel,
+                            self.tiposPeTable = new EditableTable(peModel,
                                     {
                                         id: "tiposPe-table",
                                         title: GeneralViewModel.nls("admin.pe.tiposPeTable.title"),
                                         tableSummary: GeneralViewModel.nls("admin.pe.tiposPeTable.tableSummary"),
                                         tableAria: GeneralViewModel.nls("admin.pe.tiposPeTable.tableAria"),
-                                        columns: self.columns,
+                                        columns: PETypesColumns,
                                         newErrorText: GeneralViewModel.nls("admin.pe.tiposPeTable.newErrorText"),
                                         deleteErrorText: GeneralViewModel.nls("admin.pe.tiposPeTable.deleteErrorText"),
-                           
+                                        actions: ["filter", "delete"],
                                         itemRemover: removeItem
                                     }
                             );
@@ -185,19 +199,19 @@ define(
                     
                             self.observableTiposPeTable(self.tiposPeTable);
                            
-                            var peArray = peModel.getItemsArray();
+                            var peArray = peModel.getData();
                             
-                            self.peTable = new EditableTable(peArray, peModel,
+                            self.peTable = new EditableTable(peModel,
                                     {
                                         id: "pe-table",
                                         title: GeneralViewModel.nls("admin.pe.peTable.title"),
                                         tableSummary: GeneralViewModel.nls("admin.pe.peTable.tableSummary"),
                                         tableAria: GeneralViewModel.nls("admin.pe.peTable.tableAria"),
-                                        columns: self.columnsPe,
+                                        columns: PEColumns,
                                         newEnabled: false,
                                         newErrorText: GeneralViewModel.nls("admin.pe.peTable.newErrorText"),
                                         deleteErrorText: GeneralViewModel.nls("admin.pe.peTable.deleteErrorText"),
-                                   
+                                        actions: ["filter", "delete"],
                                         itemRemover: removeItem
                                     }
                             );

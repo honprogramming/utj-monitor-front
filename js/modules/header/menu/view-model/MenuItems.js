@@ -20,14 +20,14 @@ define(
                         viewName: "mecasut/mecasut"
                     }
                 },
-//                pe: {
-//                    id: "pe",
-//                    label: GeneralViewModel.nls("pe.label"),
-//                    module: {
-//                        name: "pe/pe",
-//                        viewName: "pe/pe"
-//                    }
-//                },
+                pe: {
+                    id: "pe",
+                    label: GeneralViewModel.nls("pe.label"),
+                    module: {
+                        name: "pe/pe",
+                        viewName: "pe/pe"
+                    }
+                },
 //                poa: {
 //                    id: "poa",
 //                    label: GeneralViewModel.nls("poa.label"),

@@ -7,7 +7,7 @@
  */
 define(
         [
-            'modules/admin/pe/model/PeItem',
+            'modules/admin/pe/model/PEItem',
         ],
         function (PeItem) {
             var PeDataParser = {

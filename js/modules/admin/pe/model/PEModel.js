@@ -2,7 +2,7 @@ define(
         function () {
             var theKey = {};
 
-            function PeModel(dataProvider) {
+            function PEModel(dataProvider) {
                 var privateData = {
                     dataProvider: dataProvider,
                     itemsArray: undefined,
@@ -10,7 +10,7 @@ define(
                     itemsMap: {}
                 };
 
-                this.PeModel_ = function (key) {
+                this.PEModel_ = function (key) {
                     if (theKey === key) {
                         return privateData;
                     }
@@ -27,14 +27,14 @@ define(
                 );
             }
 
-            var prototype = PeModel.prototype;
+            var prototype = PEModel.prototype;
             
             prototype.setTypes = function(types) {
-                this.PeModel_(theKey).types = types;
+                this.PEModel_(theKey).types = types;
             };
             
             prototype.getTypes = function() {
-                return this.PeModel_(theKey).types;
+                return this.PEModel_(theKey).types;
             };
             
             prototype.addItem = function (parentItemId, item) {
@@ -57,11 +57,11 @@ define(
             };
             
             prototype.getItems = function () {
-                return this.PeModel_(theKey).itemsMap;
+                return this.PEModel_(theKey).itemsMap;
             };
             
-            prototype.getItemsArray = function () {
-                return this.PeModel_(theKey).itemsArray;
+            prototype.getData = function () {
+                return this.PEModel_(theKey).itemsArray;
             };
 
             prototype.getItemById = function (itemId) {
@@ -147,6 +147,6 @@ define(
                 return parentItems;
             };
 
-            return PeModel;
+            return PEModel;
         }
 );
