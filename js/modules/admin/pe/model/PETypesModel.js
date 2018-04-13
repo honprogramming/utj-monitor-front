@@ -6,7 +6,6 @@ define(
                 var privateData = {
                     dataProvider: dataProvider,
                     itemsArray: undefined,
-                    types: [],
                     itemsMap: {}
                 };
 
@@ -29,22 +28,11 @@ define(
 
             var prototype = PEModel.prototype;
             
-            prototype.setTypes = function(types) {
-                this.PEModel_(theKey).types = types;
-            };
-            
-            prototype.getTypes = function() {
-                return this.PEModel_(theKey).types;
-            };
-            
-            prototype.addItem = function (parentItemId, item) {
-                var parentItem = this.getItemById(parentItemId);
-
-                if (parentItem) {
-                    parentItem.children.push(item);
-                }
-               
-                var itemsMap = this.getItems();
+            prototype.addItem = function (item) {
+                const itemsMap = this.getItems();
+                const itemsArray = this.getData();
+                
+                itemsArray.push(item);
                 itemsMap[item.id] = item;
             };
             
@@ -85,66 +73,21 @@ define(
             };
 
             prototype.removeItem = function (target) {
-                var items = this.getItems();
-
-                for (var id in items) {
-                    var item = items[id];
-
-                    if (item.children.includes(target)) {
-                        item.children = item.children.filter(
-                                function (value) {
-                                    return value !== target;
-                                }
-                        );
-
-                        delete items[target.id];
-
-                        return target;
+                const items = this.getItems();
+                const item = items[target.id];
+                
+                let index = 0;
+                this.getData().forEach(
+                    (type, typeIndex) => {
+                        if (type.id === target.id) {
+                            index = typeIndex;
+                        }
                     }
-                }
-            };
-
-            prototype.getItemsByType = function (peType) {
-                var items = this.getItems();
-                var itemKeys = Object.keys(items);
-                var itemKeys = itemKeys.filter(
-                        function (key) {
-                            var item = items[key];
-
-                            return item.peType === peType;
-                        }
                 );
-
-                var typeItems = [];
-
-                itemKeys.forEach(
-                        function (key) {
-                            typeItems.push(items[key]);
-                        }
-                );
-
-                return typeItems;
-            };
-
-            prototype.getItemsByTypeByParent = function (type, parents) {
-                var allItems = this.getItems();
-                var typeItems = this.getItemsByType(type);
-                var parentItems = typeItems.filter(
-                        function (element) {
-                            var parentItem;
-
-                            for (var i = 0; i < parents.length; i++) {
-                                parentItem = allItems[i];
-                                if (parentItem.children.includes(element)) {
-                                    return true;
-                                }
-                            }
-
-                            return false;
-                        }
-                );
-
-                return parentItems;
+                
+                this.getData().splice(index, 1);
+                delete items[target.id];
+                
             };
 
             return PEModel;

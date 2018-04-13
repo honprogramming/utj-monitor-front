@@ -24,8 +24,8 @@ define(
                     
                     if (Array.isArray(data)) {
                         data.forEach(
-                                function(jsonType) {
-                                    peTypes.push(new PeType(jsonType["id"], jsonType["name"]));
+                                function(type) {
+                                    peTypes.push(new PeType(type["id"], type["name"]));
                                 }
                         );
                     }

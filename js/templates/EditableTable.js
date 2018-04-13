@@ -306,7 +306,7 @@ define(
             
             prototype.validateOnDelete = function(item, key) {
                 if (theKey === key) {
-                    var validator = this.getDeleteValidator();
+                    const validator = this.getDeleteValidator();
                     return validator(item);
                 }
                 

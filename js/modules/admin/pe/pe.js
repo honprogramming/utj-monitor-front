@@ -7,8 +7,9 @@ define(
             'data/AjaxUtils',
             'view-models/GeneralViewModel',
             'modules/admin/pe/model/PEDataParser',
+            'modules/admin/pe/model/PETypesModel',
             'modules/admin/pe/model/PEModel',
-            'modules/admin/pe/model/PEItem',
+            'modules/admin/pe/model/PEType',
             'modules/admin/pe/model/PETypesParser',
             'templates/EditableTable',
             'templates/FormActions',
@@ -24,9 +25,9 @@ define(
             'ojs/ojarraytabledatasource'
         ],
         function ($, ko, DataProvider, RESTConfig, AjaxUtils, GeneralViewModel,
-                PeDataParser, PeModel, PeItem, PeTypesParser,
+                PeDataParser, PETypesModel, PEModel, PEType, PeTypesParser,
                 EditableTable, FormActions, AdminItems, ActionTypes) {
-            function PeViewModel() {
+            function PEViewModel() {
                 var self = this;
                 self.title = AdminItems["pe"]["label"];
                 
@@ -40,12 +41,11 @@ define(
                         sortProperty: 'name'
                     },
                     {
-                        headerText: GeneralViewModel.nls("admin.pe.tableHeaders.nameShortColumn"),
-                        headerStyle: 'min-width: 10%; max-width: 10em; width: 10%',
+                        headerText: GeneralViewModel.nls("admin.pe.tableHeaders.actionsColumn"),
+                        headerStyle: 'min-width: 2m; max-width: 5em; width: 10%',
                         headerClassName: 'oj-helper-text-align-start',
-                        style: 'min-width: 10%; max-width: 10em; width: 10%;',
-                        className: 'oj-helper-text-align-start',
-                        sortable: 'name'
+                        style: 'min-width: 2em; max-width: 5em; width: 10%; text-align:center;',
+                        sortable: 'disabled'
                     }
                 ];
                 
@@ -59,7 +59,7 @@ define(
                         sortProperty: 'name'
                     },
                     {
-                        headerText: GeneralViewModel.nls("admin.pe.tableHeaders.nameShortColumn"),
+                        headerText: GeneralViewModel.nls("admin.pe.tableHeaders.shortNameColumn"),
                         headerStyle: 'min-width: 10%; max-width: 10em; width: 10%',
                         headerClassName: 'oj-helper-text-align-start',
                         style: 'min-width: 5%; max-width: 5em; width: 10%;',
@@ -106,8 +106,8 @@ define(
                 
                 var peTypesDataProvider =
                         new DataProvider(
-                        "data/pe-types.json",
-//                            RESTConfig.admin.pe.types.path,
+//                        "data/pe-types.json",
+                            RESTConfig.admin.pe.types.path,
                             PeTypesParser);
                 
                 var typesPromise = peTypesDataProvider.fetchData();
@@ -125,17 +125,34 @@ define(
                 
                 Promise.all([typesPromise, pePromise]).then(
                         function () {
-                            var peModel = new PeModel(peDataProvider);
-                            peModel.setTypes(peTypesDataProvider.getDataArray());
+                            const peTypesModel = new PETypesModel(peTypesDataProvider);
+                            const peModel = new PEModel(peDataProvider);
                             
-                            var typesArray = peModel.getTypes();
-                            var deletedIds = [];
+                            const deletedTypeIds = [];
+                            const deletedIds = [];
+                            
+                            function createType(id) {
+                                const newType = new PEType(id, "");
+                                peTypesModel.addItem(newType);
+                                
+                                return newType;
+                            }
+                            
+                            function removeType(itemId) {
+                                const item = peTypesModel.getItemById(itemId);
+                                peTypesModel.removeItem(item);
+                                deletedTypeIds.push(item.id);
+                            }
+                            
+                            function validateTypeDelete(id) {
+                                return true;
+                            }
                             
                             function removeItem(itemId) {
-                                var item = peModel.getItemById(itemId);
+                                const item = peModel.getItemById(itemId);
                                 peModel.removeItem(item);
                                 deletedIds.push(item.id);
-                            };
+                            }
                             
                             function getChildrenItems(ids) {
                                 var items = peModel.getItemsById(ids);
@@ -181,23 +198,25 @@ define(
                                 table.filter(itemsToKeep);
                             }
                           
-                            self.tiposPeTable = new EditableTable(peModel,
+                            self.peTypesTable = new EditableTable(peTypesModel,
                                     {
                                         id: "tiposPe-table",
-                                        title: GeneralViewModel.nls("admin.pe.tiposPeTable.title"),
-                                        tableSummary: GeneralViewModel.nls("admin.pe.tiposPeTable.tableSummary"),
-                                        tableAria: GeneralViewModel.nls("admin.pe.tiposPeTable.tableAria"),
+                                        title: GeneralViewModel.nls("admin.pe.peTypesTable.title"),
+                                        tableSummary: GeneralViewModel.nls("admin.pe.peTypesTable.tableSummary"),
+                                        tableAria: GeneralViewModel.nls("admin.pe.peTypesTable.tableAria"),
                                         columns: PETypesColumns,
-                                        newErrorText: GeneralViewModel.nls("admin.pe.tiposPeTable.newErrorText"),
-                                        deleteErrorText: GeneralViewModel.nls("admin.pe.tiposPeTable.deleteErrorText"),
+                                        newErrorText: GeneralViewModel.nls("admin.pe.peTypesTable.newErrorText"),
+                                        deleteErrorText: GeneralViewModel.nls("admin.pe.peTypesTable.deleteErrorText"),
                                         actions: ["filter", "delete"],
-                                        itemRemover: removeItem
+                                        itemCreator: (id) => createType(id),
+                                        itemRemover: removeType,
+                                        deleteValidator: validateTypeDelete
                                     }
                             );
                     
-                            self.tiposPeTable.addEditListener(updateEditedItem);
+                            self.peTypesTable.addEditListener(updateEditedItem);
                     
-                            self.observableTiposPeTable(self.tiposPeTable);
+                            self.observableTiposPeTable(self.peTypesTable);
                            
                             var peArray = peModel.getData();
                             
@@ -211,7 +230,7 @@ define(
                                         newEnabled: false,
                                         newErrorText: GeneralViewModel.nls("admin.pe.peTable.newErrorText"),
                                         deleteErrorText: GeneralViewModel.nls("admin.pe.peTable.deleteErrorText"),
-                                        actions: ["filter", "delete"],
+                                        actions: ["delete"],
                                         itemRemover: removeItem
                                     }
                             );
@@ -231,7 +250,7 @@ define(
                             
                             self.observablePeTable(self.peTable);
                             
-                            self.tiposPeTable.addFilterListener(
+                            self.peTypesTable.addFilterListener(
                                 function(ids, removeFilter) {
                                     
                                     var itemsToKeep = removeFilter
@@ -246,50 +265,78 @@ define(
                                     function() {
                                         $("#" + self.resetDialogId).ojDialog("close");
 
-                                        self.tiposPeTable.resetData();
+                                        self.peTypesTable.resetData();
                                         self.peTable.resetData();
                                         
                                     }
                             );
-                    
+                            
+                            function updateEditedType(currentRow) {
+                                peTypesModel.updateItemName(currentRow.data.id, currentRow.data.name);
+                            }
+                            
+                            self.peTypesTable.addEditListener(updateEditedType);
+                            
                             self.formActions.addSaveListener(function() {
-                                           
-                                    var method = 'PUT';
-                                    var visionPromise = $.getJSON(
-                                            RESTConfig.admin.pe.items.path + "/" + peItem.id);
+                                    const typesErrors = [];
+                                    const types = peTypesModel.getData();
+                                    const typesErrorFunction = (j, t, m) => {
+                                        typesErrors.push(m);
+                                        self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.success") + m);
+                                        saveDialogClass = "save-dialog-error";
+                                    }
                                     
-                                    visionPromise.then(
-                                        function(data) {
-                                            var path = RESTConfig.admin.pe.items.path;
-                                
-                                            function successFunction () {
-                                                self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.success"));
-                                                saveDialogClass = "save-dialog-success";
-                                            }
-                                            
-                                            function errorFunction(jqXHR, textStatus, errMsg) {
-                                                self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.success") + errMsg);
-                                                saveDialogClass = "save-dialog-error";
-                                            }
-                                                    
-                                            if (deletedIds.length > 0) {
-                                                deletedIds.forEach(
-                                                        function(id) {
-                                                            AjaxUtils.ajax(RESTConfig.admin.pe.items.path + "/" + id, 'DELETE', null, null, errorFunction);
-                                                        }
-                                                );
-                                            }
-                                            
-                                            var savePromise = AjaxUtils.ajax(path, method, peItem, successFunction, errorFunction);
-                                            
-                                            
-                                            savePromise.then(
-                                                function() {
-                                                    self.showDialog();
-                                                }
-                                            );
+                                    const typesPromises = [];
+                                    self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.success"));
+                                    saveDialogClass = "save-dialog-success";
+                                    
+                                    let method = 'POST';
+                                    let typesPath = RESTConfig.admin.pe.types.path;
+                                    
+                                    types.forEach(
+                                        type => {
+                                            typesPromises.push(AjaxUtils.ajax(typesPath, method, type, null, typesErrorFunction));
                                         }
                                     );
+                                    
+                                    Promise.all(typesPromises)
+                                        .then(
+                                            () => {
+                                                if (typesErrors.length > 0) {
+                                                    console.log('Failed when saving PE types: %O', typesErrors);
+                                                }
+                                            }
+                                        )
+                                        .then(() => self.showDialog())
+                                        .catch(err => console.log('Failed when saving PE types: %O', err));
+                                    
+//                                    visionPromise.then(
+//                                        function(data) {
+//                                            var path = RESTConfig.admin.pe.items.path;
+//                                
+//                                            function successFunction () {
+//                                                self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.success"));
+//                                                saveDialogClass = "save-dialog-success";
+//                                            }
+//                                            
+//                                            function errorFunction(jqXHR, textStatus, errMsg) {
+//                                                self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.success") + errMsg);
+//                                                saveDialogClass = "save-dialog-error";
+//                                            }
+//                                                    
+//                                            if (deletedIds.length > 0) {
+//                                                deletedIds.forEach(
+//                                                        function(id) {
+//                                                            AjaxUtils.ajax(RESTConfig.admin.pe.items.path + "/" + id, 'DELETE', null, null, errorFunction);
+//                                                        }
+//                                                );
+//                                            }
+//                                            
+//                                            var savePromise = AjaxUtils.ajax(path, method, peItem, successFunction, errorFunction);
+//                                            
+//                                            
+//                                        }
+//                                    );
                                 }
                             );
                     
@@ -302,6 +349,6 @@ define(
                 );
             }
 
-            return new PeViewModel();
+            return new PEViewModel();
         }
 );

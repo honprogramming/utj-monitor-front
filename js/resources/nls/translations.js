@@ -342,10 +342,10 @@ define(
                         },
                         "tableHeaders": {
                             "nameColumn": "Nombre",
-                            "nameShortColumn": "Nombre corto",
+                            "shortNameColumn": "Nombre Corto",
                             "actionsColumn": "Acciones"
                         },
-                        "tiposPeTable": {
+                        "peTypesTable": {
                             "title": "Tipos de PE",
                             "tableSummary": "Tipos Programas Educativos",
                             "tableAria": "Tabla de tipos de Programas Educativos",

@@ -36,6 +36,14 @@ define(
                         status: {
                             endPath: '/status'
                         }
+                    },
+                    pe: {
+                        subPath: '/pe',
+                        endPath: '/pe',
+                        
+                        types: {
+                            endPath: '/types'
+                        }
                     }
                 },
                 indicators: {
