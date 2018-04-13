@@ -61,24 +61,27 @@ define(
                  * @param {*} data
                  */
                 self.typeChange = function (event, data) {
-                    switch (data.value) {
-                        case "PIDE":
-                            self.generalEnable(false);
-                            self.responsibleEnable(false);
-                            self.metadataEnable(false);
-                            break;
+                    if (data.option === 'value') {
+                        switch (data.value) {
+                            case "1":
+                                self.generalEnable(false);
+                                self.responsibleEnable(false);
+                                self.metadataEnable(false);
+                                setGradesToDefaultValues();
+                                break;
 
-                        case "MECASUT":
-                            self.generalEnable(false);
-                            self.responsibleEnable(true);
-                            self.metadataEnable(false);
-                            break;
+                            case "2":
+                                self.generalEnable(false);
+                                self.responsibleEnable(true);
+                                self.metadataEnable(false);
+                                break;
 
-                        case "Programa Educativo":
-                            self.generalEnable(true);
-                            self.responsibleEnable(true);
-                            self.metadataEnable(true);
-                            break;
+                            case "3":
+                                self.generalEnable(true);
+                                self.responsibleEnable(true);
+                                self.metadataEnable(true);
+                                break;
+                        }
                     }
                 };
 
@@ -164,6 +167,7 @@ define(
                         );
                     } else {
                         delete indicator.gradesMap;
+                        delete indicator.grades;
                     }
                     //achievements
                     let achievements = [];
@@ -902,7 +906,14 @@ define(
                 // Green score field
                 self.greenLabel = GeneralViewModel.nls("admin.indicators.form.sections.metadata.score.green");
                 self.greenValue = ko.observable(1);
-
+                
+                function setGradesToDefaultValues() {
+                    self.redValue(0.35);
+                    self.orangeValue(0.6);
+                    self.yellowValue(0.8);
+                    self.greenValue(1);
+                }
+                
                 /*
                  * Goals and progress section
                  */
