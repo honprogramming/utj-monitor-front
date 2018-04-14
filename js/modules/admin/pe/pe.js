@@ -25,7 +25,7 @@ define(
             'ojs/ojarraytabledatasource'
         ],
         function ($, ko, DataProvider, RESTConfig, AjaxUtils, GeneralViewModel,
-                PeDataParser, PETypesModel, PEModel, PEType, PeTypesParser,
+                PEDataParser, PETypesModel, PEModel, PEType, PeTypesParser,
                 EditableTable, FormActions, AdminItems, ActionTypes) {
             function PEViewModel() {
                 var self = this;
@@ -104,248 +104,174 @@ define(
                     $("#" + self.resetDialogId).ojDialog("close");
                 };
                 
-                var peTypesDataProvider =
+                const peTypesDataProvider =
                         new DataProvider(
 //                        "data/pe-types.json",
                             RESTConfig.admin.pe.types.path,
                             PeTypesParser);
                 
-                var typesPromise = peTypesDataProvider.fetchData();
+                const typesPromise = peTypesDataProvider.fetchData();
                 
-                var peDataProvider =
+                const peDataProvider =
                         new DataProvider(
                         "data/pe-items.json",
 //                            RESTConfig.admin.pe.types.path,
-                            PeDataParser);
+                            PEDataParser);
                                         
-                var pePromise = peDataProvider.fetchData();
+                const pePromise = peDataProvider.fetchData();
                 
-                self.observableTiposPeTable = ko.observable();
-                self.observablePeTable = ko.observable();
+                self.peTypesObservableTable = ko.observable();
+                self.peObservableTable = ko.observable();
+                
+                let peTypesModel;
+                let deletedTypes;
+                let peTypesTable;
+                let peTable;
                 
                 Promise.all([typesPromise, pePromise]).then(
-                        function () {
-                            const peTypesModel = new PETypesModel(peTypesDataProvider);
-                            const peModel = new PEModel(peDataProvider);
-                            
-                            const deletedTypeIds = [];
-                            const deletedIds = [];
-                            
-                            function createType(id) {
-                                const newType = new PEType(id, "");
-                                peTypesModel.addItem(newType);
+                    () => {
+                        clickOkHandlerObservable(
+                            () => {
+                                $("#" + self.resetDialogId).ojDialog("close");
                                 
-                                return newType;
+                                peTypesDataProvider.fetchData()
+                                    .then(data => updateTypesTable(data));
+                            
+                                peDataProvider.fetchData()
+                                    .then(data => updatePETable(data));
                             }
-                            
-                            function removeType(itemId) {
-                                const item = peTypesModel.getItemById(itemId);
-                                peTypesModel.removeItem(item);
-                                deletedTypeIds.push(item.id);
-                            }
-                            
-                            function validateTypeDelete(id) {
-                                return true;
-                            }
-                            
-                            function removeItem(itemId) {
-                                const item = peModel.getItemById(itemId);
-                                peModel.removeItem(item);
-                                deletedIds.push(item.id);
-                            }
-                            
-                            function getChildrenItems(ids) {
-                                var items = peModel.getItemsById(ids);
-                                var children = [];
-                                
-                                if (Array.isArray(items)) {
-                                    items.forEach(
-                                            function(item) {
-                                                children = children.concat(item.children);
-                                            }
-                                    );
-                                }
-                                
-                                return children;
-                            }
-                            
-                            function updateEditedItem(currentRow) {
-                                peModel.updateItemName(currentRow.data.id, currentRow.data.name);
-                            }
-                            
-                            function getAvailableParentItems(table) {
-                                var tableFilterKey = table.getCurrentFilterKey();
-                                var promise = new Promise(
-                                        (resolve) => {
-                                            if (tableFilterKey) {
-                                                resolve(tableFilterKey);
-                                            }
-                                
-                                            var visibleItemsPromise = table.getVisibleItemsPromise();
-                                            visibleItemsPromise.then(
-                                                function(data) {
-                                                    resolve(data.keys);
-                                                }
-                                            );
-                                        }
-                                );
-                        
-                                return promise;
-                            }
-                            
-                            function useChildrenItemsToFilterTable(ids, table) {
-                                var itemsToKeep = getChildrenItems(ids);
-                                table.filter(itemsToKeep);
-                            }
-                          
-                            self.peTypesTable = new EditableTable(peTypesModel,
-                                    {
-                                        id: "tiposPe-table",
-                                        title: GeneralViewModel.nls("admin.pe.peTypesTable.title"),
-                                        tableSummary: GeneralViewModel.nls("admin.pe.peTypesTable.tableSummary"),
-                                        tableAria: GeneralViewModel.nls("admin.pe.peTypesTable.tableAria"),
-                                        columns: PETypesColumns,
-                                        newErrorText: GeneralViewModel.nls("admin.pe.peTypesTable.newErrorText"),
-                                        deleteErrorText: GeneralViewModel.nls("admin.pe.peTypesTable.deleteErrorText"),
-                                        actions: ["filter", "delete"],
-                                        itemCreator: (id) => createType(id),
-                                        itemRemover: removeType,
-                                        deleteValidator: validateTypeDelete
-                                    }
-                            );
-                    
-                            self.peTypesTable.addEditListener(updateEditedItem);
-                    
-                            self.observableTiposPeTable(self.peTypesTable);
-                           
-                            var peArray = peModel.getData();
-                            
-                            self.peTable = new EditableTable(peModel,
-                                    {
-                                        id: "pe-table",
-                                        title: GeneralViewModel.nls("admin.pe.peTable.title"),
-                                        tableSummary: GeneralViewModel.nls("admin.pe.peTable.tableSummary"),
-                                        tableAria: GeneralViewModel.nls("admin.pe.peTable.tableAria"),
-                                        columns: PEColumns,
-                                        newEnabled: false,
-                                        newErrorText: GeneralViewModel.nls("admin.pe.peTable.newErrorText"),
-                                        deleteErrorText: GeneralViewModel.nls("admin.pe.peTable.deleteErrorText"),
-                                        actions: ["delete"],
-                                        itemRemover: removeItem
-                                    }
-                            );
-                                                  
-                            self.peTable.addDataListener(
-                                function(item, action) {
-                                    switch(action) {
-                                        case ActionTypes.ADD:
-                                            var currentAxe = self.peTable.getCurrentRow();
-                                            peModel.addItem(currentAxe.rowKey, item);
-                                        break;
-                                    }
-                                }
-                            );
-                    
-                            self.peTable.addEditListener(updateEditedItem);
-                            
-                            self.observablePeTable(self.peTable);
-                            
-                            self.peTypesTable.addFilterListener(
-                                function(ids, removeFilter) {
-                                    
-                                    var itemsToKeep = removeFilter
-                                            ? peArray
-                                            : getChildrenItems(ids);
-                                    
-                                    self.peTable.filter(itemsToKeep);
-                                }
-                            );
-                    
-                            clickOkHandlerObservable(
-                                    function() {
-                                        $("#" + self.resetDialogId).ojDialog("close");
+                        );
 
-                                        self.peTypesTable.resetData();
-                                        self.peTable.resetData();
-                                        
-                                    }
-                            );
-                            
-                            function updateEditedType(currentRow) {
-                                peTypesModel.updateItemName(currentRow.data.id, currentRow.data.name);
-                            }
-                            
-                            self.peTypesTable.addEditListener(updateEditedType);
-                            
-                            self.formActions.addSaveListener(function() {
-                                    const typesErrors = [];
-                                    const types = peTypesModel.getData();
-                                    const typesErrorFunction = (j, t, m) => {
-                                        typesErrors.push(m);
-                                        self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.success") + m);
-                                        saveDialogClass = "save-dialog-error";
-                                    }
-                                    
-                                    const typesPromises = [];
-                                    self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.success"));
-                                    saveDialogClass = "save-dialog-success";
-                                    
-                                    let method = 'POST';
-                                    let typesPath = RESTConfig.admin.pe.types.path;
-                                    
-                                    types.forEach(
-                                        type => {
-                                            typesPromises.push(AjaxUtils.ajax(typesPath, method, type, null, typesErrorFunction));
-                                        }
-                                    );
-                                    
-                                    Promise.all(typesPromises)
-                                        .then(
-                                            () => {
-                                                if (typesErrors.length > 0) {
-                                                    console.log('Failed when saving PE types: %O', typesErrors);
-                                                }
+                        self.formActions.addSaveListener(
+                            () => {
+                                const typesErrors = [];
+                                const types = peTypesModel.getData();
+                                const typesErrorFunction = (j, t, m) => {
+                                    typesErrors.push(m);
+                                    self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.success") + m);
+                                    saveDialogClass = "save-dialog-error";
+                                };
+                                
+                                const typesPromises = [];
+                                self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.success"));
+                                saveDialogClass = "save-dialog-success";
+
+                                let typesPath = RESTConfig.admin.pe.types.path;
+
+                                typesPromises.push(AjaxUtils.ajax(typesPath, 'POST', types, null, typesErrorFunction));
+                                typesPromises.push(AjaxUtils.ajax(typesPath, 'DELETE', deletedTypes, null, typesErrorFunction)); 
+
+                                Promise.all(typesPromises)
+                                    .then(() => peTypesDataProvider.fetchData())
+                                    .then(data => updateTypesTable(data))
+                                    .then(
+                                        () => {
+                                            if (typesErrors.length > 0) {
+                                                console.log('Failed when saving PE types: %O', typesErrors);
                                             }
-                                        )
-                                        .then(() => self.showDialog())
-                                        .catch(err => console.log('Failed when saving PE types: %O', err));
-                                    
-//                                    visionPromise.then(
-//                                        function(data) {
-//                                            var path = RESTConfig.admin.pe.items.path;
-//                                
-//                                            function successFunction () {
-//                                                self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.success"));
-//                                                saveDialogClass = "save-dialog-success";
-//                                            }
-//                                            
-//                                            function errorFunction(jqXHR, textStatus, errMsg) {
-//                                                self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.success") + errMsg);
-//                                                saveDialogClass = "save-dialog-error";
-//                                            }
-//                                                    
-//                                            if (deletedIds.length > 0) {
-//                                                deletedIds.forEach(
-//                                                        function(id) {
-//                                                            AjaxUtils.ajax(RESTConfig.admin.pe.items.path + "/" + id, 'DELETE', null, null, errorFunction);
-//                                                        }
-//                                                );
-//                                            }
-//                                            
-//                                            var savePromise = AjaxUtils.ajax(path, method, peItem, successFunction, errorFunction);
-//                                            
-//                                            
-//                                        }
-//                                    );
-                                }
-                            );
+                                        }
+                                    )
+                                    .then(() => self.showDialog())
+                                    .catch(err => console.log('Failed when saving PE types: %O', err));
+                            
+                            }
+                        );
+
+                        self.showDialog = function() {
+                            var saveDialog = $("#" + self.saveDialogId);
+                            saveDialog.ojDialog("widget").addClass(saveDialogClass);
+                            saveDialog.ojDialog("open");
+                        };
+                    }
+                );
+        
+                const updateTypesTable = (types) => {
+                    peTypesModel = new PETypesModel(types);
+                    deletedTypes = [];
                     
-                            self.showDialog = function() {
-                                var saveDialog = $("#" + self.saveDialogId);
-                                saveDialog.ojDialog("widget").addClass(saveDialogClass);
-                                saveDialog.ojDialog("open");
-                            };
+                    function createType(id) {
+                        const newType = new PEType(id, "");
+                        peTypesModel.addItem(newType);
+                            
+                        return newType;
+                    }
+                            
+                    function removeType(itemId) {
+                        const item = peTypesModel.getItemById(itemId);
+                        peTypesModel.removeItem(item);
+                        deletedTypes.push(item);
+                    }
+                            
+                    function validateTypeDelete(id) {
+                        return true;
+                    }
+
+                    function updateEditedType(currentRow) {
+                        peTypesModel.updateItemName(currentRow.data.id, currentRow.data.name);
+                    }
+                    
+                    peTypesTable = new EditableTable(peTypesModel,
+                        {
+                            id: "tiposPe-table",
+                            title: GeneralViewModel.nls("admin.pe.peTypesTable.title"),
+                            tableSummary: GeneralViewModel.nls("admin.pe.peTypesTable.tableSummary"),
+                            tableAria: GeneralViewModel.nls("admin.pe.peTypesTable.tableAria"),
+                            columns: PETypesColumns,
+                            newErrorText: GeneralViewModel.nls("admin.pe.peTypesTable.newErrorText"),
+                            deleteErrorText: GeneralViewModel.nls("admin.pe.peTypesTable.deleteErrorText"),
+                            actions: ["filter", "delete"],
+                            itemCreator: (id) => createType(id),
+                            itemRemover: removeType,
+                            deleteValidator: validateTypeDelete
                         }
+                    );
+
+                    self.peTypesObservableTable(peTypesTable);
+                    peTypesTable.addEditListener(updateEditedType);
+                };
+                
+                const updatePETable = (pe) => {
+                    const peModel = new PEModel(pe);
+                    const deletedIds = [];
+
+                    function removeItem(itemId) {
+                        const item = peModel.getItemById(itemId);
+                        peModel.removeItem(item);
+                        deletedIds.push(item.id);
+                    }
+                    
+                    function updateEditedItem(currentRow) {
+                        peModel.updateItemName(currentRow.data.id, currentRow.data.name);
+                    }
+                    
+                    peTable = new EditableTable(peModel,
+                        {
+                            id: "pe-table",
+                            title: GeneralViewModel.nls("admin.pe.peTable.title"),
+                            tableSummary: GeneralViewModel.nls("admin.pe.peTable.tableSummary"),
+                            tableAria: GeneralViewModel.nls("admin.pe.peTable.tableAria"),
+                            columns: PEColumns,
+                            newEnabled: false,
+                            newErrorText: GeneralViewModel.nls("admin.pe.peTable.newErrorText"),
+                            deleteErrorText: GeneralViewModel.nls("admin.pe.peTable.deleteErrorText"),
+                            actions: ["delete"],
+                            itemRemover: removeItem
+                        }
+                    );
+            
+                    self.peObservableTable(peTable);
+                };
+                
+                typesPromise.then(
+                    types => {
+                        updateTypesTable(types);
+                    }
+                );
+                
+                pePromise.then(
+                    pe => {
+                        updatePETable(pe);
+                    }
                 );
             }
 

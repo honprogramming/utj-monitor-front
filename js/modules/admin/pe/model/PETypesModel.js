@@ -2,22 +2,22 @@ define(
         function () {
             var theKey = {};
 
-            function PEModel(dataProvider) {
-                var privateData = {
-                    dataProvider: dataProvider,
+            function PETypesModel(data) {
+                let privateData = {
+                    data,
                     itemsArray: undefined,
                     itemsMap: {}
                 };
 
-                this.PEModel_ = function (key) {
+                this.PETypesModel_ = function (key) {
                     if (theKey === key) {
                         return privateData;
                     }
                 };
 
-                privateData.itemsArray = dataProvider.getDataArray();
+                privateData.itemsArray = data.slice();
 
-                var items = privateData.itemsArray.slice();
+                let items = privateData.itemsArray.slice();
 
                 items.forEach(
                     function(item) {
@@ -26,7 +26,7 @@ define(
                 );
             }
 
-            var prototype = PEModel.prototype;
+            var prototype = PETypesModel.prototype;
             
             prototype.addItem = function (item) {
                 const itemsMap = this.getItems();
@@ -45,11 +45,11 @@ define(
             };
             
             prototype.getItems = function () {
-                return this.PEModel_(theKey).itemsMap;
+                return this.PETypesModel_(theKey).itemsMap;
             };
             
             prototype.getData = function () {
-                return this.PEModel_(theKey).itemsArray;
+                return this.PETypesModel_(theKey).itemsArray;
             };
 
             prototype.getItemById = function (itemId) {
@@ -87,9 +87,8 @@ define(
                 
                 this.getData().splice(index, 1);
                 delete items[target.id];
-                
             };
 
-            return PEModel;
+            return PETypesModel;
         }
 );

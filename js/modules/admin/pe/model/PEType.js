@@ -4,7 +4,7 @@ define(
                 this.id = id;
                 this.name = name;
             }
-            var prototype = PeType.prototype;
+            const prototype = PeType.prototype;
             
             prototype.getId = function() {
                 return this.id;

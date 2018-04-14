@@ -6,11 +6,10 @@
  */
 define(
         [
-            'modules/admin/pe/model/PEItem',
             'modules/admin/pe/model/PEType'
         ],
-        function (PeType) {
-            var PeTypesParser = {
+        function (PEType) {
+            var PETypesParser = {
                 /**
                  * Parses the data from JSON format into an Array of
                  * StrategicType objects.
@@ -20,12 +19,12 @@ define(
                  * @returns {Array} An Array containing StrategicType objects.
                  */
                 parse: function (data) {
-                    var peTypes = [];
+                    const peTypes = [];
                     
                     if (Array.isArray(data)) {
                         data.forEach(
                                 function(type) {
-                                    peTypes.push(new PeType(type["id"], type["name"]));
+                                    peTypes.push(new PEType(type["id"], type["name"]));
                                 }
                         );
                     }
@@ -34,6 +33,6 @@ define(
                 }
             };
 
-            return PeTypesParser;
+            return PETypesParser;
         }
 );

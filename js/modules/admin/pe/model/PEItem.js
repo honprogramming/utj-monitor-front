@@ -1,15 +1,14 @@
 define(
         function () {
 
-            function PeItem(id, name, shortName, peType) {
+            function PEItem(id, name, shortName, peType) {
                 this.id = id;
                 this.name = name;
                 this.shortName = shortName;
                 this.peType = peType;
-                this.children = [];
             }
             
-            var prototype = PeItem.prototype;
+            var prototype = PEItem.prototype;
             
             prototype.getId = function() {
                 return this.id;
@@ -52,6 +51,6 @@ define(
             };
             
             
-            return PeItem;
+            return PEItem;
         }
 );

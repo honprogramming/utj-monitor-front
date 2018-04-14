@@ -1,15 +1,15 @@
 /**
  * Parses the data in order to populate the ControlPanelModel.
  * 
- * @param {Function} PeItem The class representing a single strategic item.
+ * @param {Function} PEItem The class representing a single strategic item.
  * @param {Function} PeTypes The Object wit all constants representing an item type.
  * @returns {Object} The parser for the Strategic Model.
  */
 define(
         [
-            'modules/admin/pe/model/PEItem',
+            'modules/admin/pe/model/PEItem'
         ],
-        function (PeItem) {
+        function (PEItem) {
             var PeDataParser = {
                 /**
                  * Parses the data from JSON format into an Array of
@@ -24,12 +24,12 @@ define(
                     var peItems = [];
                     
                     for (var i = 0; i < data.length; i ++) {
-                        createPeItem(data[i]);
+                        createPEItem(data[i]);
                     }
                     
-                    function createPeItem(item) {
-                        var peItem = 
-                                new PeItem(
+                    function createPEItem(item) {
+                        const peItem = 
+                                new PEItem(
                                     item.id,
                                     item.name,
                                     item.shortName

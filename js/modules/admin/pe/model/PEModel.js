@@ -2,9 +2,9 @@ define(
         function () {
             var theKey = {};
 
-            function PEModel(dataProvider) {
-                var privateData = {
-                    dataProvider: dataProvider,
+            function PEModel(data) {
+                let privateData = {
+                    data,
                     itemsArray: undefined,
                     types: [],
                     itemsMap: {}
@@ -16,9 +16,9 @@ define(
                     }
                 };
 
-                privateData.itemsArray = dataProvider.getDataArray();
+                privateData.itemsArray = data.slice();
 
-                var items = privateData.itemsArray.slice();
+                let items = privateData.itemsArray.slice();
 
                 items.forEach(
                     function(item) {
