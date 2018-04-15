@@ -10,11 +10,11 @@ define(
             'modules/admin/pe/model/PETypesModel',
             'modules/admin/pe/model/PEModel',
             'modules/admin/pe/model/PEType',
+            'modules/admin/pe/model/PEItem',
             'modules/admin/pe/model/PETypesParser',
             'templates/EditableTable',
             'templates/FormActions',
             'modules/admin/view-model/AdminItems',
-            'events/ActionTypes',
             'ojs/ojcore',
             'ojs/ojknockout',
             'ojs/ojcollapsible',
@@ -25,8 +25,8 @@ define(
             'ojs/ojarraytabledatasource'
         ],
         function ($, ko, DataProvider, RESTConfig, AjaxUtils, GeneralViewModel,
-                PEDataParser, PETypesModel, PEModel, PEType, PeTypesParser,
-                EditableTable, FormActions, AdminItems, ActionTypes) {
+                PEDataParser, PETypesModel, PEModel, PEType, PEItem, PeTypesParser,
+                EditableTable, FormActions, AdminItems) {
             function PEViewModel() {
                 var self = this;
                 self.title = AdminItems["pe"]["label"];
@@ -85,15 +85,13 @@ define(
                 self.saveMessage = ko.observable();
                 self.saveDialogTitle = GeneralViewModel.nls("admin.pe.saveDialog.title");
                 
-                var saveDialogClass = "";
-                
                 self.formActions.addResetListener(
                         function() {
                             $("#" + self.resetDialogId).ojDialog("open");
                         }
                 );
                 
-                var clickOkHandlerObservable = ko.observable();
+                let clickOkHandlerObservable = ko.observable();
                 
                 self.clickOkHandler = function() {
                     var handler = clickOkHandlerObservable();
@@ -114,8 +112,8 @@ define(
                 
                 const peDataProvider =
                         new DataProvider(
-                        "data/pe-items.json",
-//                            RESTConfig.admin.pe.types.path,
+//                        "data/pe-items.json",
+                            RESTConfig.admin.pe.path,
                             PEDataParser);
                                         
                 const pePromise = peDataProvider.fetchData();
@@ -124,9 +122,12 @@ define(
                 self.peObservableTable = ko.observable();
                 
                 let peTypesModel;
+                let peModel;
                 let deletedTypes;
+                let deletedPE;
                 let peTypesTable;
                 let peTable;
+                let saveDialogClass = "";
                 
                 Promise.all([typesPromise, pePromise]).then(
                     () => {
@@ -134,51 +135,59 @@ define(
                             () => {
                                 $("#" + self.resetDialogId).ojDialog("close");
                                 
-                                peTypesDataProvider.fetchData()
-                                    .then(data => updateTypesTable(data));
-                            
-                                peDataProvider.fetchData()
-                                    .then(data => updatePETable(data));
+                                updateTypesTable(peTypesDataProvider);
+                                updatePETable(peDataProvider);
                             }
                         );
 
                         self.formActions.addSaveListener(
                             () => {
-                                const typesErrors = [];
                                 const types = peTypesModel.getData();
-                                const typesErrorFunction = (j, t, m) => {
-                                    typesErrors.push(m);
-                                    self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.success") + m);
+                                const pe = peModel.getData();
+                                const errorFunction = (j, t, m) => {
+                                    self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.error") + m);
                                     saveDialogClass = "save-dialog-error";
                                 };
                                 
                                 const typesPromises = [];
+                                const pePromises = [];
                                 self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.success"));
                                 saveDialogClass = "save-dialog-success";
 
-                                let typesPath = RESTConfig.admin.pe.types.path;
+                                const typesPath = RESTConfig.admin.pe.types.path;
+                                const pePath = RESTConfig.admin.pe.path;
 
-                                typesPromises.push(AjaxUtils.ajax(typesPath, 'POST', types, null, typesErrorFunction));
-                                typesPromises.push(AjaxUtils.ajax(typesPath, 'DELETE', deletedTypes, null, typesErrorFunction)); 
+                                typesPromises.push(AjaxUtils.ajax(typesPath, 'POST', types, null, errorFunction));
+                                typesPromises.push(AjaxUtils.ajax(typesPath, 'DELETE', deletedTypes, null, errorFunction)); 
+                                pePromises.push(AjaxUtils.ajax(pePath, 'POST', pe, null, errorFunction));
+                                pePromises.push(AjaxUtils.ajax(pePath, 'DELETE', deletedPE, null, errorFunction)); 
 
                                 Promise.all(typesPromises)
-                                    .then(() => peTypesDataProvider.fetchData())
-                                    .then(data => updateTypesTable(data))
+                                    .then(() => updateTypesTable(peTypesDataProvider))
                                     .then(
                                         () => {
-                                            if (typesErrors.length > 0) {
-                                                console.log('Failed when saving PE types: %O', typesErrors);
+                                            if (saveDialogClass === "save-dialog-error") {
+                                                throw 'No se pudo guardar el tipo de PE';
                                             }
                                         }
                                     )
+                                    .then(Promise.all(pePromises))
+                                    .then(() => updatePETable(peDataProvider))
                                     .then(() => self.showDialog())
-                                    .catch(err => console.log('Failed when saving PE types: %O', err));
+                                    .catch(
+                                        err => {
+                                            const message = `Error al guardar: ${err}`;
+                                            console.log(message);
+                                            self.saveMessage(message);
+                                            self.showDialog();
+                                        }
+                                    );
                             
                             }
                         );
 
                         self.showDialog = function() {
-                            var saveDialog = $("#" + self.saveDialogId);
+                            const saveDialog = $("#" + self.saveDialogId);
                             saveDialog.ojDialog("widget").addClass(saveDialogClass);
                             saveDialog.ojDialog("open");
                         };
@@ -231,13 +240,23 @@ define(
                 };
                 
                 const updatePETable = (pe) => {
-                    const peModel = new PEModel(pe);
-                    const deletedIds = [];
-
+                    peModel = new PEModel(pe);
+                    deletedPE = [];
+                    
+                    function createItem(id) {
+                        const newItem = new PEItem(id, "", "");
+                        const currentRow = peTypesTable.currentRow();
+                        
+                        newItem.setType(peTypesModel.getItemById(currentRow.rowKey));
+                        peModel.addItem(newItem);
+                            
+                        return newItem;
+                    }
+                    
                     function removeItem(itemId) {
                         const item = peModel.getItemById(itemId);
                         peModel.removeItem(item);
-                        deletedIds.push(item.id);
+                        deletedPE.push(item);
                     }
                     
                     function updateEditedItem(currentRow) {
@@ -255,24 +274,24 @@ define(
                             newErrorText: GeneralViewModel.nls("admin.pe.peTable.newErrorText"),
                             deleteErrorText: GeneralViewModel.nls("admin.pe.peTable.deleteErrorText"),
                             actions: ["delete"],
-                            itemRemover: removeItem
+                            itemCreator: createItem,
+                            itemRemover: removeItem,
+                            deleteValidator: () => true
                         }
                     );
-            
+                    
                     self.peObservableTable(peTable);
+                    peTable.addEditListener(updateEditedItem);
                 };
                 
-                typesPromise.then(
-                    types => {
-                        updateTypesTable(types);
-                    }
-                );
+                typesPromise.then(() => updateTypesTable(peTypesDataProvider));
                 
-                pePromise.then(
-                    pe => {
-                        updatePETable(pe);
-                    }
-                );
+                pePromise.then(() => updatePETable(peDataProvider));
+        
+                Promise.all([typesPromise, pePromise])
+                    .then(
+                        () => ko.computed(() => peTable.setNewEnabled(peTypesTable.currentRow()))
+                    );
             }
 
             return new PEViewModel();

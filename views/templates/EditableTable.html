@@ -46,6 +46,16 @@
                                    }">
                     </input>
                 </td>
+                <!-- ko if: $data.shortName !== undefined -->
+                    <td>
+                        <input type="text" id="shortName"
+                           data-bind="ojComponent:{
+                                       component: 'ojInputText',
+                                       value: shortName
+                                   }">
+                        </input>
+                    </td>
+                <!-- /ko -->
                 <td>
                     <!-- ko if: $parent.displayAction('clone') -->
                     <i class="fa fa-clone fa-border fa-lg pointer"

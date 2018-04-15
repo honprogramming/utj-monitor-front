@@ -2,20 +2,20 @@ define(
         function () {
             var theKey = {};
 
-            function PETypesModel(data) {
-                let privateData = {
-                    data,
+            function PETypesModel(dataProvider) {
+                const privateData = {
+                    dataProvider,
                     itemsArray: undefined,
                     itemsMap: {}
                 };
 
-                this.PETypesModel_ = function (key) {
+                this.PETypesModel_ = (key) => {
                     if (theKey === key) {
                         return privateData;
                     }
                 };
 
-                privateData.itemsArray = data.slice();
+                privateData.itemsArray = dataProvider.getDataArray();
 
                 let items = privateData.itemsArray.slice();
 

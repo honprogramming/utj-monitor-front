@@ -1,11 +1,11 @@
 define(
         function () {
 
-            function PEItem(id, name, shortName, peType) {
+            function PEItem(id, name, shortName, type) {
                 this.id = id;
                 this.name = name;
                 this.shortName = shortName;
-                this.peType = peType;
+                this.type = type;
             }
             
             var prototype = PEItem.prototype;
@@ -34,22 +34,13 @@ define(
                 this.shortName = shortName;
             };
             
-            prototype.getPeType = function() {
-                return this.name;
+            prototype.getType = function() {
+                return this.type;
             };
             
-            prototype.setPeType = function(peType) {
-                this.peType = peType;
+            prototype.setType = function(type) {
+                this.type = type;
             };
-            
-            prototype.getChildren = function() {
-                return this.children;
-            };
-            
-            prototype.setChildren = function(children) {
-                this.children = children;
-            };
-            
             
             return PEItem;
         }

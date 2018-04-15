@@ -2,21 +2,21 @@ define(
         function () {
             var theKey = {};
 
-            function PEModel(data) {
-                let privateData = {
-                    data,
+            function PEModel(dataProvider) {
+                const privateData = {
+                    dataProvider,
                     itemsArray: undefined,
                     types: [],
                     itemsMap: {}
                 };
 
-                this.PEModel_ = function (key) {
+                this.PEModel_ = (key) => {
                     if (theKey === key) {
                         return privateData;
                     }
                 };
 
-                privateData.itemsArray = data.slice();
+                privateData.itemsArray = dataProvider.getDataArray();
 
                 let items = privateData.itemsArray.slice();
 
@@ -37,15 +37,11 @@ define(
                 return this.PEModel_(theKey).types;
             };
             
-            prototype.addItem = function (parentItemId, item) {
-                var parentItem = this.getItemById(parentItemId);
-
-                if (parentItem) {
-                    parentItem.children.push(item);
-                }
-               
-                var itemsMap = this.getItems();
+            prototype.addItem = function (item) {
+                const itemsMap = this.getItems();
+                const itemsArray = this.getData();
                 itemsMap[item.id] = item;
+                itemsArray.push(item);
             };
             
             prototype.updateItemName = function(id, name) {
@@ -85,23 +81,12 @@ define(
             };
 
             prototype.removeItem = function (target) {
-                var items = this.getItems();
-
-                for (var id in items) {
-                    var item = items[id];
-
-                    if (item.children.includes(target)) {
-                        item.children = item.children.filter(
-                                function (value) {
-                                    return value !== target;
-                                }
-                        );
-
-                        delete items[target.id];
-
-                        return target;
-                    }
-                }
+                const itemsMap = this.getItems();
+                const itemsArray = this.getData();
+                const index = itemsArray.indexOf(target);
+                
+                itemsArray.splice(index, 1);
+                delete itemsMap[target.getId()];
             };
 
             prototype.getItemsByType = function (peType) {
