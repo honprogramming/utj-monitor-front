@@ -133,8 +133,25 @@ define(
                     indicator.setResetDates(resetDates);
                     
                     //alignment
-                    if(self.alignmentObjective() && self.alignmentObjective().length > 0) {
-                        indicator.setStrategicItem({id: self.alignmentObjective()[0]});
+                    switch(indicator.getIndicatorType().id) {
+                        case 1:
+                            if(self.alignmentObjective() && self.alignmentObjective().length > 0) {
+                                indicator.setStrategicItem({id: self.alignmentObjective()[0]});
+                            }
+                            break;
+                        case 3:
+                            if(self.peIndicatorsValue() && self.peIndicatorsValue().length > 0) {
+                                indicator.setPideIndicator({id: self.peIndicatorsValue()[0]});
+                            }
+                            break;
+                        default:
+                            //MECASUT
+                            break;
+                    }
+                    
+                    //PE
+                    if (indicator.getIndicatorType().id === 3) {
+                        indicator.setPe({id: self.peValue()[0]});
                     }
                     
                     //responsible
@@ -148,7 +165,7 @@ define(
                     indicator.setMethod(self.methodValue());
                     indicator.setMetaDataObservations(self.observationsMValue());
                     
-                    if (indicator.getIndicatorType().id === 1) {
+                    if (indicator.getIndicatorType().id !== 2) {
                         indicator.setGrades(
                             [    
                                 {
@@ -192,7 +209,7 @@ define(
                         achievements = achievements.concat(items);
                     }
                     
-                    if (indicator.getIndicatorType().id === 1) {
+                    if (indicator.getIndicatorType().id !== 2) {
                         let goalItems = self.goalObservableArray();
 
                         if (goalItems.length > 0) {
@@ -213,7 +230,7 @@ define(
 
                     indicator.setAchievements(achievements);
                     
-                    if (indicator.getIndicatorType().id === 1) {
+                    if (indicator.getIndicatorType().id !== 2) {
                         indicator.setPotentialRisk(self.riskValue());
                         indicator.setImplementedActions(self.actionsValue());
                     }
@@ -236,7 +253,6 @@ define(
 
                 function initializeForm() {
                     if (params.id) {
-                        const pathTypes = {1: "pide", 2: "mecasut", 3: "pe"};
                         let id = params.cloneOf ? params.cloneOf : params.id;
                         let path = RESTConfig.admin.indicators.path + "/" + id;
                         let method = "GET";
@@ -255,31 +271,33 @@ define(
                                     self.typeValue(indicator.indicatorType.id.toString());
                                     self.activeValue(indicator.status.id === 1);
                                     self.descriptionValue(indicator.description);
-                                    self.directionValue([indicator.direction]);
-                                    self.periodicityValue([String(indicator.periodicity.id)]);
-                                    self.measureUnitValue(String(indicator.measureUnit.type.id));
-                                    self.baseYearValue(indicator.baseYear);
-                                    self.resetValue(String(indicator.resetType.id));
-
-                                    let resetDates = indicator.resetDates;
-
-                                    resetDates = resetDates.map(
-                                            (date) => {
-                                        let resetDate = new Date();
-                                        resetDate.setTime(date.time);
-
-                                        return resetDate;
-                                    }
-                                    );
-
-                                    resetDates.sort((a, b) => a.getTime() > b.getTime());
-
-                                    resetDates.forEach(
-                                            (date, index) => {
-                                                self.resetDateValues[index](oj.IntlConverterUtils.dateToLocalIso(date));
-                                            }
-                                    );
                                     
+                                    if (indicator.indicatorType.id !== 3) {
+                                        self.directionValue([indicator.direction]);
+                                        self.periodicityValue([String(indicator.periodicity.id)]);
+                                        self.measureUnitValue(String(indicator.measureUnit.type.id));
+                                        self.baseYearValue(indicator.baseYear);
+                                        self.resetValue(String(indicator.resetType.id));
+
+                                        let resetDates = indicator.resetDates;
+
+                                        resetDates = resetDates.map(
+                                                (date) => {
+                                            let resetDate = new Date();
+                                            resetDate.setTime(date.time);
+
+                                            return resetDate;
+                                        }
+                                        );
+
+                                        resetDates.sort((a, b) => a.getTime() > b.getTime());
+
+                                        resetDates.forEach(
+                                                (date, index) => {
+                                                    self.resetDateValues[index](oj.IntlConverterUtils.dateToLocalIso(date));
+                                                }
+                                        );
+                                    }
                                     //alignment
                                     if (indicator.strategicItem) {
                                         let objective = strategicModel.getItemById(indicator.strategicItem.id);
@@ -317,6 +335,51 @@ define(
                                         self.alignmentAxe([axe.id]);
                                         self.alignmentTopic([topic.id]);
                                         self.alignmentObjective([objective.id]);
+                                    }
+                                    
+                                    if (indicator.pideIndicator) {
+                                        let objective = strategicModel.getItemById(indicator.pideIndicator.strategicItem.id);
+                                        let topic = strategicModel
+                                                .getItemsByType(StrategicTypes.TOPIC)
+                                                .filter(item => item.children.includes(objective));
+                                        topic = topic[0];
+
+                                        let axe = strategicModel.getItemsByType(StrategicTypes.AXE)
+                                                .filter(item => item.children.includes(topic));
+                                        axe = axe[0];
+
+                                        let topicOptionsArray;
+                                        topicOptionsArray = strategicModel
+                                                .getItemsByTypeByParent(StrategicTypes.TOPIC, [axe])
+                                                .map(
+                                                    topic => {
+                                                        return {value: topic.id, label: topic.name};
+                                                    }
+                                                );
+                                                
+                                        self.topicsOptions(topicOptionsArray);
+
+                                        let objectiveOptionsArray;
+                                        objectiveOptionsArray = strategicModel
+                                                .getItemsByTypeByParent(StrategicTypes.OBJECTIVE, [topic])
+                                                .map(
+                                                    objective => {
+                                                        return {value: objective.id, label: objective.name};
+                                                    }
+                                                );
+                                                
+                                        self.objectivesOptions(objectiveOptionsArray);
+                                        
+                                        self.peAxesValue([axe.id]);
+                                        self.peTopicsValue([topic.id]);
+                                        self.peObjectivesValue([objective.id]);
+                                        self.peIndicatorsValue([indicator.pideIndicator.id]);
+                                    }
+                                    
+                                    if (indicator.pe) {
+                                        self.peTypeValue([indicator.pe.type.id]);
+                                        self.peValue([indicator.pe.id]);
+                                        self.shortNameValue(indicator.pe.shortName);
                                     }
                                     
                                     //responsible
@@ -723,11 +786,11 @@ define(
                 
                         indicators.forEach(
                             i => {
-                                if (!objectiveIndicatorsMap[i.id]) {
+                                if (!objectiveIndicatorsMap[i.strategicItem.id]) {
                                     objectiveIndicatorsMap[i.strategicItem.id] = [];
                                 }
                                 
-                                objectiveIndicatorsMap[i.strategicItem.id].push({value: i.id, label: i.name, description: i.descriptioni});
+                                objectiveIndicatorsMap[i.strategicItem.id].push({value: i.id, label: i.name});
                                 indicatorsMap[i.id] = i;
                             }
                         );

@@ -25,6 +25,9 @@ define(
                 this.status;
                 //alignment
                 this.strategicItem;
+                //pe
+                this.pe;
+                this.pideIndicator;
                 //responsible
                 this.responsible;
                 //meta data
@@ -54,6 +57,22 @@ define(
                 ORANGE: "orange",
                 YELLOW: "yellow",
                 GREEN: "green"
+            };
+            
+            prototype.getPideIndicator = function() {
+                return this.pideIndicator;
+            };
+            
+            prototype.setPideIndicator = function(pideIndicator) {
+                this.pideIndicator = pideIndicator;
+            };
+            
+            prototype.getPe = function() {
+                return this.pe;
+            };
+            
+            prototype.setPe = function(pe) {
+                this.pe = pe;
             };
             
             prototype.getClassType = function() {
