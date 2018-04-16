@@ -7,9 +7,10 @@ define(
              * @param {type} id
              * @param {type} name
              */
-            function SummaryIndicator(id, name, status, strategicItem, description,
+            function SummaryIndicator(id, type, name, status, strategicItem, description,
                     direction, measureUnit, baseYear) {
                 this.id = id;
+                this.type = type;
                 this.name = name;
                 this.status = status;
                 this.strategicItem = strategicItem;
@@ -84,6 +85,14 @@ define(
             
             prototype.setBaseYear = function(baseYear) {
                 this.baseYear = baseYear;
+            };
+            
+            prototype.getType = function() {
+                return this.type;
+            };
+            
+            prototype.setType = function(type) {
+                this.type = type;
             };
 
             return SummaryIndicator;
