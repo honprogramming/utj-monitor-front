@@ -11,10 +11,9 @@ define(
              * @param {type} name
              * @param {type} indicatorType
              */
-            function FullIndicator(id, name, indicatorType) {
+            function FullIndicator(id, name, type) {
                 //general
-                SummaryIndicator.call(this, id, name);
-                this.indicatorType = indicatorType;
+                SummaryIndicator.call(this, id, type, name);
                 this.description;
                 this.direction;
                 this.periodicity;

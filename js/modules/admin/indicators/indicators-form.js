@@ -440,7 +440,7 @@ define(
                 }
 
                 self.saveForm = function () {
-                    let indicator = new FullIndicator(params.id, self.nameValue());
+                    let indicator = new FullIndicator(params.id, self.nameValue(), self.typeValue());
                     populateIndicator(indicator);
 
                     let path = RESTConfig.admin.indicators.path;
