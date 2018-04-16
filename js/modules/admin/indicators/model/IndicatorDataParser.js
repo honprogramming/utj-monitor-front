@@ -28,7 +28,13 @@ define(
                         // Creates a new Indicator item based on the param values.
                         let indicator = new SummaryIndicator(
                                 item.id,
-                                item.name
+                                item.name,
+                                item.status,
+                                item.strategicItem,
+                                item.description,
+                                item.direction,
+                                item.measureUnit,
+                                item.baseYear
                         );
 
                         // Add the new Indicator item to items array

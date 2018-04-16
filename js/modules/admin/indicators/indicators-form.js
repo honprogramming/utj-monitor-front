@@ -10,6 +10,8 @@ define(
             'modules/admin/strategic/model/StrategicModel',
             'modules/admin/strategic/model/StrategicTypes',
             'modules/admin/strategic/model/StrategicDataParser',
+            'modules/admin/indicators/model/IndicatorDataParser',
+            'modules/admin/pe/model/PEDataParser',
             'modules/admin/indicators/model/FullIndicator',
             'modules/admin/indicators/model/ComponentItem',
             'ojs/ojknockout',
@@ -26,7 +28,8 @@ define(
             'promise'
         ],
         function (oj, $, ko, GeneralViewModel, RESTConfig, AjaxUtils, DataProvider,
-                StrategicModel, StrategicTypes, StrategicDataParser,
+                StrategicModel, StrategicTypes,
+                StrategicDataParser, IndicatorDataParser, PEDataParser,
                 FullIndicator,
                 ComponentItem) {
             /**
@@ -101,6 +104,7 @@ define(
                 let saveDialogClass;
                 
                 self.alignmentSectionExpanded = ko.observable(false);
+                self.generalSectionExpanded = ko.observable(true);
                 self.axesOptions = ko.observableArray();
                 self.topicsOptions = ko.observableArray();
                 self.objectivesOptions = ko.observableArray();
@@ -468,10 +472,11 @@ define(
                  * @param {*} data
                  */
                 self.peAxesChange = function (event, data) {
-                    // If the new value is not empty
-                    if (data.value !== "") {
-                        // Set new topic options
-//                        self.peTopicsOptions(self.getTopics(data.value));
+                    if (data.option === "value" && strategicModel && self.generalSectionExpanded()) {
+                        self.peAxesOptions(axes);
+                        
+                        const topics = getTopicsByAxe(self.peAxesValue()[0]);
+                        self.peTopicsOptions(topics);
                     }
                 };
 
@@ -484,41 +489,34 @@ define(
                  * @param {*} data
                  */
                 self.peTopicsChange = function (event, data) {
-                    // If the new value is not empty
-                    if (data.value !== "") {
-                        // IF the axes value has changed / the change option is triggered because the options has changed.
-//                        if (data.option === "options") {
-//                            // Set new objective options
-//                            self.peObjectivesOptions(self.getObjectives(self.peAxesValue(), data.value[0].value));
-//                        } else {
-//                            // Set new objective options
-//                            self.peObjectivesOptions(self.getObjectives(self.peAxesValue(), data.value));
-//                        }
+                    if (data.option === "value" && strategicModel && self.generalSectionExpanded() && self.peTopicsValue()) {
+                        self.peObjectivesOptions(getObjectivesByTopic(self.peTopicsValue()[0]));
                     }
                 };
 
-                /**
-                 * PE Objectives change event.
-                 *
-                 * Triggered after changing the PE Objectives combobox.
-                 *
-                 * @param {*} event
-                 * @param {*} data
-                 */
                 self.peObjectivesChange = function (event, data) {
-                    // If the new value is not empty
-                    if (data.value !== "") {
-                        // IF the topics value has changed / the change option is triggered because the options has changed.
-//                        if (data.option === "options") {
-//                            // Set new indicators options
-//                            self.peIndicatorsOptions(self.getIndicators(self.peAxesValue(), self.peTopicsValue(), data.value[0].value));
-//                        } else {
-//                            // Set new indicators options
-//                            self.peIndicatorsOptions(self.getIndicators(self.peAxesValue(), self.peTopicsValue(), data.value));
-//                        }
+                    if (data.option === "value" && strategicModel && self.generalSectionExpanded() && self.peObjectivesValue()) {
+                        self.peIndicatorsOptions(getIndicatorsByObjective(self.peObjectivesValue()[0]));
                     }
                 };
-
+                
+                self.peIndicatorsChange = function (event, data) {
+                    if (data.option === "value" && strategicModel && self.generalSectionExpanded() && self.peIndicatorsValue()) {
+                        const indicator = indicatorsMap[self.peIndicatorsValue()];
+                        
+                        if (indicator) {
+                            self.descriptionValue(indicator.description || '');
+                            self.directionValue(String(indicator.direction? indicator.direction : -1));
+                            self.measureUnitValue(String(indicator.measureUnit ? indicator.measureUnit.type.id : -1));
+                            self.baseYearValue(indicator.baseYear || '');
+                        }
+                    }
+                };
+                
+                const getIndicatorsByObjective = objectiveId => {
+                    return objectiveIndicatorsMap[objectiveId];
+                };
+                
                 // Name field
                 self.nameLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.name.label");
                 self.namePlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.general.name.placeholder");
@@ -542,12 +540,68 @@ define(
                             {value: '6', label: 'Otros'}
                         ]
                 );
-
+                
+                // PE type
+                self.peTypeLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.pe.typeLabel"); 
+                self.peTypeValue = ko.observable("");
+                self.peTypeOptions = ko.observableArray([]);
+                
                 // PE field
                 self.peLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.pe.label");
-                self.pePlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.general.pe.placeholder");
                 self.peValue = ko.observable("");
-
+                self.peOptions = ko.observableArray([]);
+                
+                const peDataProvider =
+                        new DataProvider(
+                                RESTConfig.admin.pe.path,
+                                PEDataParser);
+                                
+                const pePromise = peDataProvider.fetchData();
+                let peTypesMap = {};
+                let peTypesMatrix = {};
+                let peTypesArray = [];
+                
+                pePromise.then(
+                    () => {
+                        peDataProvider.getDataArray()
+                            .forEach(
+                                pe => {
+                                   if (!peTypesMap[pe.type.id]) {
+                                       peTypesMap[pe.type.id] = [];
+                                       peTypesArray.push({value: pe.type.id, label: pe.type.name});
+                                       peTypesMatrix[pe.type.id] = {};
+                                   }
+                                   
+                                   peTypesMap[pe.type.id].push({value: pe.id, label: pe.name});
+                                   peTypesMatrix[pe.type.id][pe.id] = pe;
+                                }
+                            );
+                    
+                        self.peTypeOptions([{value: -1, label: ''}].concat(peTypesArray));
+                        self.peTypeValue(-1);
+                    }
+                );
+        
+                self.peTypesChange = function(event, data) {
+                    if (data.option === "value" && strategicModel && self.generalSectionExpanded() && self.peTypeValue()) {
+                        self.peTypeOptions(peTypesArray);
+                        const pe = peTypesMap[self.peTypeValue()[0]];
+                        
+                        self.peOptions(pe);
+                        
+                        if (pe && pe.length > 0) {
+                            self.peValue([pe[0]['value']]);
+                        }
+                    }
+                };
+                
+                self.peChange = function(event, data) {
+                    if (data.option === "value" && strategicModel && self.generalSectionExpanded() && self.peValue()) {
+                        const pe = peTypesMatrix[self.peTypeValue()[0]][self.peValue()[0]];
+                        self.shortNameValue(pe.shortName);
+                    }
+                };
+                
                 // Short name field
                 self.shortNameLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.shortName.label");
                 self.shortNamePlaceholder = GeneralViewModel.nls("admin.indicators.form.sections.general.shortName.placeholder");
@@ -627,27 +681,56 @@ define(
                 let sortByName = (a, b) => a.name.localeCompare(b.name);
 
                 //PIDE Filter select controls population
-                let strategicDataProvider =
+                const strategicDataProvider =
                         new DataProvider(
                                 RESTConfig.admin.strategic.path,
                                 StrategicDataParser);
-
-                let strategicPromise = strategicDataProvider.fetchData();
-                let strategicModel;
                 
-                let strategicLoadedPromise = strategicPromise.then(
+                const indicatorsDataProvider =
+                        new DataProvider(
+                                RESTConfig.admin.indicators.pide.path,
+                                IndicatorDataParser);
+
+                const strategicPromise = strategicDataProvider.fetchData();
+                const indicatorsPromise = indicatorsDataProvider.fetchData();
+                let strategicModel;
+                let objectiveIndicatorsMap = {};
+                let indicatorsMap = {};
+                let axes = [];
+                
+                const strategicLoadedPromise = strategicPromise.then(
                     () => {
                         strategicModel = new StrategicModel(strategicDataProvider.getDataArray());
-                        self.axesOptions(
-                                 strategicModel
+                        axes = strategicModel
                                  .getItemsByType(StrategicTypes.AXE)
                                  .sort(sortByName)
                                  .map(
                                      (axe) => {
                                          return {value: axe.id, label: axe.name};
                                      }
-                                 )
-                         );
+                                 );
+                         
+                        self.axesOptions([{value: -1, label: ''}].concat(axes));
+                        self.alignmentAxe(-1);
+                        self.peAxesOptions(self.axesOptions());
+                        self.peAxesValue(-1);
+                    }
+                );
+        
+                const indicatorsLoadPromise = indicatorsPromise.then(
+                    () => {
+                        const indicators = indicatorsDataProvider.getDataArray();
+                
+                        indicators.forEach(
+                            i => {
+                                if (!objectiveIndicatorsMap[i.id]) {
+                                    objectiveIndicatorsMap[i.strategicItem.id] = [];
+                                }
+                                
+                                objectiveIndicatorsMap[i.strategicItem.id].push({value: i.id, label: i.name, description: i.descriptioni});
+                                indicatorsMap[i.id] = i;
+                            }
+                        );
                     }
                 );
                 
@@ -659,21 +742,19 @@ define(
                 */
                 self.axeChange = function (event, data) {
                     if (data.option === "value" && strategicModel && self.alignmentSectionExpanded()) {
-                        let topics = strategicModel.getItemsByTypeByParent(
-                               StrategicTypes.TOPIC, 
-                               [strategicModel.getItemById(self.alignmentAxe()[0])]
-                            );
-
-                        topics = topics.map(
-                                (topic) => {
-                                    return {value: topic.id, label: topic.name};
-                                }
-                        );
-
-                        self.topicsOptions(topics);
+                        self.axesOptions(axes);
+                        self.topicsOptions(getTopicsByAxe(self.alignmentAxe()[0]));
                     }
                 };
-
+                
+                const getTopicsByAxe = axeId => {
+                    return strategicModel.getItemsByTypeByParent(
+                               StrategicTypes.TOPIC, 
+                               [strategicModel.getItemById(axeId)]
+                            )
+                            .map(topic => ({value: topic.id, label: topic.name}));
+                };
+                
                 /**
                 * Topics change event.
                 *
@@ -681,21 +762,18 @@ define(
                 */
                 self.topicChange = function (event, data) {
                     if (data.option === "value" && strategicModel && self.alignmentSectionExpanded() && self.alignmentTopic()) {
-                        let objectives = strategicModel.getItemsByTypeByParent(
-                                StrategicTypes.OBJECTIVE,
-                                [strategicModel.getItemById(self.alignmentTopic()[0])]
-                            );
-
-                        objectives = objectives.map(
-                                (objective) => {
-                                    return {value: objective.id, label: objective.name};
-                                }
-                        );
-
-                        self.objectivesOptions(objectives);
+                        self.objectivesOptions(getObjectivesByTopic(self.alignmentTopic()[0]));
                     }
                 };
-                        
+                
+                const getObjectivesByTopic = topicId => {
+                    return strategicModel.getItemsByTypeByParent(
+                                StrategicTypes.OBJECTIVE,
+                                [strategicModel.getItemById(topicId)]
+                            )
+                            .map(objective => ({value: objective.id, label: objective.name}));
+                };
+                
                 // POA section
                 self.poaSectionLabel = GeneralViewModel.nls("admin.indicators.form.sections.alignment.poa.title");
 
@@ -718,30 +796,30 @@ define(
                 self.projectsDataSource = new oj.ArrayTableDataSource(self.projectsObservableArray, {idAttribute: 'id'});
 
                 // Get data
-                $.getJSON("data/pide-alignment.json")
-                        .done(function (data) {
-                            // PIDE data
-                            let pide = data.alignment.pide;
-
-                            // POA data
-                            let poa = data.alignment.poa;
-
-                            // Fill Process Table
-                            $.each(poa.process, function (key, value) {
-                                self.processObservableArray.push({
-                                    'id': self.processId++,
-                                    'Process': value.process
-                                });
-                            });
-
-                            // Fill Projects Table
-                            $.each(poa.projects, function (key, value) {
-                                self.projectsObservableArray.push({
-                                    'id': self.projectsId++,
-                                    'Project': value.project
-                                });
-                            });
-                        });
+//                $.getJSON("data/pide-alignment.json")
+//                        .done(function (data) {
+//                            // PIDE data
+//                            let pide = data.alignment.pide;
+//
+//                            // POA data
+//                            let poa = data.alignment.poa;
+//
+//                            // Fill Process Table
+//                            $.each(poa.process, function (key, value) {
+//                                self.processObservableArray.push({
+//                                    'id': self.processId++,
+//                                    'Process': value.process
+//                                });
+//                            });
+//
+//                            // Fill Projects Table
+//                            $.each(poa.projects, function (key, value) {
+//                                self.projectsObservableArray.push({
+//                                    'id': self.projectsId++,
+//                                    'Project': value.project
+//                                });
+//                            });
+//                        });
 
                 /*
                  * Responsible section
@@ -1364,16 +1442,16 @@ define(
                 self.componentsObservableArray = ko.observableArray([]);
 
                 // Get components data
-                $.getJSON("data/components.json")
-                        .done(function (data) {
-                            $.each(data, function (index, value) {
-                                self.componentsObservableArray.push(new ComponentItem(value));
-                            });
-                        });
+//                $.getJSON("data/components.json")
+//                        .done(function (data) {
+//                            $.each(data, function (index, value) {
+//                                self.componentsObservableArray.push(new ComponentItem(value));
+//                            });
+//                        });
 
                 // Components table data source
                 self.componentsDataSource = new oj.ArrayTableDataSource(self.componentsObservableArray, {idAttribute: 'id'});
-                let promises = [strategicLoadedPromise, positionsPromise]
+                const promises = [strategicLoadedPromise, positionsPromise, indicatorsLoadPromise];
                 Promise.all(promises).then(() => initializeForm());
             }
 

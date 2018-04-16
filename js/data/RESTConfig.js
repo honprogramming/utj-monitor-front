@@ -35,8 +35,11 @@ define(
                         },
                         status: {
                             endPath: '/status'
+                        },
+                        pide: {
+                            endPath: '/pide'
                         }
-                    },
+                    },                    
                     pe: {
                         subPath: '/pe',
                         endPath: '/pe',

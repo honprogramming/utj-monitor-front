@@ -1,4 +1,4 @@
-define(
+ define(
         {
             root: {
                 "appTitle": "Tableros UTJ",
@@ -187,8 +187,8 @@ define(
                                     },
                                     "class": "Clase",
                                     "pe": {
-                                        "label": "Programa educativo",
-                                        "placeholder": "Programa educativo"
+                                        "typeLabel": "Tipo de Programa Educativo",                                        
+                                        "label": "Programa Educativo"
                                     },
                                     "shortName": {
                                         "label": "Nombre corto",

@@ -32,7 +32,8 @@ define(
                                 new PEItem(
                                     item.id,
                                     item.name,
-                                    item.shortName
+                                    item.shortName,
+                                    item.type
                                 );
                         
                         peItems.push(peItem);
