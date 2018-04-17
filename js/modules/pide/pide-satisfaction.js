@@ -55,7 +55,7 @@ define(
                                             
                                             goals.forEach(
                                               g => {
-                                                  if (latestGoal.time < g.time) {
+                                                  if (latestGoal.date.time < g.date.time) {
                                                       latestGoal = g;
                                                   }
                                               }
@@ -63,7 +63,7 @@ define(
                                     
                                             progresses.forEach(
                                               p => {
-                                                  if (latestProgress.time < p.time) {
+                                                  if (latestProgress.date.time < p.date.time) {
                                                       latestProgress = p;
                                                   }
                                               }
