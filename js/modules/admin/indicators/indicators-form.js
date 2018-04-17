@@ -46,6 +46,7 @@ define(
                 self.generalEnable = ko.observable(false);
                 self.responsibleEnable = ko.observable(false);
                 self.metadataEnable = ko.observable(false);
+                self.progressTableId = 'progress-table';
 
                 /*
                  * Main section.
@@ -425,6 +426,9 @@ define(
                                                 observableAchievement.push(row);
                                             }
                                     );
+                                    
+                                    self.progressDataSource(new oj.ArrayTableDataSource(self.progressObservableArray, {idAttribute: 'id'}));
+                                    self.goalDataSource(new oj.ArrayTableDataSource(self.goalObservableArray(), {idAttribute: 'id'}));
                                     
                                     self.riskValue(indicator.potentialRisk);
                                     self.actionsValue(indicator.implementedActions);
@@ -1103,7 +1107,7 @@ define(
                 // Goals table
                 self.goalsLabel = GeneralViewModel.nls("admin.indicators.form.sections.goals.table.goals");
                 self.goalObservableArray = ko.observableArray([]);
-                self.goalDataSource = new oj.ArrayTableDataSource(self.goalObservableArray, {idAttribute: 'id'});
+                self.goalDataSource = ko.observable(new oj.ArrayTableDataSource(self.goalObservableArray, {idAttribute: 'id'}));
 
                 // Row template for Goals' table
                 self.getGoalRowTemplate = function (data, context) {
@@ -1114,7 +1118,7 @@ define(
                 // Progress table
                 self.progressLabel = GeneralViewModel.nls("admin.indicators.form.sections.goals.table.progress");
                 self.progressObservableArray = ko.observableArray([]);
-                self.progressDataSource = new oj.ArrayTableDataSource(self.progressObservableArray, {idAttribute: 'id'});
+                self.progressDataSource = ko.observable(new oj.ArrayTableDataSource(self.progressObservableArray, {idAttribute: 'id'}));
 
                 // Row template for Progress' table
                 self.getProgressRowTemplate = function (data, context) {
