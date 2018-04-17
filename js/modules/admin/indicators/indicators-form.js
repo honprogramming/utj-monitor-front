@@ -1125,7 +1125,7 @@ define(
                     var mode = context.$rowContext['mode'];
                     return mode === 'edit' ? 'progressEditRowTemplate' : 'progressRowTemplate';
                 };
-
+                
                 /**
                  * Update chart values.
                  */
@@ -1195,10 +1195,11 @@ define(
                     // Pick table
                     if (table === 'Goals') {
                         self.goalObservableArray.push(row);
+                        self.goalDataSource(new oj.ArrayTableDataSource(self.goalObservableArray(), {idAttribute: 'id'}));
                     } else if (table === 'Progress') {
                         self.progressObservableArray.push(row);
+                        self.progressDataSource(new oj.ArrayTableDataSource(self.progressObservableArray, {idAttribute: 'id'}));
                     }
-
                     // Update chart values
                     self.updateChart();
                 };

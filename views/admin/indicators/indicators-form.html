@@ -1021,7 +1021,7 @@
                                                 msgNoData: 'Agrega una meta'
                                             },
                                             rootAttributes: {
-                                                'style': 'width: 100%; max-height: 150px;'
+                                                'style': 'width: 100%'
                                             },
                                             rowTemplate: getGoalRowTemplate
                                         }"></table>
@@ -1040,7 +1040,7 @@
                         <i class="fa fa-plus fa-lg pointer icon-padding" data-bind="click: addRow.bind($data, 'Progress')"></i>
 
                         <!-- Table -->
-                        <table id="si-progress-table" summary="Progress Table" 
+                        <table id="indicator-progress-table" summary="Progress Table" 
                                aria-label="Progress Table" 
                                data-bind="ojComponent: {
                                             component: 'ojTable',
@@ -1057,7 +1057,7 @@
                                                 msgNoData: 'Agrega un avance'
                                             },
                                             rootAttributes: {
-                                                'style': 'width: 100%; max-height: 150px;'
+                                                'style': 'width: 100%'
                                             },
                                             rowTemplate: getProgressRowTemplate
                                         }"></table>
