@@ -22,10 +22,17 @@ define(
                 var self = this;
                 self.listeners = [];
                 self.checked = ko.observable();
-                self.menuItems = Object.values(MenuItems);
-
+                self.menuItems = Object.values(MenuItems).filter(i => i.id !== 'admin');
+                self.admin = MenuItems['admin'];
+                
                 self.clickHandler = function (event, ui) {
-                    self.onClick(ui.value);
+                    if (ui.value) {
+                        self.onClick(ui.value);
+                    }
+                };
+                
+                self.gearClickHandler = function (event, ui) {
+                    self.onClick(self.admin.id);
                 };
 
                 self.addClickListener = function (listener) {
@@ -33,7 +40,12 @@ define(
                 };
 
                 self.onClick = function (value) {
-                    self.checked(value);
+                    if (value === 'admin') {
+                        self.checked(null);
+                    } else {
+                        self.checked(value);
+                    }
+                    
                     self.callListeners(EventTypes.CLICK_EVENT, value);
                 };
             }
