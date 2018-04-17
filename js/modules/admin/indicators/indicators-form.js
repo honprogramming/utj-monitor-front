@@ -559,7 +559,14 @@ define(
 
                 self.peObjectivesChange = function (event, data) {
                     if (data.option === "value" && strategicModel && self.generalSectionExpanded() && self.peObjectivesValue()) {
-                        self.peIndicatorsOptions(getIndicatorsByObjective(self.peObjectivesValue()[0]));
+                        const indicators = getIndicatorsByObjective(self.peObjectivesValue()[0]);
+                        
+                        if (indicators.length === 0) {
+                            indicators.push({value: '', label: ''});
+                            setIndicatorFields();
+                        }
+                        
+                        self.peIndicatorsOptions(indicators);
                     }
                 };
                 
@@ -568,16 +575,20 @@ define(
                         const indicator = indicatorsMap[self.peIndicatorsValue()];
                         
                         if (indicator) {
-                            self.descriptionValue(indicator.description || '');
-                            self.directionValue(String(indicator.direction? indicator.direction : -1));
-                            self.measureUnitValue(String(indicator.measureUnit ? indicator.measureUnit.type.id : -1));
-                            self.baseYearValue(indicator.baseYear || '');
+                            setIndicatorFields(indicator);
                         }
                     }
                 };
                 
+                const setIndicatorFields = indicator => {
+                    self.descriptionValue((indicator && indicator.description) ? indicator.description : '');
+                    self.directionValue((indicator && indicator.direction) ? String(indicator.direction) : '');
+                    self.measureUnitValue((indicator && indicator.measureUnit) ? String(indicator.measureUnit.type.id) : '');
+                    self.baseYearValue(indicator && indicator.baseYear ? indicator.baseYear : '');
+                };
+                
                 const getIndicatorsByObjective = objectiveId => {
-                    return objectiveIndicatorsMap[objectiveId];
+                    return objectiveIndicatorsMap[objectiveId] || [];
                 };
                 
                 // Name field
