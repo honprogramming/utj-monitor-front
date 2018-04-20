@@ -358,13 +358,16 @@ define(
                     function addNode(node) {
                         nodesArray.push(node);
                     }
+                    
+                    $("#tree").ojTree("expandAll");
                 };
                 
                 self.getJson = function (node, fn) {
-//                    $.getJSON("data/mecasut-indicators.json").then(
                     $.getJSON(RESTConfig.indicators.mecasut.tree.path).then(
                             function (data) {
-                                model = data;
+                                
+                                model = data
+                                
                                 fn(model);  // pass to ojTree using supplied function
 
                                 var itemsArray = model.slice(0);
