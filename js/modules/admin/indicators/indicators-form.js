@@ -427,8 +427,15 @@ define(
                                             }
                                     );
                                     
-                                    self.progressDataSource(new oj.ArrayTableDataSource(self.progressObservableArray, {idAttribute: 'id'}));
-                                    self.goalDataSource(new oj.ArrayTableDataSource(self.goalObservableArray(), {idAttribute: 'id'}));
+                                    self.progressObservableArray()
+                                        .forEach(
+                                            progress => self.progressDataSource.add(progress)
+                                        );
+                                
+                                    self.goalObservableArray()
+                                        .forEach(
+                                            goal => self.goalDataSource.add(goal)
+                                        );
                                     
                                     self.riskValue(indicator.potentialRisk);
                                     self.actionsValue(indicator.implementedActions);
@@ -1107,7 +1114,7 @@ define(
                 // Goals table
                 self.goalsLabel = GeneralViewModel.nls("admin.indicators.form.sections.goals.table.goals");
                 self.goalObservableArray = ko.observableArray([]);
-                self.goalDataSource = ko.observable(new oj.ArrayTableDataSource(self.goalObservableArray, {idAttribute: 'id'}));
+                self.goalDataSource = new oj.ArrayTableDataSource(self.goalObservableArray(), {idAttribute: 'id'});
 
                 // Row template for Goals' table
                 self.getGoalRowTemplate = function (data, context) {
@@ -1118,7 +1125,7 @@ define(
                 // Progress table
                 self.progressLabel = GeneralViewModel.nls("admin.indicators.form.sections.goals.table.progress");
                 self.progressObservableArray = ko.observableArray([]);
-                self.progressDataSource = ko.observable(new oj.ArrayTableDataSource(self.progressObservableArray, {idAttribute: 'id'}));
+                self.progressDataSource = new oj.ArrayTableDataSource(self.progressObservableArray(), {idAttribute: 'id'});
 
                 // Row template for Progress' table
                 self.getProgressRowTemplate = function (data, context) {
@@ -1195,10 +1202,10 @@ define(
                     // Pick table
                     if (table === 'Goals') {
                         self.goalObservableArray.push(row);
-                        self.goalDataSource(new oj.ArrayTableDataSource(self.goalObservableArray(), {idAttribute: 'id'}));
+                        self.goalDataSource.add(row);
                     } else if (table === 'Progress') {
                         self.progressObservableArray.push(row);
-                        self.progressDataSource(new oj.ArrayTableDataSource(self.progressObservableArray, {idAttribute: 'id'}));
+                        self.progressDataSource.add(row);
                     }
                     // Update chart values
                     self.updateChart();
@@ -1217,11 +1224,13 @@ define(
                         self.goalObservableArray.remove(function (item) {
                             return item.id === row.id && item.value === row.value && item.date === row.date;
                         });
+                        self.goalDataSource.remove({id: row.id, date: row.date, value: row.value});
                     } else if (table === 'Progress') {
                         // Remove from Progress table
                         self.progressObservableArray.remove(function (item) {
                             return item.id === row.id && item.value === row.value && item.date === row.date;
                         });
+                        self.progressDataSource.remove({id: row.id, date: row.date, value: row.value});
                     }
 
                     // Update chart values
