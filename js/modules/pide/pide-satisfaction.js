@@ -53,19 +53,30 @@ define(
                                             let latestGoal = goals[0];
                                             let latestProgress = progresses[0];
                                             
+                                            let firstGoal = goals[0];
+                                            let firstProgress = progresses[0];
+                                            
                                             goals.forEach(
                                               g => {
-                                                  if (latestGoal.date.time < g.date.time) {
-                                                      latestGoal = g;
-                                                  }
+                                                if (latestGoal.date.time < g.date.time) {
+                                                    latestGoal = g;
+                                                }
+                                                  
+                                                if (firstGoal.date.time > g.date.time) {
+                                                    firstGoal = g;
+                                                }
                                               }
                                             );
                                     
                                             progresses.forEach(
                                               p => {
-                                                  if (latestProgress.date.time < p.date.time) {
-                                                      latestProgress = p;
-                                                  }
+                                                if (latestProgress.date.time < p.date.time) {
+                                                    latestProgress = p;
+                                                }
+                                                
+                                                if (firstProgress.date.time > p.date.time) {
+                                                    firstProgress = p;
+                                                }
                                               }
                                             );
                                     
@@ -79,7 +90,9 @@ define(
                                                     strategicMap[i.strategicItem],
                                                     null,
                                                     i.responsible,
-                                                    i.grades
+                                                    i.grades,
+                                                    i.direction,
+                                                    firstProgress.data
                                             );
                                     
                                             strategicMap[i.strategicItem].getChildren().push(indicator);
