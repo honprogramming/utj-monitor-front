@@ -606,7 +606,9 @@
                 },
                 "pide": {
                     "label": "PIDE",
-                    "switchButtonAriaLabel": "Cambia entre cumplimiento e indicadores"
+                    "switchButtonAriaLabel": "Cambia entre cumplimiento e indicadores",
+                    "POSITIVE": "Positivo",
+                    "NEGATIVE": "Negativo"
                 },
                 "mecasut": {
                     "label": "MECASUT"

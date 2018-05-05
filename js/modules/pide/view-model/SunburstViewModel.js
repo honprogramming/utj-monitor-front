@@ -15,7 +15,7 @@ define(
                 var privateData = {
                     controlPanelModel: controlPanelModel,
                     planElementsMap: undefined,
-                    selectedPlanElementId: undefined
+                    selectedPlanElementId: undefined                    
                 };
 
                 privateData.planElementsMap =
@@ -40,12 +40,21 @@ define(
                     }
                 };
             }
-
+            
             SunburstViewModel.prototype = Object.create(GeneralViewModel);
             var prototype = SunburstViewModel.prototype;
-
+            
+            SunburstViewModel.directions = {
+                POSITIVE: GeneralViewModel.nls("pide.POSITIVE"),
+                NEGATIVE: GeneralViewModel.nls("pide.NEGATIVE")
+            };
+            
             prototype.getControlPanelModel = function () {
                 return this.SunburstViewModel_(theKey).controlPanelModel;
+            };
+            
+            prototype.getDirections = function () {
+                return this.SunburstViewModel_(theKey).directions;
             };
 
             prototype.addClickListener = function (listener) {
@@ -152,8 +161,8 @@ define(
                 var shortDesc = "&lt;b&gt;" + planElement.getName() + "&lt;/b&gt;";
 
                 if (planElement instanceof PlanElementMeasurable) {
-                    var goalPlusAchieve = "&lt;br/&gt;" + "Meta: " + planElement.getGoal() +
-                            "&lt;br/&gt;" + "Avance: " + planElement.getAchieve();
+                    const goalPlusAchieve = "&lt;br/&gt;" + "Meta: " + planElement.getGoal() +
+                            "&lt;br/&gt;" + "Avance: " + planElement.getAchieve();                            
                     shortDesc += goalPlusAchieve;
                 }
 
@@ -168,6 +177,10 @@ define(
                 var progressDesc = "&lt;br/&gt;Progreso: " + progress + "%";
 
                 shortDesc += progressDesc;
+                
+                if (planElement instanceof PlanElementMeasurable) {
+                    shortDesc += "&lt;br/&gt;" + "Sentido: " + SunburstViewModel.directions[planElement.getDirection()];
+                }
                 
                 var responsiblesDesc;
                 var responsibles = planElement.getResponsibles();
