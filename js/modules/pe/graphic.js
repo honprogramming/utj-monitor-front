@@ -35,9 +35,9 @@
                     groups: [],
                     yaxes: [],
                     model: params.model,
-                    modelPE: params.modelPE,
+//                    modelPE: params.modelPE,
                     ids: params.ids,
-                    idsPE: params.idsPE,
+//                    idsPE: params.idsPE,
                     graphicType: self.graphicType.BAR
                 };
                 
@@ -201,7 +201,7 @@
                 };
                 
                 getGraphic.call(params, self);
-                self.refreshLegendsPE();
+//                self.refreshLegendsPE();
                 self.refreshSeriesByDate();
             }
             
@@ -261,9 +261,9 @@
             };
             
             prototype.refreshLegendsPE = function() {
-                var self = this;
+//                var self = this;
                 var idsPE = this.getIds(true);
-                var modelPE = this.getModel(true);
+//                var modelPE = this.getModel(true);
                 var legendItems = [];
                 var colorHandler = this.getColorHandler(theKey);
                 
@@ -328,7 +328,7 @@
             };
             
             prototype.createSerieByPIDE = function(id) {
-                this.getIds(true).forEach(
+                this.getIds().forEach(
                         function(idPE) {
                             this.createSerie(id, idPE);
                         },
@@ -552,9 +552,9 @@
                 var seriesValues = this.filterSeriesByOptions(theKey, this.graphicOptions());
                 this.refreshSeries(seriesValues);
                 
-                if (isPE) {
-                    this.refreshLegendsPE();
-                }
+//                if (isPE) {
+//                    this.refreshLegendsPE();
+//                }
             };
             
             prototype.removeIndicator = function(id, isPE) {
@@ -566,16 +566,16 @@
                 this.removeId(theKey, id, isPE);
                 this.refreshAxes();
                 
-                if (isPE) {
-                    this.refreshLegendsPE();
-                    
-                    if (series.length === 0) {
-                        this.createSeriesByPE('todos'); //all
-                        this.refreshAxes();
-                        var seriesValues = this.filterSeriesByOptions(theKey, this.graphicOptions());
-                        this.refreshSeries(seriesValues);
-                    }
-                }
+//                if (isPE) {
+//                    this.refreshLegendsPE();
+//                    
+//                    if (series.length === 0) {
+//                        this.createSeriesByPE('todos'); //all
+//                        this.refreshAxes();
+//                        var seriesValues = this.filterSeriesByOptions(theKey, this.graphicOptions());
+//                        this.refreshSeries(seriesValues);
+//                    }
+//                }
             };
             
             prototype.removeYearlyAndMonthlySeries = function(key, id, isPE) {

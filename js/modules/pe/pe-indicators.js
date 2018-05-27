@@ -4,6 +4,7 @@ define(
             'ojs/ojcore',
             'knockout',
             'view-models/GeneralViewModel',
+            'data/RESTConfig',
             'ojs/ojbutton',
             'hammerjs',
             'ojs/ojjquery-hammer',
@@ -17,7 +18,7 @@ define(
             'ojs/ojmoduleanimations',
             'ojs/ojpopup'
         ],
-        function ($, oj, ko, GeneralViewModel) {
+        function ($, oj, ko, GeneralViewModel, RESTConfig) {
             var theKey = {};
             
             function PEIndicatorsViewModel() {
@@ -27,8 +28,8 @@ define(
                 var right = "right";
                 var model = [];
                 var modelTree = {};
-                var modelPE = [];
-                var modelTreePE = {};
+//                var modelPE = [];
+//                var modelTreePE = {};
                 var currentEditingGraphic;
                 
                 var privateData = {
@@ -207,7 +208,7 @@ define(
                     if (!self.editing()) {
                         self.graphics.push(
                                 {
-                                    name: "pe/graphic",
+                                    name: "pide/graphic",
                                     animation: oj.ModuleAnimations["coverStart"],
                                     params: {
                                         idPrefix: "pe-graphic-",
@@ -245,7 +246,7 @@ define(
                                         startEditing: function(currentGraphic) {
                                             if (!currentEditingGraphic) {
                                                 self.setSelectedNodesBackup(theKey, self.getSelectedNodes(theKey));
-                                                self.setSelectedNodesBackup(theKey, self.getSelectedNodes(theKey, true), true);
+//                                                self.setSelectedNodesBackup(theKey, self.getSelectedNodes(theKey, true), true);
                                             }
 
                                             currentEditingGraphic = currentGraphic;
@@ -261,9 +262,9 @@ define(
                                             );
 
                                             self.resetSelection();
-                                            self.resetSelection(true);
+//                                            self.resetSelection(true);
                                             self.selectNodesById(currentGraphic.getIds());
-                                            self.selectNodesById(currentGraphic.getIds(true), true);
+//                                            self.selectNodesById(currentGraphic.getIds(true), true);
                                             self.editing(true);
                                         },
                                         stopEditing: function() {
@@ -274,9 +275,9 @@ define(
                                                 self.selectNodesById(Object.keys(self.getSelectedNodesBackup(theKey)));
                                             }
                                             
-                                            if (self.getSelectedNodesBackup(theKey, true)) {
-                                                self.selectNodesById(Object.keys(self.getSelectedNodesBackup(theKey, true), true));
-                                            }
+//                                            if (self.getSelectedNodesBackup(theKey, true)) {
+//                                                self.selectNodesById(Object.keys(self.getSelectedNodesBackup(theKey, true), true));
+//                                            }
 
                                             currentEditingGraphic = undefined;
                                             self.editing(false);
@@ -286,15 +287,15 @@ define(
                                         },
                                         graphic: undefined,
                                         model: modelTree,
-                                        modelPE: modelTreePE,
+//                                        modelPE: modelTreePE,
                                         ids: Object.keys(self.getSelectedNodes(theKey)),
-                                        idsPE: Object.keys(self.getSelectedNodes(theKey, true))
+//                                        idsPE: Object.keys(self.getSelectedNodes(theKey, true))
                                     }
                                 }
                         );
             
                         self.resetSelection();
-                        self.resetSelection(true);
+//                        self.resetSelection(true);
                     }
                 };
 
@@ -371,64 +372,64 @@ define(
                     }
                 };
                 
-                self.clickHandlerPE = function (event, ui) {
-                    var option = ui.option;
-
-                    if (option === "selection") {
-                        var node = ui.value[0];
-                        
-                        if (self.getSelectingNode(true)) {
-                            self.setSelectingNode(false, true);
-                            return;
-                        }
-                        
-                        self.setSelectingNode(true, true);
-
-                        if (node && node.type) {
-                            self.nodesPE([]);
-                            var isSelected = node.type.includes("selected");
-                            var type = "indicator";
-
-                            if (!isSelected) {
-                                type += "-selected";
-                            }
-
-                            node.type = type;
-
-                            var targetClass = " fa-";
-
-                            if (!isSelected) {
-                                targetClass += "check-";
-
-                                self.addSelectedNode(theKey, node.id,
-                                        {
-                                            id: node.id,
-                                            "unit-type": node["unit-type"]
-                                        },
-                                        true
-                                );
-
-                                if (currentEditingGraphic) {
-                                    currentEditingGraphic.addIndicator(node.id, true);
-                                }
-//                                    $("#unit-type-error-pop-up").ojPopup("open", "#" + node.id, position);
-                            } else {
-                                self.removeSelectedNode(theKey, node, true);
-                                if (currentEditingGraphic) {
-                                    currentEditingGraphic.removeIndicator(node.id, true);
-                                }
-                            }
-                            
-                            targetClass += "square-o";
-
-                            var regExp = /fa-\S*square-o/;
-
-                            if (node.className.match(regExp)) {
-                                node.className = node.className.replace(regExp, targetClass);
-                            }
-                        }
-                    }
-                };
+//                self.clickHandlerPE = function (event, ui) {
+//                    var option = ui.option;
+//
+//                    if (option === "selection") {
+//                        var node = ui.value[0];
+//                        
+//                        if (self.getSelectingNode(true)) {
+//                            self.setSelectingNode(false, true);
+//                            return;
+//                        }
+//                        
+//                        self.setSelectingNode(true, true);
+//
+//                        if (node && node.type) {
+//                            self.nodesPE([]);
+//                            var isSelected = node.type.includes("selected");
+//                            var type = "indicator";
+//
+//                            if (!isSelected) {
+//                                type += "-selected";
+//                            }
+//
+//                            node.type = type;
+//
+//                            var targetClass = " fa-";
+//
+//                            if (!isSelected) {
+//                                targetClass += "check-";
+//
+//                                self.addSelectedNode(theKey, node.id,
+//                                        {
+//                                            id: node.id,
+//                                            "unit-type": node["unit-type"]
+//                                        },
+//                                        true
+//                                );
+//
+//                                if (currentEditingGraphic) {
+//                                    currentEditingGraphic.addIndicator(node.id, true);
+//                                }
+////                                    $("#unit-type-error-pop-up").ojPopup("open", "#" + node.id, position);
+//                            } else {
+//                                self.removeSelectedNode(theKey, node, true);
+//                                if (currentEditingGraphic) {
+//                                    currentEditingGraphic.removeIndicator(node.id, true);
+//                                }
+//                            }
+//                            
+//                            targetClass += "square-o";
+//
+//                            var regExp = /fa-\S*square-o/;
+//
+//                            if (node.className.match(regExp)) {
+//                                node.className = node.className.replace(regExp, targetClass);
+//                            }
+//                        }
+//                    }
+//                };
                 
                 self.loadHandler = function (event, ui) {
                     var tree = $("#tree");
@@ -452,30 +453,31 @@ define(
                     }
                 };
                 
-                self.loadHandlerPE = function (event, ui) {
-                    var tree = $("#treePE");
-                    var root = tree[0];
-                    var nodesArray = [];
-
-                    root.childNodes.forEach(addNode);
-
-                    while (nodesArray.length > 0) {
-                        var node = nodesArray.shift();
-                        node.childNodes.forEach(addNode);
-
-                        if (node.type && node.type.includes("indicator")) {
-                            node.className += " fa fa-square-o";
-                            node.style.display = "block";
-                        }
-                    }
-
-                    function addNode(node) {
-                        nodesArray.push(node);
-                    }
-                };
+//                self.loadHandlerPE = function (event, ui) {
+//                    var tree = $("#treePE");
+//                    var root = tree[0];
+//                    var nodesArray = [];
+//
+//                    root.childNodes.forEach(addNode);
+//
+//                    while (nodesArray.length > 0) {
+//                        var node = nodesArray.shift();
+//                        node.childNodes.forEach(addNode);
+//
+//                        if (node.type && node.type.includes("indicator")) {
+//                            node.className += " fa fa-square-o";
+//                            node.style.display = "block";
+//                        }
+//                    }
+//
+//                    function addNode(node) {
+//                        nodesArray.push(node);
+//                    }
+//                };
                 
                 self.getJson = function (node, fn) {
-                    $.getJSON("data/pide-indicators.json").then(
+//                    $.getJSON("data/pide-indicators.json").then(
+                    $.getJSON(RESTConfig.indicators.pe.tree.path).then(
                             function (data) {
                                 model = data;
                                 fn(model);  // pass to ojTree using supplied function
@@ -495,26 +497,26 @@ define(
                     );
                 };
                 
-                self.getJsonPE = function (node, fn) {
-                    $.getJSON("data/pe-indicators.json").then(
-                            function (data) {
-                                modelPE = data;
-                                fn(modelPE);  // pass to ojTree using supplied function
-
-                                var itemsArray = modelPE.slice(0);
-
-                                while (itemsArray.length > 0) {
-                                    var element = itemsArray.shift();
-                                    
-                                    if (element.children) {
-                                        itemsArray = itemsArray.concat(element.children);
-                                    }
-
-                                    modelTreePE[element.attr.id] = element;
-                                }
-                            }
-                    );
-                };
+//                self.getJsonPE = function (node, fn) {
+//                    $.getJSON("data/pe-indicators.json").then(
+//                            function (data) {
+//                                modelPE = data;
+//                                fn(modelPE);  // pass to ojTree using supplied function
+//
+//                                var itemsArray = modelPE.slice(0);
+//
+//                                while (itemsArray.length > 0) {
+//                                    var element = itemsArray.shift();
+//                                    
+//                                    if (element.children) {
+//                                        itemsArray = itemsArray.concat(element.children);
+//                                    }
+//
+//                                    modelTreePE[element.attr.id] = element;
+//                                }
+//                            }
+//                    );
+//                };
 
                 self.getTypes = function () {
                     return {
@@ -539,20 +541,20 @@ define(
             
             prototype.setSelectingNode = function(key, selectingNode, isPE) {
                 if (theKey === key) {
-                    if (isPE) {
-                        this.PEIndicatorsViewModel_(key).selectingNodePE = selectingNode;
-                    } else {
+//                    if (isPE) {
+//                        this.PEIndicatorsViewModel_(key).selectingNodePE = selectingNode;
+//                    } else {
                         this.PEIndicatorsViewModel_(key).selectingNode = selectingNode;
-                    }
+//                    }
                 }
             };
             
             prototype.getSelectingNode = function(isPE) {
-                if (isPE) {
-                    return this.PEIndicatorsViewModel_(theKey).selectingNodePE;
-                } else {
+//                if (isPE) {
+//                    return this.PEIndicatorsViewModel_(theKey).selectingNodePE;
+//                } else {
                     return this.PEIndicatorsViewModel_(theKey).selectingNode;
-                }
+//                }
             };
             
             prototype.setHoverNode = function(key, hoverNode) {
@@ -607,41 +609,41 @@ define(
             
             prototype.setSelectedNodes = function(key, selectedNodes, isPE) {
                 if (theKey === key) {
-                    if (isPE) {
-                        this.PEIndicatorsViewModel_(key).selectedNodesPE = selectedNodes;
-                    } else {
+//                    if (isPE) {
+//                        this.PEIndicatorsViewModel_(key).selectedNodesPE = selectedNodes;
+//                    } else {
                         this.PEIndicatorsViewModel_(key).selectedNodes = selectedNodes;
-                    }
+//                    }
                 }
             };
             
             prototype.getSelectedNodes = function(key, isPE) {
                 if (theKey === key) {
-                    if (isPE) {
-                        return this.PEIndicatorsViewModel_(key).selectedNodesPE;
-                    } else {
+//                    if (isPE) {
+//                        return this.PEIndicatorsViewModel_(key).selectedNodesPE;
+//                    } else {
                         return this.PEIndicatorsViewModel_(key).selectedNodes;
-                    }
+//                    }
                 }
             };
             
             prototype.setSelectedNodesBackup = function(key, selectedNodesBackup, isPE) {
                 if (theKey === key) {
-                    if (isPE) {
-                        this.PEIndicatorsViewModel_(key).selectedNodesBackupPE = selectedNodesBackup;
-                    } else {
+//                    if (isPE) {
+//                        this.PEIndicatorsViewModel_(key).selectedNodesBackupPE = selectedNodesBackup;
+//                    } else {
                         this.PEIndicatorsViewModel_(key).selectedNodesBackup = selectedNodesBackup;
-                    }
+//                    }
                 }
             };
             
             prototype.getSelectedNodesBackup = function(key, isPE) {
                 if (theKey === key) {
-                    if (isPE) {
-                        return this.PEIndicatorsViewModel_(key).selectedNodesBackupPE;
-                    } else {
+//                    if (isPE) {
+//                        return this.PEIndicatorsViewModel_(key).selectedNodesBackupPE;
+//                    } else {
                         return this.PEIndicatorsViewModel_(key).selectedNodesBackup;
-                    }
+//                    }
                 }
             };
             

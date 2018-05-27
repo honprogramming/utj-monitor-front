@@ -71,6 +71,16 @@ define(
                         tree: {
                             endPath: '/tree'
                         }
+                    },
+                    pe: {
+                        subPath: '/pe',
+                        
+                        active: {
+                            endPath: 'active'
+                        },
+                        tree: {
+                            endPath: '/tree'
+                        }
                     }
                 }
             };
