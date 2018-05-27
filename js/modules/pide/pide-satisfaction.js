@@ -95,9 +95,11 @@ define(
                                                     firstProgress.data
                                             );
                                     
-                                            strategicMap[i.strategicItem].getChildren().push(indicator);
-                                            strategicArray.push(indicator);
-                                            strategicMap[`i_${i.id}`] = indicator;
+                                            if (strategicMap[i.strategicItem]) {
+                                                strategicMap[i.strategicItem].getChildren().push(indicator);
+                                                strategicArray.push(indicator);
+                                                strategicMap[`i_${i.id}`] = indicator;
+                                            }
                                         }
                                     );
                             

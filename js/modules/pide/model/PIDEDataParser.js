@@ -13,10 +13,11 @@ define(
         [
             'modules/pide/model/PlanElement',
             'modules/pide/model/PlanElementCalculated',
-            'modules/pide/model/PlanElementMeasurable',
-            'modules/pide/model/PlanElementTypes'
+            'modules/pide/model/PlanElementTypes',
+            'modules/admin/strategic/model/StrategicTypes'
         ],
-        function (PlanElement, PlanElementCalculated, PlanElementMeasurable, PlanElementTypes) {
+        function (PlanElement, PlanElementCalculated,
+                PlanElementTypes, StrategicTypes) {
             var PIDEDataParser = {
                 /**
                  * Parses the data from JSON format into an Array of
@@ -28,7 +29,20 @@ define(
                  * and PlanElementMeasurable objects.
                  */
                 parse: function (data) {
-                    var visionObject = data[0];
+                    function getVision(data) {
+                        const isVision = item => item.strategicType.name === StrategicTypes.VISION.name;
+                        if (Array.isArray(data)) {
+                            return data.filter(isVision)[0];
+                        } else {
+                            if (isVision(data)) {
+                                return data;
+                            } else {
+                                throw 'Vision element not found, cannot parse';
+                            }
+                        }
+                    }
+                    
+                    var visionObject = getVision(data);
                     var planElements = [];
                     var visionElement = new PlanElementCalculated(
                             visionObject['id'],
