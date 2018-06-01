@@ -449,7 +449,7 @@
                 var series = this.getSeries();
                 series = series.filter(
                     function(serie) {
-                        return serie.id !== id;
+                        return serie.id != id;
                     }
                 );
         
@@ -457,7 +457,7 @@
                 
                 this.seriesValues.remove(
                     function(serie) {
-                        return serie.id === id;
+                        return serie.id == id;
                     }
                 );
         
