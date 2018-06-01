@@ -377,9 +377,10 @@ define(
                 };
                 
                 self.getJson = function (node, fn) {
-//                    $.getJSON("data/pide-indicators.json").then(
+//                    $.getJSON("data/pide-tree.json").then(
                     $.getJSON(RESTConfig.indicators.pide.tree.path).then(
                             function (data) {
+                                data.forEach(e => e.attr.id += 'si');
                                 model = data;
                                 fn(model);  // pass to ojTree using supplied function
 
@@ -391,7 +392,7 @@ define(
                                     if (element.children) {
                                         itemsArray = itemsArray.concat(element.children);
                                     }
-
+                                    
                                     modelTree[element.attr.id] = element;
                                 }
                             }
