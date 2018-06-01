@@ -38,7 +38,8 @@ define(
                         () => {
                             const controlPanelModel = new PIDEModel(controlPanelDataProvider);
                             
-                            const indicatorsPromise = AjaxUtils.ajax(RESTConfig.indicators.pide.active.path);
+//                            const indicatorsPromise = AjaxUtils.ajax(RESTConfig.indicators.pide.active.path);
+                            const indicatorsPromise = AjaxUtils.ajax("data/sunburst-utj.json");
                             
                             indicatorsPromise.then(
                                 indicators => {
