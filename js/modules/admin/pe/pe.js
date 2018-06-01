@@ -284,13 +284,13 @@ define(
                     peTable.addEditListener(updateEditedItem);
                 };
                 
-                typesPromise.then(() => updateTypesTable(peTypesDataProvider));
-                
-                pePromise.then(() => updatePETable(peDataProvider));
-        
                 Promise.all([typesPromise, pePromise])
                     .then(
-                        () => ko.computed(() => peTable.setNewEnabled(peTypesTable.currentRow()))
+                        () => {
+                            updateTypesTable(peTypesDataProvider);
+                            updatePETable(peDataProvider);
+                            ko.computed(() => peTable.setNewEnabled(peTypesTable.currentRow()));
+                        }
                     );
             }
 
