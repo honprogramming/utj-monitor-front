@@ -168,7 +168,7 @@ define(
                         
                         function cloneItem(itemId, newId) {
                             let item = indicatorsModel.getItemById(itemId);
-                            let indicator = new SummaryIndicator(newId, "clone_" + item.name, item.type);
+                            let indicator = new SummaryIndicator(newId, item.type, "clone_" + item.name);
                             
                             indicator.setCloneOf(item.getCloneOf() ? item.getCloneOf() : itemId);
                             indicatorsModel.addItem(indicator);
