@@ -88,14 +88,23 @@ define(['modules/pide/model/PlanElementCalculated'],
                 const direction = this.getDirection();
                 const achieve = this.getAchieve();
                 const goal = this.getGoal();
+                let progress = 0;
                 
                 if (!direction || direction === 'POSITIVE') {
-                    return achieve / goal;
-                } else {
+                    progress = achieve / goal;
+                } else { //NEGATIVE
                     const firstAchieve = this.getFirstAchieve();
+                    const achieveDelta = firstAchieve - achieve;
+                    const goalDelta = firstAchieve - goal;
                     
-                    return (firstAchieve - achieve) / (firstAchieve - goal);
+                    if (goalDelta <= 0) {
+                        progress = 1;
+                    } else {
+                        progress = achieveDelta / goalDelta;
+                    }
                 }
+                
+                return progress < 0 ? 0 : progress > 1 ? 1 : progress;
             };
             
             return PlanElementMeasurable;
