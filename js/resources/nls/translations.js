@@ -720,9 +720,13 @@
                 },
                 "graphics": {
                     "unit-types": {
-                        "percentage": "Porcentaje",
                         "number": "Número",
-                        "rate": "Tasa"
+                        "percentage": "Porcentaje",
+                        "rate": "Tasa",
+                        "ordinal": "Ordinal",
+                        "average": "Promedio",
+                        "currency": "Moneda",
+                        "time": "Tiempo"
                     }
                 }
             }

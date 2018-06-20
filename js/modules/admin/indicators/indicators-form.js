@@ -704,18 +704,16 @@ define(
 
                 // Unit of measurement field
                 self.measureUnitLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.measure.label");
-                self.measureUnitOptions = ko.observableArray(
-                        [
-                            {value: '1', label: 'Numérico'},
-                            {value: '2', label: 'Porcentaje'},
-                            {value: '3', label: 'Ordinal'},
-                            {value: '4', label: 'Promedio'},
-                            {value: '5', label: 'Moneda'},
-                            {value: '6', label: 'Tiempo'}
-                        ]
-                        );
-
-                self.measureUnitValue = ko.observable('1');
+                //TO-DO: Change this for an ajax call to bring the types and then translate them.
+                $.getJSON(RESTConfig.catalogs.unitTypes.path).then(
+                    (types) => {
+                        self.measureUnitOptions(types.map(t => ({value: t.id, label: GeneralViewModel.nls("graphics.unit-types." + t.name)})));
+                        self.measureUnitValue(1);
+                    }
+                );
+        
+                self.measureUnitOptions = ko.observableArray();
+                self.measureUnitValue = ko.observable();
 
                 // Base year field
                 self.baseYearLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.baseYear.label");

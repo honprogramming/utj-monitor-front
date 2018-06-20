@@ -20,19 +20,20 @@
 define(['ojs/ojcore', 'ojs/ojvalidation'],
         function (oj) {
 //Code to create a converter.
-            var numberConverterFactory = oj.Validation.converterFactory("number");
-            var dateTimeConverterFactory = oj.Validation.converterFactory("datetime");
-            var dateTimeOptions = {formatType: 'datetime', pattern: 'MMM d, y, h:mm a'};
-            var dateOptions = {formatType: 'datetime', pattern: 'dd/MM/yy'};
-            var monthOptions = {formatType: 'datetime', pattern: 'MMM y'};
-            var yearOptions = {formatType: 'datetime', pattern: 'y'};
-            var decimalOptions = {style: 'decimal', decimalFormat: 'short'};
-            var percentOptions = {style: 'percent'};
-            var yearDecimalOptions = {style: 'decimal', useGrouping: false};
-//    var percentOneFractionDigitOptions = {style: 'percent', maximumFractionDigits: 1};
-//    var integerOptions = {style: 'decimal', maximumFractionDigits: 0, useGrouping: true};
+            const numberConverterFactory = oj.Validation.converterFactory("number");
+            const dateTimeConverterFactory = oj.Validation.converterFactory("datetime");
+            const dateTimeOptions = {formatType: 'datetime', pattern: 'MMM d, y, h:mm a'};
+            const dateOptions = {formatType: 'datetime', pattern: 'dd/MM/yy'};
+            const monthOptions = {formatType: 'datetime', pattern: 'MMM y'};
+            const yearOptions = {formatType: 'datetime', pattern: 'y'};
+            const decimalOptions = {style: 'decimal', decimalFormat: 'short'};
+            const percentOptions = {style: 'percent'};
+            const yearDecimalOptions = {style: 'decimal', useGrouping: false};
+            const integerOptions = {style: 'decimal', maximumFractionDigits: 0, useGrouping: true};
+            const currencyOptions = {style: 'currency', currency: 'MEX'};
+//    const percentOneFractionDigitOptions = {style: 'percent', maximumFractionDigits: 1};
 
-            var GeneralViewModel = {
+            const GeneralViewModel = {
                 converters: {
                     dateTime: dateTimeConverterFactory.createConverter(dateTimeOptions),
                     date: dateTimeConverterFactory.createConverter(dateOptions),
@@ -40,9 +41,10 @@ define(['ojs/ojcore', 'ojs/ojvalidation'],
                     month: dateTimeConverterFactory.createConverter(monthOptions),
                     decimal: numberConverterFactory.createConverter(decimalOptions),
                     percent: numberConverterFactory.createConverter(percentOptions),
-                    yearDecimal: numberConverterFactory.createConverter(yearDecimalOptions)
+                    yearDecimal: numberConverterFactory.createConverter(yearDecimalOptions),
+                    integer: numberConverterFactory.createConverter(integerOptions),
+                    currency: numberConverterFactory.createConverter(currencyOptions)
 //            percent_1: numberConverterFactory.createConverter(percentOneFractionDigitOptions),
-//            integer: numberConverterFactory.createConverter(integerOptions)
                 },
                 listeners: [],
                 /**

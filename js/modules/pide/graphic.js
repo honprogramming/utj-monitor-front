@@ -224,9 +224,13 @@
             };
             
             prototype.convertersMap = {
-                percentage: GeneralViewModel.converters.percent,
                 number: GeneralViewModel.converters.decimal,
-                rate: GeneralViewModel.converters.percent
+                percentage: GeneralViewModel.converters.percent,
+                rate: GeneralViewModel.converters.percent,
+                ordinal: GeneralViewModel.converters.integer,
+                average: GeneralViewModel.converters.percent,
+                currency: GeneralViewModel.converters.currency,
+                time: GeneralViewModel.converters.decimal
             };
             
             prototype.xAxisFormats = {
@@ -236,7 +240,7 @@
             
             prototype.getConverterByUnitType = function(key, unitType) {
                 if (theKey === key) {
-                    return this.convertersMap[unitType];
+                    return this.convertersMap[unitType.toLowerCase()];
                 }
             };
             

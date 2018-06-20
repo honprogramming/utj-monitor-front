@@ -49,6 +49,13 @@ define(
                         }
                     }
                 },
+                catalogs: {
+                    subPath: '/catalogs',
+                    
+                    unitTypes: {
+                        endPath: '/unitTypes'
+                    }
+                },
                 indicators: {
                     subPath: '/indicators',
                     
