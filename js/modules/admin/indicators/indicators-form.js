@@ -705,9 +705,27 @@ define(
                 // Unit of measurement field
                 self.measureUnitLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.measure.label");
                 //TO-DO: Change this for an ajax call to bring the types and then translate them.
-                $.getJSON(RESTConfig.catalogs.unitTypes.path).then(
-                    (types) => {
+                $.getJSON(RESTConfig.catalogs.unitTypes.path + '/jaja').then(
+                    (types) => {                        
                         self.measureUnitOptions(types.map(t => ({value: t.id, label: GeneralViewModel.nls("graphics.unit-types." + t.name)})));
+                    }
+                )
+                .fail(
+                    () => {
+                        self.measureUnitOptions(
+                            [
+                                {value: 1, label: 'Numérico'},
+                                {value: 2, label: 'Porcentaje'},
+                                {value: 3, label: 'Ordinal'},
+                                {value: 4, label: 'Promedio'},
+                                {value: 5, label: 'Moneda'},
+                                {value: 6, label: 'Tiempo'}
+                            ]
+                        );
+                    }
+                )
+                .always(
+                    () => {
                         self.measureUnitValue(1);
                     }
                 );
