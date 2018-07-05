@@ -119,7 +119,7 @@ define(
                     indicator.setDescription(self.descriptionValue());
                     indicator.setDirection(self.directionValue()[0]);
                     indicator.setPeriodicity({id: parseInt(self.periodicityValue()[0])});
-                    indicator.setMeasureUnit({type: {id: parseInt(self.measureUnitValue()[0])}});
+                    indicator.setMeasureUnit({type: {id: self.measureUnitValue()[0]}});
                     indicator.setBaseYear(self.baseYearValue());
                     indicator.setResetType({id: parseInt(self.resetValue()[0])});
                     
@@ -276,7 +276,7 @@ define(
                                     if (indicator.indicatorType.id !== 3) {
                                         self.directionValue([indicator.direction]);
                                         self.periodicityValue([String(indicator.periodicity.id)]);
-                                        self.measureUnitValue(String(indicator.measureUnit.type.id));
+                                        self.measureUnitValue(indicator.measureUnit.type.id);
                                         self.baseYearValue(indicator.baseYear);
                                         self.resetValue(String(indicator.resetType.id));
 
@@ -594,7 +594,7 @@ define(
                 const setIndicatorFields = indicator => {
                     self.descriptionValue((indicator && indicator.description) ? indicator.description : '');
                     self.directionValue((indicator && indicator.direction) ? String(indicator.direction) : '');
-                    self.measureUnitValue((indicator && indicator.measureUnit) ? String(indicator.measureUnit.type.id) : '');
+                    self.measureUnitValue((indicator && indicator.measureUnit) ? indicator.measureUnit.type.id : '');
                     self.baseYearValue(indicator && indicator.baseYear ? indicator.baseYear : '');
                 };
                 
@@ -705,7 +705,7 @@ define(
                 // Unit of measurement field
                 self.measureUnitLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.measure.label");
                 //TO-DO: Change this for an ajax call to bring the types and then translate them.
-                $.getJSON(RESTConfig.catalogs.unitTypes.path + '/jaja').then(
+                $.getJSON(RESTConfig.catalogs.unitTypes.path).then(
                     (types) => {                        
                         self.measureUnitOptions(types.map(t => ({value: t.id, label: GeneralViewModel.nls("graphics.unit-types." + t.name)})));
                     }
