@@ -703,6 +703,7 @@ define(
                 self.directionValue = ko.observable('POSITIVE');
 
                 // Unit of measurement field
+                self.measureUnitValue = ko.observable();
                 self.measureUnitLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.measure.label");
                 //TO-DO: Change this for an ajax call to bring the types and then translate them.
                 $.getJSON(RESTConfig.catalogs.unitTypes.path).then(
@@ -726,12 +727,11 @@ define(
                 )
                 .always(
                     () => {
-                        self.measureUnitValue(1);
+                        self.measureUnitValue([1]);
                     }
                 );
         
-                self.measureUnitOptions = ko.observableArray();
-                self.measureUnitValue = ko.observable();
+                self.measureUnitOptions = ko.observableArray();                
 
                 // Base year field
                 self.baseYearLabel = GeneralViewModel.nls("admin.indicators.form.sections.general.baseYear.label");
