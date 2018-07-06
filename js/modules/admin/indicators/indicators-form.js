@@ -276,7 +276,7 @@ define(
                                     if (indicator.indicatorType.id !== 3) {
                                         self.directionValue([indicator.direction]);
                                         self.periodicityValue([String(indicator.periodicity.id)]);
-                                        self.measureUnitValue(indicator.measureUnit.type.id);
+                                        self.measureUnitValue([indicator.measureUnit.type.id]);
                                         self.baseYearValue(indicator.baseYear);
                                         self.resetValue(String(indicator.resetType.id));
 
