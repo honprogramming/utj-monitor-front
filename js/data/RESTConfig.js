@@ -1,7 +1,7 @@
 define(
         function () {
             var restConfig = {
-                subPath: '/utj/api2/v21',
+                subPath: '/utj/api2/v2',
 
                 admin: {
                     subPath: '/admin',
