@@ -594,7 +594,7 @@ define(
                 const setIndicatorFields = indicator => {
                     self.descriptionValue((indicator && indicator.description) ? indicator.description : '');
                     self.directionValue((indicator && indicator.direction) ? String(indicator.direction) : '');
-                    self.measureUnitValue((indicator && indicator.measureUnit) ? indicator.measureUnit.type.id : '');
+                    self.measureUnitValue((indicator && indicator.measureUnit) ? [indicator.measureUnit.type.id] : ['']);
                     self.baseYearValue(indicator && indicator.baseYear ? indicator.baseYear : '');
                 };
                 
@@ -708,7 +708,7 @@ define(
                 //TO-DO: Change this for an ajax call to bring the types and then translate them.
                 $.getJSON(RESTConfig.catalogs.unitTypes.path).then(
                     (types) => {                        
-                        self.measureUnitOptions(types.map(t => ({value: t.id, label: GeneralViewModel.nls("graphics.unit-types." + t.name)})));
+                        self.measureUnitOptions(types.map(t => ({value: t.id, label: GeneralViewModel.nls(`graphics.unit-types.${t.name}`)})));
                     }
                 )
                 .fail(
