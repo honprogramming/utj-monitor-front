@@ -2,7 +2,10 @@
         {
             root: {
                 "appTitle": "Tableros UTJ",
-                "header": {},
+                "header": {
+                    "login": "Iniciar sesión",
+                    "logout": "Cerrar sesión"
+                },
                 "home": {
                     "description": "Es una heramienta didáctica para realizar todo tipo de planes como planes de desarrollo, \n\
                             planes de negocio, planes personales, planes profesionales o cualquier tipo de plan que se requiera\n\

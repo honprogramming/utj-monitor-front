@@ -24,15 +24,11 @@ define(
                 self.checked = ko.observable();
                 self.menuItems = Object.values(MenuItems).filter(i => i.id !== 'admin');
                 self.admin = MenuItems['admin'];
-                
+
                 self.clickHandler = function (event, ui) {
                     if (ui.value) {
                         self.onClick(ui.value);
                     }
-                };
-                
-                self.gearClickHandler = function (event, ui) {
-                    self.onClick(self.admin.id);
                 };
 
                 self.addClickListener = function (listener) {
@@ -40,16 +36,12 @@ define(
                 };
 
                 self.onClick = function (value) {
-                    if (value === 'admin') {
-                        self.checked(null);
-                    } else {
-                        self.checked(value);
-                    }
-                    
+                    self.checked(value);
+
                     self.callListeners(EventTypes.CLICK_EVENT, value);
                 };
             }
-
+            
             MenuViewModel.prototype = Object.create(GeneralViewModel);
 
             return new MenuViewModel();

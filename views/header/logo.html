@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!--<div class="appheader-logo">-->
 <div class="oj-flex oj-sm-12">
     <!--<div class="appheader-logo-block oj-flex-item oj-sm-8">-->
@@ -21,5 +16,45 @@ and open the template in the editor.
             <span class="app-title" data-bind="text: $parent.appTitle"></span>
         </div>
     </div>
-    <div class="oj-flex-item oj-sm-3"></div>
+    <div class="oj-flex-item oj-sm-3 oj-sm-align-self-center">
+        <div class="oj-flex oj-sm-justify-content-space-around">
+            <img class="circle" data-bind="attr: {src: $parent.userImage}" width="24px" height="24px"/>
+            <button id="session-menu-button" 
+                        data-bind="css: {'display-none': $parent.hideMenu},
+                                ojComponent: {
+                                    component: 'ojButton',
+
+                                    menu: '#sessionMenu',
+                                    label: $parent.userNickname
+                                }">
+            </button>
+            <i data-bind="
+                click: $parent.sessionHandler, 
+                attr:{title: $parent.altText},
+                css: $parent.signIcon
+               ">
+            </i>
+        </div>
+    </div>
 </div>
+
+<ul style="display:none" id="sessionMenu"
+    data-bind=" ojComponent: {
+                    component: 'ojMenu'
+                }">
+    <li id="sessionMenu-config">
+        <a href="#" class="pointer">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-lg fa-cog fa-stack-1x"
+                   data-bind="click: $parent.userClickHandler" id="option-admin"></i>
+            </span>
+        </a>
+    </li>
+    <li id="sessionMenu-home">
+        <a href="#" class="pointer">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-home fa-stack-1x" data-bind="click: $parent.userClickHandler" id="option-pide"></i>
+            </span>
+        </a>
+    </li>
+</ul>

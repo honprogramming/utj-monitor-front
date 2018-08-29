@@ -215,3 +215,7 @@ html, body {
 .table-div .body-cell-div {
     width: 100%;
 }
+
+.circle {
+    border-radius: 50%;
+}
