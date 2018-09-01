@@ -3,10 +3,6 @@ define(
     function () {
         const Authorization = {
             userProfile: undefined,
-            sessionObservers: [],
-            addObserver: (observer) => {
-                Authorization.sessionObservers.push(observer);
-            },
             webAuth: new auth0.WebAuth(
                     {
                         domain: 'handsonprogramming.auth0.com',
@@ -51,10 +47,6 @@ define(
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('id_token');
                 localStorage.removeItem('expires_at');
-                
-                Authorization.sessionObservers.forEach(
-                    observer => observer('logout')
-                );
             },
             isAuthenticated() {
                 // Check whether the current time is past the

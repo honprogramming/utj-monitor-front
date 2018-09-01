@@ -8,11 +8,10 @@ define(
         [
             'knockout',
             'modules/header/menu/menu',
-            'modules/header/header',
             'view-models/GeneralViewModel',
             'modules/header/menu/view-model/MenuItems'
         ],
-        function (ko, menu, header,GeneralViewModel, MenuItems) {
+        function (ko, menu, GeneralViewModel, MenuItems) {
             var firstMenuId = menu.menuItems[0]["id"];
             
             var mainContentViewModel = {
@@ -24,15 +23,6 @@ define(
             
             menu.checked(firstMenuId);
             menu.addClickListener(selectModule);
-            header.addUserClickListener(
-                value => {
-                    selectModule(value);
-                    
-                    if (value === "admin") {
-                        menu.checked(null);
-                    }
-                }
-            );
             
             mainContentViewModel.prototype = Object.create(GeneralViewModel);
             var prototype = mainContentViewModel.prototype;

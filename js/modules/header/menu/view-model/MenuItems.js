@@ -10,7 +10,8 @@ define(
                     module: {
                         name: "pide/pide",
                         viewName: "pide/pide"
-                    }
+                    },
+                    display: "*"
                 },
                 mecasut: {
                     id: "mecasut",
@@ -18,7 +19,8 @@ define(
                     module: {
                         name: "mecasut/mecasut",
                         viewName: "mecasut/mecasut"
-                    }
+                    },
+                    display: "*"
                 },
                 pe: {
                     id: "pe",
@@ -26,7 +28,8 @@ define(
                     module: {
                         name: "pe/pe",
                         viewName: "pe/pe"
-                    }
+                    },
+                    display: "*"
                 },
 //                poa: {
 //                    id: "poa",
@@ -49,7 +52,8 @@ define(
                     label: "ADMINISTRADOR",
                     module: {
                         name: "admin/admin"
-                    }
+                    },
+                    display: "admin"
                 }
             };
 

@@ -19,15 +19,7 @@
     <div class="oj-flex-item oj-sm-3 oj-sm-align-self-center">
         <div class="oj-flex oj-sm-justify-content-space-around">
             <img class="circle" data-bind="attr: {src: $parent.userImage}" width="24px" height="24px"/>
-            <button id="session-menu-button" 
-                        data-bind="css: {'display-none': $parent.hideMenu},
-                                ojComponent: {
-                                    component: 'ojButton',
-
-                                    menu: '#sessionMenu',
-                                    label: $parent.userNickname
-                                }">
-            </button>
+            <label data-bind="text: $parent.userNickname"></label>
             <i data-bind="
                 click: $parent.sessionHandler, 
                 attr:{title: $parent.altText},
@@ -37,24 +29,3 @@
         </div>
     </div>
 </div>
-
-<ul style="display:none" id="sessionMenu"
-    data-bind=" ojComponent: {
-                    component: 'ojMenu'
-                }">
-    <li id="sessionMenu-config">
-        <a href="#" class="pointer">
-            <span class="fa-stack fa-lg">
-                <i class="fa fa-lg fa-cog fa-stack-1x"
-                   data-bind="click: $parent.userClickHandler" id="option-admin"></i>
-            </span>
-        </a>
-    </li>
-    <li id="sessionMenu-home">
-        <a href="#" class="pointer">
-            <span class="fa-stack fa-lg">
-                <i class="fa fa-home fa-stack-1x" data-bind="click: $parent.userClickHandler" id="option-pide"></i>
-            </span>
-        </a>
-    </li>
-</ul>

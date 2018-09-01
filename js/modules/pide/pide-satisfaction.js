@@ -55,7 +55,6 @@ define(
                                             let latestProgress = progresses[0];
                                             
                                             let firstGoal = goals[0];
-                                            let firstProgress = progresses[0];
                                             
                                             goals.forEach(
                                               g => {
@@ -74,32 +73,29 @@ define(
                                                 if (latestProgress.date.time < p.date.time) {
                                                     latestProgress = p;
                                                 }
-                                                
-                                                if (firstProgress.date.time > p.date.time) {
-                                                    firstProgress = p;
-                                                }
                                               }
                                             );
-                                    
-                                            const indicator = new PlanElementMeasurable(
-                                                    `i_${i.id}`,
-                                                    PlanElementTypes.INDICATOR,
-                                                    i.name,
-                                                    i.name,
-                                                    latestGoal.data,
-                                                    latestProgress.data,
-                                                    strategicMap[i.strategicItem],
-                                                    null,
-                                                    i.responsible,
-                                                    i.grades,
-                                                    i.direction,
-                                                    firstProgress.data
-                                            );
-                                    
-                                            if (strategicMap[i.strategicItem]) {
-                                                strategicMap[i.strategicItem].getChildren().push(indicator);
-                                                strategicArray.push(indicator);
-                                                strategicMap[`i_${i.id}`] = indicator;
+                                            
+                                            if (latestProgress && latestGoal) {
+                                                const indicator = new PlanElementMeasurable(
+                                                        `i_${i.id}`,
+                                                        PlanElementTypes.INDICATOR,
+                                                        i.name,
+                                                        i.name,
+                                                        latestGoal.data,
+                                                        latestProgress.data,
+                                                        strategicMap[i.strategicItem],
+                                                        null,
+                                                        i.responsible,
+                                                        i.grades,
+                                                        i.direction
+                                                );
+
+                                                if (strategicMap[i.strategicItem]) {
+                                                    strategicMap[i.strategicItem].getChildren().push(indicator);
+                                                    strategicArray.push(indicator);
+                                                    strategicMap[`i_${i.id}`] = indicator;
+                                                }
                                             }
                                         }
                                     );

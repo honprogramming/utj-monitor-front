@@ -12,15 +12,14 @@ define(['modules/pide/model/PlanElementCalculated'],
         function(PlanElementCalculated) {
             var theKey = {};
             
-            function PlanElementMeasurable(id, type, label, name, goal, achieve, parent, children, responsibles, grades, direction, firstAchieve) {
+            function PlanElementMeasurable(id, type, label, name, goal, achieve, parent, children, responsibles, grades, direction) {
                 PlanElementCalculated.call(this, id, type, label, name, parent, children, responsibles);
                 
                 var privateData = {
                     goal,
                     achieve,
                     grades,
-                    direction,
-                    firstAchieve
+                    direction
                 };
                 
                 this.PlanElementMeasurable_ = function(key) {
@@ -67,15 +66,6 @@ define(['modules/pide/model/PlanElementCalculated'],
              */
             prototype.getDirection = function() {
                 return this.PlanElementMeasurable_(theKey).direction;
-            };
-            
-            /**
-             * Returns the first achieve for this element.
-             * An indicator may need the firt achieve if the direction is 'NEGATIVE'
-             * @returns {Number} An number with the current first achieve of the element.
-             */
-            prototype.getFirstAchieve = function() {
-                return this.PlanElementMeasurable_(theKey).firstAchieve;
             };
             
             /**

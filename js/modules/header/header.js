@@ -25,7 +25,6 @@ define(
 
             function HeaderViewModel() {
                 var self = this;
-                self.listeners = [];
                 self.homeMenu = new MenuViewModel();
                 self.mobileMenu = new MobileMenuViewModel();
                 self.toolBar = new ToolBarViewModel();
@@ -35,15 +34,15 @@ define(
                 self.userImage = ko.observable();
                 self.userNickname = ko.observable();
                 self.signIcon = ko.observable();
-                self.hideMenu = ko.observable();
-                        
-                const getSessionLabel = () => {
-                    const nlsKey = `header.${Authentication.isAuthenticated() ? "logout" : "login"}`;
+                self.isAuthenticated = ko.observable(Authentication.isAuthenticated());
+                
+                const getSessionLabel = (isAuthenticated) => {
+                    const nlsKey = `header.${isAuthenticated ? "logout" : "login"}`;
                     return GeneralViewModel.nls(nlsKey);
                 };
                 
-                const getUserImage = () => {
-                    if (Authentication.isAuthenticated()) {
+                const getUserImage = (isAuthenticated) => {
+                    if (isAuthenticated) {
                       return Authentication.getProfile()
                         .then(profile => profile.picture)
                         .catch(e => console.log(e));
@@ -52,8 +51,8 @@ define(
                     }
                 };
                 
-                const getUserNickname = () => {
-                    if (Authentication.isAuthenticated()) {
+                const getUserNickname = (isAuthenticated) => {
+                    if (isAuthenticated) {
                         return Authentication.getProfile()
                             .then(profile => profile.nickname)
                             .catch(e => console.log(e));
@@ -62,37 +61,29 @@ define(
                     }
                 };
                 
-                const getSignIcon = () => `fa fa-2x ${Authentication.isAuthenticated() ? "fa-sign-out" : "fa-sign-in"}`;
+                const getSignIcon = (isAuthenticated) => `fa fa-2x ${isAuthenticated ? "fa-sign-out" : "fa-sign-in"}`;
                 
-                const updateUserInfo = () => {
-                    self.altText(getSessionLabel());
-                    getUserImage().then(picture => self.userImage(picture));
-                    getUserNickname().then(nickname => self.userNickname(nickname));
-                    self.signIcon(getSignIcon());
-                    self.hideMenu(!Authentication.isAuthenticated());
-                };
-                
-                Authentication.addObserver(() => updateUserInfo());
+                ko.computed(
+                    () => {
+                        self.altText(getSessionLabel(self.isAuthenticated()));
+                        getUserImage(self.isAuthenticated()).then(picture => self.userImage(picture));
+                        getUserNickname(self.isAuthenticated()).then(nickname => self.userNickname(nickname));
+                        self.signIcon(getSignIcon(self.isAuthenticated()));
+                    }
+                );
                 
                 self.sessionHandler = () => {
                     if (Authentication.isAuthenticated()) {
                         Authentication.logout();
+                        self.isAuthenticated(false);
                     } else {
                         Authentication.authorize();
                     }
                 };
                 
-                self.addUserClickListener = listener => self.listeners.push(listener);
-                
-                self.userClickHandler = (event, data) => {
-                    self.listeners.forEach(listener => listener(data.target.id.replace("option-", "")));
-                };
-                
                 Authentication.handleAuthentication()
-                    .then(() => updateUserInfo())
+                    .then(() => self.isAuthenticated(Authentication.isAuthenticated()))
                     .catch(e => console.log(e));
-            
-                updateUserInfo();
             }
             
             return new HeaderViewModel();

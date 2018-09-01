@@ -7,9 +7,10 @@
                     checked: checked
                 }">
             <!-- ko foreach: menuItems -->
-            <label data-bind="attr: {for: $data.id}"></label>
+            <label data-bind="attr: {for: $data.id}, visible: $parent.shouldDisplay().includes($data.display) "></label>
             <input type="radio" name="options"
                    data-bind="value: $data.id, attr: {id: $data.id},
+                              visible:  $parent.shouldDisplay,
                               ojComponent: { 
                                   component: 'ojButton',
                                   label: $data.label 

@@ -10,20 +10,23 @@ define(
             'knockout',
             'view-models/GeneralViewModel',
             'events/EventTypes',
+            'modules/header/header',
             'modules/header/menu/view-model/MenuItems',
+            'modules/admin/security/authentication',
             'ojs/ojcore', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton'
         ],
-        function (ko, GeneralViewModel, EventTypes, MenuItems) {
+        function (ko, GeneralViewModel, EventTypes, header, MenuItems) {
             /**
              * The view model for the menu
              */
 
             function MenuViewModel() {
                 var self = this;
+                self.id = "main-menu-button-set";
                 self.listeners = [];
                 self.checked = ko.observable();
-                self.menuItems = Object.values(MenuItems).filter(i => i.id !== 'admin');
-                self.admin = MenuItems['admin'];
+                self.menuItems = Object.values(MenuItems);
+                self.admin = MenuItems['admin'];                
 
                 self.clickHandler = function (event, ui) {
                     if (ui.value) {
@@ -40,6 +43,8 @@ define(
 
                     self.callListeners(EventTypes.CLICK_EVENT, value);
                 };
+                
+                self.shouldDisplay = ko.computed(() => `*,${header.isAuthenticated() ? "admin" : ""}`);
             }
             
             MenuViewModel.prototype = Object.create(GeneralViewModel);
