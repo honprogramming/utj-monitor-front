@@ -61,7 +61,7 @@ define(
                     }
                 };
                 
-                const getSignIcon = (isAuthenticated) => `fa fa-2x ${isAuthenticated ? "fa-sign-out" : "fa-sign-in"}`;
+                const getSignIcon = (isAuthenticated) => `pointer fa fa-2x ${isAuthenticated ? "fa-sign-out" : "fa-sign-in"}`;
                 
                 ko.computed(
                     () => {
