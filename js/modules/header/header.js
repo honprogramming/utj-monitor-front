@@ -47,7 +47,7 @@ define(
                         .then(profile => profile.picture)
                         .catch(e => console.log(e));
                     } else {
-                        return Promise.resolve('/utj-monitor/css/images/avatar_24px.png');
+                        return Promise.resolve('css/images/avatar_24px.png');
                     }
                 };
                 
