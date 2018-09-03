@@ -212,7 +212,8 @@ define(
                             }
                         );
                     }
-                );
+                )
+                .catch(e => console.log(e.message));
         
                 // Reset dialog text
                 self.resetDialogId = "indicators-reset-dialog";
