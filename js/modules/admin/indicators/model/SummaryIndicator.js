@@ -7,17 +7,13 @@ define(
              * @param {type} id
              * @param {type} name
              */
-            function SummaryIndicator(id, type, name, status, strategicItem, description,
-                    direction, measureUnit, baseYear) {
+            function SummaryIndicator(id, type, name, status, strategicItem, description) {
                 this.id = id;
                 this.type = type;
                 this.name = name;
                 this.status = status;
                 this.strategicItem = strategicItem;
                 this.description = description;
-                this.direction = direction;
-                this.measureUnit = measureUnit;
-                this.baseYear = baseYear;
                 this.cloneOf = undefined;
             }
             
@@ -61,30 +57,6 @@ define(
             
             prototype.getStrategicItem = function () {
                 return this.strategicItem;
-            };
-            
-            prototype.getDirection = function() {
-                return this.direction;
-            };
-            
-            prototype.setDirection = function(direction) {
-                this.direction = direction;
-            };
-            
-            prototype.getMeasureUnit = function() {
-                return this.measureUnit;
-            };
-            
-            prototype.setMeasureUnit = function(measureUnit) {
-                this.measureUnit = measureUnit;
-            };
-            
-            prototype.getBaseYear = function() {
-                return this.baseYear;
-            };
-            
-            prototype.setBaseYear = function(baseYear) {
-                this.baseYear = baseYear;
             };
             
             prototype.getType = function() {

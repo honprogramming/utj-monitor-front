@@ -27,7 +27,7 @@ define(
                         let name;
                         
                         if (item.type.id === 3) {
-                            const peTypeName = item.pe ? item.pe.type.name : '';
+                            const peTypeName = item.pe ? item.pe.type : '';
                             const peName = item.pe ? item.pe.name : '';
                             const pideIndicatorName = item.pideIndicator ? item.pideIndicator.name : '';
                             name = `${peTypeName} -> ${peName} -> ${pideIndicatorName}`;
@@ -42,10 +42,7 @@ define(
                                 name,
                                 item.status,
                                 item.strategicItem,
-                                item.description,
-                                item.direction,
-                                item.measureUnit,
-                                item.baseYear
+                                item.description
                         );
 
                         // Add the new Indicator item to items array
