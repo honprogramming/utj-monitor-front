@@ -61,6 +61,7 @@ define(
                     
                     pide: {
                         subPath: '/pide',
+                        endPath: '/pide',
 
                         active: {
                             endPath: '/active'

@@ -611,7 +611,9 @@
                     "label": "PIDE",
                     "switchButtonAriaLabel": "Cambia entre cumplimiento e indicadores",
                     "POSITIVE": "Positivo",
-                    "NEGATIVE": "Negativo"
+                    "NEGATIVE": "Negativo",
+                    "goals": "Metas",
+                    "progress": "Avances"
                 },
                 "mecasut": {
                     "label": "MECASUT"

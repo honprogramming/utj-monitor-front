@@ -7,11 +7,12 @@ define(
             'modules/pide/model/PlanElementMeasurable',
             'modules/pide/model/PlanElementTypes',
             'events/EventTypes',
+            'data/RESTConfig',
             'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge', 'ojs/ojcollapsible', 
             'ojs/ojmasonrylayout', 'ojs/ojbutton', 'ojs/ojmodule'
         ],
         function ($, ko, GeneralViewModel, PlanElementCalculated, PlanElementMeasurable,
-                PlanElementTypes, EventTypes) {
+                PlanElementTypes, EventTypes, RESTConfig) {
             var theKey = {};
 
             function DetailsViewModel(controlPanelModel) {
@@ -64,7 +65,7 @@ define(
 
                     var bForward = tileBack.hasClass("demo-hidden");
                     var f = function () {
-                        demoFlipEnd(tile, tileFront, tileBack, bForward);
+                        flipEnd(data, tile, tileFront, tileBack, bForward);
                     };
                     tile[0]._flipFunc = f;
                     tile[0].addEventListener("transitionend", f, false);
@@ -93,7 +94,7 @@ define(
                 };
 
                 //Called after the flip transition ends.
-                demoFlipEnd = function (tile, tileFront, tileBack, bForward)
+                flipEnd = function (data, tile, tileFront, tileBack, bForward)
                 {
                     var f = tile[0]._flipFunc;
                     tile[0]._flipFunc = null;
@@ -132,7 +133,8 @@ define(
                     //tile had focus, so now restore focus to the flip button on
                     //the side of the tile that is now showing.
                     button[0].focus();
-                    self.chart({name: 'pide/chart'});
+                    
+                    self.populateChart(data.values.id.replace("i_", ""));
                 };
                 
                 self.chart = ko.observable({viewName: 'empty'});
@@ -154,29 +156,62 @@ define(
                     $("#details-dialog").ojDialog("open");
                 };
                 
-                $.getJSON("data/pide-indicators.json").then(
-                        function (data) {
-                            var model = data;
-                            var itemsArray = model.slice(0);
-                            var newModel = {};
-                            
-                            while (itemsArray.length > 0) {
-                                var element = itemsArray.shift();
-                                
-                                if (element.children) {
-                                    itemsArray = itemsArray.concat(element.children);
-                                }
-
-                                newModel[element.attr.id] = element;
-                            }
-                            
-                            self.setCardModel(newModel);
-                        }
-                );
+//                $.getJSON("data/pide-indicators.json").then(
+//                        function (data) {
+//                            var model = data;
+//                            var itemsArray = model.slice(0);
+//                            var newModel = {};
+//                            
+//                            while (itemsArray.length > 0) {
+//                                var element = itemsArray.shift();
+//                                
+//                                if (element.children) {
+//                                    itemsArray = itemsArray.concat(element.children);
+//                                }
+//
+//                                newModel[element.attr.id] = element;
+//                            }
+//                            
+//                            self.setCardModel(newModel);
+//                        }
+//                );
             }
 
             DetailsViewModel.prototype = Object.create(GeneralViewModel);
             var prototype = DetailsViewModel.prototype;
+            
+            prototype.populateChart = function(indicatorId) {
+                $.getJSON(`${RESTConfig.indicators.pide.path}/${indicatorId}`)
+                    .then(
+                        indicator => {
+                            const goals = indicator.achievements.filter(a => a.achievementType === "GOAL");
+                            const progress = indicator.achievements.filter(a => a.achievementType === "PROGRESS");
+                            
+                            const leanGoals = goals.map(
+                                g => (
+                                    {
+                                        value: g.data,
+                                        date: new Date(g.date.time)
+                                    }
+                                )
+                            );
+                            const leanProgress = progress.map(
+                                p => (
+                                    {
+                                        value: p.data,
+                                        date: new Date(p.date.time)
+                                    }
+                                )
+                            );
+                            
+                            leanGoals.sort((a, b) => a.date - b.date);
+                            leanProgress.sort((a, b) => a.date - b.date);
+                            
+                            this.chart({name: 'pide/chart', params: {goals: leanGoals, progress: leanProgress}});
+                        }
+                    )
+                    .catch(e => console.log(e.message));
+            }
             
             prototype.getCardModel = function() {
                 return this.DetailsViewModel_(theKey).cardModel;
