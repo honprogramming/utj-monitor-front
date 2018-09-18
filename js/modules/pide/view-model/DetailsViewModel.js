@@ -23,6 +23,7 @@ define(
                     controlPanelModel: controlPanelModel,
                     statusMeterPlanElementsMap: {},
                     collapsiblePanelTitles: ["Ver mas", "Ocultar"],
+                    indicator: undefined,
                     cardModel: undefined
                 };
 
@@ -139,42 +140,17 @@ define(
                 
                 self.chart = ko.observable({viewName: 'empty'});
                 self.cardClickHandler = function() {
-                    var element = self.selectedPlanElement();
-                    var cardModel = self.getCardModel();
-                    
                     self.cardModule(
                             {
                                 name: 'pide/indicator', 
                                 params: {
-                                    model: controlPanelModel,
-                                    id: element.values.id,
-                                    graphicName: controlPanelModel.getData()[element.values.id].getName()
+                                    indicator: self.getIndicator()
                                 }
                             }
                     );
             
                     $("#details-dialog").ojDialog("open");
                 };
-                
-//                $.getJSON("data/pide-indicators.json").then(
-//                        function (data) {
-//                            var model = data;
-//                            var itemsArray = model.slice(0);
-//                            var newModel = {};
-//                            
-//                            while (itemsArray.length > 0) {
-//                                var element = itemsArray.shift();
-//                                
-//                                if (element.children) {
-//                                    itemsArray = itemsArray.concat(element.children);
-//                                }
-//
-//                                newModel[element.attr.id] = element;
-//                            }
-//                            
-//                            self.setCardModel(newModel);
-//                        }
-//                );
             }
 
             DetailsViewModel.prototype = Object.create(GeneralViewModel);
@@ -207,11 +183,23 @@ define(
                             leanGoals.sort((a, b) => a.date - b.date);
                             leanProgress.sort((a, b) => a.date - b.date);
                             
+                            let axe, objective;
+                            [, axe, objective] = this.currentParents();
+                            
+                            this.setIndicator({leanGoals, leanProgress, ...indicator, axe, objective});
                             this.chart({name: 'pide/chart', params: {goals: leanGoals, progress: leanProgress}});
                         }
                     )
                     .catch(e => console.log(e.message));
-            }
+            };
+            
+            prototype.setIndicator = function(i) {
+                this.DetailsViewModel_(theKey).indicator = i;
+            };
+            
+            prototype.getIndicator = function() {
+                return this.DetailsViewModel_(theKey).indicator;
+            };
             
             prototype.getCardModel = function() {
                 return this.DetailsViewModel_(theKey).cardModel;

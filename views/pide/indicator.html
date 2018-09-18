@@ -2,7 +2,7 @@
 <div class="full-height full-width">
     
         <!-- Encabezado de página -->
-        <div class="section-title">Ficha de indicador PIDE</div>
+        <div class="section-title" data-bind="text: title"></div>
         <hr/>
     
         <!-- Contenido de la página -->
@@ -25,13 +25,13 @@
                             <div class="oj-flex">
                                 <div class="oj-flex-item">
                                     <label for="nombreIndicador">
-                                        <b>Nombre del indicador</b>
+                                        <b data-bind="text: nameLabel"></b>
                                     </label>
                                 </div>
                                 <div class="oj-flex-item">
                                     <input id="nombreIndicador" data-bind="ojComponent: {
                                         component: 'ojInputText',
-                                        value: nombreIndicador,
+                                        value: name,
                                         rootAttributes: {
                                             style: 'max-height: 100%;max-width: 100%;'
                                         }
@@ -40,7 +40,7 @@
                             </div>
     
                             <!-- Clave -->
-                            <div class="oj-flex">
+<!--                            <div class="oj-flex">
                                 <div class="oj-flex-item">
                                     <label for="clave">
                                         <b>Clave</b>
@@ -52,34 +52,19 @@
                                         value: clave
                                     }" readonly>
                                 </div>
-                            </div>
+                            </div>-->
     
                             <!-- Eje -->
                             <div class="oj-flex">
                                 <div class="oj-flex-item">
                                     <label for="eje">
-                                        <b>Eje</b>
+                                        <b data-bind="text: axeLabel"></b>
                                     </label>
                                 </div>
                                 <div class="oj-flex-item">
                                     <input id="eje" data-bind="ojComponent: {
                                         component: 'ojInputText', 
-                                        value: eje
-                                    }" readonly>
-                                </div>
-                            </div>
-    
-                            <!-- Tema -->
-                            <div class="oj-flex">
-                                <div class="oj-flex-item">
-                                    <label for="tema">
-                                        <b>Tema</b>
-                                    </label>
-                                </div>
-                                <div class="oj-flex-item">
-                                    <input id="tema" data-bind="ojComponent: {
-                                        component: 'ojInputText',
-                                        value: tema
+                                        value: axeValue
                                     }" readonly>
                                 </div>
                             </div>
@@ -88,13 +73,16 @@
                             <div class="oj-flex">
                                 <div class="oj-flex-item">
                                     <label for="objetivo">
-                                        <b>Objetivo</b>
+                                        <b data-bind="text: objectiveLabel"></b>
                                     </label>
                                 </div>
                                 <div class="oj-flex-item">
                                     <input id="objetivo" data-bind="ojComponent: {
                                         component: 'ojInputText',
-                                        value: objetivo
+                                        value: objectiveValue,
+                                        rootAttributes: {
+                                            style: 'max-width: 100%;'
+                                        }
                                     }" readonly>
                                 </div>
                             </div>
@@ -103,13 +91,13 @@
                             <div class="oj-flex">
                                 <div class="oj-flex-item">
                                     <label for="areaResponsable">
-                                        <b>Área responsable</b>
+                                        <b data-bind="text: areaLabel"></b>
                                     </label>
                                 </div>
                                 <div class="oj-flex-item">
                                     <input id="areaResponsable" data-bind="ojComponent: {
                                         component: 'ojInputText',  
-                                        value: areaResponsable
+                                        value: areaValue
                                     }" readonly>
                                 </div>
                             </div>
@@ -118,13 +106,13 @@
                             <div class="oj-flex">
                                 <div class="oj-flex-item">
                                     <label for="personaResponsable">
-                                        <b>Persona responsable</b>
+                                        <b data-bind="text: responsibleLabel"></b>
                                     </label>
                                 </div>
                                 <div class="oj-flex-item">
                                     <input id="personaResponsable" data-bind="ojComponent: {
                                         component: 'ojInputText', 
-                                        value: personaResponsable
+                                        value: responsibleValue
                                     }" readonly>
                                 </div>
                             </div>
@@ -133,28 +121,13 @@
                             <div class="oj-flex">
                                 <div class="oj-flex-item">
                                     <label for="telefono">
-                                        <b>Teléfono</b>
+                                        <b data-bind="text: phoneLabel"></b>
                                     </label>
                                 </div>
                                 <div class="oj-flex-item">
                                     <input id="telefono" data-bind="ojComponent: {
                                         component: 'ojInputText',
-                                        value: telefono
-                                    }" readonly>
-                                </div>
-                            </div>
-    
-                            <!-- Extensión -->
-                            <div class="oj-flex">
-                                <div class="oj-flex-item">
-                                    <label for="extension">
-                                        <b>Extensión</b>
-                                    </label>
-                                </div>
-                                <div class="oj-flex-item">
-                                    <input id="extension" data-bind="ojComponent: {
-                                        component: 'ojInputText',
-                                        value: extension
+                                        value: phoneValue
                                     }" readonly>
                                 </div>
                             </div>
@@ -163,13 +136,13 @@
                             <div class="oj-flex">
                                 <div class="oj-flex-item">
                                     <label for="descripcion">
-                                        <b>Descripción</b>
+                                        <b data-bind="text: descriptionLabel"></b>
                                     </label>
                                 </div>
                                 <div class="oj-flex-item">
                                     <input id="descripcion" data-bind="ojComponent: {
                                         component: 'ojInputText',
-                                        value: descripcion
+                                        value: descriptionValue
                                     }" readonly>
                                 </div>
                             </div>
@@ -178,13 +151,13 @@
                             <div class="oj-flex">
                                 <div class="oj-flex-item">
                                     <label for="unidadMedida">
-                                        <b>Unidad de medida</b>
+                                        <b data-bind="text: measureUnitLabel"></b>
                                     </label>
                                 </div>
                                 <div class="oj-flex-item">
                                     <input id="unidadMedida" data-bind="ojComponent: {
                                         component: 'ojInputText', 
-                                        value: unidadMedida
+                                        value: measureUnitValue
                                     }" readonly>
                                 </div>
                             </div>
@@ -193,13 +166,13 @@
                             <div class="oj-flex">
                                 <div class="oj-flex-item">
                                     <label for="fuente">
-                                        <b>Fuente</b>
+                                        <b data-bind="text: sourceLabel"></b>
                                     </label>
                                 </div>
                                 <div class="oj-flex-item">
                                     <input id="fuente" data-bind="ojComponent: {
                                         component: 'ojInputText',
-                                        value: fuente
+                                        value: sourceValue
                                     }" readonly>
                                 </div>
                             </div>
@@ -226,16 +199,16 @@
             </div>
     
             <!-- Alineación POA -->
-            <div class="full-width form-container oj-accordion-collapsible" data-bind="ojComponent: {
+<!--            <div class="full-width form-container oj-accordion-collapsible" data-bind="ojComponent: {
                 component: 'ojCollapsible',
                 expandArea: 'disclosureIcon',
                 expanded: true
-            }">
+            }">-->
                 <!-- Encabezado de sección -->
-                <h4 id="strategic-vision" data-bind="text: alignmentPOA"></h4>
+<!--                <h4 id="strategic-vision" data-bind="text: alignmentPOA"></h4>-->
     
                 <!-- Contenido del colapsable -->
-                <div class="oj-collapsible-content">
+<!--                <div class="oj-collapsible-content">
                     <fieldset>
                         <div class="oj-flex">
     
@@ -263,7 +236,7 @@
                         </div>
     
                     </fieldset>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>

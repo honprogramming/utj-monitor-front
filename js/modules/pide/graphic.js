@@ -34,7 +34,8 @@
                     yaxes: [],
                     model: params.model,
                     ids: params.ids,
-                    graphicType: self.graphicType.BAR
+                    graphicType: self.graphicType.BAR,
+                    indicator: params.indicator
                 };
                 
                 this.GraphicViewModel_ = function(key) {
@@ -199,6 +200,10 @@
             
             GraphicViewModel.prototype = Object.create(GeneralViewModel);
             var prototype = GraphicViewModel.prototype;
+            
+            prototype.getIndicator = function() {
+                return this.GraphicViewModel_(theKey).indicator;
+            };
             
             prototype.isClonable = function() {
                 return this.GraphicViewModel_(theKey).clonable;
@@ -480,13 +485,26 @@
                 }
             };
             
+            prototype.getItem = function(id) {
+                const model = this.getModel();
+                let item = model ? model[id] : undefined;
+                
+                if (item) {
+                    item = {title: item.title, ...item.attr};
+                } else {
+                    item = this.getIndicator();
+                    item = {title: item.name, ...item};
+                }
+                
+                return item;
+            };
+            
             prototype.createSerie = function(id) {
-                var model = this.getModel();
                 var yearlySeries = this.getYearlySeries();
                 var monthlySeries = this.getMonthlySeries();
                 var yaxes = this.getYAxes();
-                var item = model[id];
-                var unitType = item.attr.measureUnit.type.name;
+                var item = this.getItem(id);
+                var unitType = item.measureUnit.type.name;
                 var displayLegends = this.graphicOptions().indexOf(this.elementType.GOAL) < 0;
                 var markerHandler = this.getMarkerHandler(theKey);
                 var markerShape = markerHandler.getValue(id);
@@ -496,7 +514,7 @@
                 }
 
                 var monthlyProgressElement = {
-                    id: item.attr.id,
+                    id: item.id,
                     elementType: this.elementType.PROGRESS,
                     name: item.title,
                     items: [],
@@ -508,7 +526,7 @@
                 };
 
                 var monthlyGoalElement = {
-                    id: item.attr.id,
+                    id: item.id,
                     elementType: this.elementType.GOAL,
                     name: item.title,
                     items: [],
@@ -521,7 +539,7 @@
                 };
 
                 var yearlyProgressElement = {
-                    id: item.attr.id,
+                    id: item.id,
                     elementType: this.elementType.PROGRESS,
                     name: item.title,
                     items: [],
@@ -533,7 +551,7 @@
                 };
 
                 var yearlyGoalElement = {
-                    id: item.attr.id,
+                    id: item.id,
                     elementType: this.elementType.GOAL,
                     name: item.title,
                     items: [],
@@ -545,7 +563,7 @@
                     assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                 };
                 
-                let achievements = item.attr.achievements;
+                let achievements = item.achievements;
                 let monthlyElements = {
                     "GOAL": monthlyGoalElement,
                     "PROGRESS": monthlyProgressElement

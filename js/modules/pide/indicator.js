@@ -9,6 +9,7 @@ define(
     [
         'ojs/ojcore',
         'knockout',
+        'view-models/GeneralViewModel',
         'jquery',
         'ojs/ojknockout',
         'ojs/ojinputtext',
@@ -33,7 +34,7 @@ define(
         'ojs/ojmoduleanimations',
         'ojs/ojpopup'
     ],
-    function (oj, ko) {
+    function (oj, ko, GeneralViewModel) {
 
         var theKey = {};
 
@@ -41,9 +42,10 @@ define(
          * "Ficha de Indicador PIDE" ViewModel.
          */
         function PIDEIndicatorViewModel(params) {
-            var self = this;
+            const self = this;
+            const indicator = params.indicator;
             
-            var privateData = {
+            const privateData = {
                 id: params.id,
                 model: params.model
             };
@@ -55,23 +57,34 @@ define(
             };
             
             // Section names
-            self.generalInfo = ko.observable("Información general");
-            self.progressGoals = ko.observable("Avances y metas");
-            self.alignmentPOA = ko.observable("Alineación POA");
+            self.title = GeneralViewModel.nls("pide.details.card.title");
+            self.generalInfo = GeneralViewModel.nls("pide.details.card.general-info.title");
+            self.nameLabel = GeneralViewModel.nls("pide.details.card.general-info.name-label");
+            self.axeLabel = GeneralViewModel.nls("pide.details.card.general-info.axe");
+            self.objectiveLabel = GeneralViewModel.nls("pide.details.card.general-info.objective");
+            self.areaLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.area");
+            self.responsibleLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.title");
+            self.phoneLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.phone");
+            self.extLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.ext");
+            self.descriptionLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.description");
+            self.measureUnitLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.measure-unit");
+            self.sourceLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.source");
+            
+            
+            self.progressGoals = GeneralViewModel.nls("pide.details.card.goals-and-progress.title");
+//            self.alignmentPOA = ko.observable("Alineación POA");
 
             // General information
-            self.nombreIndicador = ko.observable(params.graphicName || "Nombre del indicador");
-            self.clave = ko.observable("Clave");
-            self.eje = ko.observable("Eje");
-            self.tema = ko.observable("Tema");
-            self.objetivo = ko.observable("Objetivo");
-            self.areaResponsable = ko.observable("Área responsable");
-            self.personaResponsable = ko.observable("Persona responsable");
-            self.telefono = ko.observable("Teléfono");
-            self.extension = ko.observable("Extensión");
-            self.descripcion = ko.observable("Descripción");
-            self.unidadMedida = ko.observable("Unidad de medida");
-            self.fuente = ko.observable("Fuente");
+            self.name = ko.observable(indicator.name);
+            
+            self.axeValue = indicator.axe.text;
+            self.objectiveValue = indicator.objective.text;
+            self.areaValue = indicator.responsible.area.name;
+            self.responsibleValue = indicator.responsible.player.name;
+            self.phoneValue = indicator.responsible.player.phones[0].number;
+            self.descriptionValue = indicator.description;
+            self.measureUnitValue = GeneralViewModel.nls(`graphics.unit-types.${indicator.measureUnit.type.name}`);
+            self.sourceValue = indicator.source;
 
             // Progress and goals
             self.metas = new ChartModel(params);
@@ -104,9 +117,9 @@ define(
                             this.graphic = graphicReference;
                         },
                         graphic: undefined,
-                        graphicName: params.model.getData()[params.id].getName(),
-                        model: params.model,
-                        ids: [params.id]
+                        graphicName: params.indicator.name,
+                        indicator: params.indicator,
+                        ids: [params.indicator.id]
                     }
                 }
             );

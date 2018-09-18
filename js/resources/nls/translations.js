@@ -613,7 +613,30 @@
                     "POSITIVE": "Positivo",
                     "NEGATIVE": "Negativo",
                     "goals": "Metas",
-                    "progress": "Avances"
+                    "progress": "Avances",
+                    "details": {
+                        "card": {
+                            "title": "Ficha de indicador PIDE",
+                            "general-info": {
+                                "title": "Información general",
+                                "name-label": "Nombre del indicador",
+                                "axe": "Eje",
+                                "objective": "Objetivo",
+                                "responsible": {
+                                    "title": "Responsable",
+                                    "area": "Área responsable",
+                                    "phone": "Teléfono",
+                                    "ext": "Extensión",
+                                    "description": "Descripción",
+                                    "measure-unit": "Unidad de medida",
+                                    "source": "Fuente"
+                                }
+                            },
+                            "goals-and-progress": {
+                                "title": "Avances y metas"
+                            }
+                        }
+                    }
                 },
                 "mecasut": {
                     "label": "MECASUT"

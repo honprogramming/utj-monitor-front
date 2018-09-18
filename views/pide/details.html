@@ -150,31 +150,30 @@
                                         </div>
                                     </div>
                                 </div>
-                                    
-<!--                                    <div class="oj-flex-item">
-                                        <div id="tree-menu-dialog-wrapper">
-                                            <div style="display:none" id="details-dialog" 
-                                                    data-bind=" ojComponent:{
-                                                                    component: 'ojDialog', 
-                                                                    initialVisibility: 'hide',
-                                                                    modality: 'modeless',
-                                                                    rootAttributes: {
-                                                                        style: 'width: 95vw; height: 95vh;'
-                                                                    }
-                                                                }">
+                                <div class="oj-flex-item">
+                                    <div id="tree-menu-dialog-wrapper">
+                                        <div style="display:none" id="details-dialog" 
+                                                data-bind=" ojComponent:{
+                                                                component: 'ojDialog', 
+                                                                initialVisibility: 'hide',
+                                                                modality: 'modeless',
+                                                                rootAttributes: {
+                                                                    style: 'width: 95vw; height: 95vh;'
+                                                                }
+                                                            }">
 
-                                                <div class="oj-dialog-body">
-                                                    <div data-bind="ojModule: $parent.cardModule">                            
-                                                    </div>
+                                            <div class="oj-dialog-body">
+                                                <div data-bind="ojModule: $parent.cardModule">                            
                                                 </div>
                                             </div>
                                         </div>
-                                        <i class="fa fa-file-text-o fa-2x pointer"
-                                           title="Ver Ficha"
-                                           data-bind="click: $parent.cardClickHandler"
-                                           >
-                                        </i>
-                                    </div>-->
+                                    </div>
+                                    <i class="fa fa-file-text-o fa-2x pointer"
+                                       title="Ver Ficha"
+                                       data-bind="click: $parent.cardClickHandler"
+                                       >
+                                    </i>
+                                </div>
                                 <div class="oj-flex oj-sm-flex-direction-column">
                                     <!-- ko if: childrenType --> 
                                         <div class="oj-flex-item title left-align" data-bind="text: childrenType"></div>
