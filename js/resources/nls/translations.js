@@ -630,7 +630,9 @@
                                     "description": "Descripción",
                                     "measure-unit": "Unidad de medida",
                                     "source": "Fuente"
-                                }
+                                },
+                                "potential-risk": "Riesgos potenciales",
+                                "implemented-actions": "Acciones implementadas"
                             },
                             "goals-and-progress": {
                                 "title": "Avances y metas"

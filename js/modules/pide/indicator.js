@@ -69,6 +69,8 @@ define(
             self.descriptionLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.description");
             self.measureUnitLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.measure-unit");
             self.sourceLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.source");
+            self.potentialRiskLabel = GeneralViewModel.nls("pide.details.card.general-info.potential-risk");
+            self.implementedActionsLabel = GeneralViewModel.nls("pide.details.card.general-info.implemented-actions");
             
             
             self.progressGoals = GeneralViewModel.nls("pide.details.card.goals-and-progress.title");
@@ -85,6 +87,8 @@ define(
             self.descriptionValue = indicator.description;
             self.measureUnitValue = GeneralViewModel.nls(`graphics.unit-types.${indicator.measureUnit.type.name}`);
             self.sourceValue = indicator.source;
+            self.potentialRiskValue = indicator.potentialRisk;
+            self.implementedActionsValue = indicator.implementedActions;
 
             // Progress and goals
             self.metas = new ChartModel(params);

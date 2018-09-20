@@ -165,14 +165,42 @@
                             <!-- Fuente -->
                             <div class="oj-flex">
                                 <div class="oj-flex-item">
-                                    <label for="fuente">
+                                    <label for="source">
                                         <b data-bind="text: sourceLabel"></b>
                                     </label>
                                 </div>
                                 <div class="oj-flex-item">
-                                    <input id="fuente" data-bind="ojComponent: {
+                                    <input id="source" data-bind="ojComponent: {
                                         component: 'ojInputText',
                                         value: sourceValue
+                                    }" readonly>
+                                </div>
+                            </div>
+                            
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <label for="potencial-risk">
+                                        <b data-bind="text: potentialRiskLabel"></b>
+                                    </label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <input id="potencial-risk" data-bind="ojComponent: {
+                                        component: 'ojInputText',
+                                        value: potentialRiskValue
+                                    }" readonly>
+                                </div>
+                            </div>
+                            
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <label for="implemented-actions">
+                                        <b data-bind="text: implementedActionsLabel"></b>
+                                    </label>
+                                </div>
+                                <div class="oj-flex-item">
+                                    <input id="implemented-actions" data-bind="ojComponent: {
+                                        component: 'ojInputText',
+                                        value: implementedActionsValue
                                     }" readonly>
                                 </div>
                             </div>
