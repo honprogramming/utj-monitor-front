@@ -9,7 +9,7 @@ define([],
             var theKey = {};
             
             function PlanElement(id, type, label, name, parent, children = []) {
-                var privateData = {
+                const privateData = {
                     id,
                     type,
                     label,
@@ -27,7 +27,7 @@ define([],
                 return this;
             }
             
-            var prototype = PlanElement.prototype;
+            const prototype = PlanElement.prototype;
             
             /**
              * Returns the id of this element.
@@ -85,7 +85,7 @@ define([],
              * @returns {Array} An Array containing the children elements.
              */
             prototype.getChildren = function(classType) {
-                var children = this.PlanElement_(theKey).children;
+                const children = this.PlanElement_(theKey).children;
                 
                 if (classType && children) {
                     return children.filter(
@@ -96,6 +96,10 @@ define([],
                 } else {
                     return children;
                 }
+            };
+            
+            prototype.deleteChildren = function() {
+                this.PlanElement_(theKey).children = [];
             };
             
             return PlanElement;

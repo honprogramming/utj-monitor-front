@@ -4,8 +4,10 @@
  * 
  * @returns {Function} The PIDEModel class.
  */
-define([],
-        function () {
+define([
+            'modules/pide/model/PlanElementTypes'
+        ],
+        function (PlanElementTypes) {
             var theKey = {};
 
             function PIDEModel(dataProvider) {
@@ -30,6 +32,28 @@ define([],
 
             const prototype = PIDEModel.prototype;
             
+            /**
+             * Removes all indicators from objectives.
+             * This is used when refreshing the sunburst with a different date.
+             */
+            prototype.cleanIndicators = function() {
+                const objectives = this.getElementsByType(PlanElementTypes.OBJECTIVE);
+                objectives.forEach(objective => objective.deleteChildren());
+                
+                const map = this.getData();
+                for (const e in map) {
+                    if (map[e].getType() === PlanElementTypes.INDICATOR) {
+                        delete map[e];
+                    }
+                }
+            };
+            
+            /**
+             * Filters elements by a desired type.
+             * 
+             * @param {PlanElementTypes} type One of VISION, AXE, TOPIC, OBJECTIVE, INDICATOR
+             * @returns {Arrat} An array of filtered elements.
+             */
             prototype.getElementsByType = function(type) {
                 return this
                         .getPlanElementsArray()

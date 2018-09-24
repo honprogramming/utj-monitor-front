@@ -35,82 +35,104 @@ define(
                 self.detailsTitle = GeneralViewModel.nls("controlPanel.details.title");
                 
                 dataPromise.then(
-                        () => {
-                            const controlPanelModel = new PIDEModel(controlPanelDataProvider);
-                            
-                            const indicatorsPromise = AjaxUtils.ajax(RESTConfig.indicators.pide.active.path);
+                    () => {
+                        const pideModel = new PIDEModel(controlPanelDataProvider);
+                        updateSunburst(pideModel)
+                        .then(
+                            sunburst => {
+                                self.observableSunburst(sunburst);
+                                sunburst.addDataListener(date => updateSunburst(pideModel, date, sunburst))
+                            }
+                        );
+                    }
+                );
+                
+                function updateSunburst(pideModel, date, sunburst) {
+                    let url = RESTConfig.indicators.pide.active.path;
+
+                    if (date) {
+                        url = `${url}?date=${date}`;
+                    }
+                    
+                    const indicatorsPromise = AjaxUtils.ajax(url);
 //                            const indicatorsPromise = AjaxUtils.ajax("data/sunburst-utj.json");
                             
-                            indicatorsPromise.then(
-                                indicators => {
-                                    const strategicMap = controlPanelModel.getData();
-                                    const strategicArray = controlPanelModel.getPlanElementsArray();
-                                    
-                                    indicators.forEach(
-                                        i => {
-                                            const goals = i.achievements.filter(a => a.achievementType === 'GOAL');
-                                            const progresses = i.achievements.filter(a => a.achievementType === 'PROGRESS');
-                                            
-                                            let latestGoal = goals[0];
-                                            let latestProgress = progresses[0];
-                                            
-                                            let firstGoal = goals[0];
-                                            
-                                            goals.forEach(
-                                              g => {
-                                                if (latestGoal.date.time < g.date.time) {
-                                                    latestGoal = g;
-                                                }
-                                                  
-                                                if (firstGoal.date.time > g.date.time) {
-                                                    firstGoal = g;
-                                                }
-                                              }
-                                            );
-                                    
-                                            progresses.forEach(
-                                              p => {
-                                                if (latestProgress.date.time < p.date.time) {
-                                                    latestProgress = p;
-                                                }
-                                              }
-                                            );
-                                            
-                                            if (latestProgress && latestGoal) {
-                                                const indicator = new PlanElementMeasurable(
-                                                        `i_${i.id}`,
-                                                        PlanElementTypes.INDICATOR,
-                                                        i.name,
-                                                        i.name,
-                                                        latestGoal.data,
-                                                        latestProgress.data,
-                                                        strategicMap[i.strategicItem],
-                                                        null,
-                                                        i.responsible,
-                                                        i.grades,
-                                                        i.direction
-                                                );
+                    return indicatorsPromise.then(
+                        indicators => new Promise(
+                            resolve => {
+                                pideModel.cleanIndicators();
+                                const strategicMap = pideModel.getData();
 
-                                                if (strategicMap[i.strategicItem]) {
-                                                    strategicMap[i.strategicItem].getChildren().push(indicator);
-                                                    strategicArray.push(indicator);
-                                                    strategicMap[`i_${i.id}`] = indicator;
-                                                }
+                                indicators.forEach(
+                                    i => {
+                                        const goals = i.achievements.filter(a => a.achievementType === 'GOAL');
+                                        const progresses = i.achievements.filter(a => a.achievementType === 'PROGRESS');
+
+                                        let latestGoal = goals[0];
+                                        let latestProgress = progresses[0];
+
+                                        let firstGoal = goals[0];
+
+                                        goals.forEach(
+                                          g => {
+                                            if (latestGoal.date.time < g.date.time) {
+                                                latestGoal = g;
+                                            }
+
+                                            if (firstGoal.date.time > g.date.time) {
+                                                firstGoal = g;
+                                            }
+                                          }
+                                        );
+
+                                        progresses.forEach(
+                                          p => {
+                                            if (latestProgress.date.time < p.date.time) {
+                                                latestProgress = p;
+                                            }
+                                          }
+                                        );
+
+                                        if (latestProgress && latestGoal) {
+                                            const indicator = new PlanElementMeasurable(
+                                                    `i_${i.id}`,
+                                                    PlanElementTypes.INDICATOR,
+                                                    i.name,
+                                                    i.name,
+                                                    latestGoal.data,
+                                                    latestProgress.data,
+                                                    strategicMap[i.strategicItem],
+                                                    null,
+                                                    i.responsible,
+                                                    i.grades,
+                                                    i.direction
+                                            );
+
+                                            if (strategicMap[i.strategicItem]) {
+                                                strategicMap[i.strategicItem].getChildren().push(indicator);
+                                                strategicMap[`i_${i.id}`] = indicator;
                                             }
                                         }
-                                    );
-                            
-                                    self.sunburst = new SunburstViewModel("control_panel", 
-                                            controlPanelModel); 
-                                    self.sunburst.addClickListener(handleSunburstClick);
-                                    self.details = new DetailsViewModel(controlPanelModel);
+                                    }
+                                );
+                                
+                                if (sunburst) {
+                                    sunburst.refresh();
+                                } else {
+                                    sunburst = new SunburstViewModel("control_panel", 
+                                            pideModel); 
+                                    self.sunburst = sunburst;
+                                    sunburst.addClickListener(handleSunburstClick);
+                                    self.details = new DetailsViewModel(pideModel);
                                     self.details.addSelectionListener(handleDetailsSelection);
-                                    self.observableSunburst(self.sunburst);
-                                    self.observableDetails(self.details);
+                                    self.observableDetails(self.details);                                    
                                 }
-                            );
-                        }
-                );
+
+                                resolve(sunburst);
+                            }
+                        )
+                    );                    
+                }
                 
                 /**
                  * Callback function for click event on Details panel.

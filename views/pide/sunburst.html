@@ -1,6 +1,41 @@
 <!-- ko if: $data -->
-<div class="container"
-     data-bind="attr: {id: id},
+<div class="oj-flex oj-sm-flex-direction-column full-width">
+    <div class="oj-flex-item">
+        <div class=" oj-flex-bar">
+            <div class="oj-flex-bar-center-absolute">
+                <input data-bind="  
+            ojComponent: {
+                component: 'ojInputDate',
+                converter: dateConverter,
+                datePicker: {
+                    footerLayout: '', 
+                    showOn: 'focus'
+                },
+                displayOptions: {validatorHint: 'none'},
+                max: maxDate,
+                min: minDate,
+                optionChange: dateSelectionHandler,
+                required: true,
+                translations: {
+                    'dateTimeRange': {
+                        messageSummary: {
+                            rangeOverflow: rangeOverflowSummary,
+                            rangeUnderflow: rangeUnderflowSummary
+                        }, 
+                        messageDetail: {
+                            rangeOverflow: rangeOverflowDetail,
+                            rangeUnderflow: rangeUnderflowDetail
+                        }
+                    }
+                },
+                value: dateValue
+            }"/>
+            </div>
+        </div>
+    </div>
+    <div class="oj-flex-item" style="height: 95%">
+        <div class="container"
+             data-bind="attr: {id: id},
             ojComponent: {
                 component: 'ojSunburst',
                 animationOnDisplay: 'auto',
@@ -17,6 +52,8 @@
                     selectedOuterColor: '#FFFFFF'
                 }
             }" 
-     >
+             >
+        </div>
+    </div>
 </div>
 <!-- /ko -->

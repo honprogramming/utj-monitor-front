@@ -1,13 +1,13 @@
 define(
         [
-            'jquery', 'knockout', 'view-models/GeneralViewModel',
+            'ojs/ojcore', 'jquery', 'knockout', 'view-models/GeneralViewModel',
             'events/EventTypes',
             'modules/pide/model/PlanElementCalculated',
             'modules/pide/model/PlanElementMeasurable',
             'modules/pide/model/PlanElementTypes',
-            'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojsunburst'
+            , 'ojs/ojknockout', 'ojs/ojsunburst', 'ojs/ojdatetimepicker'
         ],
-        function ($, ko, GeneralViewModel, EventTypes, 
+        function (oj, $, ko, GeneralViewModel, EventTypes, 
             PlanElementCalculated, PlanElementMeasurable, PlanElementTypes) {
             var theKey = {};
             function SunburstViewModel(prefix, controlPanelModel) {
@@ -30,7 +30,15 @@ define(
                 self.id = prefix + "_sunburst";
                 self.nodeValues = ko.observableArray([self.getMainNode()]);
                 self.selection = ko.observableArray();
-
+                self.dateConverter = GeneralViewModel.converters.date;
+                self.minDate = oj.IntlConverterUtils.dateToLocalIso(new Date(2010, 0, 01));
+                self.maxDate = oj.IntlConverterUtils.dateToLocalIso(new Date());
+                self.rangeOverflowSummary = "La fecha es mayor a la máxima permitida";
+                self.rangeOverflowDetail = "La fecha debe ser menor o igual a " + self.dateConverter.format(self.maxDate);
+                self.rangeUnderflowSummary = "La fecha es menor a la mínima permitida";
+                self.rangeUnderflowDetail = "La fecha debe ser mayor o igual a " + self.dateConverter.format(self.minDate);
+                self.dateValue = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
+                
                 self.clickHandler = function (ui, data) {
                     if (data.option === "selection") {
                         if (data.value.length > 0) {
@@ -38,6 +46,15 @@ define(
                             self.onClick(self.getControlPanelModel().getData()[id]);
                         }
                     }
+                };
+                
+                self.dateSelectionHandler = function(ui, data) {
+                    if (data.option === "value") {
+                        if (data.value.length > 0) {
+                            const date = new Date(data.value);
+                            self.onDateChange(date.getTime());
+                        }
+                    }                    
                 };
             }
             
@@ -53,6 +70,11 @@ define(
                 return this.SunburstViewModel_(theKey).controlPanelModel;
             };
             
+            prototype.refresh = function() {
+                this.setPlanElementsMap(parsePlanElementsArray(this.getControlPanelModel()));
+                this.nodeValues([this.getMainNode()]);
+            };
+            
             prototype.getDirections = function () {
                 return this.SunburstViewModel_(theKey).directions;
             };
@@ -60,13 +82,21 @@ define(
             prototype.addClickListener = function (listener) {
                 this.addListener(listener, EventTypes.CLICK_EVENT);
             };
-
+            
+            prototype.addDataListener = function(listener) {
+                this.addListener(listener, EventTypes.DATA_EVENT);
+            };
+            
             prototype.onClick = function (planElement) {
                 this.callListeners(EventTypes.CLICK_EVENT, planElement);
                 updateSiblingsNodes.call(this, planElement, this.getPlanElementsMap(), this.getControlPanelModel());
                 this.selection([]);
             };
-
+            
+            prototype.onDateChange = function(date) {
+                this.callListeners(EventTypes.DATA_EVENT, date);
+            };
+            
             prototype.getPlanElementsArray = function () {
                 return this.SunburstViewModel_(theKey).planElementsArray;
             };
@@ -74,13 +104,17 @@ define(
             prototype.getPlanElementsMap = function () {
                 return this.SunburstViewModel_(theKey).planElementsMap;
             };
+            
+            prototype.setPlanElementsMap = function (map) {
+                this.SunburstViewModel_(theKey).planElementsMap = map;
+            };
 
             prototype.setSelectedItem = function (selectedPlanElement) {
                 this.selection([selectedPlanElement.getId()]);
             };
 
             prototype.getMainNode = function () {
-                let mainElement = this.getControlPanelModel().getElementsByType(PlanElementTypes.VISION)[0];
+                const mainElement = this.getControlPanelModel().getElementsByType(PlanElementTypes.VISION)[0];
                 return this.SunburstViewModel_(theKey).planElementsMap[mainElement.getId()];
             };
 
