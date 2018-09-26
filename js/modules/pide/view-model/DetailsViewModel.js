@@ -389,7 +389,7 @@ define(
                         id: element.getId(),
                         min: isNaN(progress) ? 0 : progress < 0 ? progress : 0,
                         max: 100,
-                        value: isNaN(progress) ? 0 : progress < 0 ? 0 : progress,
+                        value: isNaN(progress) ? 0 : progress,
                         title: {text: progress + '%', position: 'center'},
                         thresholdValues: thresholdValues,
                         referenceLines: progress < 0 ? referenceLines : undefined
