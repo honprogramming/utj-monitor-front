@@ -8,11 +8,12 @@ define(
             'modules/pide/model/PlanElementTypes',
             'events/EventTypes',
             'data/RESTConfig',
+            'utils/Colors',
             'ojs/ojcore', 'ojs/ojknockout', 'ojs/ojgauge', 'ojs/ojcollapsible', 
             'ojs/ojmasonrylayout', 'ojs/ojbutton', 'ojs/ojmodule'
         ],
         function ($, ko, GeneralViewModel, PlanElementCalculated, PlanElementMeasurable,
-                PlanElementTypes, EventTypes, RESTConfig) {
+                PlanElementTypes, EventTypes, RESTConfig, Colors) {
             var theKey = {};
 
             function DetailsViewModel(controlPanelModel) {
@@ -24,7 +25,9 @@ define(
                     statusMeterPlanElementsMap: {},
                     collapsiblePanelTitles: ["Ver mas", "Ocultar"],
                     indicator: undefined,
-                    cardModel: undefined
+                    cardModel: undefined,
+                    cache: true,
+                    selectedPlanElement: undefined
                 };
 
                 this.DetailsViewModel_ = function (key) {
@@ -225,21 +228,44 @@ define(
             };
 
             prototype.setSelectedItem = function (selectedPlanElement) {
+                this.setSelectedPlanElement(selectedPlanElement);
                 const statusMeterPlanElement = this.getStatusMeterPlanElement(selectedPlanElement.getId());
 
                 this.selectedPlanElement(statusMeterPlanElement);
                 this.updateParents(selectedPlanElement);
                 this.updateChildren(selectedPlanElement);
             };
-
+            
+            prototype.refresh = function() {
+                this.setCache(false);
+                this.setSelectedItem(this.getSelectedPlanElement());
+                this.setCache(true);
+            };
+            
+            prototype.setCache = function(cache) {
+                this.DetailsViewModel_(theKey).cache = cache;
+            };
+            
+            prototype.getCache = function() {
+                return this.DetailsViewModel_(theKey).cache;
+            };
+            
+            prototype.getSelectedPlanElement = function() {
+                return this.DetailsViewModel_(theKey).selectedPlanElement;
+            };
+            
+            prototype.setSelectedPlanElement = function(selectedPlanElement) {
+                this.DetailsViewModel_(theKey).selectedPlanElement = selectedPlanElement;
+            };
+            
             prototype.getStatusMeterPlanElement = function (id) {
                 var statusMeterPlanElementsMap = this.getStatusMeterPlanElementsMap();
                 var statusMeterPlanElement = statusMeterPlanElementsMap[id];
 
-                if (!statusMeterPlanElement) {
-                    var controlPanelModel = this.getControlPanelModel();
-                    var planElement = controlPanelModel.getData()[id];
-
+                if (!statusMeterPlanElement || !this.getCache()) {                    
+                    const controlPanelModel = this.getControlPanelModel();
+                    const planElement = controlPanelModel.getData()[id];
+                    
                     return addNewPlanElementToMap.call(this, planElement,
                             controlPanelModel, statusMeterPlanElementsMap);
                 } else {
@@ -307,15 +333,26 @@ define(
             }
 
             function createStatusMeterPlanElement(element) {
-                var progress = Math.round(element.getProgress() * 100);
-                var referenceLines = [{value: 0, color: "#000000"}];
-                var thresholdValues = [
-                    {max: 39, color: "#DF0101"},
-                    {max: 59, color: "#FE9A2E"},
-                    {max: 89, color: "#D7DF01"},
+                const progress = Math.round(element.getProgress() * 100);
+                const referenceLines = [{value: 0, color: "#000000"}];
+                let thresholdValues = [
+                    {max: 40, color: "#DF0101"},
+                    {max: 60, color: "#FE9A2E"},
+                    {max: 90, color: "#D7DF01"},
                     {color: "#31B404"}
                 ];
-
+                
+                if (element instanceof PlanElementMeasurable) {
+                    thresholdValues = element.getGrades().map(
+                        e => (
+                            {
+                                max: e.maxPercentage,
+                                color: Colors.defaultColors[e.color].color
+                            }
+                        )
+                    );
+                }
+                
                 var translatedType = this.nls("controlPanel." + element.getType());
                 var children = element.getChildren();
                 var childrenType = null;

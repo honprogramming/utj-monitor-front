@@ -118,6 +118,7 @@ define(
                                 
                                 if (sunburst) {
                                     sunburst.refresh();
+                                    self.details.refresh();
                                 } else {
                                     sunburst = new SunburstViewModel("control_panel", 
                                             pideModel); 
