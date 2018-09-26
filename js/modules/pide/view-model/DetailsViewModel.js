@@ -237,9 +237,15 @@ define(
             };
             
             prototype.refresh = function() {
-                this.setCache(false);
-                this.setSelectedItem(this.getSelectedPlanElement());
-                this.setCache(true);
+                if (this.getControlPanelModel().getData()[this.getSelectedPlanElement().getId()]) {
+                    this.setCache(false);
+                    this.setSelectedItem(this.getSelectedPlanElement());
+                    this.setCache(true);
+                } else {
+                    this.selectedPlanElement(null);
+                    this.currentChildren([]);
+                    this.currentParents([]);
+                }
             };
             
             prototype.setCache = function(cache) {
