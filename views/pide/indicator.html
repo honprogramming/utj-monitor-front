@@ -20,7 +20,6 @@
                 <div class="oj-form-layout">
                     <fieldset>
                         <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline oj-form-cols-labels-inline oj-form-cols-max2">
-    
                             <!-- Nombre del indicador -->
                             <div class="oj-flex">
                                 <div class="oj-flex-item">
@@ -176,33 +175,29 @@
                                     }" readonly>
                                 </div>
                             </div>
-                            
-                            <div class="oj-flex">
-                                <div class="oj-flex-item">
-                                    <label for="potencial-risk">
-                                        <b data-bind="text: potentialRiskLabel"></b>
-                                    </label>
-                                </div>
-                                <div class="oj-flex-item">
-                                    <input id="potencial-risk" data-bind="ojComponent: {
-                                        component: 'ojInputText',
-                                        value: potentialRiskValue
-                                    }" readonly>
-                                </div>
+                        </div>
+                        <div class="oj-flex oj-sm-flex-direction-column">
+                            <div class="oj-flex-item oj-sm-align-self-center">
+                                <label for="potencial-risk">
+                                    <b data-bind="text: potentialRiskLabel"></b>
+                                </label>
                             </div>
-                            
-                            <div class="oj-flex">
-                                <div class="oj-flex-item">
-                                    <label for="implemented-actions">
-                                        <b data-bind="text: implementedActionsLabel"></b>
-                                    </label>
-                                </div>
-                                <div class="oj-flex-item">
-                                    <input id="implemented-actions" data-bind="ojComponent: {
-                                        component: 'ojInputText',
-                                        value: implementedActionsValue
-                                    }" readonly>
-                                </div>
+                            <div class="oj-flex-item">
+                                <input id="potencial-risk" data-bind="ojComponent: {
+                                    component: 'ojInputText',
+                                    value: potentialRiskValue
+                                }" readonly>
+                            </div>
+                            <div class="oj-flex-item oj-sm-align-self-center">
+                                <label for="implemented-actions">
+                                    <b data-bind="text: implementedActionsLabel"></b>
+                                </label>
+                            </div>
+                            <div class="oj-flex-item">
+                                <input id="implemented-actions" data-bind="ojComponent: {
+                                    component: 'ojInputText',
+                                    value: implementedActionsValue
+                                }" readonly>
                             </div>
                         </div>
                     </fieldset>
