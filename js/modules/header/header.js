@@ -15,7 +15,7 @@ define(
             'modules/header/view-model/MobileMenuViewModel',
             'modules/header/view-model/MenuViewModel',
             'modules/header/view-model/ToolBarViewModel',
-            'modules/admin/security/authentication',
+            'modules/admin/security/authentication'
         ],
         function (ko, GeneralViewModel, MobileMenuViewModel, MenuViewModel, 
             ToolBarViewModel, Authentication) {
@@ -24,7 +24,9 @@ define(
              */
 
             function HeaderViewModel() {
-                var self = this;
+                const self = this;
+                let logoutHook;
+                
                 self.homeMenu = new MenuViewModel();
                 self.mobileMenu = new MobileMenuViewModel();
                 self.toolBar = new ToolBarViewModel();
@@ -76,6 +78,10 @@ define(
                     if (Authentication.isAuthenticated()) {
                         Authentication.logout();
                         self.isAuthenticated(false);
+                        
+                        if (logoutHook) {
+                            logoutHook();
+                        }
                     } else {
                         Authentication.authorize();
                     }
@@ -84,6 +90,10 @@ define(
                 Authentication.handleAuthentication()
                     .then(() => self.isAuthenticated(Authentication.isAuthenticated()))
                     .catch(e => console.log(e));
+            
+                self.setLogoutHook = function(hook) {
+                    logoutHook = hook;
+                }
             }
             
             return new HeaderViewModel();
