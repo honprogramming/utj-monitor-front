@@ -10,7 +10,8 @@ define(
             'modules/pide/view-model/DetailsViewModel',
             'modules/pide/model/PlanElementMeasurable',
             'modules/pide/model/PlanElementTypes',
-            'view-models/GeneralViewModel'
+            'view-models/GeneralViewModel',
+            'utils/RoutesWrapper'
         ],
         function (
                 ko, AjaxUtils, DataProvider, RESTConfig, 
@@ -18,14 +19,16 @@ define(
                  PIDEDataParser, DetailsViewModel,
                  PlanElementMeasurable,
                  PlanElementTypes,
-                 GeneralViewModel
+                 GeneralViewModel,
+                 RoutesWrapper
             ) {
             function PIDESatisfactionViewModel() {
-                const self = this;
+                const self = this;                
+                const sample = RoutesWrapper.getParameter("sample");
                 const controlPanelDataProvider =
                         new DataProvider(
-                                RESTConfig.admin.strategic.path,
-//                                "data/pide.json",
+//                                RESTConfig.admin.strategic.path,
+                                `data/${sample}-strategic-items.json`,
                                 PIDEDataParser);
 
                 const dataPromise = controlPanelDataProvider.fetchData();
@@ -41,7 +44,7 @@ define(
                         .then(
                             sunburst => {
                                 self.observableSunburst(sunburst);
-                                sunburst.addDataListener(date => updateSunburst(pideModel, date, sunburst))
+                                sunburst.addDataListener(date => updateSunburst(pideModel, date, sunburst));
                             }
                         );
                     }
@@ -54,8 +57,8 @@ define(
                         url = `${url}?date=${date}`;
                     }
                     
-                    const indicatorsPromise = AjaxUtils.ajax(url);
-//                            const indicatorsPromise = AjaxUtils.ajax("data/sunburst-utj.json");
+//                    const indicatorsPromise = AjaxUtils.ajax(url);
+                    const indicatorsPromise = AjaxUtils.ajax(`data/${sample}-satisfaction.json`);
                             
                     return indicatorsPromise.then(
                         indicators => new Promise(

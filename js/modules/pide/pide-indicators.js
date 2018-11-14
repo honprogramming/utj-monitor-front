@@ -5,6 +5,7 @@ define(
             'knockout',
             'data/RESTConfig',
             'view-models/GeneralViewModel',
+            'utils/RoutesWrapper',
             'ojs/ojbutton',
             'hammerjs',
             'ojs/ojjquery-hammer',
@@ -18,7 +19,7 @@ define(
             'ojs/ojmoduleanimations',
             'ojs/ojpopup'
         ],
-        function ($, oj, ko, RESTConfig, GeneralViewModel) {
+        function ($, oj, ko, RESTConfig, GeneralViewModel, RoutesWrapper) {
             var theKey = {};
             
             function PIDEIndicatorsViewModel() {
@@ -42,7 +43,7 @@ define(
                         return privateData;
                     }
                 };
-                
+                const sample = RoutesWrapper.getParameter("sample");
                 self.arrowClass = ko.observable(arrowClassStart + left);
                 self.cardModule = ko.observable({viewName: 'empty'});
                 self.dateConverter = GeneralViewModel.converters.date;
@@ -60,6 +61,7 @@ define(
                 self.rangeUnderflowDetail = "La fecha debe ser mayor o igual a " + self.dateConverter.format(self.minDate);
                 self.searchValue = ko.observable();
                 self.toDateValue = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
+                self.title = GeneralViewModel.nls("pide.indicators.title");
                 
                 self.dateSelectionHandler = function(event, ui) {
                     if (ui.option === "value") {
@@ -377,8 +379,8 @@ define(
                 };
                 
                 self.getJson = function (node, fn) {
-//                    $.getJSON("data/pide-tree.json").then(
-                    $.getJSON(RESTConfig.indicators.pide.tree.path).then(
+                    $.getJSON(`data/${sample}-indicators.json`).then(
+//                    $.getJSON(RESTConfig.indicators.pide.tree.path).then(
                             function (data) {
                                 data.forEach(e => e.attr.id += 'si');
                                 model = data;

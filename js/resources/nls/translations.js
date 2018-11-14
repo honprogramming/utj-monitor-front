@@ -1,7 +1,7 @@
  define(
         {
             root: {
-                "appTitle": "Tableros UTJ",
+                "appTitle": "Tableros de Indicadores",
                 "header": {
                     "login": "Iniciar sesión",
                     "logout": "Cerrar sesión"
@@ -638,6 +638,9 @@
                                 "title": "Avances y metas"
                             }
                         }
+                    },
+                    "indicators": {
+                        "title": "Gráficas"
                     }
                 },
                 "mecasut": {
