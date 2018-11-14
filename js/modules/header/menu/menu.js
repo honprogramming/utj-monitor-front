@@ -44,7 +44,8 @@ define(
                     self.callListeners(EventTypes.CLICK_EVENT, value);
                 };
                 
-                self.shouldDisplay = ko.computed(() => `*,${header.isAuthenticated() ? "admin" : ""}`);
+//                self.shouldDisplay = ko.computed(() => `*,${header.isAuthenticated() ? "admin" : ""}`);
+                self.shouldDisplay = ko.computed(() => `*,admin`);
             }
             
             MenuViewModel.prototype = Object.create(GeneralViewModel);

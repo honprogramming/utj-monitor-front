@@ -379,8 +379,11 @@ define(
                 };
                 
                 self.getJson = function (node, fn) {
-                    $.getJSON(`data/${sample}-indicators.json`).then(
-//                    $.getJSON(RESTConfig.indicators.pide.tree.path).then(
+                    const indicatorsUrl = sample === undefined
+                        ? RESTConfig.indicators.pide.tree.path
+                        : `data/${sample}-indicators.json`;
+
+                    $.getJSON(indicatorsUrl).then(
                             function (data) {
                                 data.forEach(e => e.attr.id += 'si');
                                 model = data;

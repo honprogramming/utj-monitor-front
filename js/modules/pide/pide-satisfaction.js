@@ -25,11 +25,11 @@ define(
             function PIDESatisfactionViewModel() {
                 const self = this;                
                 const sample = RoutesWrapper.getParameter("sample");
+                const strategicUrl = sample === undefined
+                    ? RESTConfig.admin.strategic.path
+                    : `data/${sample}-strategic-items.json`;
                 const controlPanelDataProvider =
-                        new DataProvider(
-//                                RESTConfig.admin.strategic.path,
-                                `data/${sample}-strategic-items.json`,
-                                PIDEDataParser);
+                        new DataProvider(strategicUrl,PIDEDataParser);
 
                 const dataPromise = controlPanelDataProvider.fetchData();
                 self.observableSunburst = ko.observable();
@@ -57,8 +57,11 @@ define(
                         url = `${url}?date=${date}`;
                     }
                     
-//                    const indicatorsPromise = AjaxUtils.ajax(url);
-                    const indicatorsPromise = AjaxUtils.ajax(`data/${sample}-satisfaction.json`);
+                    const indicatorsUrl = sample === undefined
+                    ? url
+                    : `data/${sample}-satisfaction.json`;
+
+                    const indicatorsPromise = AjaxUtils.ajax(indicatorsUrl);
                             
                     return indicatorsPromise.then(
                         indicators => new Promise(

@@ -13,24 +13,24 @@ define(
                     },
                     display: "*"
                 },
-                mecasut: {
-                    id: "mecasut",
-                    label: GeneralViewModel.nls("mecasut.label"),
-                    module: {
-                        name: "mecasut/mecasut",
-                        viewName: "mecasut/mecasut"
-                    },
-                    display: "*"
-                },
-                pe: {
-                    id: "pe",
-                    label: GeneralViewModel.nls("pe.label"),
-                    module: {
-                        name: "pe/pe",
-                        viewName: "pe/pe"
-                    },
-                    display: "*"
-                },
+//                mecasut: {
+//                    id: "mecasut",
+//                    label: GeneralViewModel.nls("mecasut.label"),
+//                    module: {
+//                        name: "mecasut/mecasut",
+//                        viewName: "mecasut/mecasut"
+//                    },
+//                    display: "*"
+//                },
+//                pe: {
+//                    id: "pe",
+//                    label: GeneralViewModel.nls("pe.label"),
+//                    module: {
+//                        name: "pe/pe",
+//                        viewName: "pe/pe"
+//                    },
+//                    display: "*"
+//                },
 //                poa: {
 //                    id: "poa",
 //                    label: GeneralViewModel.nls("poa.label"),
