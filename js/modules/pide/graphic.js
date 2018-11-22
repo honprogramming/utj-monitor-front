@@ -49,6 +49,8 @@
                 self.graphicMenuId = "graphic-menu-" + index.toString();
                 self.graphicName = ko.observable(params.graphicName || "Grafica " + index);
                 self.chartType = ko.observable("combo");
+                self.fromLabel = self.nls("pide.graphicBoard.from");
+                self.goalsLabel = self.nls("pide.graphicBoard.goals");
                 self.graphicOptions = ko.observableArray([this.elementType.PROGRESS, this.elementType.GOAL]);
                 self.editing = ko.observable(false);
                 self.displayGraphicNameInputText = ko.observable(false);
@@ -60,11 +62,13 @@
                 self.zoomIconClass = ko.observable("fa-search-plus");
                 self.minDate = oj.IntlConverterUtils.dateToLocalIso(new Date(2010, 0, 01));
                 self.maxDate = oj.IntlConverterUtils.dateToLocalIso(new Date());
+                self.progressLabel = self.nls("pide.graphicBoard.progress");
                 self.rangeOverflowSummary = "La fecha es mayor a la máxima permitida";
                 self.rangeOverflowDetail = "La fecha debe ser menor o igual a " + self.dateConverter.format(self.maxDate);
                 self.rangeUnderflowSummary = "La fecha es menor a la mínima permitida";
                 self.rangeUnderflowDetail = "La fecha debe ser mayor o igual a " + self.dateConverter.format(self.minDate);
                 self.fromDateValue = ko.observable(params.startDate);
+                self.toLabel = self.nls("pide.graphicBoard.to");
                 self.toDateValue = ko.observable(params.endDate);
                 self.xAxis = ko.observable(this.xAxisFormats["yearly"]);
                 self.xAxisType = ko.observable();
@@ -500,20 +504,20 @@
             };
             
             prototype.createSerie = function(id) {
-                var yearlySeries = this.getYearlySeries();
-                var monthlySeries = this.getMonthlySeries();
-                var yaxes = this.getYAxes();
-                var item = this.getItem(id);
-                var unitType = item.measureUnit.type.name;
-                var displayLegends = this.graphicOptions().indexOf(this.elementType.GOAL) < 0;
-                var markerHandler = this.getMarkerHandler(theKey);
-                var markerShape = markerHandler.getValue(id);
+                const yearlySeries = this.getYearlySeries();
+                const monthlySeries = this.getMonthlySeries();
+                const yaxes = this.getYAxes();
+                const item = this.getItem(id);
+                const unitType = item.measureUnit.type.name;
+                const displayLegends = this.graphicOptions().indexOf(this.elementType.GOAL) < 0;
+                const markerHandler = this.getMarkerHandler(theKey);
+                const markerShape = markerHandler.getValue(id);
                 
                 if (yaxes.indexOf(unitType) < 0) {
                     yaxes.push(unitType);
                 }
 
-                var monthlyProgressElement = {
+                const monthlyProgressElement = {
                     id: item.id,
                     elementType: this.elementType.PROGRESS,
                     name: item.title,
@@ -525,7 +529,7 @@
                     assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                 };
 
-                var monthlyGoalElement = {
+                const monthlyGoalElement = {
                     id: item.id,
                     elementType: this.elementType.GOAL,
                     name: item.title,
@@ -538,7 +542,7 @@
                     assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                 };
 
-                var yearlyProgressElement = {
+                const yearlyProgressElement = {
                     id: item.id,
                     elementType: this.elementType.PROGRESS,
                     name: item.title,
@@ -550,7 +554,7 @@
                     assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                 };
 
-                var yearlyGoalElement = {
+                const yearlyGoalElement = {
                     id: item.id,
                     elementType: this.elementType.GOAL,
                     name: item.title,
@@ -563,25 +567,31 @@
                     assignedToY2: yaxes.indexOf(unitType) > 0 ? "on" : "off"
                 };
                 
-                let achievements = item.achievements;
-                let monthlyElements = {
+                const fromDate = Date.parse(this.fromDateValue());
+                const toDate = Date.parse(this.toDateValue());
+                const achievements = item.achievements.filter(
+                    achievement => filterAchievementByDate(achievement, fromDate, toDate)
+                );
+        
+                const monthlyElements = {
                     "GOAL": monthlyGoalElement,
                     "PROGRESS": monthlyProgressElement
                 };
-                let yearlyElements = {
+                
+                const yearlyElements = {
                     "GOAL": yearlyGoalElement,
                     "PROGRESS": yearlyProgressElement
                 };
                 
-                let yearlyData = {};
+                const yearlyData = {};
                 
                 achievements.forEach(
                     achievement => {
-                        let date = new Date();
+                        const date = new Date();
                         date.setTime(achievement.date.time);
                         
-                        let isoDate = oj.IntlConverterUtils.dateToLocalIso(date);
-                        let monthlyElement = monthlyElements[achievement.achievementType];
+                        const isoDate = oj.IntlConverterUtils.dateToLocalIso(date);
+                        const monthlyElement = monthlyElements[achievement.achievementType];
                     
                         monthlyElement.items.push({x: isoDate, y: achievement.data});
                         
@@ -758,7 +768,12 @@
             function filterGoals(element) {
                 return element.elementType === prototype.elementType.GOAL;
             }
-                    
+            
+            function filterAchievementByDate(achievement, startDate, endDate) {
+                const date = new Date(achievement.date.time);
+                return date >= startDate && date <= endDate;
+            }
+            
             return GraphicViewModel;
         }
 );

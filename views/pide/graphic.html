@@ -20,7 +20,7 @@
                         <div class="oj-flex-item">
                             <div class="oj-flex oj-flex-items-pad">
                                 <div class="oj-flex-item oj-sm-align-self-center">
-                                <label data-bind="attr: {for: 'from-' + graphicId}">Desde</label>
+                                <label data-bind="attr: {for: 'from-' + graphicId}, text: fromLabel"></label>
                             </div>
                             <div class="oj-flex-item">
                                     <input data-bind="  attr:{id: 'from-' + graphicId},
@@ -60,7 +60,7 @@
                         <div class="oj-flex-item">
                             <div class="oj-flex oj-flex-items-pad">
                                 <div class="oj-flex-item oj-sm-align-self-center">
-                                    <label data-bind="attr: {for: 'to-' + graphicId}">Hasta</label>
+                                    <label data-bind="attr: {for: 'to-' + graphicId}, text: toLabel"></label>
                                 </div>
                                 <div class="oj-flex-item">
                                     <input class="oj-flex-item" 
@@ -208,12 +208,12 @@
                     <span class="oj-choice-item">
                         <input type="checkbox" value="progress"
                                 data-bind=" attr:{id: 'progress-' + graphicId}">
-                        <label data-bind="attr:{for: 'progress-' + graphicId}">Avances</label>
+                        <label data-bind="attr:{for: 'progress-' + graphicId}, text: progressLabel"></label>
                     </span>
                     <span class="oj-choice-item">
                         <input type="checkbox" value="goal"
                                 data-bind=" attr:{id: 'goal-' + graphicId}">
-                        <label data-bind="attr:{for: 'goal-' + graphicId}">Metas</label>
+                        <label data-bind="attr:{for: 'goal-' + graphicId}, text: goalsLabel"></label>
                     </span>
                 </div>
             </div>

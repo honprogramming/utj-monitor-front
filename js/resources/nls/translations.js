@@ -638,6 +638,12 @@
                                 "title": "Avances y metas"
                             }
                         }
+                    },
+                    "graphicBoard": {
+                        "from": "Desde",
+                        "to": "Hasta",
+                        "goals": "Metas",
+                        "progress": "Avances"
                     }
                 },
                 "mecasut": {
