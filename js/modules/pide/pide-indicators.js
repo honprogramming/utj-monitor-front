@@ -48,9 +48,14 @@ define(
                 self.dateConverter = GeneralViewModel.converters.date;
                 self.displayPanel = ko.observable(true);
                 self.editing = ko.observable(false);
+                self.errorMessage = GeneralViewModel.nls("pide.graphicBoard.error.message");
+                self.errorTitle = GeneralViewModel.nls("pide.graphicBoard.error.title");
+                self.filterLabel = GeneralViewModel.nls("pide.graphicBoard.filter");
+                self.fromDateLabel = GeneralViewModel.nls("pide.graphicBoard.from");
                 self.fromDateValue = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date(2014, 0, 01)));
                 self.graphics = ko.observableArray();
                 self.id = "pide";
+                self.menuLabel = GeneralViewModel.nls("pide.graphicBoard.menu");
                 self.minDate = oj.IntlConverterUtils.dateToLocalIso(new Date(2010, 0, 01));
                 self.maxDate = oj.IntlConverterUtils.dateToLocalIso(new Date());
                 self.nodes = ko.observableArray();
@@ -59,6 +64,8 @@ define(
                 self.rangeUnderflowSummary = "La fecha es menor a la mínima permitida";
                 self.rangeUnderflowDetail = "La fecha debe ser mayor o igual a " + self.dateConverter.format(self.minDate);
                 self.searchValue = ko.observable();
+                self.title = GeneralViewModel.nls("pide.graphicBoard.title");
+                self.toDateLabel = GeneralViewModel.nls("pide.graphicBoard.to");
                 self.toDateValue = ko.observable(oj.IntlConverterUtils.dateToLocalIso(new Date()));
                 
                 self.dateSelectionHandler = function(event, ui) {

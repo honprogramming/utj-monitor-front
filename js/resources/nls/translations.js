@@ -640,10 +640,17 @@
                         }
                     },
                     "graphicBoard": {
+                        "title": "Tablero de indicadores",
+                        "filter": "Selección de Indicadores",
                         "from": "Desde",
                         "to": "Hasta",
                         "goals": "Metas",
-                        "progress": "Avances"
+                        "progress": "Avances",
+                        "error": {
+                            "title": "¡Error!",
+                            "message": "No puedes seleccionar indicadores con 3 o más unidades de medida diferentes"
+                        },
+                        "menu": "Ver Ficha"
                     }
                 },
                 "mecasut": {
