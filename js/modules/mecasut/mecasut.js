@@ -5,6 +5,7 @@ define(
             'knockout',
             'data/RESTConfig',
             'view-models/GeneralViewModel',
+            'modules/pide/util/indicator',
             'ojs/ojbutton',
             'hammerjs',
             'ojs/ojjquery-hammer',
@@ -18,7 +19,7 @@ define(
             'ojs/ojmoduleanimations',
             'ojs/ojpopup'
         ],
-        function ($, oj, ko, RESTConfig, GeneralViewModel) {
+        function ($, oj, ko, RESTConfig, GeneralViewModel, IndicatorUtils) {
             var theKey = {};
             
             function MECASUTIndicatorsViewModel() {
@@ -29,6 +30,7 @@ define(
                 var model = [];
                 var modelTree = {};
                 var currentEditingGraphic;
+                let indicatorsMap = {};
                 
                 var privateData = {
                     selectedNodes: {},
@@ -44,6 +46,7 @@ define(
                 };
                 
                 self.arrowClass = ko.observable(arrowClassStart + left);
+                self.cardModule = ko.observable({viewName: 'empty'});
                 self.dateConverter = GeneralViewModel.converters.date;
                 self.displayPanel = ko.observable(true);
                 self.editing = ko.observable(false);
@@ -121,10 +124,30 @@ define(
                 };
                 
                 self.hoverHandler = function(event, ui) {
-                    self.setHoverNode(theKey, ui.item[0]);
+                    const hoverNode = ui.item[0];
+                    
+                    if (hoverNode.type.includes("indicator")) {
+                        self.setHoverNode(theKey, hoverNode);
+                    }
                 };
                 
                 self.menuSelectHandler = function(event, ui) {
+                    const indicatorId = self.getHoverNode().id;
+                    const classType = indicatorsMap[indicatorId]
+                    
+                    IndicatorUtils.getMECASUTCardData(indicatorId)
+                    .then(
+                        indicator =>
+                        self.cardModule(
+                            {
+                                name: 'pide/indicator', 
+                                params: {
+                                    indicator: {classType, ...indicator}
+                                }
+                            }
+                        )
+                    );
+            
                     $("#tree-menu-dialog").ojDialog("open");
                 };
                 
@@ -363,25 +386,38 @@ define(
                 };
                 
                 self.getJson = function (node, fn) {
-                    $.getJSON(RESTConfig.indicators.mecasut.tree.path).then(
-                            function (data) {
-                                
-                                model = data
-                                
-                                fn(model);  // pass to ojTree using supplied function
+                    $.getJSON(RESTConfig.indicators.mecasut.tree.path)
+                    .then(
+                        data => {
+                            indicatorsMap = data.reduce(
+                                (hash, classType) => {
+                                    classType.children.forEach(
+                                        indicator => {
+                                            hash[indicator.attr.id] = classType;
+                                        }
+                                    );
 
-                                var itemsArray = model.slice(0);
+                                    return hash;
+                                },
+                                {}
+                            );
+                    
+                            model = data;
 
-                                while (itemsArray.length > 0) {
-                                    var element = itemsArray.shift();
-                                    
-                                    if (element.children) {
-                                        itemsArray = itemsArray.concat(element.children);
-                                    }
-                                    
-                                    modelTree[element.attr.id] = element;
+                            fn(model);  // pass to ojTree using supplied function
+
+                            var itemsArray = model.slice(0);
+
+                            while (itemsArray.length > 0) {
+                                var element = itemsArray.shift();
+
+                                if (element.children) {
+                                    itemsArray = itemsArray.concat(element.children);
                                 }
+
+                                modelTree[element.attr.id] = element;
                             }
+                        }
                     );
                 };
 

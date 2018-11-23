@@ -57,20 +57,21 @@ define(
             };
             
             // Section names
-            self.title = GeneralViewModel.nls("pide.details.card.title");
-            self.generalInfo = GeneralViewModel.nls("pide.details.card.general-info.title");
-            self.nameLabel = GeneralViewModel.nls("pide.details.card.general-info.name-label");
-            self.axeLabel = GeneralViewModel.nls("pide.details.card.general-info.axe");
-            self.objectiveLabel = GeneralViewModel.nls("pide.details.card.general-info.objective");
             self.areaLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.area");
-            self.responsibleLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.title");
-            self.phoneLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.phone");
-            self.extLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.ext");
+            self.axeLabel = GeneralViewModel.nls("pide.details.card.general-info.axe");
+            self.classTypeLabel = GeneralViewModel.nls("mecasut.class");
             self.descriptionLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.description");
-            self.measureUnitLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.measure-unit");
-            self.sourceLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.source");
-            self.potentialRiskLabel = GeneralViewModel.nls("pide.details.card.general-info.potential-risk");
+            self.extLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.ext");
+            self.generalInfo = GeneralViewModel.nls("pide.details.card.general-info.title");
             self.implementedActionsLabel = GeneralViewModel.nls("pide.details.card.general-info.implemented-actions");
+            self.measureUnitLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.measure-unit");
+            self.nameLabel = GeneralViewModel.nls("pide.details.card.general-info.name-label");
+            self.objectiveLabel = GeneralViewModel.nls("pide.details.card.general-info.objective");
+            self.phoneLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.phone");
+            self.potentialRiskLabel = GeneralViewModel.nls("pide.details.card.general-info.potential-risk");
+            self.responsibleLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.title");
+            self.sourceLabel = GeneralViewModel.nls("pide.details.card.general-info.responsible.source");
+            self.title = GeneralViewModel.nls("pide.details.card.title");
             
             
             self.progressGoals = GeneralViewModel.nls("pide.details.card.goals-and-progress.title");
@@ -79,8 +80,16 @@ define(
             // General information
             self.name = ko.observable(indicator.name);
             
-            self.axeValue = indicator.axe.text;
-            self.objectiveValue = indicator.objective.text;
+            switch (indicator.indicatorType.name) {
+                case "PIDE":
+                    self.axeValue = indicator.axe.text;
+                    self.objectiveValue = indicator.objective.text;
+                    break;
+                case "MECASUT":
+                    self.classTypeValue = indicator.classType.name;
+                    break;
+            }
+            
             self.areaValue = indicator.responsible.area.name;
             self.responsibleValue = indicator.responsible.player.name;
             self.phoneValue = indicator.responsible.player.phones[0].number;

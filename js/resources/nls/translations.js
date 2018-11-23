@@ -654,7 +654,8 @@
                     }
                 },
                 "mecasut": {
-                    "label": "MECASUT"
+                    "label": "MECASUT",
+                    "class": "Clase"
                 },
                 "pe": {
                     "label": "PE"

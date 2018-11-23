@@ -33,7 +33,10 @@ define(
                             ...indicator
                         };
                     }
-                )
+                ),
+            getMECASUTCardData: (indicatorId) =>
+                $.getJSON(`${RESTConfig.indicators.mecasut.path}/${indicatorId}`)
+                .then(indicator => indicator)
         };
         
         return indicatorUtils;

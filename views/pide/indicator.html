@@ -54,6 +54,7 @@
                             </div>-->
     
                             <!-- Eje -->
+                            <!-- ko if: $data.axeValue -->
                             <div class="oj-flex">
                                 <div class="oj-flex-item">
                                     <label for="eje">
@@ -85,7 +86,26 @@
                                     }" readonly>
                                 </div>
                             </div>
-    
+                            <!-- /ko -->
+                            <!-- ko if: $data.classTypeValue -->
+                                <!-- Clase -->
+                                <div class="oj-flex">
+                                    <div class="oj-flex-item">
+                                        <label for="classType">
+                                            <b data-bind="text: classTypeLabel"></b>
+                                        </label>
+                                    </div>
+                                    <div class="oj-flex-item">
+                                        <input id="classType" data-bind="ojComponent: {
+                                            component: 'ojInputText',
+                                            value: classTypeValue,
+                                            rootAttributes: {
+                                                style: 'max-width: 100%;'
+                                            }
+                                        }" readonly>
+                                    </div>
+                                </div>
+                            <!-- /ko -->
                             <!-- Área responsable -->
                             <div class="oj-flex">
                                 <div class="oj-flex-item">

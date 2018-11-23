@@ -72,6 +72,7 @@ define(
                     },
                     mecasut: {
                         subPath: '/mecasut',
+                        endPath: '/mecasut',
                         
                         active: {
                             endPath: '/active'
