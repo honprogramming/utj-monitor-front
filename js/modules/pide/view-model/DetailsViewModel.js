@@ -189,7 +189,7 @@ define(
                             let axe, objective;
                             [, axe, objective] = this.currentParents();
                             
-                            this.setIndicator({leanGoals, leanProgress, ...indicator, axe, objective});
+                            this.setIndicator({...indicator, axe, objective});
                             this.chart({name: 'pide/chart', params: {goals: leanGoals, progress: leanProgress}});
                         }
                     )

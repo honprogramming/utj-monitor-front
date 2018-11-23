@@ -5,6 +5,7 @@ define(
             'knockout',
             'data/RESTConfig',
             'view-models/GeneralViewModel',
+            'modules/pide/util/indicator',
             'ojs/ojbutton',
             'hammerjs',
             'ojs/ojjquery-hammer',
@@ -18,7 +19,7 @@ define(
             'ojs/ojmoduleanimations',
             'ojs/ojpopup'
         ],
-        function ($, oj, ko, RESTConfig, GeneralViewModel) {
+        function ($, oj, ko, RESTConfig, GeneralViewModel, IndicatorUtils) {
             var theKey = {};
             
             function PIDEIndicatorsViewModel() {
@@ -26,7 +27,8 @@ define(
                 var arrowClassStart = "fa-chevron-";
                 var left = "left";
                 var right = "right";
-                var model = [];
+                let model = [];
+                let indicatorsMap = {};
                 var modelTree = {};
                 var currentEditingGraphic;
                 
@@ -137,16 +139,23 @@ define(
                 };
                 
                 self.menuSelectHandler = function(event, ui) {
-                    self.cardModule(
+                    const indicatorId = self.getHoverNode().id;
+                    const objectiveId = indicatorsMap[`i${indicatorId}`].replace("o", "");
+                    const axeId = indicatorsMap[`o${objectiveId}`].replace("a", "");
+                    
+                    IndicatorUtils.getCardData(axeId, objectiveId, indicatorId)
+                    .then(
+                        indicator =>
+                        self.cardModule(
                             {
                                 name: 'pide/indicator', 
                                 params: {
-                                    model: modelTree,
-                                    id: self.getHoverNode().id,
-                                    graphicName: modelTree[self.getHoverNode().id]["title"]
+                                    indicator
                                 }
                             }
+                        )
                     );
+                    
             
                     $("#tree-menu-dialog").ojDialog("open");
                 };
@@ -385,24 +394,42 @@ define(
                 
                 self.getJson = function (node, fn) {
 //                    $.getJSON("data/pide-tree.json").then(
-                    $.getJSON(RESTConfig.indicators.pide.tree.path).then(
-                            function (data) {
-                                data.forEach(e => e.attr.id += 'si');
-                                model = data;
-                                fn(model);  // pass to ojTree using supplied function
+                    $.getJSON(RESTConfig.indicators.pide.tree.path)
+                    .then(
+                        data => {
+                            indicatorsMap = data.reduce(
+                                (hash, axe) => {
+                                    axe.children.forEach(
+                                        objective => {
+                                            hash[`o${objective.attr.id}`] = `a${axe.attr.id}`;
 
-                                var itemsArray = model.slice(0);
+                                            objective.children.forEach(
+                                                indicator => hash[`i${indicator.attr.id}`] = `o${objective.attr.id}`
+                                            );
+                                        }
+                                    );
 
-                                while (itemsArray.length > 0) {
-                                    var element = itemsArray.shift();
-                                    
-                                    if (element.children) {
-                                        itemsArray = itemsArray.concat(element.children);
-                                    }
-                                    
-                                    modelTree[element.attr.id] = element;
+                                    return hash;
+                                },
+                                {}
+                            );
+                                
+                            data.forEach(e => e.attr.id += 'si');
+                            model = data;
+                            fn(model);  // pass to ojTree using supplied function
+
+                            var itemsArray = model.slice(0);
+
+                            while (itemsArray.length > 0) {
+                                var element = itemsArray.shift();
+
+                                if (element.children) {
+                                    itemsArray = itemsArray.concat(element.children);
                                 }
+
+                                modelTree[element.attr.id] = element;
                             }
+                        }
                     );
                 };
 
