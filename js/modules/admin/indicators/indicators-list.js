@@ -33,19 +33,23 @@ define(
                 EditableTable, FormActions, AdminItems) {
 
             function IndicatorsListViewModel(params) {
-                var self = this;
-
+                const self = this;
+                const filters = {};
+                
                 // Section title text
                 self.title = AdminItems["indicators"]["label"];
 
                 // General filter text
                 self.generalFilter = GeneralViewModel.nls("admin.indicators.main.filters.general.title");
-                self.typeLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.type");
-                self.statusLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.status");
                 self.periodicityLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.periodicity");
+                self.periodicityValue = ko.observable();
                 self.periodicities = ko.observableArray([]);
-                self.types = ko.observableArray([]);
                 self.status = ko.observableArray([]);
+                self.statusLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.status");
+                self.statusValue = ko.observable();
+                self.typeLabel = GeneralViewModel.nls("admin.indicators.main.filters.general.type");
+                self.typeValue = ko.observable();
+                self.types = ko.observableArray([]);
 
                 // PIDE filter text
                 self.pideFilter = GeneralViewModel.nls("admin.indicators.main.filters.pide.title");
@@ -91,7 +95,7 @@ define(
 
                 periodicitiesPromise.then(
                         periodicities => {
-                            self.periodicities(periodicities);
+                            self.periodicities([{name: "TODOS", id: 0}, ...periodicities]);
                             $("#periodicity").ojSelect("refresh");
                         }
                 );
@@ -100,7 +104,7 @@ define(
 
                 typesPromise.then(
                         types => {
-                            self.types(types);
+                            self.types([{name: "TODOS", id: 0}, ...types]);
                             $("#type").ojSelect("refresh");
                         }
                 );
@@ -109,7 +113,7 @@ define(
 
                 statusPromise.then(
                         status => {
-                            self.status(status);
+                            self.status([{name: "TODOS", id: 0}, ...status]);
                             $("#status").ojSelect("refresh");
                         }
                 );
@@ -149,12 +153,14 @@ define(
                 let indicatorsPromise = indicatorsDataProvider.fetchData();
                 let deletedIds = [];
                 let cloneItems = [];
+                let indicatorsModel;
+                let indicatorsTable;
                 // Tables observable
                 self.observableIndicatorsTable = ko.observable();
 
                 indicatorsPromise.then(
                     () => {
-                        let indicatorsModel = new IndicatorModel(indicatorsDataProvider);
+                        indicatorsModel = new IndicatorModel(indicatorsDataProvider);
                         
                         function removeItem(itemId) {
                             let item = indicatorsModel.getItemById(itemId);
@@ -177,7 +183,7 @@ define(
                             return indicator;
                         }
 
-                        let indicatorsTable = new EditableTable(indicatorsModel, 
+                        indicatorsTable = new EditableTable(indicatorsModel, 
                             {
                                 id: "indicators-table",
                                 title: GeneralViewModel.nls("admin.indicators.main.table.pide.title"),
@@ -234,6 +240,60 @@ define(
                 self.formActions.addResetListener(
                     () => $("#" + self.resetDialogId).ojDialog("open")
                 );
+                
+                self.typeChangeHandler = function(event, data) {
+                    if (data.option === "value") {
+                        const newType = parseInt(data.value[0]);
+
+                        if (newType > 0) {
+                            filters["type"] = i => i.type.id == newType;
+                        } else {
+                            delete filters["type"];
+                        }
+                        
+                        self.applyFilters();
+                    }
+                };
+                
+                self.statusChangeHandler = function(event, data) {
+                    if (data.option === "value") {
+                        const newStatus = parseInt(data.value[0]);
+
+                        if (newStatus > 0) {
+                            filters["status"] = i => i.status.id == newStatus;
+                        } else {
+                            delete filters["status"];
+                        }
+                        
+                        self.applyFilters();
+                    }
+                };
+                
+                self.periodicityChangeHandler = function(event, data) {
+                    if (data.option === "value") {
+                        const newPeriodicity = parseInt(data.value[0]);
+
+                        if (newPeriodicity > 0) {
+                            filters["periodicity"] = i => i.periodicity.id == newPeriodicity;
+                        } else {
+                            delete filters["periodicity"];
+                        }
+                        
+                        self.applyFilters();
+                    }
+                };
+                
+                self.applyFilters = function() {
+                    if (indicatorsModel) {
+                        let indicators = indicatorsModel.getData();
+
+                        for (let filter in filters) {
+                            indicators = indicators.filter(filters[filter]);
+                        }
+
+                        indicatorsTable.filter(indicators);
+                    }
+                };
                 
                 //Save Listener
                 self.formActions.addSaveListener(

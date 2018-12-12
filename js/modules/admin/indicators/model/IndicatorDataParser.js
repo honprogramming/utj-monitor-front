@@ -42,7 +42,8 @@ define(
                                 name,
                                 item.status,
                                 item.strategicItem,
-                                item.description
+                                item.description,
+                                item.periodicity
                         );
 
                         // Add the new Indicator item to items array

@@ -7,13 +7,15 @@ define(
              * @param {type} id
              * @param {type} name
              */
-            function SummaryIndicator(id, type, name, status, strategicItem, description) {
+            function SummaryIndicator(id, type, name, status, strategicItem,
+                description, periodicity) {
                 this.id = id;
                 this.type = type;
                 this.name = name;
                 this.status = status;
                 this.strategicItem = strategicItem;
                 this.description = description;
+                this.periodicity = periodicity;
                 this.cloneOf = undefined;
             }
             

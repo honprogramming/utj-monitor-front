@@ -56,7 +56,12 @@
                     <!-- Type option -->
                     <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
                         <label for="type" class="oj-label" data-bind="text: typeLabel"></label>
-                        <select id="type" data-bind="ojComponent: {component: 'ojSelect'}">
+                        <select id="type" 
+                                data-bind="ojComponent: {
+                                            component: 'ojSelect',
+                                            optionChange: typeChangeHandler,
+                                            value: typeValue
+                                        }">
                             <!-- ko foreach: types -->
                                 <option data-bind="text: $data.name, value: $data.id"></option>
                             <!-- /ko -->
@@ -66,7 +71,11 @@
                     <!-- Status option -->
                     <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
                         <label for="status" class="oj-label" data-bind="text: statusLabel"></label>
-                        <select id="status" data-bind="ojComponent: {component: 'ojSelect'}">
+                        <select id="status" data-bind="ojComponent: {
+                                                        component: 'ojSelect',
+                                                        optionChange: statusChangeHandler,
+                                                        value: statusValue
+                                                    }">
                             <!-- ko foreach: status -->
                                 <option data-bind="text: $data.name, value: $data.id"></option>
                             <!-- /ko -->
@@ -76,7 +85,11 @@
                     <!-- Periodicity option -->
                     <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
                         <label for="periodicity" class="oj-label" data-bind="text: periodicityLabel"></label>
-                        <select id="periodicity" data-bind="ojComponent: {component: 'ojSelect'}">
+                        <select id="periodicity" data-bind="ojComponent: {
+                                                                component: 'ojSelect',
+                                                                optionChange: periodicityChangeHandler,
+                                                                value: periodicityValue
+                                                            }">
                             <!-- ko foreach: periodicities -->
                                 <option data-bind="text: $data.name, value: $data.id"></option>
                             <!-- /ko -->
