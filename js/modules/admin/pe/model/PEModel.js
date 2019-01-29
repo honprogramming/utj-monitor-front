@@ -89,25 +89,21 @@ define(
                 delete itemsMap[target.getId()];
             };
 
-            prototype.getItemsByType = function (peType) {
-                var items = this.getItems();
-                var itemKeys = Object.keys(items);
-                var itemKeys = itemKeys.filter(
-                        function (key) {
-                            var item = items[key];
-
-                            return item.peType === peType;
-                        }
-                );
-
-                var typeItems = [];
-
+            prototype.getItemsByTypeId = function (peTypeId) {
+                const items = this.getItems();
+                const itemKeys = Object.keys(items);
+                const typeItems = [];
+                
                 itemKeys.forEach(
-                        function (key) {
-                            typeItems.push(items[key]);
-                        }
-                );
+                    key => {
+                        const item = items[key];
 
+                        if (item.type.id === peTypeId) {
+                            typeItems.push(item);
+                        }
+                    }
+                );
+        
                 return typeItems;
             };
 

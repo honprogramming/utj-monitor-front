@@ -237,6 +237,15 @@ define(
 
                     self.peTypesObservableTable(peTypesTable);
                     peTypesTable.addEditListener(updateEditedType);
+                    peTypesTable.addFilterListener(
+                        (id, removeFilter) => {
+                            const itemsToKeep = removeFilter 
+                                ? peModel.getData()
+                                : peModel.getItemsByTypeId(id);
+                            
+                            peTable.filter(itemsToKeep);
+                        }
+                    );
                 };
                 
                 const updatePETable = (pe) => {
