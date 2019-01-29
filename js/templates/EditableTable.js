@@ -161,7 +161,6 @@ define(
                 };
                 
                 self.rowComputedColor = function(id, data) {
-//                    console.trace("data: %o", data);
                     return ko.pureComputed(
                                 function() {
                                     if (self.currentRow()) {

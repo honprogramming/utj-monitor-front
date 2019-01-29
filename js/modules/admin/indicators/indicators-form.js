@@ -119,7 +119,11 @@ define(
                     indicator.setDescription(self.descriptionValue());
                     indicator.setDirection(self.directionValue()[0]);
                     indicator.setPeriodicity({id: parseInt(self.periodicityValue()[0])});
-                    indicator.setMeasureUnit({type: {id: self.measureUnitValue()[0]}});
+                    
+                    if (indicator.getIndicatorType().id !== 3) {
+                        indicator.setMeasureUnit({type: {id: self.measureUnitValue()[0]}});
+                    }
+                    
                     indicator.setBaseYear(self.baseYearValue());
                     indicator.setResetType({id: parseInt(self.resetValue()[0])});
                     
