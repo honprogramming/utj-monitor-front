@@ -205,19 +205,26 @@
         <!-- Search filter -->
         <div id="indicators-collapsible-content">
             <div class="right-align">
-                <input id="filter" data-bind="ojComponent: {
-                    component: 'ojInputText',
-                    placeholder: 'Escribe el nombre de un indicador'
-                }" />
-                <button id="clear" data-bind="ojComponent: { 
-                    component: 'ojButton',
-                    chroming: 'half',
-                    display: 'icons',
-                    label: 'Clear',
-                    icons: {
-                        'start': 'oj-fwk-icon oj-fwk-icon-cross03'
-                    }
-                }">
+                <input id="filter" 
+                       data-bind="
+                        ojComponent: {
+                            component: 'ojInputText',
+                            placeholder: 'Escribe el nombre de un indicador'
+                        },
+                        textInput: searchValue
+                "/>
+                <button id="clear"
+                    data-bind="ojComponent: { 
+                        component: 'ojButton',
+                        chroming: 'half',
+                        display: 'icons',
+                        label: 'Clear',
+                        icons: {
+                            'start': 'oj-fwk-icon oj-fwk-icon-cross03'
+                        }
+                    },
+                    click: clearHandler
+                ">
                 </button>
             </div>
             <div data-bind="template: {name: 'EditableTable', data: observableIndicatorsTable}"></div>

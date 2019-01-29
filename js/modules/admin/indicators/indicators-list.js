@@ -68,7 +68,9 @@ define(
 
                 //Indicators table section
                 self.indicatorsCollapsibleTitle = GeneralViewModel.nls("admin.indicators.main.table.collapsible.title");
-
+                
+                self.searchValue = ko.observable();
+                self.searchValue.extend({rateLimit: 1000});
                 // Table columns
                 self.columns = [
                     {
@@ -240,6 +242,26 @@ define(
                 self.formActions.addResetListener(
                     () => $("#" + self.resetDialogId).ojDialog("open")
                 );
+                
+                ko.computed(
+                    () => {
+                        let val = self.searchValue();
+                        if (indicatorsModel) {
+                            val = val.trim();
+                            
+                            const items = val.length > 0
+                                ? indicatorsModel.getItemsContainingInName(val)
+                                : indicatorsModel.getData();
+                            indicatorsTable.filter(items);
+                        }
+                    }
+                );
+                
+                self.clearHandler = function() {
+                    self.searchValue.extend({rateLimit: 0});
+                    self.searchValue('');
+                    self.searchValue.extend({rateLimit: 1000});
+                };
                 
                 self.typeChangeHandler = function(event, data) {
                     if (data.option === "value") {

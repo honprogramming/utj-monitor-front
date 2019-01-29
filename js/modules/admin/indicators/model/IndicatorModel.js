@@ -59,6 +59,11 @@ define(
                 return items;
             };
             
+            prototype.getItemsContainingInName = function(text) {
+                const upperText = text.toUpperCase();
+                return this.getData().filter(item => item.name.toUpperCase().includes(upperText));
+            };
+            
             prototype.addItem = function(item) {
                 if (item.id) {
                     let items = this.getItems();
