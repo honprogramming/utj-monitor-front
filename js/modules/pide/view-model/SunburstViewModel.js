@@ -226,11 +226,11 @@ define(
                     responsiblesDesc = "&lt;br/&gt;Responsable:&lt;br/&gt;";
                     responsiblesDesc += "&lt;table style='width:100%;margin:2px' border='1'&gt;";
                     responsiblesDesc += "&lt;tr&gt;";
-                    responsiblesDesc += "&lt;td style='text-align:center'&gt;";
-                    responsiblesDesc += "&lt;b&gt;";
-                    responsiblesDesc += "Persona";
-                    responsiblesDesc += "&lt;/b&gt;";
-                    responsiblesDesc += "&lt;/td&gt;";
+//                    responsiblesDesc += "&lt;td style='text-align:center'&gt;";
+//                    responsiblesDesc += "&lt;b&gt;";
+//                    responsiblesDesc += "Persona";
+//                    responsiblesDesc += "&lt;/b&gt;";
+//                    responsiblesDesc += "&lt;/td&gt;";
                     responsiblesDesc += "&lt;td style='text-align:center'&gt;";
                     responsiblesDesc += "&lt;b&gt;";
                     responsiblesDesc += "Area";
@@ -244,9 +244,9 @@ define(
                     responsiblesDesc += "&lt;/tr&gt;";
                     
                     responsiblesDesc += "&lt;tr&gt;";
-                    responsiblesDesc += "&lt;td&gt;";
-                    responsiblesDesc += responsibles['player']['name'];
-                    responsiblesDesc += "&lt;/td&gt;";
+//                    responsiblesDesc += "&lt;td&gt;";
+//                    responsiblesDesc += responsibles['player']['name'];
+//                    responsiblesDesc += "&lt;/td&gt;";
                     responsiblesDesc += "&lt;td&gt;";
                     responsiblesDesc += responsibles['area']['name'];
                     responsiblesDesc += "&lt;/td&gt;";

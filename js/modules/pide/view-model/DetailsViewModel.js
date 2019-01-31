@@ -402,8 +402,9 @@ define(
                 
                 if (responsible) {
                     statusMeterElement.responsible = {
-                        name: responsible['player']['name'],
+//                        name: responsible['player']['name'],
                         area: responsible['area']['name'],
+                        job: responsible['jobTitle']['name'],
                         phone: responsible['player']['phones'][0]['number']
                     };
                 }

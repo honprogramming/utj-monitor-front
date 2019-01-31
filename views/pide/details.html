@@ -132,47 +132,50 @@
                                         <div class="oj-flex-item oj-sm-12">
                                             <div class="oj-sm-12" data-bind="ojModule: $parent.chart"></div>
                                         </div>
-                                        <div class="oj-flex-item oj-sm-align-self-center">
-                                            <img data-bind="attr: {src: 'css/images/avatar_24px_2x.png'}"/>
-                                        </div>
-                                        <div class="oj-flex-item">
-                                            <div class="oj-flex oj-sm-flex-direction-column">
-                                                <div class="oj-flex-item left-align" data-bind="text: responsible.name"></div>
-                                                <div class="oj-flex-item oj-text-xs oj-text-secondary-color left-align" 
-                                                    data-bind="text: responsible.area"></div>
-<!--                                                <div class="oj-flex-item oj-text-xs oj-text-secondary-color left-align" 
-                                                    data-bind="text: responsible.email"></div>-->
-                                                <div class="oj-flex-item oj-text-xs oj-text-secondary-color left-align">
-                                                    <b>Tel: </b><span data-bind="text: responsible.phone"></span> 
-                                                    <!--<b>Ext: </b><span data-bind="text: responsible.ext"></span>-->
+                                        <div class="oj-flex oj-sm-12 oj-sm-justify-content-space-around">
+                                            <!--<div class="oj-flex-item">-->
+                                                <!--<img data-bind="attr: {src: 'css/images/avatar_24px_2x.png'}"/>-->
+                                            <!--</div>-->
+                                            <div class="oj-flex-item oj-sm-align-self-center">Responsable:</div>
+                                            <div class="oj-flex-item">
+                                                <div class="oj-flex oj-sm-flex-direction-column">
+                                                    <div class="oj-flex-item" data-bind="text: responsible.area"></div>
+                                                    <div class="oj-flex-item oj-text-xs oj-text-secondary-color" 
+                                                        data-bind="text: responsible.job"></div>
+    <!--                                                <div class="oj-flex-item oj-text-xs oj-text-secondary-color left-align" 
+                                                        data-bind="text: responsible.email"></div>-->
+                                                    <div class="oj-flex-item oj-text-xs oj-text-secondary-color">
+                                                        <b>Tel: </b><span data-bind="text: responsible.phone"></span> 
+                                                        <!--<b>Ext: </b><span data-bind="text: responsible.ext"></span>-->
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="oj-flex-item">
-                                    <div id="tree-menu-dialog-wrapper">
-                                        <div style="display:none" id="details-dialog" 
-                                                data-bind=" ojComponent:{
-                                                                component: 'ojDialog', 
-                                                                initialVisibility: 'hide',
-                                                                modality: 'modeless',
-                                                                rootAttributes: {
-                                                                    style: 'width: 95vw; height: 95vh;'
-                                                                }
-                                                            }">
+                                            <div class="oj-flex-item oj-sm-align-self-center">
+                                                <div id="tree-menu-dialog-wrapper">
+                                                    <div style="display:none" id="details-dialog" 
+                                                            data-bind=" ojComponent:{
+                                                                            component: 'ojDialog', 
+                                                                            initialVisibility: 'hide',
+                                                                            modality: 'modeless',
+                                                                            rootAttributes: {
+                                                                                style: 'width: 95vw; height: 95vh;'
+                                                                            }
+                                                                        }">
 
-                                            <div class="oj-dialog-body">
-                                                <div data-bind="ojModule: $parent.cardModule">                            
+                                                        <div class="oj-dialog-body">
+                                                            <div data-bind="ojModule: $parent.cardModule">                            
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                <i class="fa fa-file-text-o fa-2x pointer"
+                                                   title="Ver Ficha"
+                                                   data-bind="click: $parent.cardClickHandler"
+                                                   >
+                                                </i>
                                             </div>
                                         </div>
                                     </div>
-                                    <i class="fa fa-file-text-o fa-2x pointer"
-                                       title="Ver Ficha"
-                                       data-bind="click: $parent.cardClickHandler"
-                                       >
-                                    </i>
                                 </div>
                                 <div class="oj-flex oj-sm-flex-direction-column">
                                     <!-- ko if: childrenType --> 

@@ -91,7 +91,7 @@ define(
             }
             
             self.areaValue = indicator.responsible.area.name;
-            self.responsibleValue = indicator.responsible.player.name;
+            self.responsibleValue = indicator.responsible.jobTitle.name;
             self.phoneValue = indicator.responsible.player.phones[0].number;
             self.descriptionValue = indicator.description;
             self.measureUnitValue = GeneralViewModel.nls(`graphics.unit-types.${indicator.measureUnit.type.name}`);
