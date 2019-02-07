@@ -173,17 +173,22 @@ define(
                     }
                         
                     if (!isLeaf(node)) {
-                        var children = node.children;
+                        const children = node.children;
 
                         if (display) {
                             targetText = "";
                         }
-
-                        var displayables = children.map(
-                            function(element) {
-                                return recursiveDisplay(targetText, element);
-                            }
-                        );
+                        
+                        
+                        let displayables = [];
+                        
+                        if (children) {
+                            displayables = children.map(
+                                function(element) {
+                                    return recursiveDisplay(targetText, element);
+                                }
+                            );
+                        }
 
                         display = display || displayables.includes(true);
                     }
