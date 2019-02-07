@@ -1,0 +1,164 @@
+[
+    {
+        "name": "TSU Administración área Recursos Humanos",
+        "id": 1,
+        "shortName": "",
+        "type": {
+            "name": "TSU",
+            "id": 1
+        }
+    },
+    {
+        "name": "TSU Administración área Capital Humano",
+        "id": 2,
+        "shortName": "",
+        "type": {
+            "name": "TSU",
+            "id": 1
+        }
+    },
+    {
+        "name": "TSU Administración del Sistema del Transporte Terrestre",
+        "id": 3,
+        "shortName": "",
+        "type": {
+            "name": "TSU",
+            "id": 1
+        }
+    },
+    {
+        "name": "TSU Mecatrónica área Automatización",
+        "id": 4,
+        "shortName": "",
+        "type": {
+            "name": "TSU",
+            "id": 1
+        }
+    },
+    {
+        "name": "TSU Mantenimiento Industrial",
+        "id": 5,
+        "shortName": "",
+        "type": {
+            "name": "TSU",
+            "id": 1
+        }
+    },
+    {
+        "name": "TSU Mantenimiento área Maquinaria Pesada",
+        "id": 6,
+        "shortName": "",
+        "type": {
+            "name": "TSU",
+            "id": 1
+        }
+    },
+    {
+        "name": "TSU Procesos Industriales área Plásticos",
+        "id": 7,
+        "shortName": "",
+        "type": {
+            "name": "TSU",
+            "id": 1
+        }
+    },
+    {
+        "name": "TSU Procesos Industriales área Maquinados de Precisión",
+        "id": 8,
+        "shortName": "",
+        "type": {
+            "name": "TSU",
+            "id": 1
+        }
+    },
+    {
+        "name": "TSU Química área Tecnología Ambiental",
+        "id": 9,
+        "shortName": "",
+        "type": {
+            "name": "TSU",
+            "id": 1
+        }
+    },
+    {
+        "name": "TSU Química área Tecnología Farmacéutica",
+        "id": 10,
+        "shortName": "",
+        "type": {
+            "name": "TSU",
+            "id": 1
+        }
+    },
+    {
+        "name": "TSU Tecnologías de la Información y Comunicación área Sistemas Informáticos",
+        "id": 11,
+        "shortName": "",
+        "type": {
+            "name": "TSU",
+            "id": 1
+        }
+    },
+    {
+        "name": "ING Mecatrónica",
+        "id": 12,
+        "shortName": "",
+        "type": {
+            "name": "Ingeniería",
+            "id": 2
+        }
+    },
+    {
+        "name": "ING Procesos y Operaciones Industriales",
+        "id": 13,
+        "shortName": "",
+        "type": {
+            "name": "Ingeniería",
+            "id": 2
+        }
+    },
+    {
+        "name": "ING Desarrollo e Innovación Empresarial",
+        "id": 14,
+        "shortName": "",
+        "type": {
+            "name": "Ingeniería",
+            "id": 2
+        }
+    },
+    {
+        "name": "ING Tecnología Ambiental",
+        "id": 15,
+        "shortName": "",
+        "type": {
+            "name": "Ingeniería",
+            "id": 2
+        }
+    },
+    {
+        "name": "ING Tecnologías de la Información y Comunicación",
+        "id": 16,
+        "shortName": "",
+        "type": {
+            "name": "Ingeniería",
+            "id": 2
+        }
+    },
+    {
+        "name": "ING Mantenimiento Industrial",
+        "id": 17,
+        "shortName": "",
+        "type": {
+            "name": "Ingeniería",
+            "id": 2
+        }
+    },
+    {
+        "name": "TSU Desarrollo de Negocios área Mercadotecnia",
+        "id": 18,
+        "shortName": "",
+        "type": {
+            "name": "TSU",
+            "id": 1
+        }
+    }
+]

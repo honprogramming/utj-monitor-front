@@ -1,0 +1,819 @@
+
+    {
+        "strategicType": {
+            "name": "vision",
+            "id": 28
+        },
+        "children": [
+            {
+                "strategicType": {
+                    "name": "axe",
+                    "id": 29
+                },
+                "children": [
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "1.1.1 Acreditar los programas educativos ante COPAES",
+                                "id": 44
+                            }
+                        ],
+                        "name": "1.1 Atención de recomendaciones para acreditación de Programas Educativos",
+                        "id": 9
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "1.2.1 Mejorar el rendimiento y aprendizaje de los estudiantes",
+                                "id": 45
+                            }
+                        ],
+                        "name": "1.2 Evaluación del aprendizaje",
+                        "id": 10
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "1.3.1 Optimizar la infraestructura educativa, cultural y deportiva",
+                                "id": 46
+                            }
+                        ],
+                        "name": "1.3 Infraestructura educativa, cultural y deportiva",
+                        "id": 11
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "1.4.1 Incrementar el uso de TIC para fortalecer el aprendizaje de los estudiantes",
+                                "id": 47
+                            }
+                        ],
+                        "name": "1.4 Innovación Educativa",
+                        "id": 12
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "1.5.1 Fortalecer la atención de usuarios para el aprovechamiento de servicios bibliotecarios",
+                                "id": 48
+                            }
+                        ],
+                        "name": "1.5 Biblioteca",
+                        "id": 13
+                    }
+                ],
+                "name": "Eje 1. Calidad educativa",
+                "id": 2
+            },
+            {
+                "strategicType": {
+                    "name": "axe",
+                    "id": 29
+                },
+                "children": [
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "2.1.1 Asegurar que los estudiantes reciban una formación integral que incluya valores y actividades deportivas, culturales y artísticas",
+                                "id": 49
+                            }
+                        ],
+                        "name": "2.1 Formación integral del estudiante",
+                        "id": 14
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "2.2.1 Mejorar la eficiencia terminal de los PE de TSU e Ingenierías ",
+                                "id": 50
+                            }
+                        ],
+                        "name": "2.2 Eficiencia terminal ",
+                        "id": 15
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "2.3.1 Reducir los efectos de las deficiencias en educación básica y media superior en los alumnos de la UTJ",
+                                "id": 51
+                            }
+                        ],
+                        "name": "2.3 Tendencias en la educación",
+                        "id": 16
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "2.4.1 Fortalecer el programa institucional de tutorías",
+                                "id": 52
+                            }
+                        ],
+                        "name": "2.4 Tutorías",
+                        "id": 17
+                    }
+                ],
+                "name": "Eje 2. Formación integral y aprovechamiento académico ",
+                "id": 3
+            },
+            {
+                "strategicType": {
+                    "name": "axe",
+                    "id": 29
+                },
+                "children": [
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "3.1.1 Consolidar los trabajos e instrumentos de planeación, seguimiento y evaluación",
+                                "id": 53
+                            }
+                        ],
+                        "name": "3.1 Planeación y evaluación",
+                        "id": 18
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "3.2.1 Mejorar el desempeño de la estructura organizacional",
+                                "id": 54
+                            }
+                        ],
+                        "name": "3.2 Estructura administrativa",
+                        "id": 19
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "3.3.1 Asegurar que la comunidad universitaria cumpla con las políticas de equidad de género",
+                                "id": 55
+                            }
+                        ],
+                        "name": "3.3 Equidad de género y buen trato entre la comunidad universitaria",
+                        "id": 20
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "3.4.1 Promover el acceso a la Universidad a los estudiantes que provienen de grupos vulnerables",
+                                "id": 56
+                            }
+                        ],
+                        "name": "3.4 Inclusión social y acceso a grupos vulnerables",
+                        "id": 21
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "3.5.1 Incrementar los recursos disponibles para la operación y ampliación de la infraestructura universitaria",
+                                "id": 57
+                            }
+                        ],
+                        "name": "3.5 Finanzas",
+                        "id": 22
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "3.6.1 Incrementar el impacto del sistema de gestión de calidad en la mejora continua del desempeño universitario",
+                                "id": 58
+                            }
+                        ],
+                        "name": "3.6 Sistema de Gestión de Calidad",
+                        "id": 23
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "3.7.1 Asegurar el cumplimiento de las normas del sistema de gestión ambiental",
+                                "id": 59
+                            }
+                        ],
+                        "name": "3.7 Sistema de Gestión Ambiental",
+                        "id": 24
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "3.8.1 Asegurar la actualización y aplicación de la normatividad universitaria y facilitar los medios para las sesiones del Consejo Directivo de la UTJ",
+                                "id": 60
+                            }
+                        ],
+                        "name": "3.8 Gobierno y normatividad universitaria",
+                        "id": 25
+                    }
+                ],
+                "name": "Eje 3. Planeación, administración, equidad y gobierno",
+                "id": 4
+            },
+            {
+                "strategicType": {
+                    "name": "axe",
+                    "id": 29
+                },
+                "children": [
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "4.1.1 Asegurar la calidad y pertinencia de los PE",
+                                "id": 61
+                            }
+                        ],
+                        "name": "4.1 Pertinencia de los Programas Educativos",
+                        "id": 26
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "4.2.1 Mejorar la percepción del sector empresarial respecto a los estudiantes de la UTJ",
+                                "id": 62
+                            }
+                        ],
+                        "name": "4.2 Formación de los estudiantes en las empresas",
+                        "id": 27
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "4.3.1 Evaluar la oferta educativa y aumentar la matrícula de los PE de TSU e Ingenierías",
+                                "id": 63
+                            }
+                        ],
+                        "name": "4.3 Evaluación de la oferta educativa y ampliación de matrícula",
+                        "id": 28
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "4.4.1 Incrementar la vinculación con instituciones educativas, gubernamentales y empresariales",
+                                "id": 64
+                            }
+                        ],
+                        "name": "4.4 Vinculación",
+                        "id": 29
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "4.5.1 Consolidar la incubadora de negocios",
+                                "id": 65
+                            }
+                        ],
+                        "name": "4.5 Incubación y desarrollo de negocios",
+                        "id": 30
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "4.6.1 Buscar y obtener financiamientos estatales, federales e internacionales para la incubación de empresas",
+                                "id": 66
+                            }
+                        ],
+                        "name": "4.6 Asesoría técnica y financiera hacia las empresas",
+                        "id": 31
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "4.7.1 Incrementar la suscripción de acuerdos  convenios de colaboración y contratos  con el sector privado y la gestión de donativos.",
+                                "id": 67
+                            }
+                        ],
+                        "name": "4.7 Convenios y contratos con el sector privado",
+                        "id": 32
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "4.8.1 Capacitar a los alumnos para fomentar el emprendimiento",
+                                "id": 68
+                            }
+                        ],
+                        "name": "4.8 Fomento al emprendedor universitario",
+                        "id": 33
+                    }
+                ],
+                "name": "Eje 4. Vinculación e incubación de empresas",
+                "id": 5
+            },
+            {
+                "strategicType": {
+                    "name": "axe",
+                    "id": 29
+                },
+                "children": [
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "5.1.1 Incrementar el nivel de habilitación de la planta docente de la universidad",
+                                "id": 69
+                            }
+                        ],
+                        "name": "5.1 Capacidad Académica",
+                        "id": 34
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "5.2.1 Fortalecer la preparación, formación y actualización de docentes",
+                                "id": 70
+                            }
+                        ],
+                        "name": "5.2 Perfil y actividades del personal académico",
+                        "id": 35
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 32
+                                        },
+                                        "children": [],
+                                        "name": "5.3.1.1 Definición de criterios uniformes para la asignación de apoyo de capacitación a investigadores",
+                                        "id": 157
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 32
+                                        },
+                                        "children": [],
+                                        "name": "5.3.1.2 Promoción de incentivos y capacitación para realizar investigación",
+                                        "id": 158
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 32
+                                        },
+                                        "children": [],
+                                        "name": "5.3.1.3 Fortalecer la cooperación con otras instituciones para realizar investigación",
+                                        "id": 159
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 32
+                                        },
+                                        "children": [],
+                                        "name": "5.3.1.4 Apoyar la adquisición de equipo y herramientas especializadas que faciliten el trabajo de investigación tecnológica y aplicada",
+                                        "id": 160
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 32
+                                        },
+                                        "children": [],
+                                        "name": "5.3.1.5 Impulsar la búsqueda de conocimientos especializados en textos y artículos científicos",
+                                        "id": 161
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 32
+                                        },
+                                        "children": [],
+                                        "name": "5.3.1.6 Definir métodos de planeación de  la investigación y la canalización de los recursos para llevarla a cabo",
+                                        "id": 162
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 32
+                                        },
+                                        "children": [],
+                                        "name": "5.3.1.7 Impulsar la vinculación con la industria para realizar investigación aplicada en la solución de problemas",
+                                        "id": 163
+                                    },
+                                    {
+                                        "strategicType": {
+                                            "name": "strategy",
+                                            "id": 32
+                                        },
+                                        "children": [],
+                                        "name": "5.3.1.8 Lograr convenios de vinculación intrainstitucional para hacer investigación interdisciplinar",
+                                        "id": 164
+                                    }
+                                ],
+                                "name": "5.3.1 Fortalecer la infraestructura para la investigación, desarrollo tecnológico e innovación en la UTJ",
+                                "id": 71
+                            }
+                        ],
+                        "name": "5.3 Infraestructura para la investigación",
+                        "id": 36
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "5.4.1 Incrementar la productividad académica a la par con los proyectos de investigación, desarrollo tecnológico e innovación",
+                                "id": 72
+                            }
+                        ],
+                        "name": "5.4 Labores de investigación, desarrollo tecnológico e innovación",
+                        "id": 37
+                    }
+                ],
+                "name": "Eje 5. Innovación y desarrollo tecnológico",
+                "id": 6
+            },
+            {
+                "strategicType": {
+                    "name": "axe",
+                    "id": 29
+                },
+                "children": [
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "6.1.1 Mejorar el aprovechamiento de la academia de idiomas para alumnos y profesores",
+                                "id": 73
+                            }
+                        ],
+                        "name": "6.1 Academia de Idiomas ",
+                        "id": 38
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "6.2.1 Facilitar los intercambios académicos para mejorar el dominio de un segundo idioma",
+                                "id": 74
+                            }
+                        ],
+                        "name": "6.2 Movilidad",
+                        "id": 39
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "6.3.1 Formar y consolidar redes de cooperación académica nacionales e internacionales",
+                                "id": 75
+                            }
+                        ],
+                        "name": "6.3 Cooperación académica nacional e internacionalización",
+                        "id": 40
+                    }
+                ],
+                "name": "Eje 6. Internacionalización e idiomas",
+                "id": 7
+            },
+            {
+                "strategicType": {
+                    "name": "axe",
+                    "id": 29
+                },
+                "children": [
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "7.1.1 Global TSU",
+                                "id": 88
+                            }
+                        ],
+                        "name": "7.1 TSU",
+                        "id": 41
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "7.2.1 Global ING",
+                                "id": 95
+                            }
+                        ],
+                        "name": "7.2 ING",
+                        "id": 42
+                    },
+                    {
+                        "strategicType": {
+                            "name": "topic",
+                            "id": 30
+                        },
+                        "children": [
+                            {
+                                "strategicType": {
+                                    "name": "objective",
+                                    "id": 31
+                                },
+                                "children": [],
+                                "name": "7.3.1 UTJ",
+                                "id": 96
+                            }
+                        ],
+                        "name": "7.3 UTJ",
+                        "id": 43
+                    }
+                ],
+                "name": "Eje 7. Indicadores de Programas Educativos",
+                "id": 8
+            }
+        ],
+        "name": "Institución reconocida, que atiende los requerimientos del sector productivo de bienes y de servicios caracterizados por su calidad, pertinencia y relevancia.",
+        "id": 1
+    }
