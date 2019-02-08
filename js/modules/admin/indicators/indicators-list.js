@@ -339,20 +339,20 @@ define(
                             );
                         };
                 
-                        cloneItems.forEach(
-                            (indicator) => {
-                                AjaxUtils.ajax(
-                                    RESTConfig.admin.indicators.clone.path + "/" + indicator.getCloneOf(),
-                                    'POST', 
-                                    indicator,
-                                    () => {},
-                                    (jqXHR, textStatus, errMsg) => {
-                                        saveDialogClass = "save-dialog-error";
-                                        self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success") + errMsg);
-                                    }
-                                );
-                            }
-                        );
+//                        cloneItems.forEach(
+//                            (indicator) => {
+//                                AjaxUtils.ajax(
+//                                    RESTConfig.admin.indicators.clone.path + "/" + indicator.getCloneOf(),
+//                                    'POST', 
+//                                    indicator,
+//                                    () => {},
+//                                    (jqXHR, textStatus, errMsg) => {
+//                                        saveDialogClass = "save-dialog-error";
+//                                        self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success") + errMsg);
+//                                    }
+//                                );
+//                            }
+//                        );
                         
                         deletedIds = [];
                         cloneItems = [];
