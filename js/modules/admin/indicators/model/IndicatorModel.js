@@ -38,7 +38,7 @@ define(
             };
             
             prototype.getData = function () {
-                return this.IndicatorModel_(theKey).itemsArray;
+                return this.IndicatorModel_(theKey).itemsArray.sort(this.sortByNameThenId);
             };
 
             prototype.getItemById = function (itemId) {
@@ -87,6 +87,16 @@ define(
                 if (items[itemTarget.id]) {
                     delete items[itemTarget.id];
                 }
+            };
+            
+            prototype.sortByNameThenId = function(a, b) {
+                let val = a.name.localeCompare(b.name);
+                
+                if (val === 0) {
+                    val = a.id - b.id;
+                }
+                
+                return val;
             };
 
             return IndicatorModel;

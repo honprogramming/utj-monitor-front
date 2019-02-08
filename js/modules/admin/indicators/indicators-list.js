@@ -311,6 +311,7 @@ define(
 
                         for (let filter in filters) {
                             indicators = indicators.filter(filters[filter]);
+                            indicators.sort(indicatorsModel.sortByNameThenId);
                         }
 
                         indicatorsTable.filter(indicators);
