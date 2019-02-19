@@ -219,3 +219,22 @@ html, body {
 .circle {
     border-radius: 50%;
 }
+
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #404049;
+    color: white;
+}
+
+.login  .title {
+    text-align: center;
+    font-size: 5em;
+}
+
+.login  a, a:visited, a:hover {
+    color: white;
+    cursor: pointer;
+}

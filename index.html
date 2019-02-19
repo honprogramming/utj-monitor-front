@@ -48,12 +48,18 @@
             <!-- Header section which contains the Global Branding, Global Navigation, 
             ** and Application Navigation code. Template is located in /templates/header.tmpl.html 
             -->
+            <!-- ko if: isAuthorized -->
             <header id="headerWrapper" role="banner" data-bind="ojModule: {name: 'header/header'}"></header>
             
             <!-- This is where your main page content will be loaded -->
             <div id="mainContainer" role="main" class="container">
                 <div id="mainContentContainer" class="container" data-bind="ojModule: {name: 'mainContent'}"></div>
             </div>
+            <!-- /ko -->
+            <!-- ko if: !isAuthorized() -->
+                <div id="login" class="container" data-bind="ojModule: {viewName: 'login'}"></div>
+            <!-- /ko -->
+            
 <!--            <footer id="footerWrapper" role="footer"
                     data-bind="ojModule: {name: 'footer'}">
             </footer>-->

@@ -1,0 +1,15 @@
+<div class="login full-width">
+    <!-- ko if: $root.isLoading() -->
+    <div class="loading">
+        <img src="css/images/loading.gif" alt="Cargando..."/>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: !$root.isLoading() -->
+    <div class="title">
+        Para poder ver esta página contacta al área de planeación.
+    </div>
+    <div class="text">
+        Haz click <a data-bind="click: $root.login">aquí</a> para autentificarte.
+    </div>
+    <!-- /ko -->
+</div>

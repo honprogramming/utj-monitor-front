@@ -237,7 +237,8 @@ define(
             };
             
             prototype.refresh = function() {
-                if (this.getControlPanelModel().getData()[this.getSelectedPlanElement().getId()]) {
+                if (this.getSelectedPlanElement() &&
+                    this.getControlPanelModel().getData()[this.getSelectedPlanElement().getId()]) {
                     this.setCache(false);
                     this.setSelectedItem(this.getSelectedPlanElement());
                     this.setCache(true);
