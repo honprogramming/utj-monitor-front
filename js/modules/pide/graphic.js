@@ -178,7 +178,19 @@ define(
               const itemsArray = Object.keys(items).map(key => items[key]);
               
               itemsArray.sort((a, b) => b.date.localeCompare(a.date));
-          
+              itemsArray.forEach(
+                  item => {
+                    
+                    if (!item.goal) {
+                      item.goal = "SIN VALOR";
+                    }
+                    
+                    if (!item.progress) {
+                      item.progress = "SIN VALOR";
+                    }
+                  }
+                );
+              
               return {
                 name,
                 items: itemsArray
@@ -186,7 +198,6 @@ define(
             }
           );
         
-//        console.log(data);
         self.exportData(JSON.stringify({name: self.graphicName(), ...data}));
         $(`#${self.exportFormId}`).submit();
       };
