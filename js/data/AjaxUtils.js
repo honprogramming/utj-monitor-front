@@ -3,7 +3,7 @@ define(
     'jquery'
   ],
   function ($) {
-    const ajaxUtils = {
+    return {
       ajax: function (path, method = 'GET', data = {}, successFunction, errorFunction, completeFunction) {
         return $.ajax(path,
             {
@@ -18,7 +18,5 @@ define(
         );
       }
     };
-
-    return ajaxUtils;
   }
 );

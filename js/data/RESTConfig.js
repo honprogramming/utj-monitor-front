@@ -101,6 +101,13 @@ define(
         authorize: {
           endPath: '/authorize'
         }
+      },
+      export: {
+        subPath: '/export',
+        
+        graphic: {
+          endPath: '/graphic'
+        }
       }
     };
 
