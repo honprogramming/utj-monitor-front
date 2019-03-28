@@ -376,15 +376,42 @@ define(
                                         self.objectivesOptions(objectiveOptionsArray);
                                         
                                         self.peAxesValue([axe.id]);
-                                        self.peTopicsValue([topic.id]);
-                                        self.peObjectivesValue([objective.id]);
-                                        self.peIndicatorsValue([indicator.pideIndicator.id]);
+                                        
+                                        
+                                        const petopicOptionsSubscription = self.peTopicsOptions.subscribe(
+                                          () => {
+                                            self.peTopicsValue([topic.id]);
+                                            petopicOptionsSubscription.dispose();
+                                          }
+                                        );
+                                        
+                                        const peObjectivesSubscription = self.peObjectivesOptions.subscribe(
+                                          () => {
+                                            self.peObjectivesValue([objective.id]);
+                                            peObjectivesSubscription.dispose();
+                                          }
+                                        );
+                                    
+                                        const peIndicatorsSubscription = self.peIndicatorsOptions.subscribe(
+                                          () => {
+                                            self.peIndicatorsValue([indicator.pideIndicator.id]);
+                                            peIndicatorsSubscription.dispose();
+                                          }
+                                        );
                                     }
                                     
                                     if (indicator.pe) {
-                                        self.peTypeValue([indicator.pe.type.id]);
-                                        self.peValue([indicator.pe.id]);
-                                        self.shortNameValue(indicator.pe.shortName);
+                                        
+                                      self.peTypeValue([indicator.pe.type.id]);
+                                        
+                                      const peOptionsSubscription = self.peOptions.subscribe(
+                                        () => {
+                                          self.peValue([indicator.pe.id]);
+                                          peOptionsSubscription.dispose();
+                                        }
+                                      );
+
+                                      self.shortNameValue(indicator.pe.shortName);
                                     }
                                     
                                     //responsible
@@ -568,13 +595,13 @@ define(
                  */
                 self.peTopicsChange = function (event, data) {
                     if (data.option === "value" && strategicModel && self.generalSectionExpanded() && self.peTopicsValue()) {
-                        self.peObjectivesOptions(getObjectivesByTopic(self.peTopicsValue()[0]));
-                    }
+                        self.peObjectivesOptions(getObjectivesByTopic(data.value[0]));
+                    } 
                 };
 
                 self.peObjectivesChange = function (event, data) {
                     if (data.option === "value" && strategicModel && self.generalSectionExpanded() && self.peObjectivesValue()) {
-                        const indicators = getIndicatorsByObjective(self.peObjectivesValue()[0]);
+                        const indicators = getIndicatorsByObjective(data.value[0]);
                         
                         if (indicators.length === 0) {
                             indicators.push({value: '', label: ''});
@@ -672,23 +699,25 @@ define(
                 );
         
                 self.peTypesChange = function(event, data) {
-                    if (data.option === "value" && strategicModel && self.generalSectionExpanded() && self.peTypeValue()) {
-                        self.peTypeOptions(peTypesArray);
-                        const pe = peTypesMap[self.peTypeValue()[0]];
-                        
-                        self.peOptions(pe);
-                        
-                        if (pe && pe.length > 0) {
-                            self.peValue([pe[0]['value']]);
-                        }
-                    }
+                  if (data.option === "value" && strategicModel && self.generalSectionExpanded() && self.peTypeValue()) {
+                    self.peTypeOptions(peTypesArray);
+                    const pe = peTypesMap[data.value[0]];
+
+                    self.peOptions(pe);
+                  }
                 };
                 
                 self.peChange = function(event, data) {
-                    if (data.option === "value" && strategicModel && self.generalSectionExpanded() && self.peValue()) {
-                        const pe = peTypesMatrix[self.peTypeValue()[0]][self.peValue()[0]];
-                        self.shortNameValue(pe.shortName);
+                  if (data.option === "value" && strategicModel && self.generalSectionExpanded() && self.peValue()) {
+                    const pe = peTypesMatrix[self.peTypeValue()[0]][data.value[0]];
+                    self.shortNameValue(pe.shortName);
+                  } else if (data.option === "options") {
+                    const pes = peTypesMap[self.peTypeValue()[0]];
+                    
+                    if (!pes.some(pe => pe.value == self.peValue())) {
+                      self.peValue([data.value[0].value]);
                     }
+                  }
                 };
                 
                 // Short name field
