@@ -38,6 +38,13 @@ define(
           },
           pide: {
             endPath: '/pide'
+          },
+          pe: {
+            subPath: '/pe',
+            
+            globals: {
+              endPath: '/globals'
+            }
           }
         },
         pe: {

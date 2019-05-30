@@ -248,11 +248,15 @@ define(
 //                    responsiblesDesc += responsibles['player']['name'];
 //                    responsiblesDesc += "&lt;/td&gt;";
                     responsiblesDesc += "&lt;td&gt;";
-                    responsiblesDesc += responsibles['area']['name'];
-                    responsiblesDesc += "&lt;/td&gt;";
-                    responsiblesDesc += "&lt;td&gt;";
-                    responsiblesDesc += responsibles['jobTitle']['name'];
-                    responsiblesDesc += "&lt;/td&gt;";
+                    try {
+                      responsiblesDesc += responsibles['area']['name'];
+                      responsiblesDesc += "&lt;/td&gt;";
+                      responsiblesDesc += "&lt;td&gt;";
+                      responsiblesDesc += responsibles['jobTitle']['name'];
+                      responsiblesDesc += "&lt;/td&gt;";
+                    } catch(e) {
+                      console.log(e);
+                    }
                     responsiblesDesc += "&lt;/tr&gt;";
                     
                     responsiblesDesc += "&lt;/table&gt;";

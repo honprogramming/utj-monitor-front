@@ -1,1770 +1,1229 @@
 <div class="full-height full-width">
-    <div style="display:none;"
-        data-bind="attr: {id: saveDialogId, title: saveDialogTitle},
-                   ojComponent:{
-                       component: 'ojDialog',
-                       initialVisibility: 'hide',
-                       modality: 'modeless'
-                   }">
-        <div class="oj-dialog-body" data-bind="text: saveMessage"></div>
+  <div style="display:none;"
+    data-bind="
+      attr: {id: saveDialogId, title: saveDialogTitle},
+      ojComponent:{
+          component: 'ojDialog',
+          initialVisibility: 'hide',
+          modality: 'modeless'
+      }">
+    <div class="oj-dialog-body" data-bind="text: saveMessage"></div>
+  </div>
+  <div style="display:none;"
+    data-bind="
+      attr: {id: resetDialogId, title: resetDialogTitle},
+      ojComponent:{
+          component: 'ojDialog',
+          initialVisibility: 'hide'
+      }">
+    <div class="oj-dialog-body" data-bind="text: resetMessage"></div>
+    <div class="oj-dialog-footer">
+      <button data-bind="
+        click: clickOkHandler,
+        ojComponent: {
+            component: 'ojButton',
+            label: resetDialogOkButtonLabel
+        }">
+      </button>
+      <button data-bind="
+        click: clickCancelHandler,
+        ojComponent: {
+            component: 'ojButton',
+            label: resetDialogCancelButtonLabel
+        }">
+      </button>
     </div>
-    <div style="display:none;"
-        data-bind="attr: {id: resetDialogId, title: resetDialogTitle},
-                   ojComponent:{
-                       component: 'ojDialog',
-                       initialVisibility: 'hide'
-                   }">
-        <div class="oj-dialog-body" data-bind="text: resetMessage"></div>
-        <div class="oj-dialog-footer">
-            <button data-bind="click: clickOkHandler,
-                               ojComponent: {
-                                   component: 'ojButton',
-                                   label: resetDialogOkButtonLabel
-                               }">
-            </button>
-            <button data-bind="click: clickCancelHandler,
-                               ojComponent: {
-                                   component: 'ojButton',
-                                   label: resetDialogCancelButtonLabel
-                               }">
-            </button>
+  </div>
+  <!-- Form actions -->
+  <div class="oj-flex-bar">
+    <div class="oj-flex-bar-end">
+      <div class="oj-sm-align-self-center">
+        <!-- Save icon -->
+        <i class="fa fa-save fa-lg fa-border pointer" 
+           data-bind="click: saveForm">
+        </i>
+        <!-- Erase icon -->
+        <i class="fa fa-eraser fa-lg fa-border pointer"
+           data-bind="click: resetForm">
+        </i>
+        <!-- Table icon -->
+        <i class="fa fa-table fa-lg fa-border pointer"
+           data-bind="click: switchToList">
+        </i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main section -->
+  <div class="oj-margin-start">
+    <div class="oj-flex">
+      <!-- Type option -->
+      <div class="oj-flex-item oj-sm-justify-content-center">
+        <div class="oj-form">
+          <!-- Label -->
+          <label id="indicator-type-label" data-bind="text: typeLabel"></label>
+
+          <!-- Radio Set -->
+          <div id="indicator-type-radio" aria-labelledby='indicator-type-label'
+            data-bind="
+              ojComponent: {
+                component: 'ojRadioset',
+                optionChange: typeChange,
+                value: typeValue
+              }">
+            <!-- PIDE item -->
+            <span class="oj-choice-item">
+              <input type="radio" id="indicator-pide-radio" name="indicators-type-radio" value="1">
+              <label for="indicator-pide-radio">PIDE</label>
+            </span>
+
+            <!-- MECASUT item -->
+            <span class="oj-choice-item">
+              <input type="radio" id="indicator-mecasut-radio" name="indicators-type-radio" value="2">
+              <label for="indicator-mecasut-radio">MECASUT</label>
+            </span>
+
+            <!-- PE item -->
+            <span class="oj-choice-item">
+              <input type="radio" id="indicator-pe-radio" name="indicators-type-radio" value="3">
+              <label for="indicator-pe-radio">Programa Educativo</label>
+            </span>
+          </div>
         </div>
-    </div>
-    <!-- Form actions -->
-    <div class="oj-flex-bar">
-        <div class="oj-flex-bar-end">
-            <div class="oj-sm-align-self-center">
-                <!-- Save icon -->
-                <i class="fa fa-save fa-lg fa-border pointer" 
-                    data-bind="click: saveForm">
-                </i>
+      </div>
+      <!-- Active option -->
+      <div class="oj-flex-item oj-sm-align-self-center">
+        <div class="oj-flex oj-sm-flex-direction-column">
+          <div class='oj-flex-item'>
+            <!-- Label -->
+            <label for="indicator-status" class="oj-label-inline" 
+              data-bind="text: activeLabel"></label>
+            <!-- Switch -->
+            <input id="indicator-status" 
+              data-bind="
+                ojComponent: {
+                  component: 'ojSwitch',
+                  value: activeValue
+                }" />
+          </div>
+          <!-- ko if: displayGlobal() -->
+          <div class='oj-flex-item'>
+            <label for="is-global" class="oj-label-inline"
+              data-bind="text: globalLabel"></label>
 
-                <!-- Erase icon -->
-                <i class="fa fa-eraser fa-lg fa-border pointer"
-                    data-bind="click: resetForm">
-                       
-                </i>
-
-                <!-- Table icon -->
-                <i class="fa fa-table fa-lg fa-border pointer"
-                    data-bind="click: switchToList">
-                </i>
-            </div>
+            <input id="is-global"
+              data-bind="
+                ojComponent: {
+                  component: 'ojSwitch',
+                  value: isGlobal
+                }" />
+          </div>
+          <!-- /ko -->
         </div>
+      </div>
     </div>
-
-    <!-- Main section -->
-    <div class="oj-margin-start">
-        <div class="oj-flex">
-            <!-- Type option -->
-            <div class="oj-flex-item oj-sm-justify-content-center">
-                <div class="oj-form">
-                    <!-- Label -->
-                    <label id="indicator-type-label" data-bind="text: typeLabel"></label>
-
-                    <!-- Radio Set -->
-                    <div id="indicator-type-radio" aria-labelledby='indicator-type-label' data-bind="ojComponent: {
-                        component: 'ojRadioset',
-                        optionChange: typeChange,
-                        value: typeValue
-                    }">
-                        <!-- PIDE item -->
-                        <span class="oj-choice-item">
-                            <input type="radio" id="indicator-pide-radio" name="indicators-type-radio" value="1">
-                            <label for="indicator-pide-radio">PIDE</label>
-                        </span>
-
-                        <!-- MECASUT item -->
-                        <span class="oj-choice-item">
-                            <input type="radio" id="indicator-mecasut-radio" name="indicators-type-radio" value="2">
-                            <label for="indicator-mecasut-radio">MECASUT</label>
-                        </span>
-
-                        <!-- PE item -->
-                        <span class="oj-choice-item">
-                            <input type="radio" id="indicator-pe-radio" name="indicators-type-radio" value="3">
-                            <label for="indicator-pe-radio">Programa Educativo</label>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Active option -->
-            <div class="oj-flex-item oj-sm-align-self-center">
-                <div class="oj-flex">
-                    <div class='oj-flex-item'>
-                        <!-- Label -->
-                        <label for="indicator-status" class="oj-label-inline" 
-                               data-bind="text: activeLabel"></label>
-
-                        <!-- Switch -->
-                        <input id="indicator-status" 
-                               data-bind="ojComponent: {
-                                            component: 'ojSwitch',
-                                            value: activeValue
-                                        }" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- General section -->
-    <div id="general-section" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
+  </div>
+  <!-- General section -->
+  <div id="general-section" class="form-container oj-accordion-collapsible" 
+    data-bind="
+      ojComponent: {
         component: 'ojCollapsible',
         expandArea: 'disclosureIcon',
         expanded: generalSectionExpanded
-    }">
-        <!-- Collapsible title -->
-        <h4 id="general-title" data-bind="text: generalTitle"></h4>
-
-        <!-- Collapsible content -->
-        <div class="oj-form-layout">
-            <div class="oj-form">
-                <!-- Update option -->
-<!--                <div class='oj-flex'>
-                    <div class="oj-flex-item">
-                         Label 
-                        <label id="si-update-option" class="oj-label-inline" data-bind="text: updateLabel"></label>
-
-                         Radio Set 
-                        <div id="si-update-radioset" class="oj-choice-direction-row" aria-labelledby='si-update-option' data-bind="ojComponent: {
-                            component: 'ojRadioset',
-                            required: true,
-                            value: updateValue
-                        }">
-                             Manual 
-                            <span class="oj-choice-item">
-                                <input type="radio" id="si-manual-radio" name="si-update-radio" value="Manual">
-                                <label for="si-manual-radio">Manual</label>
-                            </span>
-
-                             Auto 
-                            <span class="oj-choice-item">
-                                <input type="radio" id="si-auto-radio" name="si-update-radio" value="Automático">
-                                <label for="si-auto-radio">Automático</label>
-                            </span>
-                        </div>
-                    </div>
-                </div>-->
-
-                <!-- ko if: typeValue() === '3' -->
-                <!-- PE Axe option -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-pe-axe-option" data-bind="text: peAxesLabel"></label>
-
-                        <!-- Select -->
-                        <select id="si-pe-axe-option" data-bind="ojComponent: {
-                            component: 'ojSelect',
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            options: peAxesOptions,
-                            optionChange: peAxesChange,
-                            value: peAxesValue
-                        }"></select>
-                    </div>
-                </div>
-
-                <!-- PE Topic option -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-pe-topic-option" data-bind="text: peTopicsLabel"></label>
-
-                        <!-- Select -->
-                        <select id="si-pe-topic-option" data-bind="ojComponent: {
-                            component: 'ojSelect',
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            options: peTopicsOptions,
-                            optionChange: peTopicsChange,
-                            value: peTopicsValue
-                        }"></select>
-                    </div>
-                </div>
-
-                <!-- PE Objective option -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-pe-objective-option" data-bind="text: peObjectivesLabel"></label>
-
-                        <!-- Select -->
-                        <select id="si-pe-objective-option" data-bind="ojComponent: {
-                            component: 'ojSelect',
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            options: peObjectivesOptions,
-                            optionChange: peObjectivesChange,
-                            value: peObjectivesValue
-                        }"></select>
-                    </div>
-                </div>
-
-                <!-- PE Indicator option -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-pe-indicator-option" data-bind="text: peIndicatorsLabel"></label>
-
-                        <!-- Select -->
-                        <select id="si-pe-indicator-option" data-bind="ojComponent: {
-                            component: 'ojSelect',
-                            required: true,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            options: peIndicatorsOptions,
-                            optionChange: peIndicatorsChange,
-                            value: peIndicatorsValue
-                        }"></select>
-                    </div>
-                </div>
-                <!-- /ko -->
-
-                <!-- ko ifnot: typeValue() === '3'  -->
-                <!-- Indicator name field -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="indicator-name" data-bind="text: nameLabel"></label>
-
-                        <!-- Input text -->
-                        <input id='indicator-name-' data-bind="ojComponent: {
-                            component: 'ojInputText',
-                            placeholder: namePlaceholder,
-                            required: true,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: nameValue
-                        }" />
-                    </div>
-                </div>
-                <!-- /ko -->
-
-                <!-- Indicator description field -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="indicator-description" data-bind="text: descriptionLabel"></label>
-
-                        <!-- Text Area -->
-                        <textarea id="indicator-description" rows="3" data-bind="ojComponent: {
-                            component: 'ojTextArea',
-                            disabled: generalEnable,
-                            placeholder: descriptionPlaceholder,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: descriptionValue
-                        }"></textarea>
-                    </div>
-                </div>
-
-                <!-- ko if: typeValue() === '2' -->
-                <!-- Class option -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-class-option" data-bind="text: classLabel"></label>
-
-                        <!-- Select -->
-                        <select id="si-class-option"
-                                data-bind="ojComponent: {
-                                            component: 'ojSelect',
-                                            options: classOptions,
-                                            required: true,
-                                            rootAttributes: {
-                                                'style': 'max-height: 100%; max-width: 100%;'
-                                            },
-                                            value: classValue
-                                        }">
-                        </select>
-                    </div>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: typeValue() === '3' -->
-                <!-- Class option -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-class-option" data-bind="text: peTypeLabel"></label>
-
-                        <!-- Select -->
-                        <select id="si-class-option"
-                                data-bind="ojComponent: {
-                                            component: 'ojSelect',
-                                            options: peTypeOptions,
-                                            optionChange: peTypesChange,
-                                            required: true,
-                                            rootAttributes: {
-                                                'style': 'max-height: 100%; max-width: 100%;'
-                                            },
-                                            value: peTypeValue
-                                        }">
-                        </select>
-                    </div>
-                </div>
-                <!-- /ko -->
-
-                <!-- ko if: typeValue() === '3' -->
-                <!-- PE field -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-pe-field" data-bind="text: peLabel"></label>
-
-                        <!-- Input text -->
-                        <input id='si-pe-field' data-bind="ojComponent: {
-                            component: 'ojSelect',
-                            options: peOptions,
-                            optionChange: peChange,
-                            required: true,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: peValue
-                        }" />
-                    </div>
-                </div>
-                <!-- /ko -->
-
-                <!-- ko if: typeValue() === '3' -->
-                <!-- Short name field -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-short-name-field" data-bind="text: shortNameLabel"></label>
-
-                        <!-- Input text -->
-                        <input id='si-short-name-field' data-bind="ojComponent: {
-                            component: 'ojInputText',
-                            placeholder: shortNamePlaceholder,
-                            required: true,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: shortNameValue
-                        }" />
-                    </div>
-                </div>
-                <!-- /ko -->
-
-                <div class="oj-flex">
-                    <!-- Sense -->
-                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                        <!-- Label -->
-                        <label for="indicator-direction-option" data-bind="text: directionLabel"></label>
-
-                        <!-- Select -->
-                        <select id='indicator-direction-option' data-bind="ojComponent: {
-                            component: 'ojSelect',
-                            disabled: generalEnable,
-                            options: directionOptions,
-                            required: true,
-                            value: directionValue
-                        }"></select>
-                    </div>
-
-                    <!-- Unit of measurement field -->
-                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                        <!-- Label -->
-                        <label for="indicator-measure-unit" data-bind="text: measureUnitLabel"></label>
-
-                        <!-- Input text -->
-                        <input id="indicator-measure-unit" data-bind="ojComponent: {
-                            component: 'ojSelect',
-                            disabled: generalEnable,
-                            options: measureUnitOptions,
-                            required: true,
-                            value: measureUnitValue
-                        }" />
-                    </div>
-
-                    <!-- Base year field -->
-                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                        <!-- Label -->
-                        <label for="indicator-base-year" data-bind="text: baseYearLabel"></label>
-
-                        <!-- Input text -->
-                        <input id="indicator-base-year" data-bind="ojComponent: {
-                            component: 'ojInputText',
-                            disabled: generalEnable,
-                            placeholder: baseYearPlaceholder,
-                            value: baseYearValue
-                        }" />
-                    </div>
-                </div>
-
-                <!-- ko ifnot: typeValue() === '3' -->
-                <div class="oj-flex">
-                    <!-- Periodicity option -->
-                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                        <!-- Label -->
-                        <label for="indicator-periodicity" data-bind="text: periodicityLabel"></label>
-
-                        <!-- Select -->
-                        <select id="indicator-periodicity" data-bind="ojComponent: {
-                            component: 'ojSelect',
-                            options: periodicityOptions,
-                            value: periodicityValue
-                        }"></select>
-                    </div>
-
-                    <!-- Reset option -->
-                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                        <label for="indicator-reset" data-bind="text: resetLabel"></label>
-                        <select id="indicator-reset" data-bind="ojComponent: {
-                            component: 'ojSelect',
-                            options: resetOptions,
-                            required: true,
-                            value: resetValue
-                        }"></select>
-                    </div>
-
-                    <!-- ko ifnot: resetValue() == 1 -->
-                        <!-- Reset dates option -->
-                        <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                            <!-- Label -->
-                            <label for="indicator-reset-date-option-1" data-bind="text: resetDateLabel"></label>
-
-                            <!-- Input date 1 -->
-                            <input id="indicator-reset-date-option-1" data-bind="ojComponent: {
-                                component: 'ojInputDate',
-                                converter: dateConverter,
-                                required: true,
-                                value: resetDateValues[0]
-                            }">
-
-                        <!-- ko if: resetValue() == 2 -->
-                            <br>
-                            <!-- Input date 2 -->
-                            <input id="indicator-reset-date-option-2" data-bind="ojComponent: {
-                                component: 'ojInputDate',
-                                converter: dateConverter,
-                                required: true,
-                                value: resetDateValues[1]
-                            }">
-                            <br>
-
-                            <!-- Input date 3 -->
-                            <input id="indicator-reset-date-option-3" data-bind="ojComponent: {
-                                component: 'ojInputDate',
-                                converter: dateConverter,
-                                required: true,
-                                value: resetDateValues[2]
-                            }">
-                        <!-- /ko -->
-                    </div>
-                    <!-- /ko -->
-                </div>
-                <!-- /ko -->
-            </div>
+      }">
+    <!-- Collapsible title -->
+    <h4 id="general-title" data-bind="text: generalTitle"></h4>
+    <!-- Collapsible content -->
+    <div class="oj-form-layout">
+      <div class="oj-form">
+        <!-- ko if: typeValue() === '3' -->
+        <!-- PE Indicator option -->
+        <!-- ko if: !isGlobal() -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="si-pe-indicator-option" data-bind="text: peIndicatorsLabel"></label>
+            <!-- Select -->
+            <select id="si-pe-indicator-option" 
+              data-bind="
+              ojComponent: {
+                component: 'ojSelect',
+                required: true,
+                rootAttributes: {
+                  'style': 'max-height: 100%; max-width: 100%;'
+                },
+                options: peIndicatorsOptions,
+                value: peIndicatorsValue
+              }">
+            </select>
+          </div>
         </div>
-    </div>
+        <!-- /ko -->
+        <!-- /ko -->
 
-    <!-- ko ifnot: typeValue() == '2' || typeValue() == '3' -->
-    <!-- Alignment section -->
-    <div id="alignment-section" class="form-container oj-accordion-collapsible"
-         data-bind="ojComponent: {
-                        component: 'ojCollapsible',
-                        expandArea: 'disclosureIcon',
-                        expanded: alignmentSectionExpanded
-                    }">
-        <!-- Collapsible title -->
-        <h4 id="alignment-title" data-bind="text: alignmentTitle"></h4>
-
-        <!-- Collapsible content -->
-        <div>
-            <!-- PIDE Section -->
-            <fieldset class="oj-margin-bottom">
-                <!-- Label -->
-                <legend>
-                    <label data-bind="text: pideTableLabel"></label>
-                    <span class="oj-label-required-icon"></span>
-                </legend>
-                <div class="oj-flex">
-                    <div class="oj-sm-flex-direction-column table-div">
-                        <div class="oj-flex">
-                            <div class="oj-flex-item oj-sm-12 oj-md-4 header-cell-div"
-                                 data-bind="text: axeColumnLabel">
-                            </div>
-                            <div class="oj-flex-item oj-sm-12 oj-md-4 header-cell-div"
-                                 data-bind="text: topicColumnLabel">
-                            </div>
-                            <div class="oj-flex-item oj-sm-12 oj-md-4 header-cell-div"
-                                 data-bind="text: objectiveColumnLabel">
-                            </div>
-                        </div>
-                        <div class="oj-flex">
-                            <div class="oj-flex-item oj-sm-12 oj-md-4 body-cell-div">
-                                <select class="oj-flex-item oj-sm-12"
-                                    data-bind="
-                                        ojComponent: {
-                                            component: 'ojSelect',
-                                            rootAttributes: {
-                                                'id': 'new-axe-value',
-                                                'style': 'min-width: 100%;'
-                                            },
-                                            options: axesOptions,
-                                            optionChange: axeChange,
-                                            value: alignmentAxe
-                                        }"></select>
-                            </div>
-                            <div class="oj-flex-item oj-sm-12 oj-md-4 body-cell-div">
-                                <select data-bind="
-                                    ojComponent: {
-                                        component: 'ojSelect',
-                                        rootAttributes: {
-                                            'id': 'new-topic-value',
-                                            'style': 'min-width: 100%'
-                                        },
-                                        options: topicsOptions,
-                                        optionChange: topicChange,
-                                        value: alignmentTopic
-                                    }"></select>
-                            </div>
-                            <div class="oj-flex-item oj-sm-12 oj-md-4 body-cell-div">
-                                <select 
-                                    data-bind="
-                                    ojComponent: {
-                                        component: 'ojSelect',
-                                        rootAttributes: {
-                                            'id': 'new-objective-value',
-                                            'style': 'min-width: 100%'
-                                        },
-                                        options: objectivesOptions,
-                                        value: alignmentObjective
-                                    }"></select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-
-            <!-- POA Section -->
-<!--            <fieldset class="oj-margin-top">
-                 Label 
-                <legend>
-                    <label data-bind="text: poaSectionLabel"></label>
-                </legend>
-
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                         Process table 
-                        <div class="oj-margin">
-                             Label 
-                            <label class="oj-label" data-bind="text: processTableLabel"></label>
-
-                             Table 
-                            <table id="si-process-table" summary="Process Table" aria-label="Process Table" data-bind="ojComponent: {
-                                component: 'ojTable',
-                                columns: processColumns,
-                                data: processDataSource,
-                                display: 'grid',
-                                rootAttributes: {
-                                    'style': 'width: 1px; min-width: 100%; max-height: 250px;'
-                                },
-                                rowTemplate: 'processRowTemplate'
-                            }"></table>
-                        </div>
-
-                         Projects Table 
-                        <div class="oj-margin">
-                             Label 
-                            <label class="oj-label" data-bind="text: projectsTableLabel"></label>
-
-                             Table 
-                            <table id="si-pide-table" summary="Projects Table" aria-label="Projects Table" data-bind="ojComponent: {
-                                component: 'ojTable',
-                                columns: projectsColumns,
-                                data: projectsDataSource,
-                                display: 'grid',
-                                rootAttributes: {
-                                    'style': 'width: 1px; min-width: 100%; max-height: 250px;'
-                                },
-                                rowTemplate: 'projectRowTemplate'
-                            }"></table>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>-->
+        <!-- Indicator name field -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="indicator-name" data-bind="text: nameLabel"></label>
+            <!-- Input text -->
+            <input id='indicator-name-' data-bind="
+              ojComponent: {
+                component: 'ojInputText',
+                placeholder: namePlaceholder,
+                required: true,
+                rootAttributes: {
+                    'style': 'max-height: 100%; max-width: 100%;'
+                },
+                value: nameValue
+              }" />
+          </div>
         </div>
-    </div>
-    <!-- /ko -->
 
-    <!-- Responsible section -->
-    <div id="responsible-section" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
+        <!-- Indicator description field -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="indicator-description" data-bind="text: descriptionLabel"></label>
+
+            <!-- Text Area -->
+            <textarea id="indicator-description" rows="3" data-bind="
+              ojComponent: {
+                component: 'ojTextArea',
+                placeholder: descriptionPlaceholder,
+                rootAttributes: {
+                    'style': 'max-height: 100%; max-width: 100%;'
+                },
+                value: descriptionValue
+              }"></textarea>
+          </div>
+        </div>
+
+        <!-- ko if: typeValue() === '2' -->
+        <!-- Class option -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="si-class-option" data-bind="text: classLabel"></label>
+
+            <!-- Select -->
+            <select id="si-class-option"
+              data-bind="
+                ojComponent: {
+                  component: 'ojSelect',
+                  options: classOptions,
+                  required: true,
+                  rootAttributes: {
+                    'style': 'max-height: 100%; max-width: 100%;'
+                  },
+                  value: classValue
+                }">
+            </select>
+          </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: typeValue() === '3' -->
+        <!-- Class option -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="si-class-option" data-bind="text: peTypeLabel"></label>
+
+            <!-- Select -->
+            <select id="si-class-option"
+              data-bind="
+                ojComponent: {
+                  component: 'ojSelect',
+                  options: peTypeOptions,
+                  optionChange: peTypesChange,
+                  required: true,
+                  rootAttributes: {
+                    'style': 'max-height: 100%; max-width: 100%;'
+                  },
+                  value: peTypeValue
+                }">
+            </select>
+          </div>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: typeValue() === '3' -->
+        <!-- PE field -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="si-pe-field" data-bind="text: peLabel"></label>
+
+            <!-- Input text -->
+            <input id='si-pe-field' data-bind="
+              ojComponent: {
+                component: 'ojSelect',
+                options: peOptions,
+                optionChange: peChange,
+                required: true,
+                rootAttributes: {
+                  'style': 'max-height: 100%; max-width: 100%;'
+                },
+                value: peValue
+              }" />
+          </div>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: typeValue() === '3' -->
+        <!-- Short name field -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="si-short-name-field" data-bind="text: shortNameLabel"></label>
+
+            <!-- Input text -->
+            <input id='si-short-name-field' data-bind="
+              ojComponent: {
+                component: 'ojInputText',
+                disabled: generalEnable,
+                placeholder: shortNamePlaceholder,
+                required: true,
+                rootAttributes: {
+                    'style': 'max-height: 100%; max-width: 100%;'
+                },
+                value: shortNameValue
+              }" />
+          </div>
+        </div>
+        <!-- /ko -->
+        
+        <!-- ko if: (typeValue() == '3' && isGlobal()) || typeValue() != '3' -->
+        <div class="oj-flex">
+          <!-- Sense -->
+          <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+            <!-- Label -->
+            <label for="indicator-direction-option" data-bind="text: directionLabel"></label>
+
+            <!-- Select -->
+            <select id='indicator-direction-option' data-bind="
+              ojComponent: {
+                component: 'ojSelect',
+                disabled: generalEnable,
+                options: directionOptions,
+                required: true,
+                value: directionValue
+              }"></select>
+          </div>
+
+          <!-- Unit of measurement field -->
+          <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+            <!-- Label -->
+            <label for="indicator-measure-unit" data-bind="text: measureUnitLabel"></label>
+
+            <!-- Input text -->
+            <input id="indicator-measure-unit" data-bind="
+              ojComponent: {
+                component: 'ojSelect',
+                disabled: generalEnable,
+                options: measureUnitOptions,
+                required: true,
+                value: measureUnitValue
+              }" />
+          </div>
+
+          <!-- Base year field -->
+          <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+            <!-- Label -->
+            <label for="indicator-base-year" data-bind="text: baseYearLabel"></label>
+
+            <!-- Input text -->
+            <input id="indicator-base-year" data-bind="
+              ojComponent: {
+                component: 'ojInputText',
+                disabled: generalEnable,
+                placeholder: baseYearPlaceholder,
+                value: baseYearValue
+              }" />
+          </div>
+        </div>
+        <div class="oj-flex">
+          <!-- Periodicity option -->
+          <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+            <!-- Label -->
+            <label for="indicator-periodicity" data-bind="text: periodicityLabel"></label>
+
+            <!-- Select -->
+            <select id="indicator-periodicity" data-bind="
+              ojComponent: {
+                component: 'ojSelect',
+                options: periodicityOptions,
+                value: periodicityValue
+              }"></select>
+          </div>
+
+          <!-- Reset option -->
+          <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+            <label for="indicator-reset" data-bind="text: resetLabel"></label>
+            <select id="indicator-reset" data-bind="
+              ojComponent: {
+                component: 'ojSelect',
+                options: resetOptions,
+                required: true,
+                value: resetValue
+              }"></select>
+          </div>
+
+          <!-- ko ifnot: resetValue() == 1 -->
+          <!-- Reset dates option -->
+          <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+            <!-- Label -->
+            <label for="indicator-reset-date-option-1" data-bind="text: resetDateLabel"></label>
+
+            <!-- Input date 1 -->
+            <input id="indicator-reset-date-option-1" data-bind="
+              ojComponent: {
+                component: 'ojInputDate',
+                converter: dateConverter,
+                required: true,
+                value: resetDateValues[0]
+              }">
+
+            <!-- ko if: resetValue() == 2 -->
+            <br>
+            <!-- Input date 2 -->
+            <input id="indicator-reset-date-option-2" data-bind="
+              ojComponent: {
+                component: 'ojInputDate',
+                converter: dateConverter,
+                required: true,
+                value: resetDateValues[1]
+              }">
+            <br>
+
+            <!-- Input date 3 -->
+            <input id="indicator-reset-date-option-3" data-bind="
+              ojComponent: {
+                component: 'ojInputDate',
+                converter: dateConverter,
+                required: true,
+                value: resetDateValues[2]
+              }">
+            <!-- /ko -->
+          </div>
+          <!-- /ko -->
+        </div>
+        <!-- /ko -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ko if: typeValue() == '1' -->
+  <!-- Alignment section -->
+  <div id="alignment-section" class="form-container oj-accordion-collapsible"
+    data-bind="
+      ojComponent: {
         component: 'ojCollapsible',
         expandArea: 'disclosureIcon',
-        expanded: false
-    }">
-        <!-- Collapsible title -->
-        <h4 id="responsible-title" data-bind="text: responsibleTitle"></h4>
+        expanded: alignmentSectionExpanded
+      }">
+    <!-- Collapsible title -->
+    <h4 id="alignment-title" data-bind="text: alignmentTitle"></h4>
 
-        <!-- Collapsible content -->
-        <div class="oj-form-layout">
-            <div class="oj-form">
-                <!-- Secretary option -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="area-option" data-bind="text: areaLabel"></label>
-
-                        <!-- Option -->
-                        <select id="area-option" data-bind="ojComponent: {
-                            component: 'ojSelect',
-                            options: areaOptions,
-                            optionChange: areaChangeHandler,
-                            required: true,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: areaValue
-                        }"></select>
-                    </div>
-                </div>
-
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="job-title-option" data-bind="text: jobTitleLabel"></label>
-
-                        <!-- Select -->
-                        <select id="job-title-option" data-bind="ojComponent: {
-                            component: 'ojSelect',
-                            options: jobTitleOptions,
-                            optionChange: jobChangeHandler,
-                            required: true,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: jobTitleValue
-                        }">
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Responsible option -->
-<!--                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                         Label 
-                        <label for="responsible-name-field" data-bind="text: responsibleNameLabel"></label>
-                        <input id="responsible-name-field" 
-                               data-bind="ojComponent: {
-                                            component: 'ojInputText',
-                                            disabled: true,
-                                            placeholder: responsibleNamePlaceHolder,
-                                            rootAttributes: {
-                                                'style': 'max-height: 100%; max-width: 100%;'
-                                            },
-                                            value: responsibleNameValue
-                                        }">
-                    </div>
-                </div>-->
-                <div class="oj-flex">
-                    <!-- Email field -->
-<!--                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                         Label 
-                        <label for="si-email-field" data-bind="text: emailLabel"></label>
-
-                         Input text 
-                        <input id="si-email-field" data-bind="ojComponent: {
-                            component: 'ojInputText',
-                            disabled: responsibleEnable,
-                            placeholder: emailPlaceholder,
-                            value: emailValue
-                        }">
-                    </div>-->
-
-                    <!-- Phone field -->
-<!--                    <div class="oj-sm-12 oj-md-6 oj-lg-6 oj-flex-item">
-                         Label 
-                        <label for="si-phone-field" data-bind="text: phoneLabel"></label>
-
-                         Input text 
-                        <input id="si-phone-field" data-bind="ojComponent: {
-                            component: 'ojInputText',
-                            disabled: true,
-                            placeholder: phonePlaceholder,
-                            value: phoneValue
-                        }">
-                    </div>-->
-
-                    <!-- Extension field -->
-<!--                    <div class="oj-sm-12 oj-md-6 oj-lg-6 oj-flex-item">
-                         Label 
-                        <label for="si-extension-field" data-bind="text: extensionLabel"></label>
-
-                         Input Text 
-                        <input id="si-extension-field" data-bind="ojComponent: {
-                            component: 'ojInputText',
-                            disabled: true,
-                            placeholder: extensionPlaceholder,
-                            value: extensionValue
-                        }">
-                    </div>-->
-                </div>
-
-                <!-- Observations field -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-observations-r-field" data-bind="text: observationsRLabel"></label>
-
-                        <!-- Text Area -->
-                        <textarea id="si-observations-r-field" rows="3" data-bind="ojComponent: {
-                            component: 'ojTextArea',
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: observationsRValue
-                        }"></textarea>
-                    </div>
-                </div>
+    <!-- Collapsible content -->
+    <div>
+      <!-- PIDE Section -->
+      <fieldset class="oj-margin-bottom">
+        <!-- Label -->
+        <legend>
+          <label data-bind="text: pideTableLabel"></label>
+          <span class="oj-label-required-icon"></span>
+        </legend>
+        <div class="oj-flex">
+          <div class="oj-sm-flex-direction-column table-div">
+            <div class="oj-flex">
+              <div class="oj-flex-item oj-sm-12 oj-md-4 header-cell-div"
+                   data-bind="text: axeColumnLabel">
+              </div>
+              <div class="oj-flex-item oj-sm-12 oj-md-4 header-cell-div"
+                   data-bind="text: topicColumnLabel">
+              </div>
+              <div class="oj-flex-item oj-sm-12 oj-md-4 header-cell-div"
+                   data-bind="text: objectiveColumnLabel">
+              </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Metadata section -->
-    <div id="metadata-section" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
-        component: 'ojCollapsible',
-        expandArea: 'disclosureIcon',
-        expanded: false
-    }">
-        <!-- Collapsible title -->
-        <h4 id="metadata-title" data-bind="text: metadataTitle"></h4>
-
-        <!-- Collapsible content -->
-        <div class="oj-form-layout">
-            <div class="oj-form">
-                <!-- Source field -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-source-field" data-bind="text: sourceLabel"></label>
-
-                        <!-- Input Text -->
-                        <input id='si-source-field' data-bind="ojComponent: {
-                            component: 'ojInputText',
-                            disabled: metadataEnable,
-                            placeholder: sourcePlaceholder,
-                            required: true,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: sourceValue
-                        }">
-                    </div>
-                </div>
-
-                <!-- Link field -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-link-field" data-bind="text: linkLabel"></label>
-
-                        <!-- Input Text -->
-                        <input id='si-link-field' data-bind="ojComponent: {
-                            component: 'ojInputText',
-                            disabled: metadataEnable,
-                            placeholder: linkPlaceholder,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: linkValue
-                        }">
-                    </div>
-                </div>
-
-                <!-- Formula field -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-formula-field" data-bind="text: formulaLabel"></label>
-
-                        <!-- Input Text -->
-                        <input id="si-formula-field" data-bind="ojComponent: {
-                            component: 'ojInputText',
-                            disabled: metadataEnable,
-                            placeholder: formulaPlaceholder,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: formulaValue
-                        }">
-                    </div>
-                </div>
-
-                <!-- Variables field -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-variables-field" data-bind="text: variablesLabel"></label>
-
-                        <!-- Input Text -->
-                        <input id="si-variables-field" data-bind="ojComponent: {
-                            component: 'ojInputText',
-                            disabled: metadataEnable,
-                            placeholder: variablesPlaceholder,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: variablesValue
-                        }">
-                    </div>
-                </div>
-
-                <!-- Method field -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-method-field" data-bind="text: methodLabel"></label>
-
-                        <!-- Input Text -->
-                        <input id="si-method-field" data-bind="ojComponent: {
-                            component: 'ojInputText',
-                            disabled: metadataEnable,
-                            placeholder: methodPlaceholder,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: methodValue
-                        }">
-                    </div>
-                </div>
-
-                <!-- Observations field -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-observations-m-field" data-bind="text: observationsMLabel"></label>
-
-                        <!-- Input Text -->
-                        <textarea id="si-observations-m-field" rows="3" data-bind="ojComponent: {
-                            component: 'ojTextArea',
-                            placeholder: observationsMPlaceholder,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: observationsMValue
-                        }"></textarea>
-                    </div>
-                </div>
-
-                <!-- ko ifnot: typeValue() == '2' -->
-                <!-- Color section -->
-                <fieldset>
-                    <!-- Label -->
-                    <legend>
-                        <label data-bind="text: scoreLabel"></label>
-                        <span class="oj-label-required-icon"></span>
-                    </legend>
-
-                    <!-- Red field -->
-                    <div class="oj-flex">
-                        <div class="oj-flex-item">
-                            <!-- Label -->
-                            <label for="si-red-field" data-bind="text: redLabel"></label>
-
-                            <!-- Input text -->
-                            <input id="si-red-field" class="right-align" data-bind="ojComponent: {
-                                component: 'ojInputNumber',
-                                converter: scoreConverter,
-                                min: 0,
-                                max: 1,
-                                step: 0.05,
-                                rootAttributes: {
-                                    'style': 'max-height: 100%; max-width: 100%;'
-                                },
-                                value: redValue
-                            }">
-                        </div>
-                    </div>
-
-                    <!-- Orange field -->
-                    <div class="oj-flex">
-                        <div class="oj-flex-item">
-                            <!-- Label -->
-                            <label for="si-orange-field" data-bind="text: orangeLabel"></label>
-
-                            <!-- Input Text -->
-                            <input id="si-orange-field" class="right-align" data-bind="ojComponent: {
-                                component: 'ojInputNumber',
-                                converter: scoreConverter,
-                                min: 0,
-                                max: 1,
-                                step: 0.05,
-                                rootAttributes: {
-                                    'style': 'max-height: 100%; max-width: 100%;'
-                                },
-                                value: orangeValue
-                            }">
-                        </div>
-                    </div>
-
-                    <!-- Yellow field -->
-                    <div class="oj-flex">
-                        <div class="oj-flex-item">
-                            <!-- Label -->
-                            <label for="si-yellow-field" data-bind="text: yellowLabel"></label>
-
-                            <!-- Input Text -->
-                            <input id="si-yellow-field" class="right-align" data-bind="ojComponent: {
-                                component: 'ojInputNumber',
-                                converter: scoreConverter,
-                                min: 0,
-                                max: 1,
-                                step: 0.05,
-                                rootAttributes: {
-                                    'style': 'max-height: 100%; max-width: 100%;'
-                                },
-                                value: yellowValue
-                            }">
-                        </div>
-                    </div>
-
-                    <!-- Green field -->
-                    <div class="oj-flex">
-                        <div class="oj-flex-item">
-                            <!-- Label -->
-                            <label for="si-green-field" data-bind="text: greenLabel"></label>
-
-                            <!-- Input Text -->
-                            <input id="si-green-field" class="right-align" data-bind="ojComponent: {
-                                component: 'ojInputNumber',
-                                converter: scoreConverter,
-                                min: 0,
-                                max: 1,
-                                step: 0.05,
-                                rootAttributes: {
-                                    'style': 'max-height: 100%; max-width: 100%;'
-                                },
-                                value: greenValue
-                            }">
-                        </div>
-                    </div>
-                </fieldset>
-                <!-- /ko -->
-            </div>
-        </div>
-    </div>
-
-    <!-- ko ifnot: typeValue() == '2' -->
-    <!-- Goals and progress section -->
-    <div id="achievements-section" class="form-container oj-accordion-collapsible" 
-         data-bind="ojComponent: {
-                        component: 'ojCollapsible',
-                        expandArea: 'disclosureIcon',
-                        expanded: false
-                    }">
-        <!-- Collapsible title -->
-        <h4 id="achievements-title" data-bind="text: goalsTitle"></h4>
-
-        <!-- Collapsible content -->
-        <div class="oj-form-layout">
-            <!-- Goals and progress Chart -->
-            <div id='chart-container' class="oj-margin">
-                <div id="si-goals-chart"
-                     data-bind="ojComponent: {
-                        component: 'ojChart',
-                        type: 'line',
-                        series: chartSeriesValue,
-                        animationOnDisplay: 'auto',
-                        animationOnDataChange: 'auto',
-                        hoverBehavior: 'dim',
-                        rootAttributes: {
-                            'style': 'width: 100%; height: 350px;'
-                        },
-                        timeAxisType: 'mixedFrequency',
-                        translations: {
-                            labelNoData: 'Agrega una meta o un avance'
-                        }
-                    }"></div>
-            </div>
-
-            <!-- Tables section -->
-            <div class="oj-margin oj-flex">
-                <!-- Goals table -->
-                <div class="oj-flex-item oj-sm-12 oj-lg-6">
-                    <fieldset>
-                        <!-- Label -->
-                        <legend>
-                            <label data-bind="text: goalsLabel"></label>
-                            <span class="oj-label-required-icon"></span>
-                        </legend>
-
-                        <!-- Add row icon -->
-                        <i class="fa fa-plus fa-lg pointer icon-padding" data-bind="click: addRow.bind($data, 'Goals')"></i>
-
-                        <!-- Table -->
-                        <table id="indicator-goals-table" summary="Goals Table" 
-                               aria-label="Goals Table" 
-                               data-bind="ojComponent: {
-                                            component: 'ojTable',
-                                            beforeRowEditEnd: beforeRowEditEnd,
-                                            columns: goalsColumns,
-                                            columnsDefault: {
-                                                sortable: 'auto',
-                                                sortProperty: 'date'
-                                            },
-                                            data: goalDataSource,
-                                            display: 'grid',
-                                            editMode: 'rowEdit',
-                                            translations: {
-                                                msgNoData: 'Agrega una meta'
-                                            },
-                                            rootAttributes: {
-                                                'style': 'width: 100%'
-                                            },
-                                            rowTemplate: getGoalRowTemplate
-                                        }"></table>
-                    </fieldset>
-                </div>
-
-                <!-- Progress table -->
-                <div class="oj-flex-item oj-sm-12 oj-lg-6">
-                    <fieldset>
-                        <!-- Label -->
-                        <legend>
-                            <label data-bind="text: progressLabel"></label>
-                        </legend>
-
-                        <!-- Add row icon -->
-                        <i class="fa fa-plus fa-lg pointer icon-padding" data-bind="click: addRow.bind($data, 'Progress')"></i>
-
-                        <!-- Table -->
-                        <table id="indicator-progress-table" summary="Progress Table" 
-                               aria-label="Progress Table" 
-                               data-bind="ojComponent: {
-                                            component: 'ojTable',
-                                            beforeRowEditEnd: beforeRowEditEnd,
-                                            columns: goalsColumns,
-                                            columnsDefault: {
-                                                sortable: 'auto',
-                                                sortProperty: 'date'
-                                            },
-                                            data: progressDataSource,
-                                            display: 'grid',
-                                            editMode: 'rowEdit',
-                                            translations: {
-                                                msgNoData: 'Agrega un avance'
-                                            },
-                                            rootAttributes: {
-                                                'style': 'width: 100%'
-                                            },
-                                            rowTemplate: getProgressRowTemplate
-                                        }"></table>
-                    </fieldset>
-                </div>
-            </div>
-
-            <!-- Form -->
-            <div class="oj-form">
-                <!-- Potential risk field -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-risk-field" data-bind="text: riskLabel"></label>
-
-                        <!-- Input Text -->
-                        <textarea id="si-risk-field" rows="3" data-bind="ojComponent: {
-                            component: 'ojTextArea',
-                            placeholder: riskPlaceholder,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: riskValue
-                        }"></textarea>
-                    </div>
-                </div>
-
-                <!-- Implemented actions field -->
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                        <!-- Label -->
-                        <label for="si-actions-field" data-bind="text: actionsLabel"></label>
-
-                        <!-- Input Text -->
-                        <textarea id="si-actions-field" rows="3" data-bind="ojComponent: {
-                            component: 'ojTextArea',
-                            placeholder: actionsPlaceholder,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: actionsValue
-                        }"></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /ko -->
-
-    <!-- ko if: typeValue() == '2' -->
-    <!-- Progress section -->
-    <div id="progress-section" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
-        component: 'ojCollapsible',
-        expandArea: 'disclosureIcon',
-        expanded: false
-    }">
-        <!-- Collapsible title -->
-        <h4 id="progress-title" data-bind="text: progressTitle"></h4>
-
-        <!-- Collapsible content -->
-        <div class="oj-form-layout">
-            <!-- Progress Chart -->
-            <div class="oj-margin">
-                <div id="si-progress-chart" data-bind="ojComponent: {
-                    component: 'ojChart',
-                    type: 'line',
-                    series: chartSeriesValue,
-                    animationOnDisplay: 'auto',
-                    animationOnDataChange: 'auto',
-                    hoverBehavior: 'dim',
+            <div class="oj-flex">
+              <div class="oj-flex-item oj-sm-12 oj-md-4 body-cell-div">
+                <select class="oj-flex-item oj-sm-12"
+                  data-bind="
+                    ojComponent: {
+                      component: 'ojSelect',
+                      rootAttributes: {
+                        'id': 'new-axe-value',
+                        'style': 'min-width: 100%;'
+                      },
+                      options: axesOptions,
+                      optionChange: axeChange,
+                      value: alignmentAxe
+                    }"></select>
+              </div>
+              <div class="oj-flex-item oj-sm-12 oj-md-4 body-cell-div">
+                <select data-bind="
+                  ojComponent: {
+                    component: 'ojSelect',
                     rootAttributes: {
-                        'style': 'width: 100%; height: 350px;'
+                      'id': 'new-topic-value',
+                      'style': 'min-width: 100%'
                     },
-                    timeAxisType: 'mixedFrequency',
-                    translations: {
-                        labelNoData: 'Agrega un avance'
-                    }
-                }"></div>
+                    options: topicsOptions,
+                    optionChange: topicChange,
+                    value: alignmentTopic
+                  }"></select>
+              </div>
+              <div class="oj-flex-item oj-sm-12 oj-md-4 body-cell-div">
+                <select 
+                  data-bind="
+                    ojComponent: {
+                      component: 'ojSelect',
+                      rootAttributes: {
+                        'id': 'new-objective-value',
+                        'style': 'min-width: 100%'
+                      },
+                      options: objectivesOptions,
+                      value: alignmentObjective
+                    }"></select>
+              </div>
             </div>
-
-            <!-- Tables section -->
-            <div class="oj-margin oj-flex">
-                <!-- Progress table -->
-                <div class="oj-flex-item">
-                    <fieldset>
-                        <!-- Label -->
-                        <legend>
-                            <label data-bind="text: progressLabel"></label>
-                        </legend>
-
-                        <!-- Add row icon -->
-                        <i class="fa fa-plus fa-lg pointer icon-padding" data-bind="click: addRow.bind($data, 'Progress')"></i>
-
-                        <!-- Table -->
-                        <table id="si-progress-table" summary="Progress Table" aria-label="Progress Table" data-bind="ojComponent: {
-                            component: 'ojTable',
-                            beforeRowEditEnd: beforeRowEditEnd,
-                            columns: goalsColumns,
-                            columnsDefault: {
-                                sortable: 'auto',
-                                sortProperty: 'Date'
-                            },
-                            data: progressDataSource,
-                            display: 'grid',
-                            editMode: 'rowEdit',
-                            translations: {
-                                msgNoData: 'Agrega un avance'
-                            },
-                            rootAttributes: {
-                                'style': 'width: 100%; max-height: 150px;'
-                            },
-                            rowTemplate: getProgressRowTemplate
-                        }"></table>
-                    </fieldset>
-                </div>
-            </div>
-
-            <!-- Form -->
-<!--            <div class="oj-form">
-                 Potential risk field 
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                         Label 
-                        <label for="si-risk-field" data-bind="text: riskLabel"></label>
-
-                         Input Text 
-                        <textarea id="si-risk-field" rows="3" data-bind="ojComponent: {
-                            component: 'ojTextArea',
-                            placeholder: riskPlaceholder,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: riskValue
-                        }"></textarea>
-                    </div>
-                </div>
-
-                 Implemented actions field 
-                <div class="oj-flex">
-                    <div class="oj-flex-item">
-                         Label 
-                        <label for="si-actions-field" data-bind="text: actionsLabel"></label>
-
-                         Input Text 
-                        <textarea id="si-actions-field" rows="3" data-bind="ojComponent: {
-                            component: 'ojTextArea',
-                            placeholder: actionsPlaceholder,
-                            rootAttributes: {
-                                'style': 'max-height: 100%; max-width: 100%;'
-                            },
-                            value: actionsValue
-                        }"></textarea>
-                    </div>
-                </div>
-            </div>-->
+          </div>
         </div>
+      </fieldset>
     </div>
-    <!-- /ko -->
+  </div>
+  <!-- /ko -->
 
-    <!-- ko if: typeValue() === '3' -->
-    <!-- Components section -->
-<!--    <div id="components-section" class="form-container oj-accordion-collapsible" data-bind="ojComponent: {
+  <!-- Responsible section -->
+  <div id="responsible-section" class="form-container oj-accordion-collapsible" 
+    data-bind="
+      ojComponent: {
         component: 'ojCollapsible',
         expandArea: 'disclosureIcon',
         expanded: false
-    }">
-         Collapsible title 
-        <h4 id="components-title" data-bind="text: componentsTitle"></h4>
+      }">
+    <!-- Collapsible title -->
+    <h4 id="responsible-title" data-bind="text: responsibleTitle"></h4>
 
-         Collapsible content 
-        <div class="oj-form-layout">
-             Form actions 
-            <div class="oj-flex-bar">
-                 Add icon 
-                <div class="oj-flex-bar-start">
-                    <i class="fa fa-plus fa-lg pointer icon-padding" data-bind="click: componentsEnable.bind($data, !componentsEnable())"></i>
-                </div>
+    <!-- Collapsible content -->
+    <div class="oj-form-layout">
+      <div class="oj-form">
+        <!-- Secretary option -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="area-option" data-bind="text: areaLabel"></label>
 
-                 ko if: componentsEnable() == true 
-                 Save icon 
-                <div class="oj-flex-bar-end">
-                    <div class="oj-sm-align-self-center">
-                        <i class="fa fa-times fa-lg fa-border pointer"></i>
-                        <i class="fa fa-save fa-lg fa-border pointer"></i>
-                    </div>
-                </div>
-                 /ko 
+            <!-- Option -->
+            <select id="area-option" data-bind="
+              ojComponent: {
+                component: 'ojSelect',
+                options: areaOptions,
+                optionChange: areaChangeHandler,
+                required: true,
+                rootAttributes: {
+                  'style': 'max-height: 100%; max-width: 100%;'
+                },
+                value: areaValue
+              }"></select>
+          </div>
+        </div>
+
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="job-title-option" data-bind="text: jobTitleLabel"></label>
+
+            <!-- Select -->
+            <select id="job-title-option" data-bind="
+              ojComponent: {
+                component: 'ojSelect',
+                options: jobTitleOptions,
+                optionChange: jobChangeHandler,
+                required: true,
+                rootAttributes: {
+                  'style': 'max-height: 100%; max-width: 100%;'
+                },
+                value: jobTitleValue
+              }">
+            </select>
+          </div>
+        </div>
+
+        <!-- Responsible option -->
+        <!--                <div class="oj-flex">
+                            <div class="oj-flex-item">
+                                 Label 
+                                <label for="responsible-name-field" data-bind="text: responsibleNameLabel"></label>
+                                <input id="responsible-name-field" 
+                                       data-bind="ojComponent: {
+                                                    component: 'ojInputText',
+                                                    disabled: true,
+                                                    placeholder: responsibleNamePlaceHolder,
+                                                    rootAttributes: {
+                                                        'style': 'max-height: 100%; max-width: 100%;'
+                                                    },
+                                                    value: responsibleNameValue
+                                                }">
+                            </div>
+                        </div>-->
+        <div class="oj-flex">
+          <!-- Email field -->
+          <!--                    <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
+                                   Label 
+                                  <label for="si-email-field" data-bind="text: emailLabel"></label>
+          
+                                   Input text 
+                                  <input id="si-email-field" data-bind="ojComponent: {
+                                      component: 'ojInputText',
+                                      disabled: responsibleEnable,
+                                      placeholder: emailPlaceholder,
+                                      value: emailValue
+                                  }">
+                              </div>-->
+
+          <!-- Phone field -->
+          <!--                    <div class="oj-sm-12 oj-md-6 oj-lg-6 oj-flex-item">
+                                   Label 
+                                  <label for="si-phone-field" data-bind="text: phoneLabel"></label>
+          
+                                   Input text 
+                                  <input id="si-phone-field" data-bind="ojComponent: {
+                                      component: 'ojInputText',
+                                      disabled: true,
+                                      placeholder: phonePlaceholder,
+                                      value: phoneValue
+                                  }">
+                              </div>-->
+
+          <!-- Extension field -->
+          <!--                    <div class="oj-sm-12 oj-md-6 oj-lg-6 oj-flex-item">
+                                   Label 
+                                  <label for="si-extension-field" data-bind="text: extensionLabel"></label>
+          
+                                   Input Text 
+                                  <input id="si-extension-field" data-bind="ojComponent: {
+                                      component: 'ojInputText',
+                                      disabled: true,
+                                      placeholder: extensionPlaceholder,
+                                      value: extensionValue
+                                  }">
+                              </div>-->
+        </div>
+
+        <!-- Observations field -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="si-observations-r-field" data-bind="text: observationsRLabel"></label>
+
+            <!-- Text Area -->
+            <textarea id="si-observations-r-field" rows="3" data-bind="
+              ojComponent: {
+                component: 'ojTextArea',
+                rootAttributes: {
+                  'style': 'max-height: 100%; max-width: 100%;'
+                },
+                value: observationsRValue
+              }"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Metadata section -->
+  <div id="metadata-section" class="form-container oj-accordion-collapsible"
+    data-bind="
+      ojComponent: {
+        component: 'ojCollapsible',
+        expandArea: 'disclosureIcon',
+        expanded: false
+      }">
+    <!-- Collapsible title -->
+    <h4 id="metadata-title" data-bind="text: metadataTitle"></h4>
+
+    <!-- Collapsible content -->
+    <div class="oj-form-layout">
+      <div class="oj-form">
+        <!-- Source field -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="si-source-field" data-bind="text: sourceLabel"></label>
+
+            <!-- Input Text -->
+            <input id='si-source-field' data-bind="
+              ojComponent: {
+                component: 'ojInputText',
+                disabled: metadataEnable,
+                placeholder: sourcePlaceholder,
+                required: true,
+                rootAttributes: {
+                  'style': 'max-height: 100%; max-width: 100%;'
+                },
+                value: sourceValue
+              }">
+          </div>
+        </div>
+
+        <!-- Link field -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="si-link-field" data-bind="text: linkLabel"></label>
+
+            <!-- Input Text -->
+            <input id='si-link-field' data-bind="
+              ojComponent: {
+                component: 'ojInputText',
+                disabled: metadataEnable,
+                placeholder: linkPlaceholder,
+                rootAttributes: {
+                  'style': 'max-height: 100%; max-width: 100%;'
+                },
+                value: linkValue
+              }">
+          </div>
+        </div>
+
+        <!-- Formula field -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="si-formula-field" data-bind="text: formulaLabel"></label>
+
+            <!-- Input Text -->
+            <input id="si-formula-field" data-bind="
+              ojComponent: {
+                component: 'ojInputText',
+                disabled: metadataEnable,
+                placeholder: formulaPlaceholder,
+                rootAttributes: {
+                  'style': 'max-height: 100%; max-width: 100%;'
+                },
+                value: formulaValue
+              }">
+          </div>
+        </div>
+
+        <!-- Variables field -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="si-variables-field" data-bind="text: variablesLabel"></label>
+
+            <!-- Input Text -->
+            <input id="si-variables-field" data-bind="
+              ojComponent: {
+                component: 'ojInputText',
+                disabled: metadataEnable,
+                placeholder: variablesPlaceholder,
+                rootAttributes: {
+                  'style': 'max-height: 100%; max-width: 100%;'
+                },
+                value: variablesValue
+              }">
+          </div>
+        </div>
+
+        <!-- Method field -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="si-method-field" data-bind="text: methodLabel"></label>
+
+            <!-- Input Text -->
+            <input id="si-method-field" data-bind="
+              ojComponent: {
+                component: 'ojInputText',
+                disabled: metadataEnable,
+                placeholder: methodPlaceholder,
+                rootAttributes: {
+                  'style': 'max-height: 100%; max-width: 100%;'
+                },
+                value: methodValue
+              }">
+          </div>
+        </div>
+
+        <!-- Observations field -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="si-observations-m-field" data-bind="text: observationsMLabel"></label>
+
+            <!-- Input Text -->
+            <textarea id="si-observations-m-field" rows="3" data-bind="
+              ojComponent: {
+                component: 'ojTextArea',
+                placeholder: observationsMPlaceholder,
+                rootAttributes: {
+                  'style': 'max-height: 100%; max-width: 100%;'
+                },
+                value: observationsMValue
+              }"></textarea>
+          </div>
+        </div>
+
+        <!-- ko ifnot: typeValue() == '2' -->
+        <!-- Color section -->
+        <fieldset>
+          <!-- Label -->
+          <legend>
+            <label data-bind="text: scoreLabel"></label>
+            <span class="oj-label-required-icon"></span>
+          </legend>
+
+          <!-- Red field -->
+          <div class="oj-flex">
+            <div class="oj-flex-item">
+              <!-- Label -->
+              <label for="si-red-field" data-bind="text: redLabel"></label>
+
+              <!-- Input text -->
+              <input id="si-red-field" class="right-align" data-bind="
+                ojComponent: {
+                  component: 'ojInputNumber',
+                  converter: scoreConverter,
+                  min: 0,
+                  max: 1,
+                  step: 0.05,
+                  rootAttributes: {
+                    'style': 'max-height: 100%; max-width: 100%;'
+                  },
+                  value: redValue
+                }">
             </div>
+          </div>
 
-             ko if: componentsEnable() == true 
-             Form 
-            <fieldset>
-                 Label 
-                <legend>
-                    <label>Componente</label>
-                </legend>
+          <!-- Orange field -->
+          <div class="oj-flex">
+            <div class="oj-flex-item">
+              <!-- Label -->
+              <label for="si-orange-field" data-bind="text: orangeLabel"></label>
 
-                <div class="oj-margin oj-form-layout">
-                    <div class="oj-form">
-                         Name 
-                        <div class="oj-flex">
-                            <div class="oj-flex-item">
-                                 Label 
-                                <label for="si-component-name-field" data-bind="text: comNameLabel"></label>
+              <!-- Input Text -->
+              <input id="si-orange-field" class="right-align" data-bind="
+                ojComponent: {
+                  component: 'ojInputNumber',
+                  converter: scoreConverter,
+                  min: 0,
+                  max: 1,
+                  step: 0.05,
+                  rootAttributes: {
+                    'style': 'max-height: 100%; max-width: 100%;'
+                  },
+                  value: orangeValue
+                }">
+            </div>
+          </div>
 
-                                 Input Text 
-                                <input id="si-component-name-field" data-bind="ojComponent: {
-                                    component: 'ojInputText',
-                                    required: true,
-                                    rootAttributes: {
-                                        'style': 'max-height: 100%; max-width: 100%;'
-                                    },
-                                    value: comNameValue
-                                }">
-                            </div>
-                        </div>
+          <!-- Yellow field -->
+          <div class="oj-flex">
+            <div class="oj-flex-item">
+              <!-- Label -->
+              <label for="si-yellow-field" data-bind="text: yellowLabel"></label>
 
-                         Description 
-                        <div class="oj-flex">
-                            <div class="oj-flex-item">
-                                 Label 
-                                <label for="si-component-description-field" data-bind="text: comDescriptionLabel"></label>
+              <!-- Input Text -->
+              <input id="si-yellow-field" class="right-align" data-bind="
+                ojComponent: {
+                  component: 'ojInputNumber',
+                  converter: scoreConverter,
+                  min: 0,
+                  max: 1,
+                  step: 0.05,
+                  rootAttributes: {
+                    'style': 'max-height: 100%; max-width: 100%;'
+                  },
+                  value: yellowValue
+                }">
+            </div>
+          </div>
 
-                                 Input Text 
-                                <textarea id="si-component-description-field" rows="3" data-bind="ojComponent: {
-                                    component: 'ojTextArea',
-                                    rootAttributes: {
-                                        'style': 'max-height: 100%; max-width: 100%;'
-                                    },
-                                    value: comDescriptionValue
-                                }"></textarea>
-                            </div>
-                        </div>
+          <!-- Green field -->
+          <div class="oj-flex">
+            <div class="oj-flex-item">
+              <!-- Label -->
+              <label for="si-green-field" data-bind="text: greenLabel"></label>
 
-                         Indicator 
-                        <div class="oj-flex">
-                            <div class="oj-flex-item">
-                                 Label 
-                                <label for="si-component-indicator-field" data-bind="text: comIndicatorLabel"></label>
+              <!-- Input Text -->
+              <input id="si-green-field" class="right-align" data-bind="
+                ojComponent: {
+                  component: 'ojInputNumber',
+                  converter: scoreConverter,
+                  min: 0,
+                  max: 1,
+                  step: 0.05,
+                  rootAttributes: {
+                    'style': 'max-height: 100%; max-width: 100%;'
+                  },
+                  value: greenValue
+                }">
+            </div>
+          </div>
+        </fieldset>
+        <!-- /ko -->
+      </div>
+    </div>
+  </div>
 
-                                 Input Text 
-                                <input id="si-component-indicator-field" data-bind="ojComponent: {
-                                    component: 'ojInputText',
-                                    required: true,
-                                    rootAttributes: {
-                                        'style': 'max-height: 100%; max-width: 100%;'
-                                    },
-                                    value: comIndicatorValue
-                                }">
-                            </div>
-                        </div>
+  <!-- ko if: typeValue() == '1' || (typeValue() == '3' && !isGlobal())  -->
+  <!-- Goals and progress section -->
+  <div id="achievements-section" class="form-container oj-accordion-collapsible" 
+    data-bind="
+      ojComponent: {
+        component: 'ojCollapsible',
+        expandArea: 'disclosureIcon',
+        expanded: false
+      }">
+    <!-- Collapsible title -->
+    <h4 id="achievements-title" data-bind="text: goalsTitle"></h4>
 
-                         Measure unit 
-                        <div class="oj-flex">
-                            <div class="oj-flex-item">
-                                 Label 
-                                <label for="si-component-measure-field" data-bind="text: comMeasureLabel"></label>
+    <!-- Collapsible content -->
+    <div class="oj-form-layout">
+      <!-- Goals and progress Chart -->
+      <div id='chart-container' class="oj-margin">
+        <div id="si-goals-chart"
+          data-bind="
+            ojComponent: {
+              component: 'ojChart',
+              type: 'line',
+              series: chartSeriesValue,
+              animationOnDisplay: 'auto',
+              animationOnDataChange: 'auto',
+              hoverBehavior: 'dim',
+              rootAttributes: {
+                'style': 'width: 100%; height: 350px;'
+              },
+              timeAxisType: 'mixedFrequency',
+              translations: {
+                labelNoData: 'Agrega una meta o un avance'
+              }
+            }"></div>
+      </div>
 
-                                 Input Text 
-                                <input id="si-component-measure-field" data-bind="ojComponent: {
-                                    component: 'ojInputText',
-                                    rootAttributes: {
-                                        'style': 'max-height: 100%; max-width: 100%;'
-                                    },
-                                    value: comMeasureValue
-                                }">
-                            </div>
-                        </div>
+      <!-- Tables section -->
+      <div class="oj-margin oj-flex">
+        <!-- Goals table -->
+        <!-- ko if: !isGlobal() -->
+        <div class="oj-flex-item oj-sm-12 oj-lg-6">
+          <fieldset>
+            <!-- Label -->
+            <legend>
+              <label data-bind="text: goalsLabel"></label>
+              <span class="oj-label-required-icon"></span>
+            </legend>
 
-                        <div class="oj-flex">
-                             Initial value 
-                            <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                                 Label 
-                                <label for="si-component-initial-value-field" data-bind="text: comInitialValueLabel"></label>
-
-                                 Input text 
-                                <input id="si-component-initial-value-field" data-bind="ojComponent: {
-                                    component: 'ojInputText',
-                                    value: comInitialValueValue
-                                }" />
-                            </div>
-
-                             Final goal 
-                            <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                                 Label 
-                                <label for="si-component-final-goal-field" data-bind="text: comFinalGoalLabel"></label>
-
-                                 Input text 
-                                <input id="si-component-final-goal-field" data-bind="ojComponent: {
-                                    component: 'ojInputText',
-                                    value: comFinalGoalValue
-                                }" />
-                            </div>
-
-                             General progress field 
-                            <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                                 Label 
-                                <label for="si-component-general-progress-field" data-bind="text: comGeneralProgressLabel"></label>
-
-                                 Input text 
-                                <input id="si-component-general-progress-field" data-bind="ojComponent: {
-                                    component: 'ojInputText',
-                                    value: comGeneralProgressValue
-                                }" />
-                            </div>
-                        </div>
-
-                        <div class="oj-flex">
-                             Initial date 
-                            <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                                 Label 
-                                <label for="si-component-initial-date-field" data-bind="text: comInitialDateLabel"></label>
-
-                                 Input text 
-                                <input id="si-component-initial-date-field" data-bind="ojComponent: {
-                                    component: 'ojInputDate',
-                                    converter: dateConverter,
-                                    value: comInitialDateValue
-                                }" />
-                            </div>
-
-                             Final date 
-                            <div class="oj-sm-12 oj-md-6 oj-lg-4 oj-flex-item">
-                                 Label 
-                                <label for="si-component-final-date-field" data-bind="text: comFinalDateLabel"></label>
-
-                                 Input text 
-                                <input id="si-component-final-date-field" data-bind="ojComponent: {
-                                    component: 'ojInputDate',
-                                    converter: dateConverter,
-                                    value: comFinalDateValue
-                                }" />
-                            </div>
-                        </div>
-
-                         Responsible option 
-                        <div class="oj-flex">
-                            <div class="oj-flex-item">
-                                 Label 
-                                <label for="si-component-responsible-option" data-bind="text: comResponsibleLabel"></label>
-
-                                 Select 
-                                <select id="si-component-responsible-option" data-bind="ojComponent: {
-                                    component: 'ojSelect',
-                                    options: comResponsibleOptions,
-                                    rootAttributes: {
-                                        'style': 'max-height: 100%; max-width: 100%;'
-                                    },
-                                    value: comResponsibleValue
-                                }"></select>
-                            </div>
-                        </div>
-
-
-                         Justification field 
-                        <div class="oj-flex">
-                            <div class="oj-flex-item">
-                                 Label 
-                                <label for="si-component-justification-field" data-bind="text: comJustificationLabel"></label>
-
-                                 Select 
-                                <textarea id="si-component-justification-field" rows="3" data-bind="ojComponent: {
-                                    component: 'ojTextArea',
-                                    rootAttributes: {
-                                        'style': 'max-height: 100%; max-width: 100%;'
-                                    },
-                                    value: comJustificationValue
-                                }"></textarea>
-                            </div>
-                        </div>
-
-                         Goals and progress table 
-                        <fieldset>
-                             Label 
-                            <legend>
-                                <label data-bind="text: comGoalsLabel"></label>
-                                <span class="oj-label-required-icon"></span>
-                            </legend>
-
-                             Table 
-                            <div class="oj-margin">
-                                <table id="si-com-goals-progress-table" summary="Goals and progress Table" aria-label="Goals and progress Table" data-bind="ojComponent: {
-                                    component: 'ojTable',
-                                    columns: comGoalsColumns,
-                                    columnsDefault: {
-                                        sortable: 'disabled'
-                                    },
-                                    data: comGoalsDataSource,
-                                    display: 'grid',
-                                    editMode: 'rowEdit',
-                                    rootAttributes: {
-                                        style: 'width: 100%;'
-                                    },
-                                    rowTemplate: comGoalsRowTemplate
-                                }"></table>
-                            </div>
-                        </fieldset>
-
-                         Goals and progress Chart 
-                        <div class="oj-margin">
-                            <div id="si-components-goals-chart" data-bind="ojComponent: {
-                                component: 'ojChart',
-                                animationOnDataChange: 'auto',
-                                animationOnDisplay: 'auto',
-                                hoverBehavior: 'dim',
-                                groups: comChartGroupsValue,
-                                legend: {
-                                    position: 'left'
-                                },
-                                rootAttributes: {
-                                    'style': 'width: 100%; height: 350px;'
-                                },
-                                series: comChartSeriesValue,
-                                yAxis: comChartYAxis,
-                                y2Axis: comChartY2Axis,
-                                type: 'line',
-                            }"></div>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-             /ko 
-
-             Components table 
-            <div class="oj-margin-top">
-                 Label 
-                <label class="oj-label" data-bind="text: componentsTableLabel"></label>
-
-                 Table 
-                <table id="si-components-table" summary="Components Table" aria-label="Components Table" data-bind="ojComponent: {
-                    component: 'ojTable',
-                    columns: componentsColumns,
-                    data: componentsDataSource,
-                    display: 'grid',
-                    rootAttributes: {
-                        'style': 'width: 1px; min-width: 100%; max-height: 250px;'
-                    },
-                    rowTemplate: 'componentsRowTemplate'
+            <!-- Add row icon -->
+            <i class="fa fa-plus fa-lg pointer icon-padding" data-bind="click: addRow.bind($data, 'Goals')"></i>
+            <!-- Table -->
+            <table id="indicator-goals-table" summary="Goals Table" 
+              aria-label="Goals Table" 
+              data-bind="
+                ojComponent: {
+                  component: 'ojTable',
+                  beforeRowEditEnd: beforeRowEditEnd,
+                  columns: goalsColumns,
+                  columnsDefault: {
+                    sortable: 'auto',
+                    sortProperty: 'date'
+                  },
+                  data: goalDataSource,
+                  display: 'grid',
+                  editMode: 'rowEdit',
+                  translations: {
+                    msgNoData: 'Agrega una meta'
+                  },
+                  rootAttributes: {
+                    'style': 'width: 100%'
+                  },
+                  rowTemplate: getGoalRowTemplate
                 }"></table>
-            </div>
+          </fieldset>
         </div>
-    </div>-->
-    <!-- /ko -->
-    <!-- Form actions -->
-    <div class="oj-flex-bar">
-        <div class="oj-flex-bar-end">
-            <div class="oj-sm-align-self-center">
-                <!-- Save icon -->
-                <i class="fa fa-save fa-lg fa-border pointer" 
-                    data-bind="click: saveForm">
-                </i>
+        <!-- Progress table -->
+        <div class="oj-flex-item oj-sm-12 oj-lg-6">
+          <fieldset>
+            <!-- Label -->
+            <legend>
+              <label data-bind="text: progressLabel"></label>
+            </legend>
 
-                <!-- Erase icon -->
-                <i class="fa fa-eraser fa-lg fa-border pointer"
-                    data-bind="click: resetForm">
+            <!-- Add row icon -->
+            <i class="fa fa-plus fa-lg pointer icon-padding" data-bind="click: addRow.bind($data, 'Progress')"></i>
 
-                </i>
-
-                <!-- Table icon -->
-                <i class="fa fa-table fa-lg fa-border pointer"
-                    data-bind="click: switchToList">
-                </i>
-            </div>
+            <!-- Table -->
+            <table id="indicator-progress-table" summary="Progress Table" 
+              aria-label="Progress Table" 
+              data-bind="
+                ojComponent: {
+                  component: 'ojTable',
+                  beforeRowEditEnd: beforeRowEditEnd,
+                  columns: goalsColumns,
+                  columnsDefault: {
+                    sortable: 'auto',
+                    sortProperty: 'date'
+                  },
+                  data: progressDataSource,
+                  display: 'grid',
+                  editMode: 'rowEdit',
+                  translations: {
+                    msgNoData: 'Agrega un avance'
+                  },
+                  rootAttributes: {
+                    'style': 'width: 100%'
+                  },
+                  rowTemplate: getProgressRowTemplate
+                }"></table>
+          </fieldset>
         </div>
+        <!-- /ko -->
+      </div>
+
+      <!-- Form -->
+      <div class="oj-form">
+        <!-- Potential risk field -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="si-risk-field" data-bind="text: riskLabel"></label>
+
+            <!-- Input Text -->
+            <textarea id="si-risk-field" rows="3" data-bind="
+              ojComponent: {
+                component: 'ojTextArea',
+                placeholder: riskPlaceholder,
+                rootAttributes: {
+                  'style': 'max-height: 100%; max-width: 100%;'
+                },
+                value: riskValue
+              }"></textarea>
+          </div>
+        </div>
+
+        <!-- Implemented actions field -->
+        <div class="oj-flex">
+          <div class="oj-flex-item">
+            <!-- Label -->
+            <label for="si-actions-field" data-bind="text: actionsLabel"></label>
+
+            <!-- Input Text -->
+            <textarea id="si-actions-field" rows="3" data-bind="
+              ojComponent: {
+                component: 'ojTextArea',
+                placeholder: actionsPlaceholder,
+                rootAttributes: {
+                  'style': 'max-height: 100%; max-width: 100%;'
+                },
+                value: actionsValue
+              }"></textarea>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <!-- /ko -->
+
+  <!-- ko if: typeValue() == '2' -->
+  <!-- Progress section -->
+  <div id="progress-section" class="form-container oj-accordion-collapsible"
+    data-bind="
+      ojComponent: {
+        component: 'ojCollapsible',
+        expandArea: 'disclosureIcon',
+        expanded: false
+      }">
+    <!-- Collapsible title -->
+    <h4 id="progress-title" data-bind="text: progressTitle"></h4>
+
+    <!-- Collapsible content -->
+    <div class="oj-form-layout">
+      <!-- Progress Chart -->
+      <div class="oj-margin">
+        <div id="si-progress-chart" data-bind="
+          ojComponent: {
+            component: 'ojChart',
+            type: 'line',
+            series: chartSeriesValue,
+            animationOnDisplay: 'auto',
+            animationOnDataChange: 'auto',
+            hoverBehavior: 'dim',
+            rootAttributes: {
+              'style': 'width: 100%; height: 350px;'
+            },
+            timeAxisType: 'mixedFrequency',
+            translations: {
+              labelNoData: 'Agrega un avance'
+            }
+          }"></div>
+      </div>
+
+      <!-- Tables section -->
+      <div class="oj-margin oj-flex">
+        <!-- Progress table -->
+        <div class="oj-flex-item">
+          <fieldset>
+            <!-- Label -->
+            <legend>
+              <label data-bind="text: progressLabel"></label>
+            </legend>
+
+            <!-- Add row icon -->
+            <i class="fa fa-plus fa-lg pointer icon-padding" data-bind="click: addRow.bind($data, 'Progress')"></i>
+
+            <!-- Table -->
+            <table id="si-progress-table" summary="Progress Table"
+              aria-label="Progress Table"
+              data-bind="
+                ojComponent: {
+                  component: 'ojTable',
+                  beforeRowEditEnd: beforeRowEditEnd,
+                  columns: goalsColumns,
+                  columnsDefault: {
+                    sortable: 'auto',
+                    sortProperty: 'Date'
+                  },
+                  data: progressDataSource,
+                  display: 'grid',
+                  editMode: 'rowEdit',
+                  translations: {
+                    msgNoData: 'Agrega un avance'
+                  },
+                  rootAttributes: {
+                    'style': 'width: 100%; max-height: 150px;'
+                  },
+                  rowTemplate: getProgressRowTemplate
+                }"></table>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /ko -->
+
+  <!-- Form actions -->
+  <div class="oj-flex-bar">
+    <div class="oj-flex-bar-end">
+      <div class="oj-sm-align-self-center">
+        <!-- Save icon -->
+        <i class="fa fa-save fa-lg fa-border pointer" 
+           data-bind="click: saveForm">
+        </i>
+
+        <!-- Erase icon -->
+        <i class="fa fa-eraser fa-lg fa-border pointer"
+           data-bind="click: resetForm">
+
+        </i>
+
+        <!-- Table icon -->
+        <i class="fa fa-table fa-lg fa-border pointer"
+           data-bind="click: switchToList">
+        </i>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Process row template -->
 <script type="text/html" id="processRowTemplate">
-    <tr>
-        <td data-bind="text: Process"></td>
-    </tr>
+  <tr>
+    <td data-bind="text: Process"></td>
+  </tr>
 </script>
 
 <!-- Project row template -->
 <script type="text/html" id="projectRowTemplate">
-    <tr>
-        <td data-bind="text: Project"></td>
-    </tr>
+  <tr>
+    <td data-bind="text: Project"></td>
+  </tr>
 </script>
 
 <!-- Goal Row Template -->
 <script type="text/html" id="goalRowTemplate">
-    <tr>
-        <td data-bind="text: value"></td>
-        <td data-bind="text: $parent.dateConverter.format(date)"></td>
-        <td>
-            <!--<i class="fa fa-pencil fa-border fa-lg pointer"></i>-->
-            <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.removeRow.bind($data, 'Goals', $data)"></i>
-        </td>
-    </tr>
+  <tr>
+    <td data-bind="text: value"></td>
+    <td data-bind="text: $parent.dateConverter.format(date)"></td>
+    <td>
+      <!--<i class="fa fa-pencil fa-border fa-lg pointer"></i>-->
+      <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.removeRow.bind($data, 'Goals', $data)"></i>
+    </td>
+  </tr>
 </script>
 
 <!-- Goal Edit Row Template -->
 <script type="text/html" id="goalEditRowTemplate">
-    <tr>
-        <td>
-            <input data-bind="ojComponent: {
-                component: 'ojInputNumber',
-                rootAttributes: {
-                    'id': 'new-goal-value-' + id
-                },
-                value: value
-            }">
-        </td>
-        <td>
-            <input data-bind="ojComponent: {
-                component: 'ojInputDate',
-                converter: $parent.dateConverter,
-                rootAttributes: {
-                    'id': 'new-goal-date-' + id
-                },
-                value: date
-            }">
-        </td>
-        <td>
-            <!--<i class="fa fa-pencil fa-border fa-lg pointer"></i>-->
-            <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.removeRow.bind($data, 'Goals', $data)"></i>
-        </td>
-    </tr>
+  <tr>
+    <td>
+      <input data-bind="
+        ojComponent: {
+          component: 'ojInputNumber',
+          rootAttributes: {
+            'id': 'new-goal-value-' + id
+          },
+          value: value
+        }">
+    </td>
+    <td>
+      <input data-bind="
+        ojComponent: {
+          component: 'ojInputDate',
+          converter: $parent.dateConverter,
+          rootAttributes: {
+            'id': 'new-goal-date-' + id
+          },
+          value: date
+        }">
+    </td>
+    <td>
+      <!--<i class="fa fa-pencil fa-border fa-lg pointer"></i>-->
+      <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.removeRow.bind($data, 'Goals', $data)"></i>
+    </td>
+  </tr>
 </script>
 
 <!-- Progress Row Template -->
 <script type="text/html" id="progressRowTemplate">
-    <tr>
-        <td data-bind="text: value"></td>
-        <td data-bind="text: $parent.dateConverter.format(date)"></td>
-        <td>
-            <!--<i class="fa fa-pencil fa-border fa-lg pointer"></i>-->
-            <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.removeRow.bind($data, 'Progress', $data)"></i>
-        </td>
-    </tr>
+  <tr>
+    <td data-bind="text: value"></td>
+    <td data-bind="text: $parent.dateConverter.format(date)"></td>
+    <td>
+      <!--<i class="fa fa-pencil fa-border fa-lg pointer"></i>-->
+      <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.removeRow.bind($data, 'Progress', $data)"></i>
+    </td>
+  </tr>
 </script>
 
 <!-- Progress Edit Row Template -->
 <script type="text/html" id="progressEditRowTemplate">
-    <tr>
-        <td>
-            <input data-bind="ojComponent: {
-                component: 'ojInputNumber',
-                rootAttributes: {
-                    'id': 'new-progress-value-' + id
-                },
-                value: value
-            }">
-        </td>
-        <td>
-            <input data-bind="ojComponent: {
-                component: 'ojInputDate',
-                converter: $parent.dateConverter,
-                rootAttributes: {
-                    'id': 'new-progress-date-' + id
-                },
-                value: date
-            }">
-        </td>
-        <td>
-            <!--<i class="fa fa-pencil fa-border fa-lg pointer"></i>-->
-            <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.removeRow.bind($data, 'Progress', $data)"></i>
-        </td>
-    </tr>
-</script>
-
-<!-- Components table row template -->
-<script type="text/html" id="componentsRowTemplate">
-    <tr>
-        <td data-bind="text: name"></td>
-        <td>
-            <!-- Read option -->
-            <i class="fa fa-eye fa-border fa-lg pointer"></i>
-
-            <!-- Clone option -->
-            <i class="fa fa-clone fa-border fa-lg pointer"></i>
-
-            <!-- Edit option -->
-            <i class="fa fa-pencil fa-border fa-lg pointer"></i>
-
-            <!-- Delete option -->
-            <i class="fa fa-trash fa-border fa-lg pointer"></i>
-        </td>
-    </tr>
-</script>
-
-<!-- Components Goals and Progress row template -->
-<script type="text/html" id="comGoalsRowTemplate">
-    <tr>
-        <td data-bind="text: Mes"></td>
-        <td data-bind="text: Ene"></td>
-        <td data-bind="text: Feb"></td>
-        <td data-bind="text: Mar"></td>
-        <td data-bind="text: Abr"></td>
-        <td data-bind="text: May"></td>
-        <td data-bind="text: Jun"></td>
-        <td data-bind="text: Jul"></td>
-        <td data-bind="text: Ago"></td>
-        <td data-bind="text: Sep"></td>
-        <td data-bind="text: Oct"></td>
-        <td data-bind="text: Nov"></td>
-        <td data-bind="text: Dic"></td>
-    </tr>
-</script>
-
-<!-- Components Goals and Progress Edit row template -->
-<script type="text/html" id="comGoalsEditRowTemplate">
-    <tr>
-        <td data-bind="text: Mes"></td>
-
-        <!-- ko if: Mes == "% Avance" -->
-        <td data-bind="text: Ene"></td>
-        <td data-bind="text: Feb"></td>
-        <td data-bind="text: Mar"></td>
-        <td data-bind="text: Abr"></td>
-        <td data-bind="text: May"></td>
-        <td data-bind="text: Jun"></td>
-        <td data-bind="text: Jul"></td>
-        <td data-bind="text: Ago"></td>
-        <td data-bind="text: Sep"></td>
-        <td data-bind="text: Oct"></td>
-        <td data-bind="text: Nov"></td>
-        <td data-bind="text: Dic"></td>
-        <!-- /ko -->
-
-        <!-- ko ifnot: Mes == "% Avance" -->
-        <td>
-            <input data-bind="ojComponent: {
-                component: 'ojInputText',
-                optionChange: $parent.comGoalsOptionChange,
-                value: Ene
-            }">
-        </td>
-        <td>
-            <input data-bind="ojComponent: {
-                component: 'ojInputText',
-                optionChange: $parent.comGoalsOptionChange,
-                value: Feb
-            }">
-        </td>
-        <td>
-            <input data-bind="ojComponent: {
-                component: 'ojInputText',
-                optionChange: $parent.comGoalsOptionChange,
-                value: Mar
-            }">
-        </td>
-        <td>
-            <input data-bind="ojComponent: {
-                component: 'ojInputText',
-                optionChange: $parent.comGoalsOptionChange,
-                value: Abr
-            }">
-        </td>
-        <td>
-            <input data-bind="ojComponent: {
-                component: 'ojInputText',
-                optionChange: $parent.comGoalsOptionChange,
-                value: May
-            }">
-        </td>
-        <td>
-            <input data-bind="ojComponent: {
-                component: 'ojInputText',
-                optionChange: $parent.comGoalsOptionChange,
-                value: Jun
-            }">
-        </td>
-        <td>
-            <input data-bind="ojComponent: {
-                component: 'ojInputText',
-                optionChange: $parent.comGoalsOptionChange,
-                value: Jul
-            }">
-        </td>
-        <td>
-            <input data-bind="ojComponent: {
-                component: 'ojInputText',
-                optionChange: $parent.comGoalsOptionChange,
-                value: Ago
-            }">
-        </td>
-        <td>
-            <input data-bind="ojComponent: {
-                component: 'ojInputText',
-                optionChange: $parent.comGoalsOptionChange,
-                value: Sep
-            }">
-        </td>
-        <td>
-            <input data-bind="ojComponent: {
-                component: 'ojInputText',
-                optionChange: $parent.comGoalsOptionChange,
-                value: Oct
-            }">
-        </td>
-        <td>
-            <input data-bind="ojComponent: {
-                component: 'ojInputText',
-                optionChange: $parent.comGoalsOptionChange,
-                value: Nov
-            }">
-        </td>
-        <td>
-            <input data-bind="ojComponent: {
-                component: 'ojInputText',
-                optionChange: $parent.comGoalsOptionChange,
-                value: Dic
-            }">
-        </td>
-        <!-- /ko -->
-    </tr>
+  <tr>
+    <td>
+      <input data-bind="
+        ojComponent: {
+          component: 'ojInputNumber',
+          rootAttributes: {
+            'id': 'new-progress-value-' + id
+          },
+          value: value
+        }">
+    </td>
+    <td>
+      <input data-bind="
+        ojComponent: {
+          component: 'ojInputDate',
+          converter: $parent.dateConverter,
+          rootAttributes: {
+            'id': 'new-progress-date-' + id
+          },
+          value: date
+        }">
+    </td>
+    <td>
+      <!--<i class="fa fa-pencil fa-border fa-lg pointer"></i>-->
+      <i class="fa fa-trash fa-border fa-lg pointer" data-bind="click: $parent.removeRow.bind($data, 'Progress', $data)"></i>
+    </td>
+  </tr>
 </script>

@@ -4,58 +4,56 @@
  * @param {type} SummaryIndicator
  */
 define(
-        [
-            'modules/admin/indicators/model/SummaryIndicator'
-        ],
-        function (SummaryIndicator) {
+    [
+      'modules/admin/indicators/model/SummaryIndicator'
+    ],
+    function (SummaryIndicator) {
 
-            var IndicatorDataParser = {
+      return {
 
-                parse: function (data) {
+        parse: function (data) {
 
-                    // Indicator items array
-                    let indicatorItems = [];
+          // Indicator items array
+          let indicatorItems = [];
 
-                    data.forEach(element => createIndicator(element));
+          data.forEach(element => createIndicator(element));
 
-                    /**
-                     * Creates an Indicator Item..
-                     * 
-                     * @param {type} item
-                     */
-                    function createIndicator(item) {
-                        let name;
-                        
-                        if (item.type.id === 3) {
-                            const peTypeName = item.pe ? item.pe.type : '';
-                            const peName = item.pe ? item.pe.name : '';
-                            const pideIndicatorName = item.pideIndicator ? item.pideIndicator.name : '';
-                            name = `${peTypeName} -> ${peName} -> ${pideIndicatorName}`;
-                        } else {
-                            name = item.name;
-                        }
-                        
-                        // Creates a new Indicator item based on the param values.
-                        let indicator = new SummaryIndicator(
-                                item.id,
-                                item.type,
-                                name,
-                                item.status,
-                                item.strategicItem,
-                                item.description,
-                                item.periodicity
-                        );
+          /**
+           * Creates an Indicator Item..
+           * 
+           * @param {type} item
+           */
+          function createIndicator(item) {
+            let name;
 
-                        // Add the new Indicator item to items array
-                        indicatorItems.push(indicator);
+//            if (item.type.id === 3 && !item.isGlobal) {
+//              const peTypeName = item.pe ? item.pe.type : '';
+//              const peName = item.pe ? item.pe.name : '';
+//              const pideIndicatorName = item.pideIndicator ? item.pideIndicator.name : '';
+//              name = `${peTypeName} -> ${peName} -> ${pideIndicatorName}`;
+//            } else {
+//              name = item.name;
+//            }
 
-                        return indicator;
-                    }
+            // Creates a new Indicator item based on the param values.
+            let indicator = new SummaryIndicator(
+                item.id,
+                item.type,
+                item.name,
+                item.status,
+                item.strategicItem,
+                item.description,
+                item.periodicity
+                );
 
-                    return indicatorItems;
-                }
-            };
+            // Add the new Indicator item to items array
+            indicatorItems.push(indicator);
 
-            return IndicatorDataParser;
+            return indicator;
+          }
+
+          return indicatorItems;
         }
+      };
+    }
 );

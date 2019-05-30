@@ -213,7 +213,7 @@ define(
           if (!self.editing()) {
             self.graphics.push(
                 {
-                  name: "pide/graphic",
+                  name: "pe/graphic",
                   animation: oj.ModuleAnimations["coverStart"],
                   params: {
                     idPrefix: "pe-graphic-",
@@ -378,14 +378,14 @@ define(
         };
 
         self.loadHandler = function (event, ui) {
-          var tree = $("#tree");
-          var root = tree[0];
-          var nodesArray = [];
+          const tree = $("#tree");
+          const root = tree[0];
+          const nodesArray = [];
 
           root.childNodes.forEach(addNode);
 
           while (nodesArray.length > 0) {
-            var node = nodesArray.shift();
+            const node = nodesArray.shift();
             node.childNodes.forEach(addNode);
 
             if (node.type && node.type.includes("indicator")) {
@@ -404,13 +404,13 @@ define(
           $.getJSON(RESTConfig.indicators.pe.tree.path)
           .then(
             data => {
-              model = data.filter(i => i.title.match(/^eje 7/i));
-              fn(model);  // pass to ojTree using supplied function
+              model = data;
+              fn(data);  // pass to ojTree using supplied function
 
-              var itemsArray = model.slice(0);
+              let itemsArray = model.slice(0);
 
               while (itemsArray.length > 0) {
-                var element = itemsArray.shift();
+                const element = itemsArray.shift();
 
                 if (element.children) {
                   itemsArray = itemsArray.concat(element.children);

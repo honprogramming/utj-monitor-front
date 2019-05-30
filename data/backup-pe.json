@@ -10,15 +10,6 @@
     },
     {
         "name": "TSU Administración área Capital Humano",
-        "id": 2,
-        "shortName": "",
-        "type": {
-            "name": "TSU",
-            "id": 1
-        }
-    },
-    {
-        "name": "TSU Administración del Sistema del Transporte Terrestre",
         "id": 3,
         "shortName": "",
         "type": {
@@ -27,16 +18,7 @@
         }
     },
     {
-        "name": "TSU Mecatrónica área Automatización",
-        "id": 4,
-        "shortName": "",
-        "type": {
-            "name": "TSU",
-            "id": 1
-        }
-    },
-    {
-        "name": "TSU Mantenimiento Industrial",
+        "name": "TSU Administración del Sistema del Transporte Terrestre",
         "id": 5,
         "shortName": "",
         "type": {
@@ -45,7 +27,7 @@
         }
     },
     {
-        "name": "TSU Mantenimiento área Maquinaria Pesada",
+        "name": "TSU Mecatrónica área Automatización",
         "id": 6,
         "shortName": "",
         "type": {
@@ -54,7 +36,7 @@
         }
     },
     {
-        "name": "TSU Procesos Industriales área Plásticos",
+        "name": "TSU Mantenimiento Industrial",
         "id": 7,
         "shortName": "",
         "type": {
@@ -63,7 +45,7 @@
         }
     },
     {
-        "name": "TSU Procesos Industriales área Maquinados de Precisión",
+        "name": "TSU Mantenimiento área Maquinaria Pesada",
         "id": 8,
         "shortName": "",
         "type": {
@@ -72,7 +54,7 @@
         }
     },
     {
-        "name": "TSU Química área Tecnología Ambiental",
+        "name": "TSU Procesos Industriales área Plásticos",
         "id": 9,
         "shortName": "",
         "type": {
@@ -81,7 +63,7 @@
         }
     },
     {
-        "name": "TSU Química área Tecnología Farmacéutica",
+        "name": "TSU Procesos Industriales área Maquinados de Precisión",
         "id": 10,
         "shortName": "",
         "type": {
@@ -90,8 +72,26 @@
         }
     },
     {
+        "name": "TSU Química área Tecnología Ambiental",
+        "id": 12,
+        "shortName": "",
+        "type": {
+            "name": "TSU",
+            "id": 1
+        }
+    },
+    {
+        "name": "TSU Química área Tecnología Farmacéutica",
+        "id": 13,
+        "shortName": "",
+        "type": {
+            "name": "TSU",
+            "id": 1
+        }
+    },
+    {
         "name": "TSU Tecnologías de la Información y Comunicación área Sistemas Informáticos",
-        "id": 11,
+        "id": 16,
         "shortName": "",
         "type": {
             "name": "TSU",
@@ -100,7 +100,7 @@
     },
     {
         "name": "ING Mecatrónica",
-        "id": 12,
+        "id": 30,
         "shortName": "",
         "type": {
             "name": "Ingeniería",
@@ -109,7 +109,7 @@
     },
     {
         "name": "ING Procesos y Operaciones Industriales",
-        "id": 13,
+        "id": 31,
         "shortName": "",
         "type": {
             "name": "Ingeniería",
@@ -118,7 +118,7 @@
     },
     {
         "name": "ING Desarrollo e Innovación Empresarial",
-        "id": 14,
+        "id": 32,
         "shortName": "",
         "type": {
             "name": "Ingeniería",
@@ -127,7 +127,7 @@
     },
     {
         "name": "ING Tecnología Ambiental",
-        "id": 15,
+        "id": 33,
         "shortName": "",
         "type": {
             "name": "Ingeniería",
@@ -136,7 +136,7 @@
     },
     {
         "name": "ING Tecnologías de la Información y Comunicación",
-        "id": 16,
+        "id": 34,
         "shortName": "",
         "type": {
             "name": "Ingeniería",
@@ -145,7 +145,7 @@
     },
     {
         "name": "ING Mantenimiento Industrial",
-        "id": 17,
+        "id": 35,
         "shortName": "",
         "type": {
             "name": "Ingeniería",
@@ -154,7 +154,7 @@
     },
     {
         "name": "TSU Desarrollo de Negocios área Mercadotecnia",
-        "id": 18,
+        "id": 36,
         "shortName": "",
         "type": {
             "name": "TSU",

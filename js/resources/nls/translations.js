@@ -171,15 +171,13 @@ define(
               "sections": {
                 "main": {
                   "type": "Tipo",
-                  "active": "Activo/Inactivo"
+                  "active": "Inactivo/Activo",
+                  "global": "Normal/Global"
                 },
                 "general": {
                   "title": "General",
                   "update": "Actualización",
-                  "axes": "Ejes",
-                  "topics": "Temas",
-                  "objectives": "Objetivos",
-                  "indicators": "Selecciona el nombre del indicador",
+                  "indicators": "Selecciona el indicador global",
                   "name": {
                     "label": "Nombre",
                     "placeholder": "Nombre del indicador"
@@ -218,15 +216,6 @@ define(
                     "topic": "Tema",
                     "objective": "Objetivo"
                   },
-                  "poa": {
-                    "title": "POA",
-                    "process": {
-                      "title": "Procesos"
-                    },
-                    "projects": {
-                      "title": "Proyectos"
-                    }
-                  }
                 },
                 "responsible": {
                   "title": "Responsable",
@@ -305,28 +294,6 @@ define(
                     "placeholder": "Acciones implementadas"
                   }
                 },
-                "components": {
-                  "title": "Componentes",
-                  "name": "Nombre",
-                  "description": "Descripción",
-                  "indicator": "Indicador",
-                  "measure": "Unidad de Medida",
-                  "initialValue": "Valor inicial",
-                  "finalGoal": "Meta final",
-                  "generalProgress": "% Avance general",
-                  "initialDate": "Fecha inicial",
-                  "finalDate": "Fecha final",
-                  "responsible": "Responsable",
-                  "justification": "Justificación",
-                  "goals": "Avances y metas",
-                  "table": {
-                    "title": "Componentes",
-                    "headers": {
-                      "name": "Nombre",
-                      "actions": "Acciones"
-                    }
-                  }
-                }
               }
             }
           },
