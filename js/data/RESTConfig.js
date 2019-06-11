@@ -114,6 +114,10 @@ define(
         
         graphic: {
           endPath: '/graphic'
+        },
+        
+        indicators: {
+          endPath: '/indicators'
         }
       }
     };

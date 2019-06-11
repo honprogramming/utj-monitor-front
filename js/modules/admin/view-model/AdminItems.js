@@ -24,14 +24,14 @@ define(
                     module: {
                         name: "admin/pe/pe"
                     }
-                }
-//                poa: {
-//                    id: "poa",
-//                    label: GeneralViewModel.nls("admin.poa.label"),
-//                    module: {
-//                        name: "admin/poa/poa"
-//                    }
-//                },
+                },
+                data: {
+                    id: "data",
+                    label: GeneralViewModel.nls("admin.data.label"),
+                    module: {
+                        name: "admin/data/data"
+                    }
+                },
 //                editPoa: {
 //                    id: "editPoa",
 //                    label: GeneralViewModel.nls("admin.poa.label1"),

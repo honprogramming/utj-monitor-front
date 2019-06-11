@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<div class="full-height full-width">
+    <div class="oj-flex-bar">
+        <div class="oj-flex-bar-middle oj-sm-justify-content-center">
+            <h2 class="centered" data-bind="text: title"></h2>
+        </div>
+    </div>
+    <div class="full-width form-container oj-accordion-collapsible"
+      id="data-export-collapsible"
+       data-bind="ojComponent: {
+                      component: 'ojCollapsible',
+                      expandArea: 'disclosureIcon',
+                      expanded: true
+                  }">
+      <h4 id="data-export-collapsible-title" data-bind="text: exportTitle"></h4>
+      <div class="oj-flex oj-sm-justify-content-space-between">
+        <div data-bind="text: exportIndicatorsLabel"></div>
+        <a href="#" class="black-link">
+          <span class="fa fa-stack fa-lg">
+            <i class="fa fa-download fa-stack-1x" data-bind="click: exportIndicatorsClickHandler"></i>
+            <form data-bind="attr: { id: exportFormId, action: exportURL }" method="POST">
+              <input type="hidden" name="data" data-bind="value: exportData">
+            </form>
+          </span>
+        </a>
+      </div>
+    </div>
+</div>

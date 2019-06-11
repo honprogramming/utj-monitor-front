@@ -330,6 +330,14 @@ define(
               "deleteErrorText": ""
             }
           },
+          "data": {
+            "label": "Datos",
+            "title": "Datos",
+            "export": {
+              "title": "Exportar",
+              "label": "Todos los indicadores"
+            }
+          },
           "poa": {
             "label": "Ficha POA",
             "label1": "Agregar Ficha de POA",

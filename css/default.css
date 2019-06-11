@@ -234,7 +234,12 @@ html, body {
     font-size: 5em;
 }
 
-.login  a, a:visited, a:hover {
+.login  a, .login a:visited, .login a:hover {
     color: white;
+    cursor: pointer;
+}
+
+.black-link, .black-link:visited, .black-link:hover {
+    color: black;
     cursor: pointer;
 }
