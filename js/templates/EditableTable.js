@@ -126,15 +126,33 @@ define(
                 };
                 
                 self.deleteHandler = function () {
-                    var currentRow = self.getCurrentRow();
-                    console.debug("currentRow: %o", currentRow);
+                  var currentRow = self.getCurrentRow();
+//                  console.debug("currentRow: %o", currentRow);
 
-                    if (self.validateOnDelete(currentRow.rowKey, theKey)) {
+                  const valid = self.validateOnDelete(currentRow.rowKey, theKey);
+                  let validPromise;
+
+                  if (typeof(valid) === "boolean") {
+                    validPromise = Promise.resolve(valid);
+                  } else if (valid.then) { //is a Promise
+                    validPromise = valid;
+                  } else {
+                    validPromise = Promise.resolve(false);
+                  }
+
+                  validPromise.then(
+                    value => {
+                      if (value) {
                         self.removeItem(currentRow.rowKey, theKey);
                         self.observableDataSource().remove({id: currentRow.rowKey});
-                    } else {
-                        $("#" + self.deleteErrorDialogId).ojDialog("open");
+                      } else {
+                          $("#" + self.deleteErrorDialogId).ojDialog("open");
+                      }
+                    },
+                    () => {
+                      //do nothing when is rejected
                     }
+                  );
                 };
                 
                 self.filterHandler = function(event, ui) {

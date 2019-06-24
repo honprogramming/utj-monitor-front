@@ -333,6 +333,30 @@ define(
           "data": {
             "label": "Datos",
             "title": "Datos",
+            "backup": {
+              "title": "Respaldos",
+              "label": "Crear nuevo respaldo",
+              "tableSummary": "Crea respaldos de la información para almacenarlos en la base de datos.",
+              "tableAria": "",
+              "tableHeaders": {
+                "nameColumn": "Name",
+                "actionsColumn": "Acciones"
+              },
+              "dialog": {
+                "create": "Nuevo",
+                "delete": "¿Estás seguro que deseas eliminar este backup?",
+                "cancelButtonLabel": "Cancelar",
+                "title": "Backup...",
+                "nameLabel": "Nombre",
+                "createButtonLabel": "Crear",
+                "closeButtonLabel": "Cerrar",
+                "deleteButtonLabel": "Aceptar",
+                "successMessage": "Backup completo!",
+                "errorMessage": "Hubo un error al crear el backup"
+              },
+              "newErrorText": "Error al crear el backup",
+              "deleteErrorText": "Error al eliminar el backup"
+            },
             "export": {
               "title": "Exportar",
               "label": "Todos los indicadores"

@@ -54,6 +54,13 @@ define(
           types: {
             endPath: '/types'
           }
+        },
+        data: {
+          subPath: '/data',
+          
+          backups: {
+            endPath: '/backups'
+          }
         }
       },
       catalogs: {

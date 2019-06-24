@@ -25,4 +25,60 @@
         </a>
       </div>
     </div>
+    <div data-bind="template: {name: 'CollapsibleEditableTable', data: backupsObservableTable}"></div>
+</div>
+ <div style="display:none" 
+    data-bind="attr: {id: dataBackupDialogId, title: dataBackupDialogTitle}, 
+              ojComponent:{
+                component: 'ojDialog', 
+                initialVisibility: 'hide',
+                modality: 'modeless',
+                rootAttributes: {
+                    style: 'width: 35vw; height: 25vh;'
+                }
+              }">
+
+  <div class="oj-dialog-body">
+    <div class="title oj-flex oj-sm-justify-content-center" data-bind="text: operation"></div>
+    <div>
+      <label for="backup-name" data-bind="text: backupNameLabel, visible: isNewBackup()"></label>
+      <input id='backup-name' data-bind="
+                visible: isNewBackup,
+                ojComponent: {
+                  component: 'ojInputText',
+                  rootAttributes: {
+                      'style': 'max-height: 100%; max-width: 100%;'
+                  },
+                  value: backupName
+                }" />
+    </div>
+    <div class="oj-flex oj-sm-flex-direction-column">
+      <div class="oj-flex oj-sm-justify-content-center" data-bind="text: backupMessage"></div>
+      <div class="oj-flex oj-sm-justify-content-center">
+        <button data-bind="
+          click: backupButtonClickHandler,
+          ojComponent: {
+                      component:'ojButton', 
+                      label: backupButtonLabel,
+                      rootAttributes: {
+                        'style': 'margin: 10px;'
+                      }
+                    } 
+           ">
+        </button>
+        <button data-bind="
+          click: cancelButtonClickHandler,
+          visible: isDelete,
+          ojComponent: {
+                      component:'ojButton', 
+                      label: cancelButtonLabel,
+                      rootAttributes: {
+                        'style': 'margin: 10px;'
+                      }
+                    } 
+           ">
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
