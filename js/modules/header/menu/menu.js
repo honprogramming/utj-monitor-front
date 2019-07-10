@@ -8,6 +8,7 @@
 define(
   [
     'knockout',
+    'utils/RoutesWrapper',
     'view-models/GeneralViewModel',
     'events/EventTypes',
     'modules/header/header',
@@ -16,7 +17,7 @@ define(
     'modules/admin/security/roles',
     'ojs/ojcore', 'jquery', 'ojs/ojknockout', 'ojs/ojbutton'
   ],
-  function (ko, GeneralViewModel, EventTypes, header, MenuItems, Authorization, Roles) {
+  function (ko, RoutesWrapper, GeneralViewModel, EventTypes, header, MenuItems, Authorization, Roles) {
       /**
        * The view model for the menu
        */
@@ -50,7 +51,12 @@ define(
         ko.computed(
           () => {
             const isAuthenticated = header.isAuthenticated();
-
+            const version = RoutesWrapper.getParameter("version");
+            
+            if (version) {
+              return;
+            }
+            
             if (isAuthenticated) {
               Authorization.hasRole(Roles.writer)
                   .then(

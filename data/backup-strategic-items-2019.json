@@ -745,74 +745,7 @@
                 ],
                 "name": "Eje 6. Internacionalización e idiomas",
                 "id": 7
-            },
-            {
-                "strategicType": {
-                    "name": "axe",
-                    "id": 29
-                },
-                "children": [
-                    {
-                        "strategicType": {
-                            "name": "topic",
-                            "id": 30
-                        },
-                        "children": [
-                            {
-                                "strategicType": {
-                                    "name": "objective",
-                                    "id": 31
-                                },
-                                "children": [],
-                                "name": "7.1.1 Global TSU",
-                                "id": 88
-                            }
-                        ],
-                        "name": "7.1 TSU",
-                        "id": 41
-                    },
-                    {
-                        "strategicType": {
-                            "name": "topic",
-                            "id": 30
-                        },
-                        "children": [
-                            {
-                                "strategicType": {
-                                    "name": "objective",
-                                    "id": 31
-                                },
-                                "children": [],
-                                "name": "7.2.1 Global ING",
-                                "id": 95
-                            }
-                        ],
-                        "name": "7.2 ING",
-                        "id": 42
-                    },
-                    {
-                        "strategicType": {
-                            "name": "topic",
-                            "id": 30
-                        },
-                        "children": [
-                            {
-                                "strategicType": {
-                                    "name": "objective",
-                                    "id": 31
-                                },
-                                "children": [],
-                                "name": "7.3.1 UTJ",
-                                "id": 96
-                            }
-                        ],
-                        "name": "7.3 UTJ",
-                        "id": 43
-                    }
-                ],
-                "name": "Eje 7. Indicadores de Programas Educativos",
-                "id": 8
-            }
+            }            
         ],
         "name": "Institución reconocida, que atiende los requerimientos del sector productivo de bienes y de servicios caracterizados por su calidad, pertinencia y relevancia.",
         "id": 1

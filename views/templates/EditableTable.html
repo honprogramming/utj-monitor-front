@@ -23,8 +23,11 @@
                     <!-- ko if: $parent.displayAction('edit') -->
                     <i class="fa fa-pencil fa-border fa-lg pointer"
                        data-bind="click: $parent.editHandler"></i>
-                    <!-- /ko -->
-    
+                    <!-- /ko -->                    
+                    <!-- ko if: $parent.displayAction('go') -->
+                    <i class="fa fa-external-link fa-border fa-lg pointer"
+                       data-bind="click: $parent.goHandler"></i>
+                    <!-- /ko -->    
                     <!-- ko if: $parent.displayAction('filter') -->
                     <i class="fa fa-filter fa-border fa-lg pointer"
                         data-bind="click: $parent.filterHandler, style: {color: $parent.filterIconComputedColor(id)}"></i>
@@ -70,7 +73,12 @@
                     <i class="fa fa-pencil fa-border fa-lg pointer"
                        data-bind="click: $parent.editHandler"></i>
                     <!-- /ko -->
-    
+                    
+                    <!-- ko if: $parent.displayAction('go') -->
+                    <i class="fa fa-external-link fa-border fa-lg pointer"
+                       data-bind="click: $parent.goHandler"></i>
+                    <!-- /ko -->
+                    
                     <!-- ko if: $parent.displayAction('filter') -->
                     <i class="fa fa-filter fa-border fa-lg pointer"
                         data-bind="click: $parent.filterHandler, style: {color: $parent.filterIconComputedColor(id)}"></i>

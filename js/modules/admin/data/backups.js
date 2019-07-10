@@ -11,7 +11,7 @@ define(
       }
       
       static deleteBackup(id) {
-        return AjaxUtils.ajax(RestConfig.admin.data.backups.path, 'DELETE', {id});
+        return AjaxUtils.ajax(`${RestConfig.admin.data.backups.path}/${id}`, 'DELETE');
       }
       
       static getBackups() {

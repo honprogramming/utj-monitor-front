@@ -5,6 +5,7 @@ define(
       'knockout',
       'view-models/GeneralViewModel',
       'data/RESTConfig',
+      'utils/RoutesWrapper',
       'ojs/ojbutton',
       'hammerjs',
       'ojs/ojjquery-hammer',
@@ -18,7 +19,7 @@ define(
       'ojs/ojmoduleanimations',
       'ojs/ojpopup'
     ],
-    function ($, oj, ko, GeneralViewModel, RESTConfig) {
+    function ($, oj, ko, GeneralViewModel, RESTConfig, RoutesWrapper) {
       var theKey = {};
 
       function PEIndicatorsViewModel() {
@@ -28,8 +29,6 @@ define(
         var right = "right";
         var model = [];
         var modelTree = {};
-//                var modelPE = [];
-//                var modelTreePE = {};
         var currentEditingGraphic;
 
         var privateData = {
@@ -400,26 +399,31 @@ define(
         };
 
         self.getJson = function (node, fn) {
-//                    $.getJSON("data/pide-indicators.json").then(
-          $.getJSON(RESTConfig.indicators.pe.tree.path)
-          .then(
-            data => {
-              model = data;
-              fn(data);  // pass to ojTree using supplied function
+          const version = RoutesWrapper.getParameter("version");
+          
+          const pePath = version 
+            ? `${RESTConfig.admin.data.backups.path}/${version}/PE_GRAPHICS`
+            : RESTConfig.indicators.pe.tree.path;
+            
+          $.getJSON(pePath)
+              .then(
+                  data => {
+                    model = data;
+                    fn(data);  // pass to ojTree using supplied function
 
-              let itemsArray = model.slice(0);
+                    let itemsArray = model.slice(0);
 
-              while (itemsArray.length > 0) {
-                const element = itemsArray.shift();
+                    while (itemsArray.length > 0) {
+                      const element = itemsArray.shift();
 
-                if (element.children) {
-                  itemsArray = itemsArray.concat(element.children);
-                }
+                      if (element.children) {
+                        itemsArray = itemsArray.concat(element.children);
+                      }
 
-                modelTree[element.attr.id] = element;
-              }
-            }
-          );
+                      modelTree[element.attr.id] = element;
+                    }
+                  }
+              );
         };
 
         self.getTypes = function () {

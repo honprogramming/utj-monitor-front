@@ -48,13 +48,16 @@ define(
         ],
         newErrorText: GeneralViewModel.nls("admin.data.backup.newErrorText"),
         deleteErrorText: GeneralViewModel.nls("admin.data.backup.deleteErrorText"),
-        actions: ["edit", "delete"],
+        actions: ["go", "delete"],
         itemCreator: function() {
           backupDialogSetup("create");
           $(`#${backupDialogId}`).ojDialog("open");
         },
         itemRemover: function(id) {
           backups.deleteBackup(id);
+        },
+        itemVisitor: function(id) {
+          window.open(`${window.location.pathname}?version=${id}`);
         },
         deleteValidator: function() {
           return new Promise(
@@ -74,7 +77,7 @@ define(
             backups.createBackup(this.backupName())
               .done(
                 () => {
-                  this.backupButtonLabel(GeneralViewModel.nls("admin.data.backup.dialog.closeLabel"));
+                  this.backupButtonLabel(GeneralViewModel.nls("admin.data.backup.dialog.closeButtonLabel"));
                   this.backupMessage(GeneralViewModel.nls("admin.data.backup.dialog.successMessage"));
                   this.backupName("");
                 }
@@ -84,7 +87,16 @@ define(
             $(`#${backupDialogId}`).ojDialog("close");
           } else {
             $(`#${backupDialogId}`).ojDialog("close");
-            this.backupButtonLabel(GeneralViewModel.nls("admin.data.backup.dialog.createLabel"));
+            
+            backups.getBackups()
+            .then(
+              data => {
+                this.backupsObservableTable(new EditableTable(new BackupsModel(data), tableConfig));
+              }
+            );
+        
+            this.backupsObservableTable(new EditableTable(new BackupsModel([]), tableConfig)),
+            this.backupButtonLabel(GeneralViewModel.nls("admin.data.backup.dialog.createButtonLabel"));
             this.backupMessage("");
           }
         },
