@@ -114,6 +114,9 @@ define(
                   "warningText": "Al hacer click en Aceptar todos los cambios realizados se perderán.",
                   "okButton": "Aceptar",
                   "cancelButton": "Cancelar"
+                },
+                "view": {
+                  "title": "Detalle"
                 }
               },
               "filters": {

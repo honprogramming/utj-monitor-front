@@ -32,7 +32,8 @@ define(
           itemCreator: () => {},
           itemRemover: () => false,
           itemEditor: () => false,
-          itemVisitor: () => false
+          itemVisitor: () => false,
+          itemReader: () => {}
         };
 
         this.EditableTable_ = function (key) {
@@ -78,6 +79,7 @@ define(
           self.setItemClonator(params.itemClonator);
           self.setItemRemover(params.itemRemover);
           self.setItemVisitor(params.itemVisitor);
+          self.setItemReader(params.itemReader);
           self.setNewEnabled(params.newEnabled !== undefined ? params.newEnabled : true);
           self.setActions(params.actions !== undefined ? params.actions : [], theKey);
           self.setFilterFunction(params.filterFunction);
@@ -126,7 +128,11 @@ define(
             }
           }
         };
-
+        
+        self.readHandler = function(event, data) {
+          self.readItem(event.id, theKey);
+        };
+        
         self.goHandler = function (event, data) {
           self.visitItem(event.id, theKey);
         };
@@ -279,9 +285,20 @@ define(
           return visitor(id);
         }
       };
+      
+      prototype.readItem = function (id, key) {
+        if (theKey === key) {
+          const reader = this.getItemReader();
+          return reader(id);
+        }
+      };
 
       prototype.getItemVisitor = function () {
         return this.EditableTable_(theKey).itemVisitor;
+      };
+      
+      prototype.getItemReader = function () {
+        return this.EditableTable_(theKey).itemReader;
       };
       
       prototype.getItemEditor = function () {
@@ -291,6 +308,12 @@ define(
       prototype.setItemVisitor = function (itemVisitor) {
         if (typeof itemVisitor === 'function') {
           this.EditableTable_(theKey).itemVisitor = itemVisitor;
+        }
+      };
+      
+      prototype.setItemReader = function (itemReader) {
+        if (typeof itemReader === 'function') {
+          this.EditableTable_(theKey).itemReader = itemReader;
         }
       };
       

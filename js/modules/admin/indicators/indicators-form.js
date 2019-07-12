@@ -79,7 +79,7 @@ define(
 
           function successFunction(data) {
             self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success"));
-            saveDialogClass = "save-dialog-success";
+            saveDialogClass = "success";
 
             if (data) {
               indicator.setId(data.id);
@@ -88,13 +88,21 @@ define(
           }
 
           function errorFunction(jqXHR, textStatus, errMsg) {
-            self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success") + errMsg);
-            saveDialogClass = "save-dialog-error";
+            const message = errMsg.length > 0 ? errMsg : jqXHR.responseText;
+            self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.error") + message);
+            saveDialogClass = "error";
           }
+          
+          const bodyData = Object.assign({...indicator},
+            {
+              access_token: localStorage.getItem('access_token'),
+              user_id: localStorage.getItem('user_id')
+            }
+          );
+      
+          const savePromise = AjaxUtils.ajax(path, method, bodyData, successFunction, errorFunction);
 
-          const savePromise = AjaxUtils.ajax(path, method, indicator, successFunction, errorFunction);
-
-          savePromise.then(
+          savePromise.always(
             function () {
               self.showDialog();
             }
@@ -955,8 +963,11 @@ define(
         }
 
         self.showDialog = function () {
-          var saveDialog = $("#" + self.saveDialogId);
-          saveDialog.ojDialog("widget").addClass(saveDialogClass);
+          const saveDialog = $("#" + self.saveDialogId);
+          const classToRemove = saveDialogClass === "success" ? "error": "success";
+          
+          saveDialog.ojDialog("widget").removeClass(`save-dialog-${classToRemove}`);
+          saveDialog.ojDialog("widget").addClass(`save-dialog-${saveDialogClass}`);
           saveDialog.ojDialog("open");
         };
 

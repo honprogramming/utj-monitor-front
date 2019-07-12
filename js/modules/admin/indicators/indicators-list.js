@@ -195,14 +195,20 @@ define(
 //                                newErrorText: GeneralViewModel.nls("admin.indicators.main.table.pide.newErrorText"),
 //                                deleteErrorText: GeneralViewModel.nls("admin.indicators.main.table.pide.deleteErrorText"),
                                 deleteValidator: () => true, 
-                                actions: ["delete", "clone", "edit"],
+                                actions: ["delete", "clone", "edit", "read"],
                                 newValidator: function () {
                                     return true;
                                 },
                                 itemClonator: (id, newId) => cloneItem(id, newId),
                                 itemCreator: () => params.switchFunction(),
-                                itemRemover: (id) => removeItem(id),
-                                itemEditor: (id) => params.switchFunction(indicatorsModel.getItemById(id))
+                                itemRemover: id => removeItem(id),
+                                itemEditor: id => params.switchFunction(indicatorsModel.getItemById(id)),
+                                itemReader: indicatorId => {
+                                  const {id, name} = indicatorsModel.getItemById(indicatorId);
+                              
+                                  self.viewMessage({id, name});
+                                  $(`#${self.viewDialogId}`).ojDialog("open");
+                                }
                             }
                         );
 
@@ -223,17 +229,22 @@ define(
                 )
                 .catch(e => console.log(e.message));
         
-                // Reset dialog text
+                // Reset dialog
                 self.resetDialogId = "indicators-reset-dialog";
                 self.resetDialogTitle = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.title");
                 self.resetWarningText = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.warningText");
                 self.resetDialogOkButtonLabel = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.okButton");
                 self.resetDialogCancelButtonLabel = GeneralViewModel.nls("admin.indicators.main.dialogs.reset.cancelButton");
 
-                // Save dialog text
+                // Save dialog
                 self.saveDialogId = "indicators-save-dialog";
                 self.saveMessage = ko.observable();
                 self.saveDialogTitle = GeneralViewModel.nls("admin.indicators.main.dialogs.save.title");
+                
+                // View dialog
+                self.viewDialogId = "indicators-view-dialog";
+                self.viewMessage = ko.observable({});
+                self.viewDialogTitle = GeneralViewModel.nls("admin.indicators.main.dialogs.view.title");
 
                 // Form actions
                 self.formActions = new FormActions();
@@ -363,7 +374,7 @@ define(
                 
                 // Show dialog
                 self.showDialog = function (saveDialogClass) {
-                    var saveDialog = $("#" + self.saveDialogId);
+                    const saveDialog = $(`#${self.saveDialogId}`);
                     saveDialog.ojDialog("widget").addClass(saveDialogClass);
                     saveDialog.ojDialog("open");
                 };

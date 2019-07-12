@@ -1,5 +1,21 @@
 <div class="full-height full-width">
     <div style="display:none;"
+        data-bind="attr: {id: viewDialogId, title: viewDialogTitle},
+                   ojComponent:{
+                       component: 'ojDialog',
+                       initialVisibility: 'hide',
+                       modality: 'modeless'
+                   }">
+        <div class="oj-dialog-body">
+          <div class="oj-sm-justify-content-center oj-flex">
+            <b>id:</b>&nbsp;<i data-bind="text: viewMessage()['id']"></i>
+          </div>
+          <div class="oj-sm-justify-content-center oj-flex">
+            <b>name:</b>&nbsp;<i data-bind="text: viewMessage()['name']"></i>
+          </div>
+        </div>
+    </div>
+    <div style="display:none;"
         data-bind="attr: {id: saveDialogId, title: saveDialogTitle},
                    ojComponent:{
                        component: 'ojDialog',
