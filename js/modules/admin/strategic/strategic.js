@@ -3,6 +3,7 @@ define(
       'jquery',
       'knockout',
       'data/DataProvider',
+      'modules/admin/security/authorization',
       'data/RESTConfig',
       'data/AjaxUtils',
       'utils/RoutesWrapper',
@@ -25,7 +26,8 @@ define(
       'ojs/ojbutton',
       'ojs/ojarraytabledatasource'
     ],
-    function ($, ko, DataProvider, RESTConfig, AjaxUtils, RoutesWrapper, GeneralViewModel,
+    function ($, ko, DataProvider, Authorization, RESTConfig, AjaxUtils,
+        RoutesWrapper, GeneralViewModel,
         StrategicDataParser, StrategicModel, StrategicItem,
         StrategicTypes, StrategicTypesParser,
         EditableTable, FormActions, AdminItems, ActionTypes) {
@@ -475,60 +477,72 @@ define(
           );
         }
 
-        self.formActions.addSaveListener(function () {
-          visionItem.name = self.vision();
+        self.formActions.addSaveListener(
+          function () {
+            Authorization.authorize()
+              .then(
+                () => {
+                  visionItem.name = self.vision();
 
-          let method = 'PUT';
-          let visionPromise = $.getJSON(
-              RESTConfig.admin.strategic.path + "/" + visionItem.id);
+                  let method = 'PUT';
+                  let visionPromise = $.getJSON(
+                      RESTConfig.admin.strategic.path + "/" + visionItem.id);
 
-          visionPromise.then(
-              function (data) {
-                let path = RESTConfig.admin.strategic.path;
+                  visionPromise.then(
+                    function (data) {
+                      let path = RESTConfig.admin.strategic.path;
 
-                if (!data) {
-                  method = 'POST';
-                } else {
-                  path += "/" + visionItem.id;
-                }
-
-                function successFunction() {
-                  self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success"));
-                  saveDialogClass = "save-dialog-success";
-                }
-
-                function errorFunction(jqXHR, textStatus, errMsg) {
-                  self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success") + errMsg);
-                  saveDialogClass = "save-dialog-error";
-                }
-
-                if (deletedIds.length > 0) {
-                  deletedIds.forEach(
-                      function (id) {
-                        AjaxUtils.ajax(RESTConfig.admin.strategic.path + "/" + id, 'DELETE', null, null, errorFunction);
+                      if (!data) {
+                        method = 'POST';
+                      } else {
+                        path += "/" + visionItem.id;
                       }
+
+                      function successFunction() {
+                        self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success"));
+                        saveDialogClass = "save-dialog-success";
+                      }
+
+                      function errorFunction(jqXHR, textStatus, errMsg) {
+                        self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.success") + errMsg);
+                        saveDialogClass = "save-dialog-error";
+                      }
+
+                      if (deletedIds.length > 0) {
+                        deletedIds.forEach(
+                            function (id) {
+                              AjaxUtils.ajax(RESTConfig.admin.strategic.path + "/" + id, 'DELETE', null, null, errorFunction);
+                            }
+                        );
+                      }
+
+                      let strategicMap = strategicModel.getItems();
+
+                      for (let prop in strategicMap) {
+                        if (strategicMap[prop].isNew) {
+                          delete strategicMap[prop].id;
+                        }
+                      }
+
+                      const savePromise = AjaxUtils.ajax(path, method, visionItem, successFunction, errorFunction);
+
+                      savePromise.then(
+                          function (data) {
+                            updateForm(StrategicDataParser.parse(data));
+                            self.showDialog();
+                          }
+                      );
+                    }
                   );
                 }
-
-                let strategicMap = strategicModel.getItems();
-
-                for (let prop in strategicMap) {
-                  if (strategicMap[prop].isNew) {
-                    delete strategicMap[prop].id;
-                  }
+              )
+              .catch(
+                error => {
+                  self.saveMessage(`${GeneralViewModel.nls("admin.strategic.saveDialog.error")} ${error}`);
+                  self.showDialog("save-dialog-error");
                 }
-
-                const savePromise = AjaxUtils.ajax(path, method, visionItem, successFunction, errorFunction);
-
-                savePromise.then(
-                    function (data) {
-                      updateForm(StrategicDataParser.parse(data));
-                      self.showDialog();
-                    }
-                );
-              }
-          );
-        }
+              );
+          }
         );
 
         self.showDialog = function () {

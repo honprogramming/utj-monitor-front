@@ -16,8 +16,17 @@ define(
         const accessToken = localStorage.getItem('access_token');
         const userId = localStorage.getItem('user_id');
         
-        if (!Array.isArray(roles)) {
+        if (roles && !Array.isArray(roles)) {
           roles = [roles];
+        }
+        
+        const params = {
+          access_token: accessToken,
+          user_id: userId
+        };
+        
+        if (roles) {
+          params['roles'] = roles;
         }
         
         return new Promise(
@@ -25,18 +34,14 @@ define(
               AjaxUtils.ajax(
                 RESTConfig.security.authorize.path,
                 'POST',
-                {
-                  access_token: accessToken,
-                  user_id: userId,
-                  roles
-                },
+                params,
                 null,
                 null,
                 (jqXHR, textStatus) => {
                   if (jqXHR.status === 200) {
                     resolve(true);
                   } else if (jqXHR.status === 401) {
-                    reject("Unauthorized user");
+                    reject("Usuario no autorizado para realizar esta operación.");
                   } else {
                     reject(textStatus);
                   }

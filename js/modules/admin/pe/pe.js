@@ -3,6 +3,7 @@ define(
       'jquery',
       'knockout',
       'data/DataProvider',
+      'modules/admin/security/authorization',
       'data/RESTConfig',
       'utils/RoutesWrapper',
       'data/AjaxUtils',
@@ -25,7 +26,7 @@ define(
       'ojs/ojbutton',
       'ojs/ojarraytabledatasource'
     ],
-    function ($, ko, DataProvider, RESTConfig, RoutesWrapper, 
+    function ($, ko, DataProvider, Authorization, RESTConfig, RoutesWrapper,
         AjaxUtils, GeneralViewModel, PEDataParser, PETypesModel,
         PEModel, PEType, PEItem, PeTypesParser,
         EditableTable, FormActions, AdminItems) {
@@ -103,24 +104,24 @@ define(
         self.clickCancelHandler = function () {
           $("#" + self.resetDialogId).ojDialog("close");
         };
-        
+
         const version = RoutesWrapper.getParameter("version");
-          
-        const peTypesPath = version 
-          ? `${RESTConfig.admin.data.backups.path}/${version}/PE_TYPES`
-          : RESTConfig.admin.pe.types.path;
-            
+
+        const peTypesPath = version
+            ? `${RESTConfig.admin.data.backups.path}/${version}/PE_TYPES`
+            : RESTConfig.admin.pe.types.path;
+
         const peTypesDataProvider =
             new DataProvider(
                 peTypesPath,
                 PeTypesParser);
 
         const typesPromise = peTypesDataProvider.fetchData();
-        
-        const pePath = version 
-          ? `${RESTConfig.admin.data.backups.path}/${version}/PE_ITEMS`
-          : RESTConfig.admin.pe.path;
-          
+
+        const pePath = version
+            ? `${RESTConfig.admin.data.backups.path}/${version}/PE_ITEMS`
+            : RESTConfig.admin.pe.path;
+
         const peDataProvider =
             new DataProvider(
                 pePath,
@@ -140,68 +141,78 @@ define(
         let saveDialogClass = "";
 
         Promise.all([typesPromise, pePromise]).then(
-            () => {
-          clickOkHandlerObservable(
-              () => {
-            $("#" + self.resetDialogId).ojDialog("close");
+          () => {
+            clickOkHandlerObservable(
+                () => {
+              $("#" + self.resetDialogId).ojDialog("close");
 
-            updateTypesTable(peTypesDataProvider);
-            updatePETable(peDataProvider);
-          }
+              updateTypesTable(peTypesDataProvider);
+              updatePETable(peDataProvider);
+            }
           );
 
-          self.formActions.addSaveListener(
+            self.formActions.addSaveListener(
               () => {
-            const types = peTypesModel.getData();
-            const pe = peModel.getData();
-            const errorFunction = (j, t, m) => {
-              self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.error") + m);
-              saveDialogClass = "save-dialog-error";
-            };
-
-            const typesPromises = [];
-            const pePromises = [];
-            self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.success"));
-            saveDialogClass = "save-dialog-success";
-
-            const typesPath = RESTConfig.admin.pe.types.path;
-            const pePath = RESTConfig.admin.pe.path;
-
-            typesPromises.push(AjaxUtils.ajax(typesPath, 'POST', types, null, errorFunction));
-            typesPromises.push(AjaxUtils.ajax(typesPath, 'DELETE', deletedTypes, null, errorFunction));
-            pePromises.push(AjaxUtils.ajax(pePath, 'POST', pe, null, errorFunction));
-            pePromises.push(AjaxUtils.ajax(pePath, 'DELETE', deletedPE, null, errorFunction));
-
-            Promise.all(typesPromises)
-                .then(() => updateTypesTable(peTypesDataProvider))
-                .then(
+                Authorization.authorize()
+                  .then(
                     () => {
-                  if (saveDialogClass === "save-dialog-error") {
-                    throw 'No se pudo guardar el tipo de PE';
-                  }
-                }
-                )
-                .then(Promise.all(pePromises))
-                .then(() => updatePETable(peDataProvider))
-                .then(() => self.showDialog())
-                .catch(
-                    err => {
-                      const message = `Error al guardar: ${err}`;
-                      console.log(message);
-                      self.saveMessage(message);
-                      self.showDialog();
+                      const types = peTypesModel.getData();
+                      const pe = peModel.getData();
+                      const errorFunction = (j, t, m) => {
+                        self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.error") + m);
+                        saveDialogClass = "save-dialog-error";
+                      };
+
+                      const typesPromises = [];
+                      const pePromises = [];
+                      self.saveMessage(GeneralViewModel.nls("admin.pe.saveDialog.success"));
+                      saveDialogClass = "save-dialog-success";
+
+                      const typesPath = RESTConfig.admin.pe.types.path;
+                      const pePath = RESTConfig.admin.pe.path;
+
+                      typesPromises.push(AjaxUtils.ajax(typesPath, 'POST', types, null, errorFunction));
+                      typesPromises.push(AjaxUtils.ajax(typesPath, 'DELETE', deletedTypes, null, errorFunction));
+                      pePromises.push(AjaxUtils.ajax(pePath, 'POST', pe, null, errorFunction));
+                      pePromises.push(AjaxUtils.ajax(pePath, 'DELETE', deletedPE, null, errorFunction));
+
+                      Promise.all(typesPromises)
+                        .then(() => updateTypesTable(peTypesDataProvider))
+                        .then(
+                          () => {
+                            if (saveDialogClass === "save-dialog-error") {
+                              throw 'No se pudo guardar el tipo de PE';
+                            }
+                          }
+                        )
+                        .then(Promise.all(pePromises))
+                        .then(() => updatePETable(peDataProvider))
+                        .then(() => self.showDialog())
+                        .catch(
+                            err => {
+                              const message = `Error al guardar: ${err}`;
+                              console.log(message);
+                              self.saveMessage(message);
+                              self.showDialog();
+                            }
+                        );
+                      }
+                  )
+                  .catch(
+                    error => {
+                      self.saveMessage(`${GeneralViewModel.nls("admin.strategic.saveDialog.error")} ${error}`);
+                      self.showDialog("save-dialog-error");
                     }
-                );
-
+                  );
+              
+                  self.showDialog = function () {
+                    const saveDialog = $("#" + self.saveDialogId);
+                    saveDialog.ojDialog("widget").addClass(saveDialogClass);
+                    saveDialog.ojDialog("open");
+                  };
+              }
+            );
           }
-          );
-
-          self.showDialog = function () {
-            const saveDialog = $("#" + self.saveDialogId);
-            saveDialog.ojDialog("widget").addClass(saveDialogClass);
-            saveDialog.ojDialog("open");
-          };
-        }
         );
 
         const updateTypesTable = (types) => {
