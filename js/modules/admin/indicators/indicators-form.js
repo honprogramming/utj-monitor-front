@@ -88,7 +88,7 @@ define(
           }
 
           function errorFunction(jqXHR, textStatus, errMsg) {
-            const message = errMsg.length > 0 ? errMsg : jqXHR.responseText;
+            const message = jqXHR.responseText.length > 0 ? jqXHR.responseText : errMsg.length > 0 ? errMsg : "";
             self.saveMessage(GeneralViewModel.nls("admin.strategic.saveDialog.error") + message);
             saveDialogClass = "error";
           }
