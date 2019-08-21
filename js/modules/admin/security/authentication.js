@@ -6,8 +6,8 @@ define(
     class Authentication {
       static get commonAttributes () {
         return {
-          domain: 'handsonprogramming.auth0.com',
-          clientID: 'zDfbAMSrZj1D3B4EucaCMN72Hen7ny5b',
+          domain: 'tableros-utj.auth0.com',
+          clientID: 'S5An6BP8UBdwkZfwBnuFb2aUYscqS0cS',
           responseType: 'token id_token',
           redirectUri: `${window.location.href}`
         };
@@ -16,7 +16,7 @@ define(
       static get managementAPIAttributes () {
         return {
           ...Authentication.commonAttributes,
-          audience: 'https://handsonprogramming.auth0.com/api/v2/',
+          audience: 'https://tableros-utj.auth0.com/api/v2/',
           scope: 'read:current_user',
           nonce: 'CRYPTOGRAPHIC_NONCE',
           state: 'OPAQUE_VALUE'
